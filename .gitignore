@@ -1,0 +1,23 @@
+# LaTeX auxiliary and build files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+
+# Temporary build directories
+build/
+tmp/
+
+# Python caches
+__pycache__/
+*.py[cod]

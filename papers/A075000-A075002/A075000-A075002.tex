@@ -1,0 +1,572 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[expansion=false]{microtype}
+\usepackage[hidelinks]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\concat}{\mathbin{\Vert}}
+\newcommand{\ord}{\operatorname{ord}}
+
+\title[Divisibility of concatenations]{Divisibility of Concatenated Arithmetic Progressions and Champernowne Prefixes}
+\author{Qichao Wang\textsuperscript{*}}
+\author{Daoyu Dong\textsuperscript{*}}
+\thanks{\textsuperscript{*}These authors contributed equally to this work.}
+\date{September 10, 2026}
+
+\begin{document}
+
+\begin{abstract}
+We study divisibility questions for integers obtained by concatenation in positional notation.
+For fixed digit length, concatenating an arithmetic progression is an affine function of its
+initial term, which yields an exact congruence criterion.  We use this to prove a global
+existence theorem in every even base; in decimal this resolves the existence conjectures
+recorded in OEIS A075001 and A075000.
+
+We then consider the Champernowne prefixes
+\[
+P(k)=1\concat2\concat\cdots\concat k.
+\]
+Our main theorem proves that for every positive integer \(n\) there exists \(k\) such that
+\(n\mid P(k)\), thereby resolving the well-definedness conjecture in OEIS A075002.  The
+proof has two local ingredients.  Away from \(3\), fixed-digit blocks admit unit translations
+and explicit state periods.  At \(3\), where the unit argument degenerates because
+\(10^d\equiv1\pmod 3\), a separate block-shift congruence gives a \(3\)-adic lifting
+mechanism.  The local roots are synchronized at one common prefix index by processing odd
+prime factors in increasing order; every completed state period has no prime divisor larger
+than the prime just processed.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+Let
+\[
+P(k)=1\concat2\concat\cdots\concat k
+\]
+denote the decimal integer obtained by concatenating \(1,2,\ldots,k\), and for \(n\ge1\) let
+\[
+C_n(k)=k\concat(k+1)\concat\cdots\concat(k+n-1).
+\]
+OEIS A075001 asks for the smallest \(k\) such that \(n\mid C_n(k)\), with value \(0\)
+if no such \(k\) exists, while OEIS A075000 records the corresponding smallest quotient
+\cite{oeis75001,oeis75000}.  OEIS A075002 asks for the smallest \(k\) such that
+\(n\mid P(k)\), where \(P\) is also the sequence in OEIS A007908
+\cite{oeis75002,oeis77908}.  On September 10, 2026, the three entries still recorded
+these existence statements as conjectures.  We are not aware of a previous proof of the
+full A075002 assertion; this paper makes no claim of priority.
+
+Our first result is a general even-base construction for concatenated arithmetic progressions.
+The second and main result is the complete existence theorem for Champernowne prefixes.
+The proof strategy is modular.  We first choose a single sufficiently long digit block.  The
+endpoint is made divisible by the factor of the modulus whose prime divisors divide the base, and the exceptional
+\(3\)-power is installed by a three-way block shift.  The remaining odd prime powers are then
+installed in increasing order, using state periods to preserve all earlier congruences.  The
+fact that a completed state period has no prime divisor larger than the prime already processed
+ensures that the next translation remains a unit; a finite capacity bound keeps every chosen
+endpoint in the same digit block.
+
+Concatenation of arithmetic progressions in arbitrary bases has also been studied by Luca and
+Teguia Tabuguia, who derive explicit formulae and prove non-holonomicity
+\cite{luca-teguia}.  Our emphasis is different: divisibility by an externally prescribed
+modulus and, in particular, the three OEIS existence problems above.
+
+\section{Fixed-digit arithmetic progressions}
+\label{sec:fixed-digit-ap}
+
+Let \(\beta\ge2\), let \(n\ge1\), let \(s\in\mathbb Z\), and let \(d\ge1\).  Put
+\(B=\beta^d\).  Suppose that
+\[
+k,\ k+s,\ \ldots,\ k+(n-1)s
+\]
+are positive \(d\)-digit base-\(\beta\) integers.  Their concatenation is
+\begin{equation}\label{eq:ap-concat}
+C_{\beta,n,s,d}(k)
+  =\sum_{j=0}^{n-1}(k+js)B^{\,n-1-j}.
+\end{equation}
+Define
+\[
+R_n(B)=\sum_{i=0}^{n-1}B^i,
+\qquad
+T_n(B)=\sum_{j=0}^{n-1}jB^{\,n-1-j}.
+\]
+Then
+\begin{equation}\label{eq:ap-affine}
+C_{\beta,n,s,d}(k)=kR_n(B)+sT_n(B).
+\end{equation}
+
+\begin{proposition}[Exact fixed-digit criterion]\label{prop:fixed-digit-criterion}
+Let \(g=\gcd(R_n(B),n)\).  The congruence
+\[
+n\mid C_{\beta,n,s,d}(k)
+\]
+is solvable in \(k\) if and only if
+\[
+g\mid sT_n(B).
+\]
+When solvable, the solutions form one residue class modulo \(n/g\).
+\end{proposition}
+
+\begin{proof}
+By \eqref{eq:ap-affine}, the desired divisibility is the linear congruence
+\[
+kR_n(B)\equiv-sT_n(B)\pmod n.
+\]
+The standard solvability criterion for a linear congruence gives the claim.  After division
+by \(g\), the coefficient \(R_n(B)/g\) is invertible modulo \(n/g\).
+\end{proof}
+
+\begin{theorem}[Even-base AP divisibility]\label{thm:even-base-ap}
+Let \(\beta\ge2\) be even.  For every \(n\ge1\) and every \(s\in\mathbb Z\), there
+exist \(d\ge1\) and \(k\) such that all
+\[
+k,\ k+s,\ldots,k+(n-1)s
+\]
+are positive \(d\)-digit base-\(\beta\) integers and
+\[
+n\mid C_{\beta,n,s,d}(k).
+\]
+\end{theorem}
+
+\begin{proof}
+Write
+\begin{equation}\label{eq:ap-factorization}
+n=qm,
+\end{equation}
+where \(q\) is the largest divisor of \(n\) all of whose prime divisors divide \(\beta\).  Thus
+\((q,m)=1\) and \((m,\beta)=1\).
+
+Choose \(d\) arbitrarily large subject to
+\[
+q\mid\beta^d,
+\qquad
+\beta^d\equiv1\pmod m.
+\]
+Such \(d\) exist: the first condition holds for all sufficiently large \(d\), and the
+second holds whenever \(d\) is a multiple of \(\ord_m(\beta)\), with no order condition
+when \(m=1\).
+
+Put \(B=\beta^d\), and let
+\[
+u_- =\min\{0,(n-1)s\},
+\qquad
+u_+ =\max\{0,(n-1)s\}.
+\]
+All blocks have \(d\) digits whenever
+\begin{equation}\label{eq:ap-window}
+\beta^{d-1}-u_-
+\le k\le
+\beta^d-1-u_+.
+\end{equation}
+The length of this interval tends to infinity with \(d\), so we may choose \(k\) in it such
+that
+\[
+k+(n-1)s\equiv0\pmod q.
+\]
+Modulo \(q\), every term of the sum in \eqref{eq:ap-concat} except the final block is
+multiplied by a positive power of \(B\).  Hence
+\begin{equation}\label{eq:ap-smooth}
+C_{\beta,n,s,d}(k)\equiv k+(n-1)s\equiv0\pmod q.
+\end{equation}
+Modulo \(m\), since \(B\equiv1\),
+\begin{equation}\label{eq:ap-coprime}
+C_{\beta,n,s,d}(k)
+ \equiv nk+s\frac{n(n-1)}2\pmod m.
+\end{equation}
+The first term is divisible by \(m\).  If \(n\) is odd, then
+\[
+s\frac{n(n-1)}2=mqs\frac{n-1}{2}.
+\]
+If \(n\) is even, then \(2\mid\beta\), so the full \(2\)-part of \(n\) lies in \(q\);
+hence \(q/2\in\mathbb Z\), and
+\[
+s\frac{n(n-1)}2=m\frac q2\,s(n-1).
+\]
+Thus the concatenation is \(0\) modulo both coprime factors \(q\) and \(m\), hence modulo
+\(n\).
+\end{proof}
+
+\begin{corollary}[A075001]\label{cor:A075001}
+For every \(n\ge1\) there exists a positive integer \(k\) such that
+\[
+n\mid k\concat(k+1)\concat\cdots\concat(k+n-1).
+\]
+Hence OEIS A075001 has no zero terms.
+\end{corollary}
+
+\begin{proof}
+Take \(\beta=10\) and \(s=1\) in Theorem~\ref{thm:even-base-ap}.
+\end{proof}
+
+\begin{corollary}[A075000]\label{cor:A075000}
+For every \(n\ge1\), OEIS A075000 is nonzero.  More precisely,
+\[
+A075000(n)=\frac{C_n(A075001(n))}{n}.
+\]
+\end{corollary}
+
+\begin{proof}
+Existence follows from Corollary~\ref{cor:A075001}.  It remains only to justify minimality.
+For fixed \(n\), if \(k_2>k_1\), then comparison of the decimal strings defining
+\(C_n(k_2)\) and \(C_n(k_1)\) shows that
+\[
+C_n(k_2)>C_n(k_1),
+\]
+including when one of the indices crosses a power of ten.  Thus the least divisible
+concatenation occurs at the least witnessing index \(A075001(n)\).  Division by the fixed
+positive integer \(n\) preserves the ordering.
+\end{proof}
+
+\section{Fixed-block identities for Champernowne prefixes}
+\label{sec:fixed-block-identities}
+
+Fix a digit length \(d\) and put \(B=10^d\).  Suppose all integers appended after an
+endpoint \(k\) remain in this \(d\)-digit block.  For \(L\ge0\),
+\begin{equation}\label{eq:block-transition}
+P(k+L)
+ =B^LP(k)+\sum_{j=1}^L(k+j)B^{L-j}.
+\end{equation}
+Set
+\[
+S_L=\sum_{r=0}^{L-1}B^r,
+\qquad
+T_L=\sum_{j=1}^LjB^{L-j}.
+\]
+Then
+\begin{equation}\label{eq:shift-identity}
+P(k+L)-P(k)
+ =(B^L-1)P(k)+kS_L+T_L.
+\end{equation}
+A direct telescoping calculation gives
+\begin{equation}\label{eq:geometric-T}
+(B-1)T_L=BS_L-L.
+\end{equation}
+
+\section{Local lifting and state periods}
+\label{sec:local-lifting}
+
+\begin{lemma}[Unit translation]\label{lem:unit-translation}
+Let \(p\) be an odd prime with \(p\nmid B(B-1)\), let
+\[
+h=\ord_p(B),
+\qquad
+U=T_h,
+\]
+and let \(a\ge0\).  If \(p\nmid c\) and \(L=chp^a\), then
+\begin{equation}\label{eq:unit-translation}
+P(k+L)-P(k)\equiv cp^aU\pmod{p^{a+1}},
+\end{equation}
+provided all appended integers remain in the same digit block.  Moreover \(p\nmid U\).
+\end{lemma}
+
+\begin{proof}
+Modulo \(p\), \(B^h=1\) and \(S_h=0\).  From \eqref{eq:geometric-T},
+\[
+(B-1)U\equiv-h\pmod p.
+\]
+Since \(h\mid p-1\), both \(h\) and \(B-1\) are units modulo \(p\), hence so is \(U\).
+
+By the lifting-the-exponent lemma,
+\[
+B^{chp^a}\equiv1\pmod{p^{a+1}}.
+\]
+Since \(B-1\) is a unit, this also gives
+\[
+S_L\equiv0\pmod{p^{a+1}}.
+\]
+Equation \eqref{eq:geometric-T} therefore yields
+\[
+T_L\equiv-\frac{chp^a}{B-1}\equiv cp^aU
+\pmod{p^{a+1}}.
+\]
+Substitution into \eqref{eq:shift-identity} proves \eqref{eq:unit-translation}.
+\end{proof}
+
+\begin{lemma}[State period]\label{lem:state-period}
+Under the hypotheses of Lemma~\ref{lem:unit-translation}, for every \(e\ge1\),
+\begin{equation}\label{eq:state-period-length}
+H=p^e\ord_{p^e}(B)
+\end{equation}
+is a period of the endpoint state modulo \(p^e\):
+\begin{equation}\label{eq:state-period}
+P(k+H)\equiv P(k)\pmod{p^e},
+\qquad
+k+H\equiv k\pmod{p^e}.
+\end{equation}
+Every multiple of \(H\) is also such a period.  Every prime divisor of \(H\) is at most
+\(p\).
+\end{lemma}
+
+\begin{proof}
+Let \(r=\ord_{p^e}(B)\).  Since \(r\mid H\), \(B^H\equiv1\pmod{p^e}\).  Because
+\(B-1\) is a unit, \(S_H\equiv0\pmod{p^e}\).  Also \(p^e\mid H\), so
+\eqref{eq:geometric-T} gives \(T_H\equiv0\pmod{p^e}\).  Equation
+\eqref{eq:shift-identity} proves the first congruence in \eqref{eq:state-period}, and
+\(p^e\mid H\) proves the second.  Iterating the state transition shows that every multiple
+of \(H\) is again a period.
+
+Finally,
+\[
+\ord_{p^e}(B)\mid\varphi(p^e)=p^{e-1}(p-1),
+\]
+so every prime divisor of \(H\) is at most \(p\).
+\end{proof}
+
+\begin{lemma}[Exceptional \(3\)-adic block shift]\label{lem:3-adic-shift}
+Let \(B=10^d\), and suppose \(v_3(L)=a\ge1\).  Then
+\begin{equation}\label{eq:3-adic-block-shift}
+P(k+L)-P(k)
+\equiv Lk+\frac{L(L+1)}2
+\pmod{3^{a+1}}
+\end{equation}
+whenever the appended integers remain in one digit block.
+\end{lemma}
+
+\begin{proof}
+Write \(B=1+c\).  Since \(B=10^d\), we have \(9\mid c\).  Expansion of the geometric
+sum gives
+\[
+S_L-L=\sum_{s\ge1}c^s\binom{L}{s+1}.
+\]
+Using
+\[
+v_3\binom{L}{m}\ge a-v_3(m)
+\]
+and \(v_3(c)\ge2\), every term on the right has valuation at least \(a+1\).  Hence
+\[
+S_L\equiv L\pmod{3^{a+1}}.
+\]
+
+Similarly,
+\[
+T_L-\frac{L(L+1)}2
+ =\sum_{s\ge1}c^s\binom{L+1}{s+2}.
+\]
+From
+\[
+\binom{L+1}{m}
+ =\frac{L(L+1)}{m(m-1)}\binom{L-1}{m-2}
+\]
+we obtain
+\[
+v_3\!\left(c^s\binom{L+1}{s+2}\right)
+ \ge 2s+a-v_3((s+1)(s+2)).
+\]
+For \(s\ge1\),
+\[
+v_3((s+1)(s+2))\le 2s-1;
+\]
+for \(s=1\) this is immediate, and for \(s\ge2\) it follows from
+\(3^{2s}>(s+1)(s+2)\).  Thus every correction term is divisible by \(3^{a+1}\).
+
+Finally LTE gives \(B^L\equiv1\pmod{3^{a+2}}\), so the first term in
+\eqref{eq:shift-identity} vanishes modulo \(3^{a+1}\).  Substituting the two congruences for
+\(S_L\) and \(T_L\) into \eqref{eq:shift-identity} proves \eqref{eq:3-adic-block-shift}.
+\end{proof}
+
+\begin{corollary}[\(3\)-adic lifting]\label{cor:3-adic-lifting}
+Let \(R=2^\alpha5^\beta\), suppose \(R\mid k\) and \(3^a\mid P(k)\) with \(a\ge1\), and put
+\begin{equation}\label{eq:3-adic-step}
+L=\operatorname{lcm}(2\cdot3^a,R)=2c3^a,
+\qquad 3\nmid c.
+\end{equation}
+Then exactly one of
+\[
+k,\qquad k+L,\qquad k+2L
+\]
+is a root modulo \(3^{a+1}\), while all three endpoints remain divisible by \(R\).  Moreover
+\begin{equation}\label{eq:3-adic-period}
+2\cdot3^e
+\end{equation}
+is a state period modulo \(3^e\).
+\end{corollary}
+
+\begin{proof}
+The preceding lemma gives
+\[
+\frac{P(k+L)-P(k)}{3^a}\equiv c(2k+1)\pmod3.
+\]
+Since \(3\mid P(k)\) and \(10\equiv1\pmod3\),
+\[
+0\equiv P(k)\equiv1+2+\cdots+k=\frac{k(k+1)}2\pmod3,
+\]
+so \(k\equiv0\) or \(2\pmod3\).  Hence \(2k+1\not\equiv0\pmod3\), and the three
+choices give the three possible residues at the next \(3\)-adic level.  Because \(R\mid L\),
+the endpoint condition modulo \(R\) is preserved.
+
+Taking \(L=2\cdot3^e\) in Lemma~\ref{lem:3-adic-shift} gives
+\(P(k+L)\equiv P(k)\pmod{3^e}\) and \(k+L\equiv k\pmod{3^e}\), proving the period assertion.
+\end{proof}
+
+\section{A common prefix for every modulus}
+\label{sec:common-prefix}
+
+\begin{theorem}[A075002]\label{thm:A075002}
+For every positive integer \(n\), there exists \(k\ge1\) such that
+\[
+n\mid P(k).
+\]
+Consequently OEIS A075002 is well-defined for every \(n\).
+\end{theorem}
+
+\begin{proof}
+Factor
+\begin{equation}\label{eq:A075002-factorization}
+n=R\,3^e\prod_{i=1}^r p_i^{e_i},
+\qquad
+R=2^\alpha5^\beta,
+\qquad
+7\le p_1<\cdots<p_r.
+\end{equation}
+Let
+\[
+D=\operatorname{lcm}_{1\le i\le r}\ord_{p_i^{e_i}}(10),
+\]
+with \(D=1\) if \(r=0\).  We shall work in one sufficiently long \(d\)-digit block, where
+\begin{equation}\label{eq:A075002-digit-choice}
+d\equiv1\pmod D,
+\qquad d\ge\max(\alpha,\beta).
+\end{equation}
+Such \(d\) are arbitrarily large.  Put \(B=10^d\).  Then for every \(i\),
+\[
+B\equiv10\pmod{p_i^{e_i}}.
+\]
+
+We first make the capacity choice precise.  For fixed \(n\), every step length appearing below
+is obtained by taking least common multiples of \(R\), prime powers dividing \(n\), and
+multiplicative orders modulo those prime powers.  Hence all possible step lengths, and the
+maximum total displacement obtained by making at most \(p-1\) choices at each \(p\)-adic stage,
+are bounded by a finite constant \(W(n)\) independent of \(d\).  Let
+\begin{equation}\label{eq:A075002-initial-modulus}
+M_0=R\cdot3^{\min(e,1)}.
+\end{equation}
+Choose \(d\) in the congruence class in \eqref{eq:A075002-digit-choice} so large that
+\begin{equation}\label{eq:A075002-capacity}
+9\cdot10^{d-1}>M_0+W(n).
+\end{equation}
+Let \(k_0\) be the least multiple of \(M_0\) that is at least \(10^{d-1}\).  Then
+\(0\le k_0-10^{d-1}<M_0\), and \eqref{eq:A075002-capacity} keeps the entire construction
+below inside this single \(d\)-digit block.
+
+Since \(R\mid k_0\) and \(B\equiv0\pmod R\),
+\begin{equation}\label{eq:A075002-initial-R}
+P(k_0)=BP(k_0-1)+k_0\equiv0\pmod R.
+\end{equation}
+If \(e>0\), then \(3\mid k_0\), and because \(10\equiv1\pmod3\),
+\[
+P(k_0)\equiv\frac{k_0(k_0+1)}2\equiv0\pmod3.
+\]
+
+If \(e>1\), repeatedly apply Corollary~\ref{cor:3-adic-lifting}.  At stage \(a\), use
+\[
+L_a=\operatorname{lcm}(2\cdot3^a,R).
+\]
+One of the three choices raises a root modulo \(3^a\) to a root modulo \(3^{a+1}\), and the
+\(R\)-condition is preserved.  Thus we obtain an endpoint \(k\) with
+\[
+R3^e\mid P(k).
+\]
+If \(e>0\), set \(H=2\cdot3^e\); otherwise set \(H=1\).  In either case \(H\) is a common
+state period for all already installed odd prime-power conditions.
+
+Now process \(p_1,\ldots,p_r\) in increasing order.  Suppose all preceding prime powers have
+been installed at the current endpoint \(k\), and \(H\) is a common state period for them.  Let
+\(p=p_i\) and
+\[
+h=\ord_p(10).
+\]
+Since \(B\equiv10\pmod p\), we also have \(h=\ord_p(B)\), and
+\(p\nmid B(B-1)\).
+
+Set
+\begin{equation}\label{eq:A075002-first-step}
+J_0=\operatorname{lcm}(h,H,R).
+\end{equation}
+Every prime factor of the period contributed by an earlier prime \(q<p\) is at most \(q\),
+while \(R\) has no prime divisors other than \(2\) and \(5\).  Therefore \(p\nmid HR\), and also \(p\nmid h\) since
+\(h\mid p-1\).  Hence \(J_0=c_0h\) with \(p\nmid c_0\).  Lemma~\ref{lem:unit-translation}
+with \(a=0\) shows that
+\[
+P(k+tJ_0),\qquad 0\le t<p,
+\]
+runs through all residues modulo \(p\).  Because \(J_0\) is a multiple of \(H\) and \(R\),
+every previously installed congruence and the endpoint condition modulo \(R\) are preserved.
+Choose the unique \(t\) giving a root modulo \(p\).
+
+Suppose inductively that a root modulo \(p^a\) has been obtained, where \(1\le a<e_i\).  Set
+\begin{equation}\label{eq:A075002-lift-step}
+J_a=\operatorname{lcm}(hp^a,H,R).
+\end{equation}
+Again \(p\nmid HRh\), so \(J_a=c_ahp^a\) with \(p\nmid c_a\).  Lemma~\ref{lem:unit-translation}
+gives
+\[
+P(k+J_a)-P(k)\equiv c_ap^aU\pmod{p^{a+1}},
+\qquad p\nmid U.
+\]
+Thus exactly one of
+\[
+k,\ k+J_a,\ldots,k+(p-1)J_a
+\]
+is a root modulo \(p^{a+1}\), while all earlier congruences remain intact.  Repeating installs
+\(p^{e_i}\).
+
+After completing this prime power, replace
+\begin{equation}\label{eq:A075002-period-update}
+H\leftarrow
+\operatorname{lcm}\!\left(
+H,
+p^{e_i}\ord_{p^{e_i}}(B)
+\right).
+\end{equation}
+By Lemma~\ref{lem:state-period}, the new factor is a state period modulo \(p^{e_i}\).  Since
+\(B\equiv10\pmod{p_i^{e_i}}\), it equals
+\(p^{e_i}\ord_{p^{e_i}}(10)\).  Every prime divisor of this factor is at most \(p\), so the
+same argument applies at the next, larger prime.
+
+At termination, the same endpoint \(k\) satisfies every prime-power condition in the
+factorization \eqref{eq:A075002-factorization}.  Therefore \(n\mid P(k)\).
+\end{proof}
+
+\begin{remark}\label{rem:increasing-primes}
+The increasing-prime order is essential to this proof.  A single global affine orbit need not
+have unit translation simultaneously at all prime factors.  The construction above avoids that
+obstruction by preserving completed states with periods whose prime divisors are all at most the
+prime just processed; a larger, unprocessed prime therefore cannot divide the next step's
+coefficient.
+\end{remark}
+
+\section{Verification and provenance}
+\label{sec:verification}
+
+The proofs are independent of computation.  A separate verifier evaluates prefixes modulo the
+requested modulus using fixed-block transition matrices and cross-checks each matrix jump
+against a literal recurrence on small instances.  The recorded checks include the published
+initial values of A075002, the A075001 construction for \(n\le2000\), both lifting lemmas, and
+common-index constructions for \(n\le500\), together with the five composite moduli below
+\(5000\) for which a single affine orbit cannot provide unit translations at all prime factors.  These computations are
+regression and reproducibility checks, not premises of the proofs.
+
+The source, bibliography, verifier, verification record, and independent audit are preserved in
+the public repository \href{https://github.com/dongxuelian2/oeis-papers}{\texttt{oeis-papers}}.
+The frozen release \href{https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.0}{\texttt{a075000-a075002-v1.0.0}}
+contains this paper as a stable snapshot.  From the paper directory, the verifier can be
+reproduced with
+\begin{verbatim}
+python verify_concatenation_divisibility.py
+\end{verbatim}
+The manuscript grew out of a larger computer-assisted investigation, but that research history
+is not used as a premise here.  The OEIS status statement above records only the checked date;
+it is not intended as a claim of literature-wide priority.
+
+\bibliographystyle{amsplain}
+\bibliography{references}
+
+\end{document}

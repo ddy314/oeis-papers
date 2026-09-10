@@ -1,0 +1,14 @@
+Final verification record
+Date: 2026-09-10
+Command: python verify_concatenation_divisibility.py
+
+PASS matrix engine vs literal recurrence (2730 cases)
+PASS OEIS A075002 terms n=1..60
+PASS A075001 construction n=1..2000
+PASS 3-adic block-shift congruence (85 cases), plus 3 and 9
+PASS unit-translation prime lift (63 cases)
+PASS paper prime-power construction (34 cases)
+PASS exhaustive naive-global-orbit obstruction scan Q<5000
+PASS full common-index construction n=1..500 and five global-orbit failure moduli; largest digit length in range=(499, 499)
+
+ALL CHECKS PASSED

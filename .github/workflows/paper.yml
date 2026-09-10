@@ -1,0 +1,21 @@
+name: Build and verify paper
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Compile LaTeX paper
+        uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: papers/A075000-A075002
+          root_file: A075000-A075002.tex
+
+      - name: Run verifier
+        run: python papers/A075000-A075002/verify_concatenation_divisibility.py
