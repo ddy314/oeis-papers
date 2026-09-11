@@ -65,7 +65,7 @@ if no such \(k\) exists, while OEIS A075000 records the corresponding smallest q
 \(n\mid P(k)\), where \(P\) is also the sequence in OEIS A007908
 \cite{oeis75002,oeis77908}.  On September 11, 2026, the three entries still recorded
 these existence statements as conjectures.  We are not aware of a previous proof of the
-full A075002 assertion; this paper makes no claim of priority.
+full A075002 assertion.
 
 Our first result is a general even-base construction for concatenated arithmetic progressions.
 The second and main result is the complete existence theorem for Champernowne prefixes.
@@ -657,13 +657,12 @@ coefficient.
 \section{Verification and provenance}
 \label{sec:verification}
 
-The proofs do not use computation as a premise.  A separate verifier evaluates prefixes modulo the
+A separate verifier evaluates prefixes modulo the
 requested modulus using fixed-block transition matrices and cross-checks each matrix jump
 against a literal recurrence on small instances.  The recorded checks include the published
 initial values of A075002, the A075001 construction for \(n\le2000\), both lifting lemmas, and
 common-index constructions for \(n\le500\), together with the five composite moduli below
-\(5000\) for which a single affine orbit cannot provide unit translations at all prime factors.  These computations are
-regression and reproducibility checks, not premises of the proofs.
+\(5000\) for which a single affine orbit cannot provide unit translations at all prime factors.
 
 The source, bibliography, verifier, verification record, and mathematical audit record are preserved in
 the public repository:
@@ -680,9 +679,6 @@ reproduced with
 \begin{verbatim}
 python verify_concatenation_divisibility.py
 \end{verbatim}
-The manuscript grew out of a larger computer-assisted investigation, but that research history
-is not used as a premise here.  The OEIS status statement above records only the checked date;
-it is not intended as a claim of literature-wide priority.
 
 \bibliographystyle{amsplain}
 \bibliography{references}
