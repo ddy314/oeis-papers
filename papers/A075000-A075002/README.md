@@ -18,4 +18,6 @@ python verify_concatenation_divisibility.py
 The verifier performs modular transition checks, OEIS regression checks, prime-power checks,
 and the common-index construction checks described in `verification.txt`.
 
-The frozen release is [`a075000-a075002-v1.0.1`](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.1).
+The corrected frozen release is [`a075000-a075002-v1.0.2`](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.2).
+The prior release [`a075000-a075002-v1.0.1`](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.1)
+is retained unchanged.

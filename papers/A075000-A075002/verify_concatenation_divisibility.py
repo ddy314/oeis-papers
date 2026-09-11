@@ -125,6 +125,57 @@ def block_residue(start: int, length: int, digits: int, modulus: int) -> int:
     return residue
 
 
+def find_root_in_fixed_block(
+    modulus: int,
+    digits: int,
+    divisor: int,
+    max_shift: int,
+    search_limit: int = 250_000,
+) -> int:
+    """Find a divisor-compatible root with room for a fixed-block shift."""
+    lower = 10 ** (digits - 1)
+    upper = 10**digits - 1
+    start = lower + ((-lower) % divisor)
+    limit = min(upper - max_shift, start + search_limit)
+    if limit < start:
+        raise AssertionError("no room for fixed-block root search")
+    residue = prefix_mod(start, modulus, digits)
+    base = pow(10, digits, modulus)
+    for k in range(start, limit + 1):
+        if k % divisor == 0 and residue == 0:
+            return k
+        if k < limit:
+            residue = (base * residue + k + 1) % modulus
+    raise AssertionError(
+        f"fixed-block root search failed for modulus={modulus}, "
+        f"digits={digits}, divisor={divisor}"
+    )
+
+
+def explicit_work_bound(n: int) -> int:
+    """Return the deterministic W(n) bound used in the paper."""
+    fs = factor(n)
+    smooth = 2 ** fs.get(2, 0) * 5 ** fs.get(5, 0)
+    exponent3 = fs.get(3, 0)
+    work = 2 * sum(
+        lcm(2 * 3**a, smooth) for a in range(1, exponent3)
+    )
+    state_period = 2 * 3**exponent3 if exponent3 else 1
+    for p in sorted(q for q in fs if q not in (2, 3, 5)):
+        exponent = fs[p]
+        h = order_mod(10, p)
+        steps = [lcm(h, state_period, smooth)]
+        steps.extend(
+            lcm(h * p**a, state_period, smooth)
+            for a in range(1, exponent)
+        )
+        work += (p - 1) * sum(steps)
+        state_period = lcm(
+            state_period, p**exponent * order_mod(10, p**exponent)
+        )
+    return work
+
+
 def verify_transition_engine() -> None:
     """Cross-check matrix jumps against a separate literal recurrence."""
     tests = 0
@@ -148,6 +199,206 @@ def verify_transition_engine() -> None:
                     assert jumped == literal
                     tests += 1
     print(f"PASS matrix engine vs literal recurrence ({tests} cases)")
+
+
+def verify_unrestricted_period_counterexamples() -> None:
+    """Record the two boundary crossings that invalidate global period claims."""
+    h = order_mod(10, 7)
+    period = 7 * h
+    assert h == 6 and period == 42
+    assert prefix_mod(1, 7) == 1
+    assert prefix_mod(1 + period, 7) == 0
+    assert prefix_mod(1 + period, 7) != prefix_mod(1, 7)
+    assert 1 + period >= 10
+
+    shift = 2 * 3**3
+    assert prefix_mod(2, 27) == 12
+    assert prefix_mod(2 + shift, 27) == 21
+    assert prefix_mod(2 + shift, 27) != prefix_mod(2, 27)
+    assert 2 + shift >= 10
+    print(
+        "PASS negative unrestricted-period examples "
+        "(p=7,d=1,k=1,H=42; 3^3,k=2,shift=54)"
+    )
+
+
+def verify_fixed_block_state_period() -> None:
+    """Test Lemma 4.2 and its conditional multiple-period assertion."""
+    tests = 0
+    multiple_tests = 0
+    for p in (7, 11, 13, 17, 19, 23, 29, 31, 37, 53):
+        for exponent in (1, 2, 3):
+            modulus = p**exponent
+            for digits in range(2, 8):
+                base = pow(10, digits, modulus)
+                if gcd(base, p) != 1 or gcd(base - 1, p) != 1:
+                    continue
+                h = order_mod(base, modulus)
+                period = modulus * h
+                lower = 10 ** (digits - 1)
+                upper = 10**digits - 1
+                for offset in (0, 1, 3, 7):
+                    k = lower + offset
+                    if k + period > upper:
+                        continue
+                    x = prefix_mod(k, modulus, digits)
+                    y, endpoint = advance(x, k, period, digits, modulus)
+                    assert endpoint == k + period
+                    assert y == x
+                    assert endpoint % modulus == k % modulus
+                    assert prefix_mod(endpoint, modulus, digits) == y
+                    tests += 1
+                    for multiplier in (2, 3):
+                        if k + multiplier * period > upper:
+                            continue
+                        z, endpoint = advance(
+                            x, k, multiplier * period, digits, modulus
+                        )
+                        assert z == x
+                        assert endpoint % modulus == k % modulus
+                        assert prefix_mod(endpoint, modulus, digits) == z
+                        multiple_tests += 1
+    assert tests > 100 and multiple_tests > 10
+    print(
+        "PASS fixed-block state periods "
+        f"({tests} base periods, {multiple_tests} conditional multiples)"
+    )
+
+
+def verify_three_adic_fixed_block_period() -> None:
+    """Test the fixed-block 2*3^e state periods."""
+    tests = 0
+    multiple_tests = 0
+    for exponent in range(1, 7):
+        modulus = 3**exponent
+        period = 2 * modulus
+        for digits in range(2, 8):
+            lower = 10 ** (digits - 1)
+            upper = 10**digits - 1
+            for offset in (0, 1, 3, 7, 11):
+                k = lower + offset
+                if k + period > upper:
+                    continue
+                x = prefix_mod(k, modulus, digits)
+                y, endpoint = advance(x, k, period, digits, modulus)
+                assert y == x
+                assert endpoint % modulus == k % modulus
+                assert prefix_mod(endpoint, modulus, digits) == y
+                tests += 1
+                for multiplier in (2, 3):
+                    if k + multiplier * period > upper:
+                        continue
+                    z, endpoint = advance(
+                        x, k, multiplier * period, digits, modulus
+                    )
+                    assert z == x
+                    assert endpoint % modulus == k % modulus
+                    assert prefix_mod(endpoint, modulus, digits) == z
+                    multiple_tests += 1
+    assert tests > 100 and multiple_tests > 20
+    print(
+        "PASS fixed-block 3-adic periods "
+        f"({tests} base periods, {multiple_tests} conditional multiples)"
+    )
+
+
+def verify_three_adic_sweeps() -> None:
+    """Test every t=0,1,2 in the 3-adic lifting corollary."""
+    tests = 0
+    for exponent in range(1, 6):
+        for smooth in (1, 2, 4, 5, 10, 20):
+            step = lcm(2 * 3**exponent, smooth)
+            coefficient = step // (2 * 3**exponent)
+            assert coefficient % 3
+            k = find_root_in_fixed_block(
+                3**exponent, 6, smooth, 2 * step
+            )
+            assert k % smooth == 0
+            assert prefix_mod(k, 3**exponent, 6) == 0
+            modulus = 3 ** (exponent + 1)
+            x = prefix_mod(k, modulus, 6)
+            next_digits = []
+            for t in (0, 1, 2):
+                y, endpoint = advance(
+                    x, k, t * step, 6, modulus
+                )
+                assert endpoint == k + t * step
+                assert prefix_mod(endpoint, modulus, 6) == y
+                difference = y - x
+                assert difference % (3**exponent) == 0
+                assert (
+                    difference // (3**exponent)
+                    - t * coefficient * (2 * k + 1)
+                ) % 3 == 0
+                next_digits.append((y // (3**exponent)) % 3)
+                tests += 1
+            assert len(set(next_digits)) == 3
+    print(f"PASS 3-adic t-sweeps ({tests} candidate shifts)")
+
+
+def verify_p_adic_sweeps() -> None:
+    """Test the first p-stage and every higher p-adic t-sweep."""
+    first_tests = 0
+    higher_tests = 0
+    smooth = 20
+    prior_period = 18
+
+    for p in (7, 11, 13, 17, 19, 37, 53):
+        h = order_mod(10, p)
+        digits = 1 + 3 * h
+        lower = 10 ** (digits - 1)
+        upper = 10**digits - 1
+        step = lcm(h, prior_period, smooth)
+        coefficient = step // h
+        assert coefficient % p
+        assert lower + (p - 1) * step <= upper
+        k = lower + 7
+        x = prefix_mod(k, p, digits)
+        base = pow(10, digits, p)
+        unit = (-h * pow(base - 1, -1, p)) % p
+        residues = []
+        for t in range(p):
+            y, endpoint = advance(x, k, t * step, digits, p)
+            assert endpoint == k + t * step
+            assert (y - x - t * coefficient * unit) % p == 0
+            residues.append(y)
+            first_tests += 1
+        assert len(set(residues)) == p
+
+    for p in (7, 11, 13, 17):
+        h = order_mod(10, p)
+        digits = 1 + 3 * h
+        for exponent in (1, 2):
+            step = lcm(h * p**exponent, prior_period, smooth)
+            coefficient = step // (h * p**exponent)
+            assert coefficient % p
+            max_shift = (p - 1) * step
+            k = find_root_in_fixed_block(
+                p**exponent, digits, smooth, max_shift
+            )
+            assert prefix_mod(k, p**exponent, digits) == 0
+            modulus = p ** (exponent + 1)
+            x = prefix_mod(k, modulus, digits)
+            base = pow(10, digits, p)
+            unit = (-h * pow(base - 1, -1, p)) % p
+            next_digits = []
+            for t in range(p):
+                y, endpoint = advance(
+                    x, k, t * step, digits, modulus
+                )
+                assert endpoint == k + t * step
+                assert (
+                    y - x - t * coefficient * p**exponent * unit
+                ) % modulus == 0
+                assert y % (p**exponent) == 0
+                next_digits.append((y // (p**exponent)) % p)
+                higher_tests += 1
+            assert len(set(next_digits)) == p
+
+    print(
+        "PASS p-adic t-sweeps "
+        f"(first stage {first_tests} candidates, higher stages {higher_tests})"
+    )
 
 
 def a075001_witness(n: int) -> tuple[int, int]:
@@ -204,20 +455,24 @@ def construct_a075002(n: int) -> tuple[int, int]:
         digit_period = lcm(digit_period, order_mod(10, p ** fs[p]))
 
     minimum_digits = max(1, fs.get(2, 0), fs.get(5, 0))
+    work = explicit_work_bound(n)
+    start_modulus = smooth * (3 if exponent3 else 1)
     digits = 1
-    while digits < minimum_digits:
+    while (
+        digits < minimum_digits
+        or 9 * 10 ** (digits - 1) <= start_modulus + work
+    ):
         digits += digit_period
-    if (digits - 1) % digit_period:
-        digits += digit_period - ((digits - 1) % digit_period)
 
     for _attempt in range(30):
         lower = 10 ** (digits - 1)
         upper = 10**digits - 1
-        start_modulus = smooth * (3 if exponent3 else 1)
         k = lower + ((-lower) % start_modulus)
         if k > upper:
             digits += digit_period
             continue
+        initial_k = k
+        largest_candidate = k
         x = prefix_mod(k, n, digits)
         assert k % smooth == 0 and x % smooth == 0
         state_period = 1
@@ -227,6 +482,8 @@ def construct_a075002(n: int) -> tuple[int, int]:
             assert k % 3 == 0 and x % 3 == 0
             for a in range(1, exponent3):
                 step = lcm(2 * 3**a, smooth)
+                assert k + 2 * step <= upper
+                largest_candidate = max(largest_candidate, k + 2 * step)
                 chosen = choose_shift(
                     x, k, step, 3, 3 ** (a + 1), digits, n, upper
                 )
@@ -246,6 +503,8 @@ def construct_a075002(n: int) -> tuple[int, int]:
             exponent = fs[p]
             h = order_mod(10, p)
             step = lcm(h, state_period, smooth)
+            assert k + (p - 1) * step <= upper
+            largest_candidate = max(largest_candidate, k + (p - 1) * step)
             chosen = choose_shift(x, k, step, p, p, digits, n, upper)
             if chosen is None:
                 failed = True
@@ -256,6 +515,8 @@ def construct_a075002(n: int) -> tuple[int, int]:
 
             for a in range(1, exponent):
                 step = lcm(h * p**a, state_period, smooth)
+                assert k + (p - 1) * step <= upper
+                largest_candidate = max(largest_candidate, k + (p - 1) * step)
                 chosen = choose_shift(
                     x, k, step, p, p ** (a + 1), digits, n, upper
                 )
@@ -272,6 +533,7 @@ def construct_a075002(n: int) -> tuple[int, int]:
             )
 
         if not failed:
+            assert largest_candidate - initial_k <= work
             assert x % n == 0
             assert prefix_mod(k, n, digits) == 0
             return k, digits
@@ -433,6 +695,11 @@ def verify_full_construction() -> None:
 
 def main() -> None:
     verify_transition_engine()
+    verify_unrestricted_period_counterexamples()
+    verify_fixed_block_state_period()
+    verify_three_adic_fixed_block_period()
+    verify_three_adic_sweeps()
+    verify_p_adic_sweeps()
     verify_oeis_initial_terms()
     verify_a075001()
     verify_special_three_shift()

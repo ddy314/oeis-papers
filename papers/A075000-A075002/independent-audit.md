@@ -9,6 +9,23 @@ A075002 prime-power theorem is valid, including the exceptional cases
 3 and 9. The remaining \(3^a\) and arbitrary-composite frontier is
 closed by a new block-shift and ordered-prime synchronization proof.
 
+## v1.0.2 literal-statement follow-up
+
+The v1.0.1 source had two local statements whose intended fixed-block
+context was not part of their literal hypotheses: Lemma 4.2 called
+\(p^e\operatorname{ord}_{p^e}(B)\) a global state period, and Corollary
+4.4 stated the \(3\)-adic period and three-way lift without explicitly
+covering every candidate interval.  The theorem proof was not invalidated,
+because it already chose one sufficiently long block, but those local
+statements were under-specified across digit boundaries.
+
+Version v1.0.2 repairs them by making the fixed-block condition explicit,
+quantifying the \(3\)-adic period exponent, applying the block-shift lemma
+to every \(tL\), and writing the first and higher \(p\)-adic affine sweeps
+explicitly.  The fresh literal audit found no additional false or
+under-hypothesized proposition, theorem, lemma, or corollary.  The
+temporary checklist used for that audit is not part of the release.
+
 ## Source-artifact limitation
 
 The requested file Divisibility_of_Concatenated_APs_A075001_A075000.pdf

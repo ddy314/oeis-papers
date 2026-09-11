@@ -1,8 +1,13 @@
 Final verification record
-Date: 2026-09-10
+Date: 2026-09-11
 Command: python verify_concatenation_divisibility.py
 
 PASS matrix engine vs literal recurrence (2730 cases)
+PASS negative unrestricted-period examples (p=7,d=1,k=1,H=42; 3^3,k=2,shift=54)
+PASS fixed-block state periods (288 base periods, 512 conditional multiples)
+PASS fixed-block 3-adic periods (160 base periods, 300 conditional multiples)
+PASS 3-adic t-sweeps (90 candidate shifts)
+PASS p-adic t-sweeps (first stage 157 candidates, higher stages 96)
 PASS OEIS A075002 terms n=1..60
 PASS A075001 construction n=1..2000
 PASS 3-adic block-shift congruence (85 cases), plus 3 and 9
@@ -10,5 +15,9 @@ PASS unit-translation prime lift (63 cases)
 PASS paper prime-power construction (34 cases)
 PASS exhaustive naive-global-orbit obstruction scan Q<5000
 PASS full common-index construction n=1..500 and five global-orbit failure moduli; largest digit length in range=(499, 499)
+
+The two unrestricted-period examples above are intentional negative regressions:
+their shifts cross a decimal digit boundary and therefore do not satisfy the
+fixed-block hypotheses of the corrected lemmas.
 
 ALL CHECKS PASSED

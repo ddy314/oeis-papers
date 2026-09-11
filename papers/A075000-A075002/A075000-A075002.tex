@@ -108,7 +108,9 @@ C_{\beta,n,s,d}(k)=kR_n(B)+sT_n(B).
 \end{equation}
 
 \begin{proposition}[Exact fixed-digit criterion]\label{prop:fixed-digit-criterion}
-Let \(g=\gcd(R_n(B),n)\).  The congruence
+Under the fixed-digit hypotheses above, let \(g=\gcd(R_n(B),n)\).  The
+congruence in the affine expression \eqref{eq:ap-affine}, viewed as a congruence
+in \(k\in\mathbb Z\),
 \[
 n\mid C_{\beta,n,s,d}(k)
 \]
@@ -232,8 +234,9 @@ positive integer \(n\) preserves the ordering.
 \section{Fixed-block identities for Champernowne prefixes}
 \label{sec:fixed-block-identities}
 
-Fix a digit length \(d\) and put \(B=10^d\).  Suppose all integers appended after an
-endpoint \(k\) remain in this \(d\)-digit block.  For \(L\ge0\),
+Fix a digit length \(d\) and put \(B=10^d\).  Let \(k\ge1\) and \(L\ge0\), and suppose
+that every integer in the appended interval \(k+1,\ldots,k+L\) remains in this same
+\(d\)-digit block (with the condition vacuous when \(L=0\)).  Then
 \begin{equation}\label{eq:block-transition}
 P(k+L)
  =B^LP(k)+\sum_{j=1}^L(k+j)B^{L-j}.
@@ -258,17 +261,20 @@ A direct telescoping calculation gives
 \label{sec:local-lifting}
 
 \begin{lemma}[Unit translation]\label{lem:unit-translation}
-Let \(p\) be an odd prime with \(p\nmid B(B-1)\), let
+Fix a \(d\)-digit block and put \(B=10^d\).  Let \(p\) be an odd prime with
+\(p\nmid B(B-1)\), and let
 \[
 h=\ord_p(B),
 \qquad
 U=T_h,
 \]
-and let \(a\ge0\).  If \(p\nmid c\) and \(L=chp^a\), then
+let \(a\ge0\), and let \(c\ge1\) with \(p\nmid c\).  Put \(L=chp^a\).  If
+\(k\ge1\) and every integer \(k+1,\ldots,k+L\) remains in the same fixed
+\(d\)-digit block, then
 \begin{equation}\label{eq:unit-translation}
 P(k+L)-P(k)\equiv cp^aU\pmod{p^{a+1}},
 \end{equation}
-provided all appended integers remain in the same digit block.  Moreover \(p\nmid U\).
+Moreover \(p\nmid U\).
 \end{lemma}
 
 \begin{proof}
@@ -294,28 +300,33 @@ T_L\equiv-\frac{chp^a}{B-1}\equiv cp^aU
 Substitution into \eqref{eq:shift-identity} proves \eqref{eq:unit-translation}.
 \end{proof}
 
-\begin{lemma}[State period]\label{lem:state-period}
-Under the hypotheses of Lemma~\ref{lem:unit-translation}, for every \(e\ge1\),
+\begin{lemma}[Fixed-block state period]\label{lem:state-period}
+Fix a \(d\)-digit block and put \(B=10^d\).  Let \(p\) be an odd prime with
+\(p\nmid B(B-1)\), and let \(e\ge1\).  With
 \begin{equation}\label{eq:state-period-length}
 H=p^e\ord_{p^e}(B)
 \end{equation}
-is a period of the endpoint state modulo \(p^e\):
+and \(k\ge1\), if every integer \(k+1,\ldots,k+H\) remains in the same fixed
+\(d\)-digit block, then \(H\) is a period of the endpoint state modulo \(p^e\):
 \begin{equation}\label{eq:state-period}
 P(k+H)\equiv P(k)\pmod{p^e},
 \qquad
 k+H\equiv k\pmod{p^e}.
 \end{equation}
-Every multiple of \(H\) is also such a period.  Every prime divisor of \(H\) is at most
-\(p\).
+More generally, for every \(m\ge1\), the same two congruences with \(H\) replaced
+by \(mH\) hold provided every integer \(k+1,\ldots,k+mH\) remains in that same
+fixed \(d\)-digit block.  Every prime divisor of \(H\) is at most \(p\).
 \end{lemma}
 
 \begin{proof}
 Let \(r=\ord_{p^e}(B)\).  Since \(r\mid H\), \(B^H\equiv1\pmod{p^e}\).  Because
 \(B-1\) is a unit, \(S_H\equiv0\pmod{p^e}\).  Also \(p^e\mid H\), so
 \eqref{eq:geometric-T} gives \(T_H\equiv0\pmod{p^e}\).  Equation
-\eqref{eq:shift-identity} proves the first congruence in \eqref{eq:state-period}, and
-\(p^e\mid H\) proves the second.  Iterating the state transition shows that every multiple
-of \(H\) is again a period.
+\eqref{eq:shift-identity} proves the first congruence in
+\eqref{eq:state-period}, and \(p^e\mid H\) proves the second.  If \(m\ge1\) and
+the longer appended interval remains in the block, the same calculation applies with
+\(mH\) in place of \(H\): \(r\mid mH\), \(p^e\mid mH\), and hence
+\(P(k+mH)\equiv P(k)\pmod{p^e}\) and \(k+mH\equiv k\pmod{p^e}\).
 
 Finally,
 \[
@@ -325,13 +336,14 @@ so every prime divisor of \(H\) is at most \(p\).
 \end{proof}
 
 \begin{lemma}[Exceptional \(3\)-adic block shift]\label{lem:3-adic-shift}
-Let \(B=10^d\), and suppose \(v_3(L)=a\ge1\).  Then
+Fix \(d\ge1\), put \(B=10^d\), and let \(L\ge1\) satisfy \(v_3(L)=a\ge1\).
+If \(k\ge1\) and every integer \(k+1,\ldots,k+L\) remains in the same fixed
+\(d\)-digit block, then
 \begin{equation}\label{eq:3-adic-block-shift}
 P(k+L)-P(k)
 \equiv Lk+\frac{L(L+1)}2
 \pmod{3^{a+1}}
 \end{equation}
-whenever the appended integers remain in one digit block.
 \end{lemma}
 
 \begin{proof}
@@ -340,11 +352,17 @@ sum gives
 \[
 S_L-L=\sum_{s\ge1}c^s\binom{L}{s+1}.
 \]
-Using
+For \(m=s+1\),
+\[
+\binom{L}{m}=\frac{L}{m}\binom{L-1}{m-1},
+\]
+so
 \[
 v_3\binom{L}{m}\ge a-v_3(m)
 \]
-and \(v_3(c)\ge2\), every term on the right has valuation at least \(a+1\).  Hence
+and \(v_3(c)\ge2\).  For \(s\ge1\), \(v_3(s+1)\le s\), so every nonzero
+correction term on the right has valuation at least
+\(2s+a-v_3(s+1)\ge a+1\).  Hence
 \[
 S_L\equiv L\pmod{3^{a+1}}.
 \]
@@ -377,12 +395,14 @@ Finally LTE gives \(B^L\equiv1\pmod{3^{a+2}}\), so the first term in
 \end{proof}
 
 \begin{corollary}[\(3\)-adic lifting]\label{cor:3-adic-lifting}
-Let \(R=2^\alpha5^\beta\), suppose \(R\mid k\) and \(3^a\mid P(k)\) with \(a\ge1\), and put
+Fix a \(d\)-digit block with \(B=10^d\).  Let \(R=2^\alpha5^\beta\), let \(k\ge1\),
+suppose \(R\mid k\) and \(3^a\mid P(k)\) with \(a\ge1\), and put
 \begin{equation}\label{eq:3-adic-step}
 L=\operatorname{lcm}(2\cdot3^a,R)=2c3^a,
 \qquad 3\nmid c.
 \end{equation}
-Then exactly one of
+Assume that every integer \(k+1,\ldots,k+2L\) remains in the same fixed \(d\)-digit
+block.  Then exactly one of
 \[
 k,\qquad k+L,\qquad k+2L
 \]
@@ -390,24 +410,44 @@ is a root modulo \(3^{a+1}\), while all three endpoints remain divisible by \(R\
 \begin{equation}\label{eq:3-adic-period}
 2\cdot3^e
 \end{equation}
-is a state period modulo \(3^e\).
+is a state period modulo \(3^e\) for every \(e\ge1\), provided the relevant appended
+interval remains in the same fixed digit block.  More generally, every positive multiple
+of \(2\cdot3^e\) is such a state period modulo \(3^e\) when its entire appended interval
+remains in that block.
 \end{corollary}
 
 \begin{proof}
-The preceding lemma gives
+For \(t=0\), the desired quotient is \(0\).  For \(t=1,2\), we have
+\(v_3(tL)=a\), and the preceding lemma applies to the full interval
+\(k+1,\ldots,k+2L\).  It gives
 \[
-\frac{P(k+L)-P(k)}{3^a}\equiv c(2k+1)\pmod3.
+P(k+tL)-P(k)
+ \equiv tLk+\frac{tL(tL+1)}2\pmod{3^{a+1}}.
 \]
+The right-hand side is divisible by \(3^a\), so division by \(3^a\), followed by
+reduction modulo \(3\), gives for all \(t=0,1,2\)
+\begin{equation}\label{eq:3-adic-sweep}
+\frac{P(k+tL)-P(k)}{3^a}
+ \equiv tc(2k+1)\pmod3.
+\end{equation}
 Since \(3\mid P(k)\) and \(10\equiv1\pmod3\),
 \[
 0\equiv P(k)\equiv1+2+\cdots+k=\frac{k(k+1)}2\pmod3,
 \]
-so \(k\equiv0\) or \(2\pmod3\).  Hence \(2k+1\not\equiv0\pmod3\), and the three
-choices give the three possible residues at the next \(3\)-adic level.  Because \(R\mid L\),
-the endpoint condition modulo \(R\) is preserved.
+so \(k\equiv0\) or \(2\pmod3\).  Hence \(c(2k+1)\) is a unit modulo \(3\).  Therefore
+\[
+\frac{P(k+tL)}{3^a}
+ \equiv \frac{P(k)}{3^a}+tc(2k+1)\pmod3,
+\]
+and \(t=0,1,2\) gives all three residue classes modulo \(3\), so exactly one choice
+is a root modulo \(3^{a+1}\).  Because \(R\mid L\), all three endpoint indices remain
+divisible by \(R\).
 
-Taking \(L=2\cdot3^e\) in Lemma~\ref{lem:3-adic-shift} gives
-\(P(k+L)\equiv P(k)\pmod{3^e}\) and \(k+L\equiv k\pmod{3^e}\), proving the period assertion.
+For the period assertion, let \(m\ge1\) and take \(L=m(2\cdot3^e)\) in
+Lemma~\ref{lem:3-adic-shift}.  Its valuation is at least \(e\), so the resulting
+congruence implies \(P(k+L)\equiv P(k)\pmod{3^e}\), while \(k+L\equiv k\pmod{3^e}\).
+This application is valid only when the entire appended interval through \(k+L\) stays
+inside the fixed block.
 \end{proof}
 
 \section{A common prefix for every modulus}
@@ -422,6 +462,7 @@ Consequently OEIS A075002 is well-defined for every \(n\).
 \end{theorem}
 
 \begin{proof}
+For \(n=1\), take \(k=1\).  Hence assume \(n>1\).
 Factor
 \begin{equation}\label{eq:A075002-factorization}
 n=R\,3^e\prod_{i=1}^r p_i^{e_i},
@@ -444,11 +485,49 @@ Such \(d\) are arbitrarily large.  Put \(B=10^d\).  Then for every \(i\),
 B\equiv10\pmod{p_i^{e_i}}.
 \]
 
-We first make the capacity choice precise.  For fixed \(n\), every step length appearing below
-is obtained by taking least common multiples of \(R\), prime powers dividing \(n\), and
-multiplicative orders modulo those prime powers.  Hence all possible step lengths, and the
-maximum total displacement obtained by making at most \(p-1\) choices at each \(p\)-adic stage,
-are bounded by a finite constant \(W(n)\) independent of \(d\).  Let
+For the state periods and the step lengths below, define
+\begin{equation}\label{eq:A075002-H0}
+H_0=
+\begin{cases}
+2\cdot3^e,&e>0,\\
+1,&e=0.
+\end{cases}
+\end{equation}
+For \(1\le i\le r\), define
+\begin{equation}\label{eq:A075002-Hi}
+H_i=\operatorname{lcm}\!\left(
+H_{i-1},\ p_i^{e_i}\ord_{p_i^{e_i}}(10)
+\right).
+\end{equation}
+For \(1\le i\le r\), put
+\begin{equation}\label{eq:A075002-Jia}
+\begin{aligned}
+J_{i,0}&=\operatorname{lcm}\!\left(\ord_{p_i}(10),H_{i-1},R\right),\\
+J_{i,a}&=\operatorname{lcm}\!\left(\ord_{p_i}(10)p_i^a,H_{i-1},R\right)
+\quad(1\le a<e_i).
+\end{aligned}
+\end{equation}
+Empty sums below are understood to be zero.  An explicit bound for the total forward
+displacement of all candidate endpoints is
+\begin{equation}\label{eq:A075002-W}
+W(n)=
+2\sum_{a=1}^{e-1}\operatorname{lcm}(2\cdot3^a,R)
++
+\sum_{i=1}^r(p_i-1)\sum_{a=0}^{e_i-1}J_{i,a}.
+\end{equation}
+Indeed, a \(3\)-adic stage uses one of \(tL_a\), \(0\le t\le2\), and hence contributes
+at most \(2L_a\).  At a \(p_i\)-adic stage, one of \(tJ_{i,a}\), \(0\le t<p_i\), is
+used, and hence contributes at most \((p_i-1)J_{i,a}\).  Thus \(W(n)\) bounds not only
+the selected trajectory but also every candidate endpoint examined at every stage.
+All quantities in \eqref{eq:A075002-H0}--\eqref{eq:A075002-W} depend only on \(n\).
+Indeed, \(d\equiv1\pmod D\) implies
+\[
+10^d\equiv10\pmod{p_i^{e_i}},
+\]
+so the orders of \(B=10^d\) required by the state-period lemma are exactly the
+corresponding orders of \(10\).
+
+Let
 \begin{equation}\label{eq:A075002-initial-modulus}
 M_0=R\cdot3^{\min(e,1)}.
 \end{equation}
@@ -457,8 +536,18 @@ Choose \(d\) in the congruence class in \eqref{eq:A075002-digit-choice} so large
 9\cdot10^{d-1}>M_0+W(n).
 \end{equation}
 Let \(k_0\) be the least multiple of \(M_0\) that is at least \(10^{d-1}\).  Then
-\(0\le k_0-10^{d-1}<M_0\), and \eqref{eq:A075002-capacity} keeps the entire construction
-below inside this single \(d\)-digit block.
+\(0\le k_0-10^{d-1}<M_0\).  Every candidate endpoint in the construction is at most
+\(k_0+W(n)\), and therefore
+\[
+k_0+W(n)
+ <10^{d-1}+M_0+W(n)
+ <10^{d-1}+9\cdot10^{d-1}
+ =10^d.
+\]
+All candidate endpoints are also at least \(k_0\ge10^{d-1}\).  Since every appended
+interval lies between its current endpoint and one of these candidate endpoints, this
+single capacity estimate supplies the fixed-block hypothesis for every translation,
+state-period, and \(3\)-adic block-shift invocation below.
 
 Since \(R\mid k_0\) and \(B\equiv0\pmod R\),
 \begin{equation}\label{eq:A075002-initial-R}
@@ -473,67 +562,82 @@ If \(e>1\), repeatedly apply Corollary~\ref{cor:3-adic-lifting}.  At stage \(a\)
 \[
 L_a=\operatorname{lcm}(2\cdot3^a,R).
 \]
-One of the three choices raises a root modulo \(3^a\) to a root modulo \(3^{a+1}\), and the
-\(R\)-condition is preserved.  Thus we obtain an endpoint \(k\) with
+The capacity estimate above puts the full interval through \(k+2L_a\) in the fixed block,
+so the corollary applies to all three candidates.  One of the three choices raises a root
+modulo \(3^a\) to a root modulo \(3^{a+1}\).  Since \(R\mid L_a\) and \(B\equiv0\pmod R\),
+the transition identity gives \(P(k+tL_a)\equiv k+tL_a\equiv0\pmod R\) for every
+\(t>0\), while \(t=0\) is the current root.  Thus the \(R\)-condition is preserved and
+we obtain an endpoint \(k\) with
 \[
 R3^e\mid P(k).
 \]
-If \(e>0\), set \(H=2\cdot3^e\); otherwise set \(H=1\).  In either case \(H\) is a common
-state period for all already installed odd prime-power conditions.
+If \(e>0\), Corollary~\ref{cor:3-adic-lifting} supplies the conditional fixed-block state
+period \(H_0=2\cdot3^e\) modulo \(3^e\); if \(e=0\), there is no \(3\)-adic condition
+to preserve.
 
 Now process \(p_1,\ldots,p_r\) in increasing order.  Suppose all preceding prime powers have
-been installed at the current endpoint \(k\), and \(H\) is a common state period for them.  Let
-\(p=p_i\) and
+been installed at the current endpoint \(k\), and \(H_{i-1}\) is a common conditional
+fixed-block state period for them.  Let \(p=p_i\) and
 \[
 h=\ord_p(10).
 \]
 Since \(B\equiv10\pmod p\), we also have \(h=\ord_p(B)\), and
 \(p\nmid B(B-1)\).
 
-Set
-\begin{equation}\label{eq:A075002-first-step}
-J_0=\operatorname{lcm}(h,H,R).
-\end{equation}
 Every prime factor of the period contributed by an earlier prime \(q<p\) is at most \(q\),
-while \(R\) has no prime divisors other than \(2\) and \(5\).  Therefore \(p\nmid HR\), and also \(p\nmid h\) since
-\(h\mid p-1\).  Hence \(J_0=c_0h\) with \(p\nmid c_0\).  Lemma~\ref{lem:unit-translation}
-with \(a=0\) shows that
+while \(R\) has no prime divisors other than \(2\) and \(5\).  Therefore
+\(p\nmid H_{i-1}R\), and also \(p\nmid h\) since \(h\mid p-1\).  Hence
 \[
-P(k+tJ_0),\qquad 0\le t<p,
+J_{i,0}=c_0h,\qquad p\nmid c_0.
 \]
-runs through all residues modulo \(p\).  Because \(J_0\) is a multiple of \(H\) and \(R\),
-every previously installed congruence and the endpoint condition modulo \(R\) are preserved.
-Choose the unique \(t\) giving a root modulo \(p\).
-
-Suppose inductively that a root modulo \(p^a\) has been obtained, where \(1\le a<e_i\).  Set
-\begin{equation}\label{eq:A075002-lift-step}
-J_a=\operatorname{lcm}(hp^a,H,R).
+Let \(U=T_h\).  For \(t=0\) the following congruence is trivial; for
+\(1\le t<p\), apply Lemma~\ref{lem:unit-translation} with \(c=tc_0\) and
+\(L=tJ_{i,0}\).  The complete interval through the largest candidate is in the fixed
+block by the capacity estimate, so
+\begin{equation}\label{eq:A075002-first-sweep}
+P(k+tJ_{i,0})-P(k)\equiv tc_0U\pmod p,
+\qquad 0\le t<p.
 \end{equation}
-Again \(p\nmid HRh\), so \(J_a=c_ahp^a\) with \(p\nmid c_a\).  Lemma~\ref{lem:unit-translation}
-gives
+Since \(p\nmid U\), the map
 \[
-P(k+J_a)-P(k)\equiv c_ap^aU\pmod{p^{a+1}},
-\qquad p\nmid U.
+P(k)+tc_0U,\qquad t\in\mathbb F_p,
 \]
-Thus exactly one of
-\[
-k,\ k+J_a,\ldots,k+(p-1)J_a
-\]
-is a root modulo \(p^{a+1}\), while all earlier congruences remain intact.  Repeating installs
-\(p^{e_i}\).
+runs through all residues modulo \(p\): it is an affine permutation of \(\mathbb F_p\).
+Because \(J_{i,0}\) is a multiple of \(H_{i-1}\), the fixed-block state-period lemma
+preserves every previously installed prime-power condition for every candidate \(tJ_{i,0}\).
+Also \(R\mid J_{i,0}\), and \(B\equiv0\pmod R\); whenever \(R\mid P(k)\), the transition
+identity gives \(P(k+tJ_{i,0})\equiv k+tJ_{i,0}\equiv0\pmod R\) for \(t>0\), while
+\(t=0\) is the current root.  Choose the unique \(t\) giving a root modulo \(p\).
 
-After completing this prime power, replace
-\begin{equation}\label{eq:A075002-period-update}
-H\leftarrow
-\operatorname{lcm}\!\left(
-H,
-p^{e_i}\ord_{p^{e_i}}(B)
-\right).
-\end{equation}
-By Lemma~\ref{lem:state-period}, the new factor is a state period modulo \(p^{e_i}\).  Since
-\(B\equiv10\pmod{p_i^{e_i}}\), it equals
-\(p^{e_i}\ord_{p^{e_i}}(10)\).  Every prime divisor of this factor is at most \(p\), so the
-same argument applies at the next, larger prime.
+Suppose inductively that a root modulo \(p^a\) has been obtained, where \(1\le a<e_i\).
+Again \(p\nmid H_{i-1}Rh\), so \(J_{i,a}=c_ahp^a\) with \(p\nmid c_a\).  For
+\(1\le t<p\), Lemma~\ref{lem:unit-translation} applied to \(tJ_{i,a}\), with the
+fixed-block hypothesis supplied by the capacity estimate, gives
+\[
+P(k+tJ_{i,a})-P(k)\equiv tc_ap^aU\pmod{p^{a+1}}.
+\]
+The congruence is also trivial for \(t=0\), so it holds for \(0\le t<p\).  Since
+\(P(k)\equiv0\pmod{p^a}\), division by \(p^a\) gives
+\[
+\frac{P(k+tJ_{i,a})}{p^a}
+\equiv\frac{P(k)}{p^a}+tc_aU\pmod p,
+\qquad 0\le t<p.
+\]
+The coefficient \(c_aU\) is a unit modulo \(p\), so the \(p\) candidate endpoints
+traverse all possible next \(p\)-adic digits and exactly one is a root modulo
+\(p^{a+1}\).  Because \(J_{i,a}\) is a multiple of \(H_{i-1}\) and \(R\), the
+same fixed-block state-period and \(R\)-preservation arguments keep all earlier
+conditions intact.  Repeating installs \(p^{e_i}\).
+
+After completing this prime power, Lemma~\ref{lem:state-period} gives the conditional
+fixed-block state period
+\[
+p_i^{e_i}\ord_{p_i^{e_i}}(B)
+ =p_i^{e_i}\ord_{p_i^{e_i}}(10).
+\]
+Consequently \(H_i\) in \eqref{eq:A075002-Hi} is a common conditional state period for
+all installed prime powers.  Every prime divisor of the new factor is at most \(p_i\), so
+the same argument applies at the next, larger prime.
 
 At termination, the same endpoint \(k\) satisfies every prime-power condition in the
 factorization \eqref{eq:A075002-factorization}.  Therefore \(n\mid P(k)\).
@@ -559,9 +663,16 @@ common-index constructions for \(n\le500\), together with the five composite mod
 regression and reproducibility checks, not premises of the proofs.
 
 The source, bibliography, verifier, verification record, and independent audit are preserved in
-the public repository \href{https://github.com/dongxuelian2/oeis-papers}{\texttt{oeis-papers}}.
-The frozen release \href{https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.1}{\texttt{a075000-a075002-v1.0.1}}
-contains this paper as a stable snapshot.  From the paper directory, the verifier can be
+the public repository:
+\begin{center}
+\small\url{https://github.com/dongxuelian2/oeis-papers}
+\end{center}
+The corrected frozen release is
+\begin{center}
+\texttt{a075000-a075002-v1.0.2}\\
+\small\url{https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.2}
+\end{center}
+It contains this paper as a stable snapshot.  From the paper directory, the verifier can be
 reproduced with
 \begin{verbatim}
 python verify_concatenation_divisibility.py
