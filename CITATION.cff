@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+title: "Divisibility of Concatenated Arithmetic Progressions and Champernowne Prefixes"
+version: 1.0.4
+date-released: 2026-09-11
+authors:
+  - family-names: Wang
+    given-names: Qichao
+repository-code: "https://github.com/dongxuelian2/oeis-papers"

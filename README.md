@@ -1,9 +1,7 @@
 # OEIS papers
 
-Finished OEIS-related mathematical papers, with their source, bibliography, reproducibility
-materials, and final PDFs.
+This repository contains OEIS-related mathematical papers, their sources, and
+reproducibility materials.
 
-## Papers
-
-- [A075000-A075002](papers/A075000-A075002/): divisibility of concatenated arithmetic
-  progressions and Champernowne prefixes.
+- [A075000-A075002](papers/A075000-A075002/): proves the existence statements for
+  OEIS A075000, A075001, and A075002.

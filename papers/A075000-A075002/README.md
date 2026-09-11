@@ -1,24 +1,20 @@
-# A075000-A075002
+# Divisibility of Concatenated Arithmetic Progressions and Champernowne Prefixes
 
-This paper proves the existence assertions underlying OEIS A075001 and A075000 for every
-positive integer, and proves the main result that for every positive integer `n` there is an
-index `k` with `n | 123...k`, establishing that OEIS A075002 is well-defined for every `n`.
+Author: Qichao Wang
+Affiliation: Hebei University of Technology, Tianjin, China
 
-The proof uses a fixed-digit arithmetic-progression construction, a separate 3-adic block-shift
-lift, and increasing-prime state synchronization for the remaining prime powers.
+The paper proves the existence statements underlying OEIS A075000 and A075001
+for every positive integer, and proves that for every positive integer \(n\)
+there is an index \(k\) such that \(n\mid 123\cdots k\), so OEIS A075002 is
+well-defined for every \(n\).
 
-## Reproduction
+[Canonical PDF](A075000-A075002.pdf)
 
-From this directory, run:
+To reproduce the computational checks, run:
 
 ```text
 python verify_concatenation_divisibility.py
 ```
 
-The verifier performs modular transition checks, OEIS regression checks, prime-power checks,
-and the common-index construction checks described in `verification.txt`.
-
-The current release is [`a075000-a075002-v1.0.3`](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.3).
-The release package includes the [mathematical audit record](mathematical-audit-record.md).
-The prior release [`a075000-a075002-v1.0.1`](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.1)
-is retained unchanged.
+[Mathematical audit record](mathematical-audit-record.md)
+[Current release: a075000-a075002-v1.0.4](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.4)
