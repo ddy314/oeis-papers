@@ -1,4 +1,4 @@
-"""Independent verifier for the A075000/A075001/A075002 proofs.
+"""Separate verifier for the A075000/A075001/A075002 proofs.
 
 The program never constructs a concatenated decimal integer.  It evaluates
 prefixes and fixed-length blocks modulo the requested modulus, using a 3 by 3

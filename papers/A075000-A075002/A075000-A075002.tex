@@ -40,12 +40,12 @@ P(k)=1\concat2\concat\cdots\concat k.
 \]
 Our main theorem proves that for every positive integer \(n\) there exists \(k\) such that
 \(n\mid P(k)\), thereby resolving the well-definedness conjecture in OEIS A075002.  The
-proof has two local ingredients.  Away from \(3\), fixed-digit blocks admit unit translations
-and explicit state periods.  At \(3\), where the unit argument degenerates because
-\(10^d\equiv1\pmod 3\), a separate block-shift congruence gives a \(3\)-adic lifting
-mechanism.  The local roots are synchronized at one common prefix index by processing odd
-prime factors in increasing order; every completed state period has no prime divisor larger
-than the prime just processed.
+proof has two local ingredients.  For primes \(p\notin\{2,3,5\}\), fixed-digit blocks
+admit unit translations and explicit state periods.  The base primes \(2\) and \(5\) are
+handled by the terminal block, while \(3\) requires a separate block-shift lifting argument.
+The local roots are synchronized at one common prefix index by processing odd prime factors
+in increasing order; every completed state period has no prime divisor larger than the prime
+just processed.
 \end{abstract}
 
 \maketitle
@@ -107,7 +107,7 @@ Then
 C_{\beta,n,s,d}(k)=kR_n(B)+sT_n(B).
 \end{equation}
 
-\begin{proposition}[Exact fixed-digit criterion]\label{prop:fixed-digit-criterion}
+\begin{proposition}[Fixed-digit affine congruence criterion]\label{prop:fixed-digit-criterion}
 Under the fixed-digit hypotheses above, let \(g=\gcd(R_n(B),n)\).  The
 congruence in the affine expression \eqref{eq:ap-affine}, viewed as a congruence
 in \(k\in\mathbb Z\),
@@ -119,6 +119,8 @@ is solvable in \(k\) if and only if
 g\mid sT_n(B).
 \]
 When solvable, the solutions form one residue class modulo \(n/g\).
+This congruence criterion concerns solutions in \(\mathbb Z\); admissibility of a
+representative in a particular finite fixed-digit interval is a separate condition.
 \end{proposition}
 
 \begin{proof}
@@ -221,14 +223,15 @@ A075000(n)=\frac{C_n(A075001(n))}{n}.
 
 \begin{proof}
 Existence follows from Corollary~\ref{cor:A075001}.  It remains only to justify minimality.
-For fixed \(n\), if \(k_2>k_1\), then comparison of the decimal strings defining
-\(C_n(k_2)\) and \(C_n(k_1)\) shows that
-\[
-C_n(k_2)>C_n(k_1),
-\]
-including when one of the indices crosses a power of ten.  Thus the least divisible
-concatenation occurs at the least witnessing index \(A075001(n)\).  Division by the fixed
-positive integer \(n\) preserves the ordering.
+For fixed \(n\), if \(k_2>k_1\), every term in the tuple for \(k_2\) is larger than the
+corresponding term for \(k_1\), so every corresponding digit length is at least as large.
+If the total concatenated lengths differ, \(C_n(k_2)\) is longer and hence numerically
+larger; if they agree, the coordinatewise length inequalities force equality of every
+corresponding block length, and the first position where the concatenated strings differ
+lies in an equal-length block whose decimal representation is larger for \(k_2\).
+Thus \(C_n(k_2)>C_n(k_1)\), including across powers of ten.  The least divisible
+concatenation therefore occurs at the least witnessing index \(A075001(n)\), and division
+by the fixed positive integer \(n\) preserves the ordering.
 \end{proof}
 
 \section{Fixed-block identities for Champernowne prefixes}
@@ -406,7 +409,8 @@ block.  Then exactly one of
 \[
 k,\qquad k+L,\qquad k+2L
 \]
-is a root modulo \(3^{a+1}\), while all three endpoints remain divisible by \(R\).  Moreover
+is a root modulo \(3^{a+1}\), while all three endpoint indices remain divisible by \(R\).
+Moreover
 \begin{equation}\label{eq:3-adic-period}
 2\cdot3^e
 \end{equation}
@@ -654,7 +658,7 @@ coefficient.
 \section{Verification and provenance}
 \label{sec:verification}
 
-The proofs are independent of computation.  A separate verifier evaluates prefixes modulo the
+The proofs do not use computation as a premise.  A separate verifier evaluates prefixes modulo the
 requested modulus using fixed-block transition matrices and cross-checks each matrix jump
 against a literal recurrence on small instances.  The recorded checks include the published
 initial values of A075002, the A075001 construction for \(n\le2000\), both lifting lemmas, and
@@ -662,15 +666,15 @@ common-index constructions for \(n\le500\), together with the five composite mod
 \(5000\) for which a single affine orbit cannot provide unit translations at all prime factors.  These computations are
 regression and reproducibility checks, not premises of the proofs.
 
-The source, bibliography, verifier, verification record, and independent audit are preserved in
+The source, bibliography, verifier, verification record, and mathematical audit record are preserved in
 the public repository:
 \begin{center}
 \small\url{https://github.com/dongxuelian2/oeis-papers}
 \end{center}
-The corrected frozen release is
+The current release is
 \begin{center}
-\texttt{a075000-a075002-v1.0.2}\\
-\small\url{https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.2}
+\texttt{a075000-a075002-v1.0.3}\\
+\small\url{https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.3}
 \end{center}
 It contains this paper as a stable snapshot.  From the paper directory, the verifier can be
 reproduced with
