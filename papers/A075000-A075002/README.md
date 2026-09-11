@@ -16,5 +16,4 @@ To reproduce the computational checks, run:
 python verify_concatenation_divisibility.py
 ```
 
-[Mathematical audit record](mathematical-audit-record.md)
-[Current release: a075000-a075002-v1.0.4](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.4)
+[Current release: a075000-a075002-v1.0.5](https://github.com/dongxuelian2/oeis-papers/releases/tag/a075000-a075002-v1.0.5)
