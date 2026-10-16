@@ -68,6 +68,33 @@ def witness(p):
     return m
 
 
+
+def multiplicative_order_10(p):
+    """Order of 10 mod prime p, found without assuming a primitive root."""
+    r, residue = 1, 10 % p
+    while residue != 1:
+        residue = residue * 10 % p
+        r += 1
+    assert (p - 1) % r == 0
+    return r
+
+
+def order_witness(p):
+    """Correct corollary witness; note j has an inverse of r modulo p."""
+    assert p >= 7 and p % 2 and p % 5
+    r = multiplicative_order_10(p)
+    d = 2*r + 1
+    L = 10**(d-1)
+    delta = (-digits(L-1)-1) % r
+    m0 = L + delta
+    j = (9 * prefix_mod(m0, p) * pow(r, -1, p)) % p
+    m = m0 + j*r
+    assert 0 <= j < p and L <= m < 10*L
+    assert m <= L + p*r - 1
+    assert digits(m) % r == 0
+    assert prefix_mod(m, p) == 0
+    return m
+
 def brute_min(p, cap=1400):
     z, dcount = 0, 0
     for m in range(1, cap+1):
@@ -105,6 +132,20 @@ def main():
             assert len(set(residue_list)) == p
             assert residue_list.count(0) == 1
     print(f"PASS: FLT construction for {len(ps)} primes 7..101")
+    for p in (7, 11, 13, 17, 37, 101):
+        m = order_witness(p)
+        r = multiplicative_order_10(p)
+        L = 10**(2*r)
+        delta = (-digits(L-1)-1) % r
+        m0 = L + delta
+        assert (prefix_mod(m0+r, p)-prefix_mod(m0, p)) % p == (-r*pow(9,-1,p)) % p
+        if p in (11, 13, 37):
+            wrong_j = (-9*prefix_mod(m0,p)) % p
+            # Explicit regression: the main theorem's j choice fails here.
+            assert prefix_mod(m0+wrong_j*r,p) != 0
+    print("PASS: order-sensitive witnesses for 7,11,13,17,37,101")
+    print("PASS: wrong inverse-free j choice rejected for 11,13,37")
+
     assert witness(3) == 2
     print("PASS: p=3 and explicit upper bounds")
     print("Note: p=2,5 are impossible by the rotation ending in 1")
