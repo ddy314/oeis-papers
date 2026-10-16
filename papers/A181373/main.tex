@@ -188,13 +188,30 @@ witness $m$ with
 Thus one may take the smaller of this bound and \eqref{eq:bound}.
 \end{corollary}
 \begin{proof}
-Repeat the main construction with $d=2r+1$ and $L=10^{2r}$,
-selecting $\delta\equiv-\len(L-1)-1\pmod r$ and the $p$ endpoints
-$L+\delta+jr$. Their last offset is at most $pr-1$, and
-$p\mid(10^r-1)$ implies $p<10^r$, so
-$pr<r10^r<9\cdot10^{2r}$. Lemma~\ref{lem:shift}
-applies because $r\mid p-1$ and hence $p\nmid r$; its
-nonzero step generates all residues modulo $p$.
+Set $d=2r+1$, $L=10^{2r}$, $H=\len(L-1)$, and choose
+$\delta\in\{0,\ldots,r-1\}$ with $\delta\equiv-H-1\pmod r$.
+Put $m_0=L+\delta$ and consider $m_j=m_0+jr$ for $0\le j<p$.
+Every candidate has digit count divisible by $r$, since
+\[
+  \len(m_j)=H+d(\delta+jr+1)\equiv H+\delta+1\equiv0\pmod r.
+\]
+Moreover, $\delta+(p-1)r\le pr-1$; because $p\mid 10^r-1$,
+we have $p<10^r$, hence $pr<r10^r<9\cdot10^{2r}$.
+Thus all candidates remain $d$-digit integers.
+
+The step in Lemma~\ref{lem:shift} is now $-r/9$, not
+$1/9$ as in the special case $r=p-1$. In particular,
+\[
+  \Cham(m_j)\equiv\Cham(m_0)-jr\,9^{-1}\pmod p.
+\]
+Since $r=\ord_p(10)\mid p-1$, the inverse $r^{-1}\pmod p$
+exists. Choose explicitly
+\begin{equation}\label{eq:order-choice}
+  \boxed{j\equiv 9\,r^{-1}\Cham(m_0)\pmod p,\qquad 0\le j<p.}
+\end{equation}
+Then $p\mid\Cham(m_j)$, while $r\mid\len(m_j)$ implies
+$p\mid10^{\len(m_j)}-1$. The rotation criterion
+\eqref{eq:criterion} completes the construction.
 \end{proof}
 
 \section{Discussion}
