@@ -1,6 +1,6 @@
 # A083468 and A083469: nonvanishing from a permutation theorem
 
-**Status (2026-10-16): proved existence for every positive index.** This result establishes that neither sequence has a zero term; it does **not** give a closed formula for the minimal concatenation or its quotient.
+**Status (2026-10-16): proved existence for every positive index.** This proves that A083468(n) is positive and A083469(n) is well-defined for every positive n; it does **not** give a closed formula for either minimum.
 
 ## Definitions
 
@@ -8,7 +8,7 @@ For a positive integer \(n\), write \(u\Vert v\) for decimal concatenation. OEIS
 
 ## Theorem (reverse concatenations; in fact, arbitrary permutations)
 
-Let \(\beta\ge2\) be even, \(n\ge1\), and let \(\pi\) be any permutation of \(\{0,\ldots,n-1\}\). There exist positive integers \(d,k\) such that \(k,k+1,\ldots,k+n-1\) all have exactly \(d\) base-\(\beta\) digits and
+Let \(\beta\ge2\) be even, \(n\ge1\), and let \(\pi:\{1,\ldots,n\}\to\{0,\ldots,n-1\}\) be any bijection. There exist positive integers \(d,k\) such that \(k,k+1,\ldots,k+n-1\) all have exactly \(d\) base-\(\beta\) digits and
 
 \[
   n\mid (k+\pi(1))\Vert_\beta(k+\pi(2))\Vert_\beta\cdots\Vert_\beta(k+\pi(n)).
@@ -80,6 +80,14 @@ provided \(d\) is large enough that \(9\cdot10^{d-1}\ge q+n-1\). For the multipl
 
 Example: \(n=4\), \(d=2\), \(a=12\) yields \(15\Vert14\Vert13\Vert12=15141312\), which is divisible by 4 (though not the minimal A083468\((4)=5432\)).
 
+## Paper (PDF and LaTeX)
+
+- [Read the three-page proof (main.pdf)](main.pdf).
+- [LaTeX source (main.tex)](main.tex).
+- To rebuild with a TeX installation: `pdflatex -interaction=nonstopmode -halt-on-error main.tex` (run twice to resolve references).
+
+The paper includes the even-base arbitrary-permutation theorem, its reverse-concatenation corollary for both OEIS sequences, an explicit witness construction, references, and a clear distinction between existence and computing minimum terms.
+
 ## Independent verification
 
 Run `python verify_reverse_concatenation.py`. Checks include:
@@ -105,6 +113,6 @@ OEIS: [A083468](https://oeis.org/A083468), [A083469](https://oeis.org/A083469). 
 
 **A083469, COMMENTS:**
 
-> For every n >= 1, a(n) > 0, since a(n) = A083468(n)/n and all terms of A083468 are nonzero by the reverse-concatenation existence theorem (Wang, 2026). Proof: https://github.com/dongxuelian2/oeis-papers/tree/main/papers/A083468-A083469
+> For every n >= 1, a(n) is well-defined and positive: the reverse-concatenation existence theorem proves that A083468(n) > 0, and a(n) = A083468(n)/n (Wang, 2026). Proof: https://github.com/dongxuelian2/oeis-papers/tree/main/papers/A083468-A083469
 
 These are proposed comments, **not yet submitted to OEIS**.

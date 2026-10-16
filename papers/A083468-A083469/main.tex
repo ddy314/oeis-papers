@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,amsmath,amssymb,amsthm,microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+\newcommand{\cat}{\mathbin{\Vert}}
+\title{Divisibility of Reversed Consecutive-Integer Concatenations\\and an Arbitrary-Permutation Extension}
+\author{Qichao Wang\\\small Hebei University of Technology, Tianjin, China}
+\date{October 16, 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+For every positive integer $n$, we show that the concatenation of some
+$n$ consecutive positive integers in decreasing order is divisible by $n$.
+Consequently, OEIS A083468 is positive and OEIS A083469 is well-defined
+for every positive index.  We prove a more general assertion: in any even
+integer base, \emph{every prescribed permutation} of $n$ consecutive
+integers admits infinitely many equal-width concatenations divisible by
+$n$.  The proof is constructive and rests only on congruences and the
+Chinese remainder theorem.  We establish existence, not an explicit
+formula for the least sequence values.
+\end{abstract}
+\section{The two sequences}
+Write $u\cat_b v$ for concatenation of the base-$b$ digit strings
+of positive integers $u,v$.  The sequence
+\href{https://oeis.org/A083468}{OEIS A083468} gives the smallest
+positive multiple of $n$ obtained by concatenating $n$ consecutive
+positive integers in \emph{decreasing} order, with the value zero
+if no such concatenation exists.  The companion sequence
+\href{https://oeis.org/A083469}{OEIS A083469} divides that
+smallest value by $n$; its definition does not assign a value in a
+hypothetical nonexistence case \cite{oeis468,oeis469}.
+We prove nonexistence never occurs.  The proof is independent of the
+minimality of the listed sequence terms.  It can also be viewed as a
+corollary of the author's even-base arithmetic-progression divisibility
+theorem, taking step $-1$ \cite{wangAP}.  The independent proof below
+exposes a permutation strengthening.
+\section{Divisibility in every prescribed block order}
+\begin{theorem}\label{thm:permutation}
+Let $b\ge2$ be an even integer, $n\ge1$, and let
+$\pi:\{1,\ldots,n\}\to\{0,\ldots,n-1\}$ be an arbitrary bijection.
+There exist infinitely many pairs $(d,k)$ of positive integers such that
+$k,k+1,\ldots,k+n-1$ all have exactly $d$ digits in base $b$ and
+\begin{equation}\label{eq:target}
+ n\ \Big|\ (k+\pi(1))\cat_b(k+\pi(2))\cat_b\cdots\cat_b(k+\pi(n)).
+\end{equation}
+In particular, there are infinitely many distinct concatenated integers
+satisfying \eqref{eq:target}.
+\end{theorem}
+\begin{proof}
+Factor $n=qm$, where $q$ is the largest divisor of $n$ supported
+on primes dividing $b$. Thus $\gcd(q,m)=1$ and $\gcd(m,b)=1$.
+Since $b$ is even, $m$ is odd.
+Choose an arbitrarily large positive integer $d$ with
+\begin{equation}\label{eq:base}
+ q\mid b^d,\qquad b^d\equiv1\pmod m,
+ \qquad (b-1)b^{d-1}\ge q+n-1.
+\end{equation}
+Such $d$ exist arbitrarily far out: divisibility by $q$ holds for all
+sufficiently large $d$; the second condition holds when $d$ is a
+multiple of the multiplicative order of $b$ modulo $m$ (and is
+vacuous when $m=1$); the inequality follows for large $d$.
+The inclusive interval
+\[
+ I_d=[b^{d-1},\,b^d-n]\cap\mathbb Z
+\]
+contains at least $q$ consecutive integers, by \eqref{eq:base}.
+Choose $k\in I_d$ satisfying
+\begin{equation}\label{eq:k}
+ k+\pi(n)\equiv0\pmod q.
+\end{equation}
+If $q=1$, this congruence is vacuous. All $n$ of the integers
+$k,\ldots,k+n-1$ are positive and have exactly $d$ base-$b$ digits.
+Put $B=b^d$. The proposed concatenation is the integer
+\begin{equation}\label{eq:poly}
+ C=\sum_{i=1}^{n}\bigl(k+\pi(i)\bigr)B^{n-i}.
+\end{equation}
+Since $q\mid B$, the final summand in \eqref{eq:poly} is the only
+one that survives modulo $q$, so \eqref{eq:k} gives
+\[
+ C\equiv k+\pi(n)\equiv0\pmod q.
+\]
+On the other hand, $B\equiv1\pmod m$, hence the permutation drops
+out of the residue:
+\[
+ C\equiv\sum_{i=1}^{n}\bigl(k+\pi(i)\bigr)
+  =nk+\frac{n(n-1)}2\equiv0\pmod m.
+\]
+The last congruence holds because $m\mid n$ and $m$ is odd.
+As $\gcd(q,m)=1$, the Chinese remainder theorem implies $n\mid C$.
+There are arbitrarily large admissible $d$, and the resulting
+concatenations have increasing lengths $nd$, proving infinitude.
+\end{proof}
+\begin{corollary}\label{cor:oeis}
+For every positive integer $n$, there exist infinitely many
+concatenations of $n$ consecutive positive integers in decreasing
+order that are divisible by $n$. Consequently
+\[
+ \boxed{\mathrm{A083468}(n)>0\quad\text{for every }n\ge1,}
+\]
+while $\mathrm{A083469}(n)=\mathrm{A083468}(n)/n$ is
+well-defined and positive for every $n\ge1$.
+\end{corollary}
+\begin{proof}
+In Theorem~\ref{thm:permutation} take $b=10$ and
+$\pi(i)=n-i$, so that the blocks occur in descending order.
+\end{proof}
+\section{A concrete witness construction}
+For the decimal case, factor
+\[
+ n=q m,\qquad q=2^{v_2(n)}5^{v_5(n)},\qquad \gcd(m,10)=1.
+\]
+Take an arbitrarily large $d$ satisfying
+\[
+ q\mid10^d,\qquad10^d\equiv1\pmod m,\qquad
+ 9\cdot10^{d-1}\ge q+n-1.
+\]
+The smallest multiple of $q$ not below $10^{d-1}$,
+\[
+ a=q\left\lceil\frac{10^{d-1}}q\right\rceil,
+\]
+lies in $[10^{d-1},10^d-n]$. Therefore the integer
+\[
+ (a+n-1)\cat_{10}(a+n-2)\cat_{10}\cdots\cat_{10}a
+\]
+is divisible by $n$. For instance, with $n=4$, $d=2$ and $a=12$,
+we obtain $15141312$, which is divisible by $4$; this is not the
+minimum, which is $5432$ \cite{oeis468}.
+\begin{remark}
+The hypothesis that $b$ is even ensures that $m$ is odd, which is
+used to annihilate $n(n-1)/2$ modulo $m$. No such theorem for arbitrary
+odd bases is claimed here.
+\end{remark}
+\section{Computational checks and scope}
+The accompanying script \texttt{verify\_reverse\_concatenation.py}
+constructs witnesses for $1\le n\le512$, verifies divisibility using
+modular concatenation, and independently reproduces the first sixteen
+A083468 minima. Finite checks are supplementary: the theorem is an
+unconditional proof for all indices.
+The proof establishes \emph{existence} and provides an explicit family of
+witnesses. It does not evaluate the minimal concatenation or its
+quotient in closed form. The theorem includes the previously observed
+reverse-progression consequence of \cite{wangAP}; no claim is made
+that the arbitrary-permutation strengthening is new to the literature.
+\begin{thebibliography}{9}
+\bibitem{oeis468} OEIS Foundation Inc.,
+  \emph{A083468}, \url{https://oeis.org/A083468}
+  (accessed October 16, 2026).
+\bibitem{oeis469} OEIS Foundation Inc.,
+  \emph{A083469}, \url{https://oeis.org/A083469}
+  (accessed October 16, 2026).
+\bibitem{wangAP} Q. Wang,
+  \emph{Divisibility of Concatenated Arithmetic Progressions and
+  Champernowne Prefixes},
+  \url{https://github.com/dongxuelian2/oeis-papers/tree/main/papers/A075000-A075002},
+  2026. See the even-base AP divisibility theorem.
+\bibitem{luca} F. Luca and B. Teguia Tabuguia,
+ \emph{Concatenations of terms of an arithmetic progression},
+ Journal of Difference Equations and Applications \textbf{32} (2026), 437--456,
+ \url{https://doi.org/10.1080/10236198.2025.2603385}.
+\end{thebibliography}
+\end{document}
