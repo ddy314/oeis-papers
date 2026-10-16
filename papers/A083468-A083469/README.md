@@ -80,6 +80,14 @@ provided \(d\) is large enough that \(9\cdot10^{d-1}\ge q+n-1\). For the multipl
 
 Example: \(n=4\), \(d=2\), \(a=12\) yields \(15\Vert14\Vert13\Vert12=15141312\), which is divisible by 4 (though not the minimal A083468\((4)=5432\)).
 
+## Paper (PDF and LaTeX)
+
+- [Read the three-page proof (main.pdf)](main.pdf).
+- [LaTeX source (main.tex)](main.tex).
+- To rebuild with a TeX installation: `pdflatex -interaction=nonstopmode -halt-on-error main.tex` (run twice to resolve references).
+
+The paper includes the even-base arbitrary-permutation theorem, its reverse-concatenation corollary for both OEIS sequences, an explicit witness construction, references, and a clear distinction between existence and computing minimum terms.
+
 ## Independent verification
 
 Run `python verify_reverse_concatenation.py`. Checks include:
