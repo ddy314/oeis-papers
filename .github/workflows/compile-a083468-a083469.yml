@@ -1,0 +1,37 @@
+name: Compile A083468-A083469 PDF
+
+on:
+  push:
+    branches:
+      - fix/oeis-opus55-review-20261016
+    paths:
+      - papers/A083468-A083469/main.tex
+      - .github/workflows/compile-a083468-a083469.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  typeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Typeset three-page article
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: papers/A083468-A083469
+          latexmk_use_xelatex: false
+      - name: Commit generated PDF to review branch
+        run: |
+          test -s papers/A083468-A083469/main.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/A083468-A083469/main.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: add compiled A083468-A083469 PDF"
+            git push
+          fi
