@@ -2,6 +2,12 @@
 
 **Status: partial rigorous results only (2026-10-16).** Kashihara's global conjecture is **not proved or disproved**. Novelty beyond the references below has **not** been established. These theorems exclude several infinite families of *blocks* `1,2,...,m` and **all of their cyclic rotations**. They do not determine which of the remaining rotations might be perfect powers.
 
+The [exact boundary equations](STRUCTURE.md) give a separate structural
+reduction for every rotation and exponent, including coefficient valuations
+and a necessary continued-fraction convergent with denominator supported on
+2 and 5. They do not give a uniform exclusion or parameter bound. Reproduce
+their finite checks with `python verify_structure.py`.
+
 ## Problem and previous work
 
 For each integer `m >= 1`, form the decimal word `W_m = 1 || 2 || ... || m`. Let `R_{m,j}` be the decimal integer obtained by cutting the first `j` entire positive-integer blocks and moving them to the end, for `0 <= j < m`. OEIS [A001292](https://oeis.org/A001292) is the increasing enumeration of all these cyclically rotated words. Kashihara's conjecture says that none except `1` is a nontrivial perfect power. Ripà (2022) excluded **all block permutations** for `m == 2,3,5,6 (mod 9)` by digit-sum valuation; this report studies previously unexcluded values `m == 0,8 (mod 9)`.
