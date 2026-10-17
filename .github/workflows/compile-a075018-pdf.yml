@@ -1,0 +1,40 @@
+name: A075018 PDF build
+
+on:
+  push:
+    branches:
+      - paper/a075018-fixed-length-universal-divisibility
+    paths:
+      - papers/A075018/main.tex
+      - papers/A075018/verify.py
+      - .github/workflows/compile-a075018-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  typeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Reproduce arithmetic checks
+        run: python papers/A075018/verify.py
+      - name: Compile LaTeX manuscript
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: papers/A075018
+          latexmk_use_xelatex: false
+      - name: Commit reproducible PDF to PR branch
+        run: |
+          test -s papers/A075018/main.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/A075018/main.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: add compiled A075018 proof PDF"
+            git push
+          fi
