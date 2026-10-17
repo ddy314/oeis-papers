@@ -1,0 +1,40 @@
+name: A077183-A077185 paper PDF build
+
+on:
+  push:
+    branches:
+      - paper/a077183-a077185-prime-divisibility
+    paths:
+      - papers/A077183-A077185/main.tex
+      - papers/A077183-A077185/verify.py
+      - .github/workflows/compile-a077183-a077185-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  typeset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Reproduce mathematical tests
+        run: python papers/A077183-A077185/verify.py
+      - name: Compile LaTeX paper
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: papers/A077183-A077185
+          latexmk_use_xelatex: false
+      - name: Commit PDF to branch
+        run: |
+          test -s papers/A077183-A077185/main.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/A077183-A077185/main.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: add compiled A077183-A077185 proof PDF"
+            git push
+          fi
