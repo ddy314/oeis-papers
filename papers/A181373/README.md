@@ -50,7 +50,8 @@ inside a constant-digit-length block, when \(10^r\equiv1\pmod p\) and \(d\equiv1
 
 - [main.tex](main.tex): self-contained LaTeX paper with complete proof and references.
 - [verify.py](verify.py): independent modular prefix evaluator, published-term cross-check, Fermat witnesses, and order-sensitive witness checks.
-- The GitHub repository tracks the source, **not** a compiled PDF. Compile locally with pdflatex; the previous three-page PDF was shared separately.
+- [Compiled paper PDF (main.pdf)](main.pdf): complete typeset proof tracked in GitHub.
+- Compile locally with pdflatex if you want to reproduce the PDF.
 
 Reproduce by running Python verification, followed by pdflatex twice on main.tex.
 
