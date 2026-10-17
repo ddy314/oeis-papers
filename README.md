@@ -14,3 +14,7 @@ reproducibility materials.
   that exactly the primes 2 and 5 fail to divide any descending decimal
   prefix k||...||1. Stronger theorem for all bases and primes,
   with two-page PDF, LaTeX and independently verified witness code.
+- [A087354 (also A391022 and A391189)](papers/A087354/): proves all-index
+  existence of squares obtained by concatenating arbitrarily many **strictly
+  increasing distinct nonzero square blocks**. Complete two-page paper,
+  compiled PDF, and independent integer-verification script.
