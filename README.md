@@ -9,3 +9,8 @@ reproducibility materials.
 - [A181373](papers/A181373/): an elementary constructive proof that every prime
   except 2 and 5 divides all digit rotations of some concatenation 123...m.
   Includes an explicit witness bound and verification program.
+
+- [A077183-A077185](papers/A077183-A077185/): proves the 2005 conjecture
+  that exactly the primes 2 and 5 fail to divide any descending decimal
+  prefix k||...||1. Stronger theorem for all bases and primes,
+  with two-page PDF, LaTeX and independently verified witness code.
