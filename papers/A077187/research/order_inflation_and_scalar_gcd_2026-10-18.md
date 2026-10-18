@@ -188,3 +188,78 @@ Potential strategies:
 
 The GitHub scripts are intended to distinguish each verified
 finite fact from the open global claim.
+
+
+## 5. One-sided universal radical containment — PROVED
+
+The order-inflation theorem also gives a uniform *unconditional*
+factor-inclusion result, which must be distinguished from the
+unproved exact-GCD identity (C).
+
+**Proposition.** For every integer \(r\ge2\),
+\[
+\boxed{
+\operatorname{rad}\gcd(N_r,3T_r)
+\ \mid\ \operatorname{rad}G_r
+\ \mid\ \operatorname{rad}\gcd(N_r,U_r+V_r).
+}\tag{P}
+\]
+Here \(\operatorname{rad}(n)\) is the product of the distinct prime
+divisors of \(n\), and \(G_r=\gcd(N_r,U_r,V_r)\).
+The second divisibility is immediate because any common divisor of
+both coordinates divides their sum.
+
+**Proof of the first divisibility.**
+Let \(p\mid\gcd(N_r,3T_r)\).
+If \(p=3\), every full digit layer modulo 3 is the identity:
+\(q=10^d\equiv1\), \(m=9\cdot10^{d-1}\equiv0\),
+\(A=1\), \(S=m\equiv0\),
+\(J=m(m-1)/2\equiv0\); thus \(\delta_r=0\).
+(The primes 2 and 5 never divide \(N_r\).)
+
+Otherwise \(p\mid T_r\), with actual order
+\(s=\operatorname{ord}_p(10)\mid r\).
+Write \(s=2^{a'}5^{c'}w\).
+Both \(s\) and \(\operatorname{ord}_w(10)\) have all prime
+divisors *strictly less than \(p\)*, because \(s\mid p-1\)
+and \(\operatorname{ord}_w(10)\le\varphi(w)\le w\le s\)
+(with \(w=1\) treated separately). Therefore \(p\nmid T_s\).
+Since \(T_s\mid T_r\), the ratio \(T_r/T_s\) is divisible by \(p\).
+The proved order-inflation theorem gives
+\(\delta_r=(T_r/T_s)\delta_s=0\pmod p\).
+Reduction of the composite-ring \((U_r,V_r)\) modulo \(p\) is
+exactly this \(\delta_r\), so \(p\mid G_r\).
+The proof holds for every \(r\), not just the tested range. QED.
+
+**Equivalence (logical reduction, not a solution).**
+The following two assertions are equivalent:
+
+1. Every prime \(p\ge7\), including \(p=11\), has **nonzero
+   true-order drift**
+   \(\delta_{\operatorname{ord}_p(10)}\ne(0,0)\).
+2. For every integer \(r\ge2\),
+   \[
+   \boxed{\operatorname{rad}G_r=
+   \operatorname{rad}\gcd(N_r,3T_r).}\tag{R}
+   \]
+
+Indeed, if (1) holds, then for any \(p\mid G_r\), either \(p=3\)
+or the inflation lemma forces \(p\mid T_r/T_s\), so
+\(p\mid3T_r\). Combine this reverse inclusion with (P).
+Conversely, set \(r=s=\operatorname{ord}_p(10)\).
+Then \(p\mid N_s\) but \(p\nmid3T_s\), as shown above,
+so (R) implies \(p\nmid G_s\), i.e. nonzero true-order drift.
+For \(p=11\), its true-order drift at \(s=2\) is
+\((9,0)\not\equiv(0,0)\pmod{11}\), so it is already known.
+The \(p=3\) case has zero drift, consistent with the factor 3.
+
+**Interpretation.** The observed equality
+\(G_r=\gcd(N_r,9T_r)\) is **stronger** than (R) because it
+also fixes \(p\)-adic valuations; (R) is a *radical identity*.
+The above establishes only the \(\subseteq\) direction of
+the prime-support identity, together with an exact equivalence
+between the missing reverse direction and global nonzero drift.
+This does not exclude a conceivable zero-drift prime that still
+has a divisible mountain by the independent subgroup-root criterion.
+Thus (R) is sufficient for, but not logically equivalent to,
+the full A077187 existence conjecture.
