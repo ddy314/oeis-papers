@@ -297,3 +297,44 @@ polynomials both vanish at the primitive root \(X=10\) in
 problem**, with the layerwise reflected-word relation (9) coupling
 its two profiles. It is an equivalent reformulation, not an
 independent nonvanishing proof.
+
+
+### Maximality of the phase-free family
+
+The \(v\mid9\) theorem is not an arbitrary convenient subfamily: it
+is **exactly the case in which the position-phase mismatch disappears
+identically at every stable layer.**
+
+**Proposition.** Let \(p\ge7,\ p\ne11\) be prime with exact order
+\(r=2^a5^cv\), and let \(d=e,\dots,e+T-1\) be the stable block
+above. Then the following are equivalent:
+
+1. \(v\mid9\);
+2. \(A_d=1\pmod p\) for every \(d\) in the stable block;
+3. \(\Theta_d=1\pmod p\) for every \(d\) in the stable block.
+
+**Proof.** For stable \(d\), the smooth factor \(u=2^a5^c\)
+divides \(10^{d-1}\). Since \(r=uv\), \(u\) and \(v\) are coprime,
+and \((v,10)=1\),
+\[
+A_d=10^{9d10^{d-1}}=1\pmod p
+\iff r\mid9d10^{d-1}\iff v\mid9d .
+\]
+Thus \(v\mid9\) forces (2). Conversely, if (2) holds for the two
+consecutive indices \(e,e+1\), then \(v\mid9e\) and
+\(v\mid9(e+1)\), so \(v\mid\gcd(9e,9(e+1))=9\).
+This proves (1) iff (2).
+
+If (2) holds, then \(P_d=\prod_{i=e}^{d-1}A_i=1\), hence
+\(\Theta_d=P_d^2A_d=1\), proving (3).
+Conversely \(\Theta_e=A_e=1\), and if \(\Theta_d=1\)
+then \(P_d=1\) inductively, so
+\(A_d=\Theta_d/P_d^2=1\) and
+\(P_{d+1}=P_dA_d=1\). Thus (3) implies (2). QED.
+
+Consequently the reflection cancellation mechanism underlying
+the \(9/100\) invariant is **maximal among all subfamilies in which
+every individual stable layer is untwisted**. Extending the argument
+to \(v\nmid9\) requires a genuinely global cancellation or
+nonvanishing analysis of the varying phase factors; it cannot be
+obtained by simply adding more untwisted layers.
