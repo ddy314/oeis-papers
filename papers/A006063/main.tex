@@ -1006,6 +1006,131 @@ $P_d(n)\ge P_d(M)^L$.
 Taking logarithms proves the bound.
 \end{proof}
 
+\begin{theorem}[Power-divisor tensor recurrence]\label{thm:divisor-recurrence}
+Fix an exponent $d\ge2$ and a nonnegative
+integer $n$. For any odd positive integer $t$
+such that $L=t^d$ divides $2n+1$, set
+\[
+A=\frac{L-1}{2},\qquad
+q=\frac{2n+1}{L},
+\qquad M_b=b^d-\frac{q+1}{2}.
+\]
+With $P_d(0)=1$, we have
+\begin{equation}\label{eq:divisor-recurrence}
+\boxed{\displaystyle
+P_d(n)\ge P_d(A)
+\!\!\!\sum_{\substack{b\ge2,\ M_b\ge0\\b^d<q}}
+P_d(M_b)^{\,L}.}
+\end{equation}
+For $t=1$, this is exactly the earlier
+one-step interval-reflection counting
+recurrence (now also allowing the empty prefix).
+\end{theorem}
+\begin{proof}
+For each summand choose one permutation on
+$[1,A]$ and, independently, $L$ permutations
+of $[1,M_b]$. Apply
+Lemma~\ref{lem:block} on
+$[A+1,B]$, where $B=A+M_bL$.
+The equation defining $M_b$ gives
+\[
+B+n+1=b^dL=(bt)^d,\qquad
+n-B=(q-b^d)L>0.
+\]
+Thus the final interval $[B+1,n]$ is
+permuted by the reflection
+$x\mapsto(bt)^d-x$. All three pieces
+are valid and disjoint, producing
+$P_d(A)P_d(M_b)^L$ distinct permutations.
+Different $b$ have different last
+entries $p(n)=(bt)^d-n$, so these
+families are disjoint and can be added.
+When $t=1$, $L=1$, $A=0$ and
+$M_b=b^d-n-1$, recovering the reflection
+recurrence.
+\end{proof}
+
+This formula gives a precise arithmetic
+description of the advantage and limitation
+of the tensor construction: a nontrivial
+block scale $t>1$ requires the cubic
+divisibility condition $t^d\mid(2n+1)$.
+It does not, by itself, prove exponential
+growth at \emph{every} length.
+
+\begin{lemma}[A denser finite alternating-cycle gadget]
+\label{lem:362}
+There exists a cube-sum permutation of
+$[1,362]$ admitting at least $40$ pairwise
+vertex-disjoint alternating cycles.
+Consequently,
+\[
+\boxed{P(362)\ge 2^{40}.}
+\]
+\end{lemma}
+\begin{proof}
+An explicit certificate in
+\texttt{certificates/forty\_cycles\_362.json}
+describes a valid permutation using
+$43$ integer interval-reflection rows
+$p(i)=c-i$ and lists $40$ alternating
+directed cycles on $182$ distinct vertices.
+Each listed edge is checked by the
+single integer identity $i+p(j)=k^3$.
+These cycles are vertex-disjoint and can
+be switched independently. The standalone
+\texttt{verify\_362.py} checker directly
+verifies every row and edge without any
+matching solver or permanent algorithm.
+\end{proof}
+
+\begin{theorem}[Improved explicit exponential subsequence]
+\label{thm:362subsequence}
+For every odd integer $t\ge7$, let
+\[
+N_t=\frac{733t^3-1}{2}.
+\]
+Then
+\[
+\boxed{\displaystyle
+P(N_t)\ge
+P\!\left(\frac{t^3-1}{2}\right)
+2^{40t^3}\ge2^{40t^3}.}
+\]
+In particular,
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P(n)}n
+\ge\frac{80\log2}{733}
+>0.0756.}
+\]
+\end{theorem}
+\begin{proof}
+In Theorem~\ref{thm:divisor-recurrence}
+take $d=3$, $M_b=362$, $b=9$.
+Then $b^3=729$ and $q=2\cdot729-2\cdot362-1=733$,
+so $b^3<q$ and $n=N_t$.
+At $t=7$ the prefix length
+$A=(7^3-1)/2=171$ is a known positive
+index from the finite classification.
+For every larger odd $t$, $A\ge364$,
+so the existence theorem applies.
+Hence $P(A)>0$ and
+\[
+P(N_t)\ge P(A)P(362)^{t^3}
+\ge2^{40t^3}.
+\]
+Since $N_t\sim(733/2)t^3$,
+division by $N_t$ gives the stated
+exponential coefficient.
+\end{proof}
+
+The constant here is stronger than
+the earlier $236$-seed coefficient
+$18\log2/551$. It is a rigorously
+certified \emph{lower bound}, not a
+claim of optimal asymptotic entropy.
+
 This gives an \emph{exponential limsup},
 not an exponential lower bound for all $n$.
 In particular, it is logically distinct from
