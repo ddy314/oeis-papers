@@ -2,7 +2,7 @@
 """Exact A077187 order-class extension: 501 <= ord_p(10) <= 744.
 
 Requires Python stdlib and certify_orders_le500.py from the same directory.
-The 31 previously uncovered order classes are exhaustively recomputed using
+The 31 newly extended order classes and four previously norm-covered cases are exhaustively recomputed using
 integer ring Z/(10^r-1), not enumeration of prime divisors of 10^r-1.
 
 Each G_r=gcd(10^r-1,U_r,V_r) is factored by complete trial division
@@ -20,6 +20,7 @@ from certify_orders_le500 import (
 )
 
 ROWS = [
+    (216,216,243), (432,432,243), (648,648,729), (675,675,243),
     (504,504,567), (520,1560,9), (525,1050,27),
     (528,528,297), (536,17688,99), (544,544,153),
     (550,550,99), (552,6072,297), (560,1680,9),
@@ -32,7 +33,7 @@ ROWS = [
     (725,20300,9), (728,2184,9), (736,8096,99),
     (744,3720,27),
 ]
-SHA256 = "1ce7d1bd7c0b0169d1182ae754e39f697a9ee59b898af42f8866ff6c66003d43"
+SHA256 = "211b961ab1c7c1762aa39df1e16415a0e56296ef5b4a1a9a9ffbec3d305d5aa3"
 
 def distinct_prime_factors(n):
     """Fully factor the small exact obstruction; no external factorization."""
@@ -59,10 +60,21 @@ def ord_mod_10(p):
     return k
 
 def audit():
-    expected_orders = [r for r in range(501,745) if not already_covered(r)]
-    assert expected_orders == [r for r,t,g in ROWS], expected_orders
+    def elementary(r):
+        from certify_orders_le500 import split_order
+        u,v=split_order(r)
+        return 20%u==0 or v in (1,3,9)
+    # This and the previous 42-row certificate exhaust EVERY order not
+    # covered by the two elementary infinite-family theorems.
+    from certify_orders_le500 import EXPECTED as OLD_ROWS
+    expected_orders = [r for r in range(2,745) if not elementary(r)]
+    rows = sorted(OLD_ROWS + ROWS)
+    assert expected_orders == [r for r,t,g in rows], expected_orders
+    # Within 501..744, precisely 31 genuinely new order classes.
+    assert len([r for r,t,g in ROWS if r>500])==31
+    assert len(ROWS)==35
     summary=[]
-    for r,T0,G0 in ROWS:
+    for r,T0,G0 in sorted(ROWS):
         T,N,G,U,V=order_class_drift(r)
         assert (T,G)==(T0,G0),(r,T,G)
         assert N==10**r-1
@@ -76,8 +88,10 @@ def audit():
     text="".join(f"{r},{t},{g}\n" for r,t,g in summary).encode()
     assert sha256(text).hexdigest()==SHA256
     assert dict((r,G) for r,T,G in summary)[696]==189
+    assert [dict((r,G) for r,T,G in summary)[r] for r in (216,432,648,675)] == [243,243,729,243]
     assert ord_mod_10(7)==6
-    print("PASS 31 exact new multiplicative-order classes, 501..744")
+    print("PASS 31 new order classes + 4 direct replacements for higher 3-power norms")
+    print("PASS 77 total certificate classes plus two elementary families exhaust 2<=r<=744")
     print("PASS no prime factor of any exact G_r has ord_p(10)=r")
     print("PASS nonprimitive 7 at r=696 excluded by actual order 6")
     print("SHA256",SHA256)
