@@ -6,6 +6,68 @@ the *zero-drift* branch rather than increasing the computational-order
 cutoff. It builds on the exact finite-defect transfer and the
 u=8 tail-gauge formulas already in this PR.
 
+## General theorem: finite-degree singular witnesses for fixed smooth part
+
+Let \(p\ge7\) be prime, \(r=\operatorname{ord}_p(10)=uv\),
+\(u=2^a5^c\), \((v,10)=1\), and let
+\(T=\operatorname{lcm}(r,\operatorname{ord}_v(10))\).
+Set \(W=S_{pT}\), the state at the end of the digit
+window of length \(pT\).
+
+**Theorem 0 (fixed-smooth-part singular reduction).**
+In the entire \(pT\)-digit window,
+\[
+\boxed{\frac{M(k)}{10^{D(k-1)}}\equiv
+k^2+W_C+W_Y\pmod p.}
+\]
+Consequently this window has a divisible mountain if
+and only if \(-W_C-W_Y\) is a square in \(\mathbb F_p\)
+(including zero). For each fixed \(u\), there are rational
+algebraic functions \(f_{u,\gamma}\), with
+\(\gamma=v^{-1}\bmod u\), whose coefficients and degree
+depend only on \(u\), and
+\[
+\boxed{W_C+W_Y=f_{u,\gamma}(10^v),\quad
+f_{u,\gamma}\in\mathbb Q(\zeta_u),\quad
+[\mathbb Q(\zeta_u):\mathbb Q]=\varphi(u).}
+\]
+Here the expression means evaluation at the primitive
+\(u\)-th root \(10^v\bmod p\), after reducing permissible
+rational denominators. For \(u=1\), the field is
+\(\mathbb Q\) and the finite-defect state is zero.
+There is **no bound on \(v\)**.
+
+**Proof.** The finite-defect transfer theorem (already
+proved in this PR) writes the actual boundary states
+as \(S_{jT}=W+jb\), with a stable translation \(b\).
+At \(j=p\), \(S_{pT}=W\) in \(\mathbb F_p^2\),
+irrespective of whether \(b=0\).
+Since \(d=pT\) is a multiple of \(r\), the multiplier
+\(q=10^d\) equals 1 and \(L=10^{d-1}=1/10\).
+The complete singular digit layer changes the sum
+\(C+Y\) by \(9L^2=9/100\), while the local
+square identity gives the constant
+\(C_{d-1}+Y_{d-1}+L-L^2\). Since
+\(L-L^2=9/100\), this is precisely
+\(C_d+Y_d=W_C+W_Y\). Its window is long
+enough to attain every field residue \(k\bmod p\).
+Finally the previously proved finite-defect rational-map
+theorem expresses both coordinates of \(W\) by at most
+\(E-1=\max(a,c)\) early affine maps, with multipliers
+belonging to the fixed \(u\)-th root cyclotomic group.
+The coefficient field has degree \(\varphi(u)\), independently
+of \(v\). QED.
+
+**Scope.** A fixed-degree character is a criterion for
+this **particular singular window**, not a guarantee
+that its character is positive. The nonzero-drift
+construction and other digit windows may still give
+witnesses when this singular criterion fails.
+The \(u=8\) calculation below identifies an exact
+cyclotomic squareclass that obstructs a straightforward
+uniform perfect-square continuation of the \(u\mid20\)
+argument.
+
 ## Theorem: a fixed cyclotomic parameter controls a singular witness
 
 Let \(p\ge7\) be prime with
