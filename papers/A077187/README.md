@@ -441,3 +441,21 @@ reproduces the original 20 exact norms and the new exclusions.
 Together the certified fixed-coprime-order families are now
 \(v\in\{7,11,33,99\}\), with no restriction on \(a,c\).
 The unrestricted A077187 conjecture for arbitrary \(v\) is **OPEN**.
+
+
+### Sharp 3-adic limit of the 22-phase argument
+
+An additional exact group-theoretic lemma proves that for
+\(r=\operatorname{ord}_p(10)=11\cdot3^b2^a5^c\), \(b\ge1\),
+and \(A_d=10^{9d10^{d-1}}\) on stable digit layers,
+\[
+\operatorname{ord}(A_{d+22\cdot3^t}A_d^{-1})
+=3^{\max(b-2-t,0)}
+\]
+for every \(t\ge0\). This identifies a **precise obstruction**
+to extending the current 22-phase norm reuse beyond \(b=2\):
+for \(b\ge3\), 22 steps leave a genuine residual \(3^{b-2}\)
+phase. See the proof in
+[nine-torsion lifting note](research/nine_torsion_lift_v33_v99_2026-10-18.md).
+The new families are complete for \(0\le b\le2\);
+larger \(b\) remains a mathematical open case, not a counterexample.
