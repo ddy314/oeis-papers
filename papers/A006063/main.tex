@@ -1312,6 +1312,111 @@ for reflection-only generation, not
 an upper bound for all admissible
 power-sum permutations.
 
+\begin{theorem}[Fibonacci majorant for the reflection tree]
+\label{thm:fibonacci-majorant}
+Let $F(n)$ be the number of
+strict-reflection descendants of the
+seven-point seed, as in
+\eqref{eq:reflection-tree}, and
+$K(n)=\lfloor(2n)^{1/3}\rfloor$.
+With $\mathrm{Fib}_1=\mathrm{Fib}_2=1$
+and $\mathrm{Fib}_{j+2}=
+\mathrm{Fib}_{j+1}+\mathrm{Fib}_{j}$,
+\begin{equation}\label{eq:fibonacci-majorant}
+\boxed{\displaystyle
+F(n)\le\mathrm{Fib}_{K(n)-2}
+\qquad(K(n)\ge3),}
+\end{equation}
+and $F(n)\le1$ when $K(n)=2$.
+In particular, writing
+$\varphi=(1+\sqrt5)/2$,
+\begin{equation}\label{eq:fibonacci-entropy}
+\boxed{\displaystyle
+\limsup_{n\to\infty}
+\frac{\log F(n)}{(2n)^{1/3}}
+\le\log\varphi.}
+\end{equation}
+Combined with
+Theorem~\ref{thm:treeentropy},
+\[
+\boxed{\displaystyle
+\frac{\log2}{2}\le
+\liminf_{n\to\infty}\frac{\log F(n)}{(2n)^{1/3}}
+\le
+\limsup_{n\to\infty}\frac{\log F(n)}{(2n)^{1/3}}
+\le\log\varphi.}
+\]
+\end{theorem}
+\begin{proof}
+Write $k=K(n)$, and let
+$m=(k-j)^3-n-1\ge7$
+be any valid strict predecessor
+appearing in \eqref{eq:reflection-tree}.
+Necessarily $j\ge0$ and
+$(k-j)^3>n\ge k^3/2$,
+so $k-2j>0$. Moreover,
+\[
+\begin{aligned}
+2m
+&=2(k-j)^3-2n-2\\
+&\le2(k-j)^3-k^3-2\\
+&=(k-2j)^3-6j^2(k-j)-2\\
+&<(k-2j)^3.
+\end{aligned}
+\]
+Thus the integer cube-root height of
+every predecessor satisfies
+\[
+\boxed{K(m)\le k-(2j+1).}
+\]
+
+Define $B_\ell=0$ for $\ell\le1$,
+$B_2=1$, and for $\ell\ge3$ set
+\[
+B_\ell=\sum_{j\ge0} B_{\ell-2j-1}.
+\]
+All sums here are finite. The recurrence
+gives $B_3=B_4=1$ and
+$B_\ell=B_{\ell-1}+B_{\ell-2}$
+for every $\ell\ge4$;
+hence $B_\ell=\mathrm{Fib}_{\ell-2}$
+for every $\ell\ge3$.
+In particular $B_\ell$ is
+nondecreasing for $\ell\ge2$.
+
+Strong induction on $n$ gives
+$F(n)\le B_{K(n)}$: the seed
+$n=7$ has height $K(7)=2$ and
+$F(7)=B_2=1$; other lengths
+with height two have $F(n)=0$;
+and for $K(n)=k\ge3$,
+\[
+F(n)\le
+\sum_{j\ge0}B_{K(m_j)}
+\le\sum_{j\ge0}B_{k-(2j+1)}
+=B_k.
+\]
+This proves the finite inequality.
+Finally Binet's formula implies
+$\log\mathrm{Fib}_k=k\log\varphi+O(1)$,
+so \eqref{eq:fibonacci-entropy}
+follows. The lower inequality is
+Theorem~\ref{thm:treeentropy}.
+\end{proof}
+
+This replaces the coarse
+$2^{K(n)-1}$ encoding ceiling
+with a strict Fibonacci bound.
+It captures the important fact that
+the distinct predecessor branches
+do not just consume one increasing
+cube root: they reduce the available
+height by the odd increments
+$1,3,5,\ldots$.
+It remains an open question whether
+the exact upper or lower limiting
+coefficients can be attained.
+
 \section{A dimension barrier for bounded reflection depth}
 \label{sec:depth-barrier}
 
