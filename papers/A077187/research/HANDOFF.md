@@ -405,3 +405,75 @@ singular window is ruled out as a universal
 phase-independent argument. Do not confuse
 formal phase density with true order-specified
 decimal phases. A077187 remains OPEN.
+
+
+## October 18 latest: universal cutoff-window conjugacy, two rigorous single-window no-go densities
+
+**PROVED (all smooth parts).** Let
+\(r=\operatorname{ord}_p(10)=uv,\ u=2^a5^c\),
+\(h=\max(1,a,c)<r\) and the full stable period \(T\).
+The state just before the \((pT+h)\)-digit interval is
+\(\widehat F_h^{-1}F_h(S_{h-1})\).
+Writing \(A_h,\widehat A_h\) for its actual and
+stable layer multipliers, the ratio
+\(\rho_h=\widehat A_h/A_h\) belongs to
+\(\langle10^h\rangle\).
+The shifted window's quadratic, after
+\(z=\rho_h y\), is exactly the **original**
+\(h\)-digit early-prefix polynomial
+\[
+10^h(C_{h-1}+c_h)y^2-
+{2\cdot10^h\over(10^h-1)^2}y+
+(Y_{h-1}+b_h)=0,\qquad y\in\langle10^h\rangle.
+\]
+This is an *unbounded-order* window equivalence;
+no assertion that this window has a root is made.
+The stability cutoff \(h\) need not be the last
+genuinely discrepant layer.
+
+**PROVED (u=4: density 1/32 of necessary window switching).**
+For \(h=2\), the exact fixed rational quadratic
+has discriminant
+\(\mathcal D_2=-669867392724508459/15125000\).
+At the split prime \(41\equiv1\bmod40\) the
+value is 12, a nonresidue. Thus a Chebotarev
+class of exact natural density \(1/32\)
+(\(p\equiv29\bmod40,\ (\mathcal D_2/p)=-1\))
+has smooth order part \(u=4\) and **cannot**
+have a mountain in its \((pT+2)\) window.
+The earlier \(u\mid20\) proof supplies another
+window witness for every such p, demonstrating
+necessary window switching within a solved family.
+
+**PROVED (u=8: density 1/32 of first post-defect failure).**
+The \(q=10\) window right after \(pT\) has the
+phase-free subgroup polynomial
+\(10ay^2-(20/81)y+b\), with fixed rational
+discriminant \(\mathcal D=(20/81)^2-40ab\).
+At split prime \(401\equiv1\bmod80\),
+\((a,b,\mathcal D)=(146,228,24)\) and
+\((24/401)=-1\). This makes \(\sqrt{\mathcal D}\)
+independent of \(\mathbb Q(\zeta_{80})\), yielding
+an **exact density \(1/32\)** of actual
+\(p\equiv57\) or \(73\bmod80\) with smooth
+order part \(u=8\) and no root anywhere
+in that specified \(q=10\) digit interval.
+This is the single-window projection of the
+older, more demanding *three-window* density
+\(1/128\) obstruction; neither addresses an
+actual all-mountain counterexample.
+
+**AUDITED, CI PASS:**
+- \`terminal_defect_universal_orbit_gauge_2026-10-18.md\`
+- \`audit_terminal_defect_gauge_u4.py\`, CI \`a077187-terminal-defect-gauge.yml\`
+  (9 genuine u4 prime-field comparisons; split 41 certificate).
+- \`u8_single_window_density_one_thirtysecond_2026-10-18.md\`
+- \`audit_u8_positive_density_window_failure.py\`, CI \`a077187-u8-window-density.yml\`
+  (8 genuine u8 cases; split 401 certificate).
+
+**NEXT, still OPEN:** exploit a specific **cross-constraint**
+from true \(\Delta_p=0\) to force a root in
+a different stable window, or prove universal
+nonzero drift. The above *failure of fixed
+windows* demonstrates why a single-window
+argument alone cannot settle A077187.
