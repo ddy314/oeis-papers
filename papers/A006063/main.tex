@@ -641,9 +641,30 @@ $2061$ required lengths are present.
 The computation tests only elementary
 integer identities and finite set
 membership, not the existence of
-matchings. Its exact loop is a
-reproducible finite certificate, not an
-unproved asymptotic inference.
+matchings. Independently, the verifier
+\texttt{one\_seed\_interval\_proof.py}
+operates entirely on unions of integer
+intervals. For every current interval
+$[a,b]$ and cube $c$, it restricts to
+\[
+\ell=\max(a,c-10976),\qquad
+h=\min(b,\lfloor(c-2)/2\rfloor)
+\]
+and, if $\ell\le h$, adds the reflected
+interval $[c-h-1,c-\ell-1]$.
+The exact numbers of disjoint intervals
+after rounds $0$ through $7$ are
+\[
+1,\ 21,\ 186,\ 870,\ 2077,\ 2037,\ 1031,\ 770.
+\]
+The last interval of the final union
+is exactly $[8915,10975]$, which proves
+the finite coverage using \emph{interval
+arithmetic alone}. Both verifiers
+reproduce the same seven-stage cardinalities.
+This finite check is separate from, and
+much weaker than, a search for perfect
+matchings.
 \end{proof}
 
 \begin{theorem}[Eventual existence from one permutation]
