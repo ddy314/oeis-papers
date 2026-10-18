@@ -281,3 +281,43 @@ so the drift coordinates vanish modulo 9. (This uses only
 that 2 is invertible modulo 9.) This establishes the fixed
 \(3^2\)-factor in the observed equality (C), but does not
 establish the further \(3\)-adic or other prime-power exponents.
+
+
+## 6. A stronger *single-offset* slope target — OPEN
+
+The nonzero-drift theorem in the prior notes uses two possible
+slopes, \(10U_r+V_r\) and \(1000U_r+V_r\), in order to avoid
+a potential zero slope for one selected offset.
+Our expanded finite audit detects a more restrictive pattern:
+\[
+\boxed{\gcd(N_r,10U_r+V_r)=\gcd(N_r,9T_r).}\tag{Z}
+\]
+This equality has been checked for **all \(2\le r\le180\)** by the
+same exact Python reference routine, and on selected higher-order
+C++/GMP samples including \(r=1936,2058,2662,4107,4624\).
+It is **not proved for arbitrary \(r\)**.
+
+**Conditional single-offset theorem.** If the weaker divisibility
+\[
+\gcd(N_r,10U_r+V_r)\mid9T_r\qquad
+\text{for every integer }r\ge2 \tag{Z'}
+\]
+could be proved, then for any prime \(p\ge7,\ p\ne11\) with true
+order \(r\), the slope \(10U_r+V_r\) is nonzero modulo \(p\):
+otherwise \(p\mid N_r\) and \(p\mid10U_r+V_r\) would force
+\(p\mid9T_r\), impossible since \(p>r\) and
+every prime divisor of \(T_r\) is at most \(r\).
+Therefore the affine congruence
+\[
+10C_{T_r}+Y_{T_r}+1+(j-1)(10U_r+V_r)=0\pmod p
+\]
+has a solution \(1\le j\le p\), yielding
+\[
+\boxed{p\mid M(10^{jT_r})}
+\]
+**without** using the \(+1\) offset at all.
+This implication is proved, but (Z') remains OPEN.
+
+The empirical equalities (C) and (Z) are separate research
+conjectures; neither should be silently used as an established
+step in the current bounded-order or smooth-order theorems.
