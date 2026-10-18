@@ -287,3 +287,39 @@ primes, but might still divide other mountain concatenations.
 - [Dedicated CI](../../.github/workflows/a077187-exact-obstruction.yml)
 
 No claim of an unrestricted A077187 proof is made.
+
+
+## Structural continuation: two-way block words and integrable windows
+
+[Global structure and proofs (October 18)](research/global_block_hyperbola_structure_2026-10-18.md)
+reframes the unbounded-order research **without extending the finite
+order cutoff**:
+
+- The exact stable drift over \(\mathbb Z/(10^r-1)\) is simply the
+  pair of residues of all integers \(10^T,\dots,10^{2T}-1\)
+  concatenated in *increasing and decreasing* order. True-order
+  zero drift is equivalent to simultaneous divisibility of these two
+  explicit block words.
+- Inside each fixed-width digit layer, polynomial centered coordinates
+  obey \(X\mapsto qX,\ Z\mapsto q^{-1}Z\) and preserve \(XZ\).
+  The normalized mountain condition becomes the intersection
+  \(qX+Z=2q\) with that invariant hyperbola (with \(q=1\)
+  treated as a separate unipotent layer).
+- Reflection of a full consecutive-number block cancels the weighted
+  first moment exactly:
+  \(C'+AY'-AC-Y=(L+q-1)\sum_{i<m}q^i\).
+  This explains the earlier \(9/100\) invariant when the layer
+  multipliers are all 1, **without** assuming that the varying twists
+  cancel for arbitrary multiplicative orders.
+- A nonzero drift gives **at least \(r-\gcd(r,2)\) distinct fixed-offset
+  witness families**, each containing infinitely many divisible
+  mountains. This strengthens the former two-offset sufficient
+  criterion quantitatively but does not rule out zero-drift primes.
+
+A deliberately small independent check is in
+[structural audit](research/audit_global_block_geometry.py), with
+dedicated [GitHub Actions workflow](../../.github/workflows/a077187-global-geometry.yml).
+The principal remaining mathematical gap is the **global interaction
+of layer interfaces and the twisted reflection identity**, not the
+locally integrable within-layer recurrence. The all-primes conjecture
+remains open.
