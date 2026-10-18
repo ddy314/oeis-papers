@@ -566,3 +566,59 @@ of the disproved three-window conjecture.
 
 This complements the proven infinite subfamilies and preserves the
 unrestricted all-primes problem as OPEN.
+
+
+## New general witness-density theorem and Fermat–Lucas double norm
+
+[Complete algebraic proof, October 18 continuation](research/quantitative_witness_phases_and_scalar_gcd_2026-10-18.md).
+
+Let \(r=\operatorname{ord}_p(10)\),
+\(T\) the **reduced** stable period,
+and \((U,V)\) the stable translation. Put
+\(\sigma=U+V\).
+
+- **PROVED:** If \(\sigma\ne0\), **exactly \((p+1)/2\)**
+  of the \(p\) block-number phases \(j\bmod p\) have a
+  divisible mountain in their \(jT\)-digit *singular*
+  layer. The square law is
+  \(M(k)/10^{D(k-1)}
+  =k^2+C_T+Y_T+(j-1)\sigma\). This gives infinitely
+  many different witnesses in every successful phase class.
+- **PROVED:** If \(\sigma=0\) but \((U,V)\ne0\),
+  the first post-boundary window has exactly
+  \(r-\varepsilon_r\) offsets with nonzero affine phase
+  slope, where \(\varepsilon_r=0\) if \(r\) is even and
+  \(1\) if odd. Since each phase can have at most two
+  such offsets, at least
+  \(\lceil(r-\varepsilon_r)/2\rceil\) **distinct**
+  block phases yield divisible mountains.
+- **PROVED (Fermat–Lucas double norm):** For the post-boundary
+  polynomial \(Q_j(z)=(A+10jU)z^2+Hz+(B+jV)\),
+  \(H=-20/81\), \(z^r=1\), and \(r\ge3\),
+  \[
+    \prod_{j\in\mathbb F_p}
+    \operatorname{Res}_z(z^r-1,Q_j(z))
+    =
+    \operatorname{Res}_z(z^r-1,Q_0(z))\,
+    (1-U^{p-1})(1-V^{p-1}).
+  \]
+  The right-hand idempotent equals 1 **only** at exact
+  zero drift. This explains algebraically why nonzero drift
+  supplies many block-phase witnesses, while the
+  zero-drift problem remains a separate open condition.
+
+**EXPERIMENTAL / CONJECTURAL, not a theorem:** exact repunit
+ring tests at \(2\le r\le300\), with seven further spot
+tests, found
+\(\gcd(10^r-1,U_r+V_r)=\gcd(10^r-1,U_r,V_r)\).
+This is explicitly *not* assumed in any proof.
+[Standalone GMP falsification probe](research/probe_scalar_gcd.cpp)
+can search for counterexamples.
+
+Independent scripts:
+[audit witness phase density](research/audit_quantitative_witness_density.py)
+and [audit double norm](research/audit_fermat_lucas_double_norm.py).
+A dedicated small CI workflow runs both plus bounded scalar probes.
+
+**Remaining open:** whether all true zero-drift primes have a
+stable-window root. No unrestricted all-primes proof is claimed.
