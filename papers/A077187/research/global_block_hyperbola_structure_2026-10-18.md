@@ -199,3 +199,101 @@ interface maps and \(A\ne1\) twists (Theorem C), **not** the
 integrable within-layer dynamics. Finite order-bound experiments are
 orthogonal to that missing global argument. No full proof of
 A077187 is claimed.
+
+
+## 6. Exact whole-period twisted-reflection decomposition (new)
+
+The layerwise reflection identity (7) can be promoted to a **precise
+global formula** showing exactly which phase mismatch prevents naive
+telescoping.
+
+Work in \(R=\mathbb Z/(10^r-1)\), with the stable block
+\(d=e,\ldots,e+T-1\), \(e=T+1\). For each layer set
+\[
+m_d=9\cdot10^{d-1},\quad h_d=dm_d,\quad
+q_d=10^d,\quad L_d=10^{d-1},\quad
+A_d=10^{h_d},
+\]
+and write \(B_d\), \(R_d^*\), \(\Sigma_d\) for its increasing word,
+decreasing word, and geometric sum as in Theorem C. Define the
+**position phase**
+\[
+P_d=10^{\sum_{i=e}^{d-1}h_i},\qquad
+\Theta_d=P_d^2 A_d
+       =10^{\,2\sum_{i=e}^{d-1}h_i+h_d}.
+\]
+Every \(P_d\) and \(A_d\) is a unit in \(R\), and the total product of
+the \(A_d\)'s is 1.
+
+**Theorem E (twisted reflection/flux identity).** For every integer
+\(r\ge2\) and **every scalar \(\lambda\in R\)**,
+\[
+\boxed{
+\lambda U_r+V_r=
+\sum_{d=e}^{e+T-1}
+P_d\left[
+ (L_d+q_d-1)\Sigma_d
+ +(\lambda\Theta_d^{-1}-1)B_d
+\right]\quad\text{in }R.}
+\tag{9}
+\]
+
+**Proof.** Let \(W^\uparrow,W^\downarrow\) be the block words in
+Theorem A. In the increasing word, the entire \(d\)-layer integer
+\(B_d\) is followed by \(\sum_{i>d}h_i\) decimal digits. Since the
+total block digit count is divisible by \(r\), its weight modulo \(R\)
+is \((P_d A_d)^{-1}=P_d\Theta_d^{-1}\). In the decreasing word, the
+entire \(d\)-layer integer \(R_d^*\) is followed by
+\(\sum_{i<d}h_i\) decimal digits, giving weight \(P_d\).
+Theorem A therefore yields
+\[
+U_r=\sum_d P_d\Theta_d^{-1}B_d,\qquad
+V_r=\sum_d P_d R_d^* .
+\]
+Insert the exact reflection relation
+\(R_d^*=(L_d+q_d-1)\Sigma_d-B_d\).
+Collect coefficients of \(B_d\) to obtain (9). QED.
+
+This works for \(\lambda=1\), targeting the scalar drift
+\(U_r+V_r\), and \(\lambda=10\), targeting the single-offset
+slope \(10U_r+V_r\). No field assumption, division by \(q_d-1\),
+or finite computational certificate is needed.
+
+**What the formula does and does not accomplish.**
+For the already-proved \(v\mid9\) class, every stable \(A_d=1\).
+Hence every \(P_d=\Theta_d=1\), so the entire mismatch sum
+for \(\lambda=1\) vanishes. Also \(\Sigma_d=0\) when
+\(q_d\ne1\), while the unique \(q_d=1\) phase contributes \(9/100\)
+modulo a prime of exact order \(r\). Thus (9) recovers the existing
+elementary nonvanishing invariant **as a global reflected-word
+identity**, rather than a fortuitous cancellation of a first-moment
+formula.
+
+For general \(r\), however, \(A_d\), \(P_d\), and \(\Theta_d\) vary,
+and there is no known reason that
+\(\sum_dP_d(\Theta_d^{-1}-1)B_d\) vanishes or avoids canceling
+the reflected baseline. **Controlling this explicit mismatch is
+a genuinely open global step.** Equation (9) by itself does not
+prove the empirical scalar GCD identities.
+
+### Cyclic digit-profile / Fourier reformulation
+
+There is also a completely finite group-ring representation of the
+two block words. If \(w=\sum_{\ell\ge0}b_\ell10^\ell\) is any decimal
+integer (least-significant digits indexed first), define its cyclic
+digit profile
+\[
+a_j^{(r)}(w)=\sum_{\ell\equiv j\pmod r}b_\ell,\quad
+P_w^{(r)}(X)=\sum_{j=0}^{r-1}a_j^{(r)}(w)X^j .
+\]
+Then
+\[
+\boxed{w\equiv P_w^{(r)}(10)\pmod{10^r-1}.}
+\]
+For \(w=W^\uparrow_r,W^\downarrow_r\), a prime of exact order \(r\)
+has zero drift precisely when the two cyclic digit-profile
+polynomials both vanish at the primitive root \(X=10\) in
+\(\mathbb F_p\). This is a **simultaneous cyclic Fourier-zero
+problem**, with the layerwise reflected-word relation (9) coupling
+its two profiles. It is an equivalent reformulation, not an
+independent nonvanishing proof.
