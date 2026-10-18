@@ -10,55 +10,54 @@
 \newtheorem{corollary}{Corollary}
 \newcommand{\good}{\mathcal{G}}
 \newcommand{\cubes}{\mathcal{C}}
-\title{Cube-Sum Permutations: Exact Membership and Computation-Free Exponential Families}
+\title{Cube-Sum Permutations: Graph Structure, Renormalization, and Exponential Families}
 \author{Qichao Wang\\
 \small Independent mathematical and computational review requested}
 \date{October 18, 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-Let $P(n)$ count permutations $p$ of $\{1,\dots,n\}$ such that
-$i+p_i$ is a perfect cube for every index $i$.
-We give a computer-assisted resolution of the existence
-conjecture recorded as OEIS A006063, as well as the exact
-membership classification for A096680:
-$P(n)>0$ for every $n\ge173$, while $P(173)=P(174)=1$
-and $P(n)\ge3$ for every $n\ge175$.
-An explicit seven-block interval involution at $n=173$
-and only $1844$ one-digit cube roots in $191$ alternating-path
-words certify every remaining base size up to $364$.
-An elementary reflection induction covers all larger sizes;
-the earlier $109$-permutation and $60$-seed certificates
-are retained only for independent cross-checking.
-Exact Hall-set certificates classify the earlier failures,
-and alternating-cycle certificates establish multiplicity.
-For every fixed $s\ge2$ we prove an $s$-branch
-reflection-entropy inequality, giving the stronger limit
+Let $P(n)$ count permutations $p$ of $[1,n]$
+for which every $i+p(i)$ is an integer cube.
+We develop global, threshold-free structure:
+the cube-sum graph admits a partial matching
+of size $n-O(n^{2/3})$ for every $n$,
+and all Hall obstructions can be restricted
+to independent sets spanning the two
+boundary regions. The undirected cycle-cover
+expansion gives a parity determinant over
+$\mathbb F_2$, while a single valid matching
+factors exact counting through the strongly
+connected components of its alternation graph.
+An explicit four-reflection permutation
+on $171$ elements yields the affine
+renormalization
 \[
-\liminf_{n\to\infty}
-\frac{\log P(n)}{(2n)^{1/3}}
-\ge \frac{\log2}{2}.
+P(343n+171)\ge P(n)^{343},
 \]
-More strongly, we identify a two-reflection,
-three-cycle identity gadget that is entirely independent
-of these finite certificates. An explicit weighted
-identity of four cubes yields
+and an entropy monotonicity theorem along
+its multiplicative orbits.
+Separately, an elementary weighted identity
+of cubes gives a fully algebraic
+exponential-subsequence construction
 \[
 P(681707u^3)\ge2^{148877u^3-1}
-\qquad (u\ge1),
+\qquad(u\ge1).
 \]
-and hence
-\[
-\limsup_{n\to\infty}\frac{\log P(n)}n
-\ge\frac{148877\log2}{681707}.
-\]
-These permutations also contain exact binary Hamming
-codes of linear dimension and distance. A conditional
-analogue of the tensorization theorem holds for all
-perfect-power exponents.
-All finite verification data and exact checkers
-are supplied separately; literature priority and
-external independent review remain open.
+As a complementary finite classification,
+one explicit interval involution and $191$
+short augmenting words certify the
+all-$n$ existence conjecture recorded in
+OEIS A006063; independent Hall and
+alternating-cycle certificates classify
+the related multiplicity sequence A096680.
+This last classification remains
+computer-assisted, unlike the global
+structural and algebraic constructions.
+All certificates and independent exact
+checkers accompany the manuscript;
+literature priority and external
+mathematical review remain open.
 \end{abstract}
 
 \section{The reflection principle}
