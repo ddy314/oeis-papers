@@ -664,3 +664,40 @@ Dedicated \`.github/workflows/a077187-mobius-phase.yml\` CI **PASSED**.
 **Boundary:** at true zero drift, the phase map is constant or
 undefined; the projective theorem alone does not imply any
 stable-window root. The unrestricted A077187 conjecture stays OPEN.
+
+
+## Zero-drift continuation: fixed quartic trace at smooth order part \(u=8\)
+
+[Exact algebraic note](research/u8_singular_norm_structure_2026-10-18.md)
+derives the finite-defect state \(W=S_{pT}\) **without assuming
+that the stable drift vanishes**, for every prime with
+\(\operatorname{ord}_p(10)=8v\), \((v,10)=1\).
+With \(\rho\) a primitive eighth root determined by the
+early stable multiplier defect, one obtains
+\[
+W_C+W_Y=-11/81+a\rho^{-1}+b\rho,
+\]
+where \(a,b\in\mathbb Q\) are explicitly fixed constants,
+independent of unbounded \(v\). The full singular digit window
+at \(d=pT\) has the particularly simple mountain equation
+\(k^2+W_C+W_Y=0\). Thus this window succeeds exactly when
+\(-W_C-W_Y\) is a square modulo \(p\).
+
+The field norm of \(E=-11/81+a\zeta_8^{-1}+b\zeta_8\) is
+\[
+(a^2-b^2)^2+(2ab-121/6561)^2.
+\]
+It is **not** a rational square: its reduction modulo 23
+is the quadratic nonresidue 7. Hence
+\(E\notin\mathbb Q^\times(\mathbb Q(\zeta_8)^\times)^2\).
+The \(u=8\) singular-window squareclass is genuinely
+cyclotomic, unlike the earlier \(u\mid20\) elementary
+perfect-square witness.
+
+[Independent algebraic and seven-prime audit](research/audit_u8_singular_trace_norm.py)
+verifies the exact quartic-state calculation and
+shows both successful and unsuccessful singular-window
+examples (notably \(p=313,7841\) fail this window).
+The dedicated \`a077187-u8-trace-norm.yml\` CI passes.
+This is a fixed-degree structural obstruction, **not**
+a proof of the universal zero-drift existence implication.
