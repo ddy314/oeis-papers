@@ -1,0 +1,24 @@
+name: A006063 finite certificate and induction
+
+on:
+  push:
+    paths:
+      - 'papers/A006063/**'
+      - '.github/workflows/a006063-proof.yml'
+  pull_request:
+    paths:
+      - 'papers/A006063/**'
+      - '.github/workflows/a006063-proof.yml'
+
+jobs:
+  certificate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify explicit integer witnesses and recursive construction
+        run: python papers/A006063/verify.py
+      - name: Independent matching reproduction
+        run: python papers/A006063/independent_match.py
