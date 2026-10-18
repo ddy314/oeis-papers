@@ -2348,6 +2348,109 @@ lifts to one cycle in each fiber, and disjoint
 fibers and original cycles remain disjoint.
 \end{proof}
 
+\begin{proposition}[Inverse-paired fiber involutions]
+\label{prop:inverse-fibers}
+In the setting of
+Lemma~\ref{lem:block},
+let $I_d(M)$ be the number of
+valid power-sum involutions of length
+$M$. The exact number of lifted
+interval permutations of the form
+\eqref{eq:lift} which themselves
+are involutions is
+\begin{equation}\label{eq:inverse-fibers}
+\boxed{\displaystyle
+I_d(M)\,P_d(M)^{(L-1)/2}.}
+\end{equation}
+\end{proposition}
+\begin{proof}
+Write $r'=L+1-r$. Since
+\eqref{eq:lift} sends $(i,r)$
+to $(p_r(i),r')$, its square sends
+$(i,r)$ to
+$(p_{r'}(p_r(i)),r)$.
+Thus the lifted interval permutation
+is an involution if and only if
+\[
+p_{L+1-r}=p_r^{-1}
+\qquad(1\le r\le L).
+\]
+The inverse of any valid power-sum
+permutation is valid, by symmetry
+of the condition $i+p(i)$.
+The $(L-1)/2$ pairs of distinct
+fibers may therefore be chosen
+independently in $P_d(M)$ ways
+each; on the unique central fiber
+$r=(L+1)/2$, the chosen
+permutation must be an involution
+and has $I_d(M)$ choices.
+Injectivity of the fiber encoding
+gives \eqref{eq:inverse-fibers}.
+\end{proof}
+
+\begin{corollary}[Transfer from general multiplicity to involution entropy]
+\label{cor:inverse-transfer}
+Fix $d\ge2$. Suppose valid
+$d$th-power-sum involutions exist
+for every sufficiently large length.
+If some $M$ satisfies
+$I_d(M)>0$ and $P_d(M)\ge2$,
+then
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}
+\frac{\log I_d(n)}n
+\ge\frac{\log P_d(M)}{2M+1}>0.}
+\]
+\end{corollary}
+\begin{proof}
+For sufficiently large odd $t$,
+put $L=t^d$, $A=(L-1)/2$
+and $B=A+ML$. Choose a
+valid involution on the prefix
+$[1,A]$. Proposition~\ref{prop:inverse-fibers}
+constructs at least
+$P_d(M)^{(L-1)/2}$ valid involutions
+on the middle interval.
+For the suffix choose the least
+perfect $d$th power
+$C=k^d>(2M+1)L$, and reflect
+$[B+1,C-B-1]$ through $C$.
+This is a legal involution because
+$B+(C-B-1)+1=C$.
+The resulting full size is
+\[
+n=C-B-1
+=\bigl(M+\tfrac12\bigr)L
+ +O(t^{d-1}),
+\]
+since $k=(2M+1)^{1/d}t+O(1)$.
+The prefix and suffix are fixed
+across all middle choices.
+Taking logarithms and dividing
+by $n$ gives the result.
+\end{proof}
+
+This principle shows that
+power-sum involution families
+may have positive linear entropy
+even when the independent local
+choices on the middle blocks are
+\emph{not themselves involutions}:
+inverse-pairing complementary fibers
+is enough, provided one central
+involution exists.
+In the cubic case the explicit
+$316$-element two-reflection
+construction supplies such a
+central involution and several
+alternative ordinary permutations.
+The direct taxicab-switching theorem
+in Section~\ref{sec:taxicab-involutions}
+does not require this eventual
+prefix-existence hypothesis.
+
 \begin{theorem}[An exponential subsequence]
 \label{thm:exponential-subsequence}
 For every odd integer $t\ge9$, define
