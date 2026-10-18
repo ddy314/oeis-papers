@@ -403,6 +403,59 @@ I&c&I&c\\ \hline
 These interval images partition $[1,236]$, and
 every prescribed sum is a cube.
 
+\begin{lemma}[Translation of alternating cycles]
+\label{lem:transport}
+Suppose $p(i)=c_j-i$ on pairwise disjoint
+integer intervals $I_j$ for $1\le j\le r$.
+If $i_j\in I_j$ form a directed alternating
+cycle $i_1\to i_2\to\cdots\to i_r\to i_1$
+for $p$, then every integer shift $t$
+with $i_j+t\in I_j$ for all $j$ produces
+another alternating cycle on $i_j+t$.
+If $t$ ranges through a set $T$ of such
+shifts, the translated cycles are disjoint
+and yield at least $2^{|T|}$ distinct valid
+cube-sum permutations.
+\end{lemma}
+\begin{proof}
+Because $p(i_{j+1}+t)=c_{j+1}-i_{j+1}-t$,
+\[
+(i_j+t)+p(i_{j+1}+t)
+=i_j+c_{j+1}-i_{j+1}
+=i_j+p(i_{j+1}),
+\]
+so every translated alternating edge has
+the same cube sum as its original.
+Since the $I_j$ are pairwise disjoint,
+different shifts cannot share a vertex
+within any $I_j$. The cycles are
+therefore vertex-disjoint and can be
+switched independently.
+\end{proof}
+
+In the present $236$-element template,
+\[
+10\to137\to46\to198\to71\to10
+\]
+is one alternating $5$-cycle, with
+successive cube sums
+\[
+216,\quad216,\quad64,\quad343,\quad125.
+\]
+The five vertices belong respectively to
+the five different reflection blocks
+$[10,18]$, $[137,170]$, $[46,70]$,
+$[198,208]$, $[71,81]$.
+The common shifts $t=0,\dots,8$
+produce nine disjoint alternating cycles
+\emph{by pure algebra}, giving immediately
+\[
+\boxed{P(236)\ge2^9=512}
+\]
+without any matching enumeration.
+The remaining work for the exact count
+is only to exclude further cycles.
+
 \begin{lemma}[Alternating digraph at $236$]\label{lem:236}
 Let $D_p$ be the digraph with an arrow $i\to j$
 whenever $i\ne j$ and $i+p(j)$ is a cube.
