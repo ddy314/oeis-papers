@@ -51,6 +51,28 @@ def depth_reachability(cap, max_depth=3):
     return K, by_depth
 
 
+def check_fibonacci_majorant():
+    """Verify the sharper Fibonacci ceiling and predecessor root drops."""
+    F=reflection_counts(12000)
+    fib=[0,1,1]
+    for _ in range(3,100):
+        fib.append(fib[-1]+fib[-2])
+    cubs=[k**3 for k in range(2,floor_cuberoot(24000)+1)]
+    for n in range(7,len(F)):
+        k=floor_cuberoot(2*n)
+        majorant=1 if k==2 else fib[k-2]
+        assert F[n]<=majorant,(n,F[n],majorant)
+        for j in range(k-1):
+            root=k-j
+            if root<2:break
+            m=root**3-n-1
+            if 7<=m<n:
+                assert floor_cuberoot(2*m)<=k-2*j-1,(n,m,j)
+    print("PASS: all one-seed counts n<=12000 satisfy "
+          "F(n)<=Fib(K(n)-2), and every reflection predecessor "
+          "drops height by at least 2*j+1.")
+
+
 def main():
     f = reflection_counts(12000)
     for n in range(7,len(f)):
