@@ -133,6 +133,29 @@ disjoint allowed loops, single edges
 (dimer components), and unoriented simple
 cycles of length at least three.
 
+\begin{lemma}[Arithmetic location of fixed points]
+\label{lem:fixedpoints}
+In any cube-sum permutation, a fixed point
+$p(i)=i$ can occur only at
+\[
+\boxed{i=4r^3\qquad(r\ge1).}
+\]
+Consequently a valid involution of odd
+length must have at least one fixed point
+at such an index. In particular, a
+cube-sum permutation of odd length
+$n<4$ cannot be an involution.
+\end{lemma}
+\begin{proof}
+At a fixed point $2i=k^3$.
+The cube on the right is even, so
+$k=2r$, whence $i=4r^3$.
+An involution partitions its vertices
+into fixed points and transpositions;
+when $n$ is odd at least one fixed
+point is necessary.
+\end{proof}
+
 \begin{theorem}[Independent-set Hall criterion]
 \label{thm:independent-hall}
 A cube-sum permutation exists on $[1,n]$
@@ -235,7 +258,14 @@ when $H_n$ is nonsingular over
 $\mathbb F_2$, and its parity can be
 computed by polynomial-time Gaussian
 elimination without enumerating
-any permutations.
+any permutations. Moreover,
+\[
+\det(H_n)=1\pmod2
+\quad\Longrightarrow\quad
+\text{there exists a legal involution}
+\]
+since the number of such involutions
+is then odd. The converse need not hold.
 \end{corollary}
 \begin{proof}
 The permanent expansion enumerates
