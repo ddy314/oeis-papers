@@ -184,6 +184,32 @@ The displayed formulas follow. Their only dependence on \(m\)
 is through \(m,m^2\), while all phases are powers of \(\zeta_g\).
 \end{proof}
 
+
+\begin{lemma}[Involutive degree drop for \(\ord_v(10)\le2\)]
+If \(v\mid99\), then the coefficients of \(m^2\) in
+both compressed drift coordinates vanish identically:
+\(U_2=V_2=0\) in the cyclotomic coefficient field.
+\end{lemma}
+\begin{proof}
+For \(v=1\), all stable multipliers equal 1.
+Otherwise \(10^2\equiv1\bmod v\) implies
+\(A_{-j}=A_j^{-1}\). Because
+\(\prod_{j=1}^{\ell}A_j=1\), this yields the
+palindrome \(P_{\ell+1-j}=P_j\).
+Hence both phase differences
+\(\alpha_j=P_j^{-1}-P_{j+1}^{-1}\) and
+\(\beta_j=P_{j+1}-P_j\) change sign
+under \(j\mapsto\ell-j\).
+The coefficient of \(m^2\) in \(F_2\) is the
+inversion-even function \(f(c)=c/(c-1)^2\)
+for \(c\ne1\), extended by \(f(1)=-1/12\).
+Thus \(U_2=\sum_j\alpha_jf(\zeta^j)\) and
+\(V_2=-\sum_j\beta_jf(\zeta^j)\)
+cancel pairwise under the involution.
+\end{proof}
+The result also applies to \(v=33,99\), although
+their linear resultant exclusions have not been established.
+
 \section{Two complete infinite order families}
 \begin{theorem}[Exact computer-assisted families]
 Every prime satisfying
