@@ -25,7 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
-- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
+- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -89,6 +89,21 @@ Any other solution corresponds to a directed cycle cover in that graph: all sing
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
 
+## Binary permutation code with exact Hamming metric
+
+The 9 independent five-cycle toggles of the `M=236` gadget encode each `9`-bit string as a different valid cube-sum permutation. Each toggled cycle changes exactly five positions, so for binary masks `a,b` the **exact** distance is `Hamming(p_a,p_b)=5*Hamming(a,b)`.
+
+Independent-fiber tensorization produces a map `Phi_t:{0,1}**(9*t**3) -> cube-sum permutations of length n_t=(551*t**3-1)//2` such that
+
+```
+Hamming(Phi_t(a), Phi_t(b)) = 5*Hamming(a,b)
+sum_a z**Hamming(Phi_t(a),Phi_t(0)) = (1+z**5)**(9*t**3).
+```
+
+By elementary greedy packing in the binary Hamming cube, a subfamily has at least `2**(9*t**3*(1-H_2(1/4)))` members whose minimum pairwise permutation Hamming distance exceeds `45*t**3/4`. Thus **both the logarithm of the family size and the minimum pairwise distance grow linearly with n_t**.
+
+This codes-and-distances result is algebraic, not a brute-force search. `audit_permutation_code.py` verifies all 512 base bit masks and exact distance scaling for t=3,5,9.
+
 ## General theorem: independent-fiber tensorization
 
 The previous odd-power block lift can be strengthened: **each fiber r=1,...,L can use a different legal base permutation p_r**. For odd `t`, `L=t**d`, `A=(L-1)//2`, and every `i=1,...,M`, define
@@ -150,6 +165,7 @@ Independent integer checks:
 ```sh
 python papers/A006063/lift_exponential_subsequence.py
 python papers/A006063/tensorize_fibers.py
+python papers/A006063/audit_permutation_code.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
