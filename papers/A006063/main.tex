@@ -982,6 +982,156 @@ example at $n=173$ from this seed),
 this theorem counts a rigorously
 defined \emph{subfamily} only.
 
+\section{The entropy barrier of pure reflection}
+\label{sec:reflection-barrier}
+
+The reflection-tree estimates admit a sharp
+structural complement: its combinatorial entropy
+has exactly the cube-root growth \emph{order}.
+Consequently, the exponentially many
+permutations in the independent-cycle constructions
+cannot be produced from finitely many seeds by
+suffix reflections alone.
+
+\begin{theorem}[Strict ordering of reflection cubes]
+\label{thm:cube-order}
+Consider any chain of strict reflection extensions
+\[
+n_0<n_1<\cdots<n_r=n
+\]
+whose step from $n_{j-1}$ to $n_j$
+uses the cube $c_j=n_{j-1}+n_j+1$.
+Then
+\[
+\boxed{c_1<c_2<\cdots<c_r\le2n.}
+\]
+If the initial seed permutation is fixed,
+the set $\{c_1,\ldots,c_r\}$ uniquely
+determines the entire history and its
+final permutation.
+\end{theorem}
+\begin{proof}
+The step from $n_{j-1}$ to $n_j$
+is strict, hence
+$c_j=n_{j-1}+n_j+1\le2n_j\le2n$.
+For consecutive steps,
+\[
+c_{j+1}-c_j
+=n_{j+1}-n_{j-1}>0.
+\]
+Once the starting length $n_0$ and
+the strictly increasing list of cubes
+are specified, every subsequent
+length is uniquely determined by
+$n_j=c_j-n_{j-1}-1$.
+The reflected permutation is then
+uniquely determined by the starting
+permutation and these successive
+lengths. A set of cubes therefore
+determines at most one history.
+\end{proof}
+
+\begin{theorem}[Optimal cube-root order for the one-seed tree]
+\label{thm:reflection-barrier}
+Let $F(n)$ count cube-sum permutations
+obtained by strict reflection extensions
+from the unique seed
+$(7,6,5,4,3,2,1)$.
+For all $n\ge7$,
+\begin{equation}\label{eq:reflection-upper}
+\boxed{\displaystyle
+F(n)\le 2^{K(n)-1},
+\qquad K(n)=\lfloor(2n)^{1/3}\rfloor.}
+\end{equation}
+Together with
+Theorem~\ref{thm:treeentropy}, this yields
+\[
+\boxed{\displaystyle
+\log F(n)=\Theta(n^{1/3})\qquad(n\to\infty).}
+\]
+The same upper estimate holds with a
+factor $S$ for the union of strict-reflection
+descendants of any fixed finite collection
+of $S$ initial cube-sum permutations:
+\begin{equation}\label{eq:finite-seeds-upper}
+\boxed{\displaystyle
+|\mathcal R_{\mathcal S}(n)|
+\le S\,2^{K(n)-1}.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+All possible strict reflection cubes up to
+length $n$ are among
+$2^3,3^3,\ldots,K(n)^3$,
+a list of $K(n)-1$ cubes.
+By Theorem~\ref{thm:cube-order},
+every reflection history from a fixed
+seed corresponds injectively to a subset
+of these cube roots (including the empty
+subset for the initial length).
+There are at most $2^{K(n)-1}$ such
+subsets. Summing over $S$ seeds gives
+\eqref{eq:finite-seeds-upper}.
+Theorem~\ref{thm:treeentropy} provides a
+strictly positive lower liminf for
+$\log F(n)/(2n)^{1/3}$ as $n\to\infty$,
+and the upper bound gives a finite
+limsup. Hence the logarithm is
+$\Theta(n^{1/3})$.
+\end{proof}
+
+\begin{corollary}[A strict entropy separation]
+\label{cor:entropy-separation}
+For any fixed finite family of
+cube-sum seed permutations,
+\[
+\lim_{n\to\infty}
+\frac1n\log\bigl(
+1+|\mathcal R_{\mathcal S}(n)|\bigr)=0.
+\]
+By contrast, the entire legal family
+has positive upper exponential entropy:
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}
+\frac{\log P(n)}n
+\ge\frac{148877\log2}{681707}>0.}
+\]
+Consequently, no fixed finite-seed
+strict-reflection scheme can capture a
+positive fraction of the exponential-scale
+freedom exhibited by the independent
+three-cycle family.
+\end{corollary}
+\begin{proof}
+The upper estimate
+\eqref{eq:finite-seeds-upper} gives
+$\log(1+|\mathcal R_{\mathcal S}(n)|)
+=O(n^{1/3})=o(n)$.
+The lower bound for the full family
+is Theorem~\ref{thm:three-cycle}.
+In particular, on its explicit
+subsequence $n=681707u^3$,
+the logarithm of the full permutation
+count is at least a positive constant
+times $n$, while the reflected
+finite-seed subfamily has logarithm
+$o(n)$.
+\end{proof}
+
+More generally, with perfect $d$th
+powers in place of cubes, the strictly
+increasing-root proof gives at most
+\[
+S\,2^{\lfloor(2n)^{1/d}\rfloor-1}
+\]
+permutations from $S$ fixed seeds.
+The exponent $n^{1/d}$ is a
+\emph{methodological upper bound}
+for reflection-only generation, not
+an upper bound for all admissible
+power-sum permutations.
+
 \section{A short, local existence certificate}\label{sec:words}
 The preceding reflection argument is infinite and elementary.
 The finite existence verification can itself be made much more
