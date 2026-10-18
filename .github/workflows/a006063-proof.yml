@@ -1,24 +1,68 @@
-name: A006063 finite certificate and induction
-
+name: A006063 and A096680 proof, classification and PDF
 on:
   push:
+    branches:
+      - research/a006063-cube-sum-permutations-20261018
     paths:
-      - 'papers/A006063/**'
+      - 'papers/A006063/*.tex'
+      - 'papers/A006063/*.py'
+      - 'papers/A006063/*.md'
+      - 'papers/A006063/certificates/**'
       - '.github/workflows/a006063-proof.yml'
   pull_request:
     paths:
       - 'papers/A006063/**'
       - '.github/workflows/a006063-proof.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   certificate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify explicit integer witnesses and recursive construction
+      - name: Verify original 192 witnesses and recursive construction
         run: python papers/A006063/verify.py
-      - name: Independent matching reproduction
+      - name: Regenerate 192 independent matching witnesses
         run: python papers/A006063/independent_match.py
+      - name: Check exact membership, Hall witnesses, uniqueness, multiplicity, and counting guards
+        run: python papers/A006063/verify_extended.py
+
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: certificate
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Build reviewed research note
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          working_directory: papers/A006063
+          latexmk_use_xelatex: false
+      - name: Verify compiled PDF
+        run: test -s papers/A006063/main.pdf
+      - name: Upload compiled PDF as a workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: a006063-complete-proof
+          path: papers/A006063/main.pdf
+      - name: Commit verified PDF on branch push
+        if: github.event_name == 'push'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/A006063/main.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: compile A006063 A096680 classification PDF"
+            git pull --rebase origin "$(git branch --show-current)"
+            git push
+          fi
