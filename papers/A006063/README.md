@@ -17,6 +17,10 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## Standalone note: global theorems, not the threshold
+
+[GLOBAL_STRUCTURE.md](GLOBAL_STRUCTURE.md) is a self-contained companion note organizing the threshold-free results: symmetric perfect-2-matching and independent Hall criteria; explicit near-perfect matchings of size `n-O(n**(2/3))` for every `n>=7`; localization of all possible Hall obstructions to thin boundary layers; affine renormalization `P(343n+171)>=P(n)**343`; characteristic-2 parity; and exact strongly connected component factorization. It also distinguishes proven theorems from the open questions of uniform exponential counts and removing finite existence certificates.
+
 ## Global structure, beyond the sharp threshold
 
 ### Affine renormalization and semigroup action
