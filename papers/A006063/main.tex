@@ -677,6 +677,89 @@ choices are independent. Taking logarithms
 and dividing by $n_t$ gives the bound.
 \end{proof}
 
+\begin{theorem}[An exact binary cube-sum permutation code]
+\label{thm:code}
+For each odd $t\ge9$, put $L=t^3$ and
+$n_t=(551L-1)/2$.
+There is an injective map
+\[
+\Phi_t:\{0,1\}^{9L}\longrightarrow
+\{\text{cube-sum permutations of }[1,n_t]\}
+\]
+such that for all bit strings $u,v$,
+\begin{equation}\label{eq:isometric}
+\boxed{d_{\rm H}(\Phi_t(u),\Phi_t(v))
+       =5\,d_{\rm H}(u,v).}
+\end{equation}
+In particular, relative to $\Phi_t(0)$, the
+exact Hamming-distance enumerator of this
+explicit family is
+\[
+\boxed{\sum_{u\in\{0,1\}^{9L}}
+ z^{d_{\rm H}(\Phi_t(u),\Phi_t(0))}
+ =(1+z^5)^{9L}.}
+\]
+\end{theorem}
+\begin{proof}
+The proof of Theorem~\ref{thm:236}
+identifies every $236$-element cube-sum
+permutation with a unique nine-bit vector
+recording which of the nine disjoint directed
+five-cycles have been switched.
+Two different choices on one five-cycle
+change all five mapped values, while
+all untouched components agree.
+Thus their permutation Hamming distance
+is exactly five times the bitwise Hamming
+distance.
+
+Take the $L$ independent base-permutation
+fibers of Lemma~\ref{lem:block}, and concatenate
+their nine-bit selectors into $u\in\{0,1\}^{9L}$.
+Different fibers occupy disjoint input positions,
+so distances add exactly.
+Finally append a fixed valid prefix and the
+fixed cube-reflection suffix of
+Theorem~\ref{thm:exponential-subsequence}.
+Neither changes the Hamming distances.
+The generating polynomial follows because
+each of the $9L$ bits independently contributes
+either distance zero or distance five.
+\end{proof}
+
+\begin{corollary}[Positive-rate, linear-distance families]
+\label{cor:goodcode}
+Let $H_2(x)=-x\log_2x-(1-x)\log_2(1-x)$
+be binary entropy. For every odd $t\ge9$,
+there is a subfamily $\mathcal F_t$ of cube-sum
+permutations on $[1,n_t]$ such that
+\[
+|\mathcal F_t|
+\ge 2^{\,9L(1-H_2(1/4))},
+\qquad
+d_{\min}(\mathcal F_t)>
+\frac{45L}{4}.
+\]
+Consequently both
+$\log|\mathcal F_t|=\Omega(n_t)$ and
+$d_{\min}(\mathcal F_t)=\Omega(n_t)$.
+\end{corollary}
+\begin{proof}
+Greedily select a binary word of length
+$N=9L$, and delete all words within
+Hamming distance $\lfloor N/4\rfloor$
+of the selected word.
+A binary Hamming ball of this radius has
+at most $2^{NH_2(1/4)}$ members, so the
+greedy packing yields at least
+$2^{N(1-H_2(1/4))}$ codewords, with
+pairwise binary distance exceeding $N/4$.
+Applying $\Phi_t$ multiplies all distances
+by exactly five, while preserving cardinality.
+Since $n_t=(551L-1)/2$, both claimed
+linear asymptotics follow.
+\end{proof}
+
 This gives an \emph{exponential limsup},
 not an exponential lower bound for all $n$.
 In particular, it is logically distinct from
