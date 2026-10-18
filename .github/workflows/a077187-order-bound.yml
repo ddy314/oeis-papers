@@ -5,10 +5,12 @@ on:
       - research/a077187-smooth-order-v3-le8-20261017
     paths:
       - papers/A077187/research/certify_orders_le500.py
+      - papers/A077187/research/audit_cyclotomic_spots.py
       - .github/workflows/a077187-order-bound.yml
   pull_request:
     paths:
       - papers/A077187/research/certify_orders_le500.py
+      - papers/A077187/research/audit_cyclotomic_spots.py
       - .github/workflows/a077187-order-bound.yml
   workflow_dispatch:
 
@@ -23,3 +25,5 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify 42 order classes with exact arithmetic (stdlib only)
         run: python3 papers/A077187/research/certify_orders_le500.py
+      - name: Audit cyclotomic modulus reduction and negative controls
+        run: python3 papers/A077187/research/audit_cyclotomic_spots.py
