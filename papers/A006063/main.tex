@@ -1,0 +1,111 @@
+\documentclass[11pt]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\title{A finite-certificate proof of the cube-sum permutation conjecture (OEIS A006063)}
+\author{Research note for independent audit}
+\date{18 October 2026}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+A permutation $p$ of $\{1,\ldots,n\}$ is called a cube-sum
+permutation if $i+p_i$ is a perfect cube for every $i$.
+OEIS A006063 conjectures that such a permutation exists for every
+$n\ge 173$. We reduce the infinite assertion to only $192$ finite
+cases ($173\le n\le364$) by an elementary interval-reflection
+extension. We supply the complete $192$ integer permutation witnesses
+($51{,}552$ entries) and an exact standalone checker. The resulting
+argument is a computer-assisted proof candidate, pending independent
+checking of the certificate and literature priority.
+\end{abstract}
+
+\begin{lemma}[Reflection extension]\label{lem:extension}
+Suppose $0\le m<n$ and a cube-sum permutation exists for $m$.
+If $m+n+1=c$ is a perfect cube, then one exists for $n$.
+\end{lemma}
+\begin{proof}
+Retain the original permutation on $\{1,\ldots,m\}$ and, for
+$m+1\le i\le n$, define $p_i=c-i$. Because $c=m+n+1$,
+the map $i\mapsto c-i$ is a bijection of the interval
+$\{m+1,\ldots,n\}$ to itself and $i+p_i=c$ for every new index.
+Thus the union is a permutation of $\{1,\ldots,n\}$ satisfying
+the required condition.
+\end{proof}
+
+\begin{lemma}[Every large interval contains a usable cube]\label{lem:cube}
+For every integer $n\ge365$, there is a perfect cube $c$
+satisfying $n+174\le c\le2n$.
+\end{lemma}
+\begin{proof}
+For $365\le n\le555$, take $c=9^3=729$.
+Now suppose $n\ge556$ and let $k$ be the least integer with
+$k^3\ge n+174$. Then $k\ge10$ and
+$(k-1)^3<n+174$, hence, by integrality,
+$n\ge(k-1)^3-173$. For every integer $k\ge10$,
+\[
+2((k-1)^3-173)-k^3
+=k^3-6k^2+6k-348\ge0.
+\]
+The last expression is $112$ at $k=10$, and its successive
+difference is $3k^2-9k+1>0$ for $k\ge10$.
+Consequently $k^3\le2n$. Taking $c=k^3$ proves the claim.
+\end{proof}
+
+\begin{lemma}[Finite base certificate]\label{lem:finite}
+For every integer $173\le n\le364$, a cube-sum permutation exists.
+\end{lemma}
+\begin{proof}
+The accompanying file
+\texttt{certificates/base\_permutations.json} is an ordered array
+of $192$ explicit permutations, one for each $n=173,\ldots,364$.
+Each row $p$ is independently certified by the elementary
+integer-only checks
+\[
+|p|=n,\qquad
+\operatorname{sort}(p)=(1,\ldots,n),\qquad
+\forall\, i\in\{1,\ldots,n\}\ \exists\,k\in\mathbb Z_{\ge2}:
+\ i+p_i=k^3.
+\]
+The file contains $51{,}552$ integer entries in total.
+These checks are implemented without floating-point arithmetic
+or external packages in \texttt{verify.py}.
+The separate script \texttt{independent\_match.py}
+regenerates independent witnesses using augmenting paths,
+without reading the archived certificate.
+\end{proof}
+
+\begin{theorem}\label{thm:main}
+For every integer $n\ge173$ there exists a permutation
+$p_1,\ldots,p_n$ of $1,\ldots,n$ such that
+$i+p_i$ is a perfect cube for every $1\le i\le n$.
+Equivalently, the conjectured tail of OEIS A006063 is complete.
+\end{theorem}
+\begin{proof}
+Use strong induction on $n$. The base cases
+$173\le n\le364$ follow from Lemma~\ref{lem:finite}.
+For $n\ge365$, Lemma~\ref{lem:cube} provides
+$n+174\le c\le2n$ with $c$ a perfect cube.
+Set $m=c-n-1$. Then $173\le m<n$.
+By the induction hypothesis, $m$ has a cube-sum permutation.
+Since $m+n+1=c$, Lemma~\ref{lem:extension} extends it to $n$.
+\end{proof}
+
+\paragraph{Reproduction and scope.}
+Run \texttt{python verify.py} and
+\texttt{python independent\_match.py} in the
+\texttt{papers/A006063} directory. Both use only the Python
+standard library. The mathematical induction proves an unbounded
+result; numerical checks above $364$ are optional implementation
+smoke tests, not premises of the proof. The present note does not
+claim literature priority, peer review, or knowledge of the
+number of cube-sum permutations for a given size.
+
+\paragraph{Source.}
+N.~J.~A.~Sloane et al.,
+\href{https://oeis.org/A006063}{OEIS A006063},
+including Robert Israel's 2018 existence conjecture and
+finite verification to $1000$.
+\end{document}
