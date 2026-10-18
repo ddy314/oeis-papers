@@ -125,7 +125,7 @@ Direct integer arithmetic gives the stronger empirical identity
   implementation working in \(\mathbb Z/N_r\mathbb Z\).
 - Separate exact single-period C++/GMP cross-checks at
   \(r=174,258,272,504,584,696,808,856,936,1000,1008,1056,
-  1080,1112,1152,1200\).
+  1080,1112,1152,1200,1452,1936,4624\).
 - The 112 certified non-elementary orders \(r\le1000\) in PR #8
   supply further exact \(G_r\) values; the full *scalar* identity
   is not claimed to have been independently recomputed for all
@@ -146,7 +146,9 @@ r&T_r&G_r=H_r&\gcd(N_r,9T_r)\\\hline
 936&936&1053&1053\\
 1008&1008&567&567\\
 1112&25576&9&9\\
-1200&1200&27&27
+1200&1200&27&27\\
+1936&1936&1089&1089\\
+4624&4624&2601&2601
 \end{array}
 \]
 
@@ -263,3 +265,19 @@ This does not exclude a conceivable zero-drift prime that still
 has a divisible mountain by the independent subgroup-root criterion.
 Thus (R) is sufficient for, but not logically equivalent to,
 the full A077187 existence conjecture.
+
+
+### A genuinely universal modulus-9 fact
+
+**Proposition (proved).** For **every** integer \(r\ge1\),
+\[
+\boxed{9\mid U_r,\qquad9\mid V_r,\qquad9\mid G_r.}
+\]
+In fact, modulo 9 every full-digit-layer map is the identity:
+\(10\equiv1,\ q\equiv1,\ m=9\cdot10^{d-1}\equiv0\),
+\(A=1,\ S=m=0,\ J=m(m-1)/2=0\pmod9\).
+Thus both endpoint residues are constantly \((0,0)\pmod9\),
+so the drift coordinates vanish modulo 9. (This uses only
+that 2 is invertible modulo 9.) This establishes the fixed
+\(3^2\)-factor in the observed equality (C), but does not
+establish the further \(3\)-adic or other prime-power exponents.
