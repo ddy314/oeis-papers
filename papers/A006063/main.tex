@@ -133,6 +133,60 @@ disjoint allowed loops, single edges
 (dimer components), and unoriented simple
 cycles of length at least three.
 
+\begin{theorem}[Independent-set Hall criterion]
+\label{thm:independent-hall}
+A cube-sum permutation exists on $[1,n]$
+if and only if every vertex set $I$ of
+$G_n$ containing no internal edge
+\emph{or loop} satisfies
+\begin{equation}\label{eq:independent-hall}
+\boxed{|N_{G_n}(I)|\ge |I|,}
+\end{equation}
+where $N_{G_n}(I)$ includes all vertices
+adjacent to some vertex of $I$.
+Thus the full family of Hall inequalities
+can be reduced to \emph{independent}
+vertex sets in the symmetric cube-sum graph.
+\end{theorem}
+\begin{proof}
+The bipartite double cover of $G_n$
+has a perfect matching precisely when
+Hall's inequality $|N(S)|\ge|S|$
+holds for every $S\subseteq[1,n]$.
+Its perfect matchings are exactly
+the cube-sum permutations.
+Hence the proposed condition is necessary.
+
+Conversely, suppose Hall's inequality
+fails for some $S$. Put
+$I=S\setminus N(S)$.
+No two vertices of $I$ can be adjacent,
+nor can $I$ contain a loop: otherwise
+one of those vertices would lie in
+$N(S)$.
+Moreover $N(I)\cap S=\varnothing$,
+because any edge from $I$ to $S$
+would again contradict $I\cap N(S)=
+\varnothing$. Thus
+\[
+|N(I)|\le |N(S)\setminus S|
+=|N(S)|-|N(S)\cap S|
+<|S|-|N(S)\cap S|=|I|.
+\]
+So an independent Hall obstruction
+exists whenever any Hall obstruction
+exists. This proves sufficiency.
+\end{proof}
+
+In particular, every negative
+certificate supplied for $n<173$ in
+the associated JSON is already an
+independent vertex set: none of its
+members are adjacent to each other
+or carry a permitted loop.
+The criterion is global and does not
+depend on any conjectural cutoff.
+
 \begin{theorem}[Undirected cycle-cover expansion]
 \label{thm:cyclecover}
 If $\mathfrak F_n$ denotes the set of
