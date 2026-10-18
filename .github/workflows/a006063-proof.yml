@@ -48,6 +48,10 @@ jobs:
         run: python papers/A006063/optimize_terminal_cube.py
       - name: Independently verify computation-free cubic three-cycle family
         run: python papers/A006063/audit_three_cycle_identity.py
+      - name: Verify algebraic 343-fold affine renormalization
+        run: python papers/A006063/renormalization.py
+      - name: Verify global cycle-cover parity and strong-component factorization
+        run: python papers/A006063/global_graph_audit.py
       - name: Check 40 disjoint alternating cycles at n=362
         run: python papers/A006063/verify_362.py
       - name: Check power-divisor tensor recurrence and amplified 362-gadget
