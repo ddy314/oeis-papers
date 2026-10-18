@@ -1075,6 +1075,58 @@ divisibility condition $t^d\mid(2n+1)$.
 It does not, by itself, prove exponential
 growth at \emph{every} length.
 
+\begin{proposition}[Arithmetic sparsity of nontrivial block lifting]
+\label{prop:cubefree}
+The set of positive integers $n$ for which
+some odd integer $t\ge3$ satisfies
+$t^3\mid(2n+1)$ has natural density
+\[
+\boxed{\displaystyle
+1-\frac{8}{7\zeta(3)}
+=0.0492487\ldots.}
+\]
+Thus more than $95\%$ of lengths have no
+nontrivial integral cube scale for the
+particular centered tensor construction
+used in Theorem~\ref{thm:divisor-recurrence}.
+\end{proposition}
+\begin{proof}
+An odd integer is cube-free precisely
+when it is divisible by no prime cube
+$p^3$, with $p$ odd. By
+Möbius inclusion--exclusion, the number
+of positive $n\le X$ for which
+$2n+1$ is cube-free equals
+\[
+\begin{aligned}
+\sum_{\substack{n\le X\\ 2n+1\ {\rm cube\mbox{-}free}}}1
+&=\sum_{\substack{d\le(2X+1)^{1/3}\\d\ {\rm odd}}}
+ \mu(d)\#\{n\le X:d^3\mid2n+1\}\\
+&=X\!\!\sum_{\substack{d\ge1\\d\ {\rm odd}}}
+  \frac{\mu(d)}{d^3}
+  +O(X^{1/3})\\
+&=X\prod_{p\ {\rm odd}}(1-p^{-3})
+  +O(X^{1/3})\\
+&=\frac{8X}{7\zeta(3)}+O(X^{1/3}).
+\end{aligned}
+\]
+Every odd composite $t\ge3$ has an odd
+prime divisor, so $t^3\mid2n+1$
+is possible for some $t\ge3$ exactly
+when $2n+1$ is not cube-free.
+Taking complements proves the claim.
+\end{proof}
+
+This is a limitation of the \emph{specific
+centered tensor construction}, not an
+upper bound on $P(n)$ or a no-go
+theorem for other embeddings.
+In particular, the exponential-in-$n$
+subsequence result cannot by itself
+be promoted to a uniform exponential
+lower bound using the same integral
+scales for every $n$.
+
 \begin{lemma}[A denser finite alternating-cycle gadget]
 \label{lem:362}
 There exists a cube-sum permutation of
