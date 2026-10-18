@@ -192,6 +192,41 @@ The proof requires *no additional computational premise*: it is the
 involution invariant of the previously verified reflection closure.
 Audit: `python papers/A006063/involution_tail_audit.py`.
 
+### Fibonacci upper bound: sharper than root-set counting
+
+Let `K=floor(cuberoot(2*n))` and `F(n)` be the seven-seed strict-reflection count. A cubic identity shows that for **every predecessor** arising from cube `(K-j)**3`,
+
+```
+2*m <= (K-2*j)**3 - 6*j*j*(K-j) - 2 < (K-2*j)**3,
+K(m) <= K-2*j-1.
+```
+
+Thus the possible predecessor root-height drops are at least
+`1,3,5,7,...`. Define `B_2=B_3=B_4=1` and
+`B_k=B_(k-1)+B_(k-2)` for `k>=5`. A strong induction using the
+exact tree recurrence gives the uniform **Fibonacci majorant**
+
+```
+F(n) <= Fib_(K(n)-2)       whenever K(n)>=3,
+F(n) <= 1                 when K(n)=2.
+```
+
+Consequently the known coefficients for the *single-seed* growth obey
+
+```
+(log(2))/2 <= liminf(log(F(n))/(2*n)**(1/3))
+             <= limsup(log(F(n))/(2*n)**(1/3))
+             <= log(phi),  phi=(1+sqrt(5))/2.
+```
+
+Unlike the earlier coarse upper estimate `2**(K(n)-1)`,
+the Fibonacci bound accounts for how much cube-root height each
+reflection consumes. This is a genuinely tighter global bound, and
+the exact limiting coefficient remains an open problem.
+The refreshed `reflection_entropy_barrier.py` verifies the
+Fibonacci majorant and the strict predecessor height inequalities
+at every length up to 12,000.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
