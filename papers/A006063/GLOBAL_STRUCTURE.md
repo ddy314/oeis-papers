@@ -227,6 +227,58 @@ The refreshed `reflection_entropy_barrier.py` verifies the
 Fibonacci majorant and the strict predecessor height inequalities
 at every length up to 12,000.
 
+## Taxicab switching: exponentially many *involutions* without finite certificates
+
+A new purely algebraic global principle produces **exponentially many legal involutions**, not merely arbitrary cube-sum permutations. For any fixed exponent `d>=2`, take four *perfect d-th powers* `A,B,C,D` with
+
+```
+A+B=C+D
+(3*A)/2 <= C < B/2.
+```
+
+For every integer u>=1 put `T=u**d`, `N=(B-A)*T` and start from the two-block involution
+
+```
+p(i)=A*T-i   on [1,A*T-1]
+p(i)=B*T-i   on [A*T,(B-A)*T].
+```
+
+For each `s=1,...,H=floor((A*T-1)/2)`, take four vertices
+
+```
+a=s,       b=A*T-s,
+c=C*T-s,   d=(B-C)*T+s.
+```
+
+The vertex quadruples are disjoint. Their baseline dimers `(a,b)` and
+`(c,d)` have perfect-power sums `A*T,B*T`, whereas the alternative
+dimers `(a,c)` and `(b,d)` have perfect-power sums `C*T,D*T`.
+Each switch preserves the involution property and changes exactly four
+permutation entries. Switching arbitrary subsets gives
+
+```
+I_d((B-A)*u**d) >= 2**floor((A*u**d-1)/2),
+limsup log(I_d(n))/n >= A*log(2)/(2*(B-A)) > 0.
+```
+
+The encoding multiplies all binary Hamming distances by exactly **4**.
+A particularly small cubic example is the taxicab identity
+
+```
+17**3 + 39**3 = 26**3 + 36**3.
+I_3(54406*u**3) >= 2**floor((4913*u**3-1)/2).
+```
+
+The identity `99**3+172**3=120**3+163**3` is another example,
+giving the stronger optional coefficient `970299*log(2)/8236298`;
+neither is asserted optimal. The general theorem does not depend on
+the sharp cutoff or any finite matching certificate.
+
+The independent `taxicab_involution_audit.py` checks both integer
+identities and the disjoint dimer-switch inequalities. A separate
+local implementation fully materialized and verified both original
+and modified 54,406-element involutions, all sums being cubes.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
