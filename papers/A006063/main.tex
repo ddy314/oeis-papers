@@ -328,6 +328,126 @@ remaining finite matching certificates;
 the near-perfect bound alone does
 not yet yield such an elimination.
 
+\begin{theorem}[Arithmetic codegrees and expansion]
+\label{thm:arith-expansion}
+Let $H_n$ be the cube-sum bipartite graph
+with left and right vertices $[1,n]$.
+For distinct left vertices $i\ne j$,
+their number of common right neighbors
+satisfies
+\begin{equation}\label{eq:codegree}
+\boxed{\displaystyle
+|N(i)\cap N(j)|\le\tau(|i-j|),}
+\end{equation}
+where $\tau(d)$ is the number of
+positive divisors of $d$.
+Write
+\[
+\delta_n=\min_i|N(i)|,\quad
+\Delta_n=\max_i|N(i)|,\quad
+D_n=\max_{1\le d<n}\tau(d).
+\]
+For every nonempty $S\subseteq[1,n]$,
+with $s=|S|$,
+\begin{equation}\label{eq:second-moment-expansion}
+\boxed{\displaystyle
+|N(S)|\ge
+\frac{s\,\delta_n^2}
+{\Delta_n+(s-1)D_n}.}
+\end{equation}
+In particular, for each fixed
+$\varepsilon>0$ there exist constants
+$c_\varepsilon>0$ and $N_\varepsilon$
+such that any Hall-deficient set
+$S$ in $H_n$, for $n\ge N_\varepsilon$,
+must satisfy
+\begin{equation}\label{eq:hall-size}
+\boxed{\displaystyle
+|S|\ge c_\varepsilon
+n^{2/3-\varepsilon}.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+If $v$ is adjacent to distinct left
+vertices $i>j$, there are cube roots
+$a>b$ with
+$i+v=a^3$, $j+v=b^3$.
+Therefore
+\[
+i-j=a^3-b^3
+=(a-b)(a^2+ab+b^2).
+\]
+The positive integer $h=a-b$
+must divide $i-j$.
+For a fixed $h>0$, the function
+$b\mapsto(b+h)^3-b^3$ is strictly
+increasing, hence at most one
+$b$ solves the equation.
+This proves \eqref{eq:codegree}.
+
+For a set $S$ of $s$ left vertices,
+put $r_v=|\{i\in S:i\sim v\}|$.
+Then
+\[
+\sum_v r_v
+=\sum_{i\in S}|N(i)|\ge s\delta_n,
+\]
+whereas the codegree estimate gives
+\[
+\sum_v r_v^2
+=\sum_{i\in S}|N(i)|
++2\!\!\sum_{\substack{i<j\\i,j\in S}}
+|N(i)\cap N(j)|
+\le s\Delta_n+s(s-1)D_n.
+\]
+Cauchy--Schwarz on the nonzero $r_v$
+now yields \eqref{eq:second-moment-expansion}.
+
+For completeness, because the possible
+right neighbors of $i$ correspond
+precisely to cubes in $[i+1,i+n]$,
+\[
+|N(i)|
+=\lfloor(i+n)^{1/3}\rfloor
+ -\lfloor i^{1/3}\rfloor.
+\]
+Concavity of $x^{1/3}$ implies
+\[
+\delta_n\ge
+(2^{1/3}-1)n^{1/3}-1,
+\qquad
+\Delta_n\le\lfloor(2n)^{1/3}\rfloor.
+\]
+The classical elementary divisor bound
+$\tau(d)=O_\varepsilon(d^\varepsilon)$
+gives $D_n=O_\varepsilon(n^\varepsilon)$
+for every fixed $\varepsilon>0$.
+If $S$ violates Hall, so
+$|N(S)|<s$, formula
+\eqref{eq:second-moment-expansion}
+forces
+\[
+s>1+\frac{\delta_n^2-\Delta_n}{D_n}.
+\]
+Since $\delta_n^2$ grows like
+$n^{2/3}$ and $\Delta_n=O(n^{1/3})$,
+this implies \eqref{eq:hall-size}.
+\end{proof}
+
+Combining Theorem~\ref{thm:arith-expansion}
+with independent-set reduction and
+Theorem~\ref{thm:obstruction-localization}
+gives a two-dimensional localization
+of any possible Hall obstruction:
+it must \emph{both} contain
+$n^{2/3-o(1)}$ vertices and
+span a range of length
+$n-O(n^{2/3})$. These constraints
+hold whether or not an all-length
+existence threshold is already known.
+They do not, by themselves, rule out
+the remaining large independent sets.
+
 \begin{theorem}[Undirected cycle-cover expansion]
 \label{thm:cyclecover}
 If $\mathfrak F_n$ denotes the set of
