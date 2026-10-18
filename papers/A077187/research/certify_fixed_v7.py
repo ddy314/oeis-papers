@@ -38,19 +38,22 @@ def algebra(g):
     for _ in range(g):powers.append(mul(powers[-1],red(x)))
     return phi,red,mul,add,scal,neg,sub,inv,powers
 
-def drift_resultant(g,gamma,return_coordinates=False):
+def drift_resultant(g,gamma,return_coordinates=False,v=7,ell=None):
     """Quadratic polynomials U(m), V(m) in Q(zeta_g)[m].
 
     The only input phases are gamma in (Z/7)^*, and g in {7,14}.
     All 42 full-digit-layer phase multipliers are represented in
     the fixed-degree cyclotomic algebra Q[x]/Phi_g(x).
     """
-    assert g in (7,14) and 1<=gamma<=6
+    if ell is None:
+        ell=lcm(v,int(n_order(10,v)) if v>1 else 1)
+    assert v>=1 and gcd(v,10)==1 and ell%g==0 and g%v==0
+    assert 1<=gamma<v and gcd(gamma,v)==1
     phi,red,mul,add,scal,neg,sub,inv,zpow=algebra(g)
     coeff=[[red(0) for _ in range(3)] for _ in range(2)]
     P=red(1)
-    for a in range(1,ELL+1):
-        exp=(g//7)*gamma*9*a*pow(10,a-1,7)
+    for a in range(1,ell+1):
+        exp=(g//v)*gamma*9*a*pow(10,a-1,v)
         A=zpow[exp%g]
         invA=zpow[(-exp)%g]
         Pinv=inv(P)
@@ -105,7 +108,12 @@ def drift_resultant(g,gamma,return_coordinates=False):
 def exact_norms():
     for g,want in NORMS.items():
         for gamma in range(1,7):
-            R=drift_resultant(g,gamma)
+            R,U,W=drift_resultant(g,gamma,return_coordinates=True)
+            # Reduction of the coefficients modulo a true-order prime
+            # is legitimate: their denominators divide 200.
+            assert all(200%int(z.q)==0
+                       for row in (U,W) for term in row
+                       for z in term.all_coeffs())
             poly=Poly(SCALE*R.as_expr(),x,domain=QQ)
             assert all(z.q==1 for z in poly.all_coeffs()),(g,gamma)
             norm=abs(int(resultant(poly.as_expr(),cyclotomic_poly(g,x),x)))
