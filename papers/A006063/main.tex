@@ -522,54 +522,59 @@ at infinitely many \emph{different} lengths.
 The lifting mechanism works for every perfect-power
 exponent, not only cubes.
 
-\begin{lemma}[Odd perfect-power block lifting]
+\begin{lemma}[Independent-fiber perfect-power tensorization]
 \label{lem:block}
-Fix $d\ge2$. Let $p$ be a permutation of $[1,M]$
-such that $i+p(i)$ is a perfect $d$th power for
-every $i$. For an odd positive integer $t$,
-set $L=t^d$ and $A=(L-1)/2$.
-On the contiguous interval
-\[
-I=[A+1,A+ML]
-\]
-define, for $1\le i\le M$ and $1\le r\le L$,
+Fix $d\ge2$ and $M\ge1$, and suppose $P_d(M)>0$.
+For any odd positive integer $t$ put
+$L=t^d$ and $A=(L-1)/2$.
+For each $r\in[1,L]$ choose independently a
+$d$th-power-sum permutation $p_r$ of $[1,M]$.
+Define a permutation $Q$ on the interval
+$I=[A+1,A+ML]$ by
 \begin{equation}\label{eq:lift}
 Q\bigl(A+(i-1)L+r\bigr)
-=A+(p(i)-1)L+(L+1-r).
+=A+(p_r(i)-1)L+(L+1-r).
 \end{equation}
-Then $Q$ is a permutation of $I$, and every
-$x+Q(x)$ is a perfect $d$th power.
-Moreover, if $p$ has $h$ pairwise vertex-disjoint
-directed alternating cycles, then $Q$ has
-at least $hL$ pairwise vertex-disjoint
-directed alternating cycles.
+Then every $x+Q(x)$ is a perfect $d$th power,
+and the $L$ independent choices give exactly
+\[
+\boxed{P_d(M)^L}
+\]
+different permutations of $I$.
+
+If instead all fibers use the same $p$ possessing
+$h$ pairwise vertex-disjoint directed alternating
+cycles, then $Q$ has at least $hL$ pairwise
+vertex-disjoint directed alternating cycles.
 \end{lemma}
 \begin{proof}
-Formula \eqref{eq:lift} reverses the $L$-point
-block corresponding to $i$ onto the block
-corresponding to $p(i)$; thus it is a bijection.
+The input positions have unique coordinates $(i,r)$.
+For fixed $r$, the map $i\mapsto p_r(i)$ is a
+permutation of $[1,M]$, while the output
+residue $L+1-r$ identifies the original fiber
+$r$ uniquely. Thus \eqref{eq:lift} is a bijection.
 For $x=A+(i-1)L+r$,
 \[
 \begin{aligned}
 x+Q(x)
- &=2A+L(i+p(i)-1)+1\\
- &=L(i+p(i)).
+ &=2A+L(i+p_r(i)-1)+1\\
+ &=L(i+p_r(i)).
 \end{aligned}
 \]
-As $L=t^d$, this equals $(t k_i)^d$ when
-$i+p(i)=k_i^d$.
+If $i+p_r(i)=k_{i,r}^d$, then this sum equals
+$(t k_{i,r})^d$.
+The map from the tuple $(p_1,\ldots,p_L)$ to $Q$
+is injective, since all $p_r(i)$ are recovered
+from the output block indices; hence there are
+exactly $P_d(M)^L$ such interval permutations.
 
-Write $x_{i,r}=A+(i-1)L+r$.
-If $i\to j$ is an alternating edge for $p$,
-then for every fixed $r$,
-\[
-x_{i,r}+Q(x_{j,r})=L(i+p(j)),
-\]
-again a perfect $d$th power.
-Consequently each alternating cycle lifts to
-one corresponding cycle for every $r=1,\dots,L$.
-Different values of $r$ and disjoint original
-cycles have disjoint vertex sets.
+Finally, when every $p_r=p$, an alternating
+edge $i\to j$ of $p$ gives
+$x_{i,r}+Q(x_{j,r})=L(i+p(j))$ for each
+$x_{i,r}=A+(i-1)L+r$, again a perfect power.
+Every original alternating cycle consequently
+lifts to one cycle in each fiber, and disjoint
+fibers and original cycles remain disjoint.
 \end{proof}
 
 \begin{theorem}[An exponential subsequence]
@@ -580,8 +585,9 @@ For every odd integer $t\ge9$, define
 \]
 Then
 \[
-\boxed{P(n_t)\ge2^{9t^3}
-       =2^{(18n_t+9)/551}.}
+\boxed{P(n_t)\ge
+P\!\left(\frac{t^3-1}{2}\right)512^{t^3}
+\ge 3\cdot 2^{9t^3}.}
 \]
 In particular,
 \[
@@ -599,9 +605,13 @@ $B=A+236L=(473L-1)/2$.
 Because $t\ge9$, $A\ge364\ge173$,
 so Theorem~\ref{thm:exist} supplies a valid
 permutation on the prefix $[1,A]$.
-Apply Lemma~\ref{lem:block} to obtain a
-valid permutation on $[A+1,B]$
-with $9L$ independent alternating cycles.
+By Theorem~\ref{thm:multi}, $P(A)\ge3$.
+The exact count $P(236)=512$ from
+Theorem~\ref{thm:236} and
+Lemma~\ref{lem:block} provide $512^L$
+distinct valid middle-block permutations
+on $[A+1,B]$, without needing to select
+a preferred alternating-cycle orientation.
 
 Now let $C=(8t)^3=512L$ and set
 \[
@@ -614,40 +624,57 @@ It permutes that suffix because
 $C=B+n_t+1$, and every new sum is the cube
 $C$. Combining the three disjoint intervals
 produces a cube-sum permutation on $[1,n_t]$.
-All $9L$ alternating cycles in the middle
-survive unchanged. Switching any subset of
-them gives $2^{9L}$ distinct permutations,
-proving the claimed inequalities.
+The prefix and middle-block choices are
+independent, while the suffix is fixed.
+Consequently at least $P(A)\,512^L$
+distinct permutations are obtained, and
+$P(A)\ge3$ completes the proof.
+The older $9L$ independent-cycle construction
+is a special subfamily of the new tensorized
+construction.
 \end{proof}
 
-\begin{corollary}[General power-block amplification]
+\begin{corollary}[Multiplicity forces exponential subsequences]
 \label{cor:amplification}
-Let $d\ge2$, and suppose cube-sum is replaced
-everywhere by perfect $d$th-power sum.
-If valid permutations exist for every
-sufficiently large length and some valid
-permutation on $[1,M]$ contains $h\ge1$
-vertex-disjoint directed alternating cycles,
-then there exists an infinite sequence
-$n_t=\Theta(t^d)$ with
+Fix $d\ge2$. Suppose $P_d(n)>0$ for all
+sufficiently large $n$ and that $P_d(M)\ge2$
+for some $M\ge1$. Choose any integer $b$
+with $b^d>2M+1$. For all sufficiently large
+odd $t$, define
 \[
-\log P_d(n_t)=\Omega(n_t).
+n_t=\Bigl(b^d-M-\tfrac12\Bigr)t^d-\tfrac12.
+\]
+Then
+\[
+P_d(n_t)\ge
+P_d\!\left(\frac{t^d-1}{2}\right)
+P_d(M)^{t^d},
+\]
+and in particular
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P_d(n)}n
+\ge
+\frac{\log P_d(M)}
+{b^d-M-\frac12}>0.}
 \]
 \end{corollary}
 \begin{proof}
-Choose an integer $b$ with $b^d>2M+1$,
-take odd $t$ large enough that
-$A=(t^d-1)/2$ is in the eventual-existence
-range, and use Lemma~\ref{lem:block}.
-With $L=t^d$, $B=A+ML$ and
-$C=(bt)^d=b^dL$, set $n_t=C-B-1$.
-The suffix $[B+1,n_t]$ is nonempty and is
-permuted by $x\mapsto C-x$.
-The prefix, middle, and suffix combine
-as above, giving at least $2^{hL}$
-solutions. Finally,
-$n_t=(b^d-M-\tfrac12)L-\tfrac12$
-is a positive constant multiple of $L$.
+Let $L=t^d$, $A=(L-1)/2$ and $B=A+ML$.
+Eventual existence supplies a valid prefix
+on $[1,A]$ for all sufficiently large odd $t$,
+with $P_d(A)$ possible choices.
+Lemma~\ref{lem:block} gives
+$P_d(M)^L$ independent middle-block choices.
+Now put $C=(bt)^d=b^dL$ and
+$n_t=C-B-1$. Since $b^d>2M+1$,
+the suffix $[B+1,n_t]$ is nonempty;
+reflection $x\mapsto C-x$ permutes it
+and makes every sum equal to $C$.
+The three intervals are invariant under
+the constructed permutation, and their
+choices are independent. Taking logarithms
+and dividing by $n_t$ gives the bound.
 \end{proof}
 
 This gives an \emph{exponential limsup},
