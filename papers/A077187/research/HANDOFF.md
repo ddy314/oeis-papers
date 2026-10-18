@@ -285,3 +285,60 @@ its Möbius involution nor the Fermat–Lucas additive norm
 forces a mountain. The unrestricted conjecture remains OPEN.
 Do not resume large finite-prime or multiplicative-order scans
 as a substitute for the missing arithmetic zero-drift relation.
+
+
+## October 18: structural u=8 singular-window obstruction (latest)
+
+**PROVED:** For every prime with
+\(r=\operatorname{ord}_p(10)=8v,\ (v,10)=1\), let
+\(T=\operatorname{lcm}(r,\operatorname{ord}_v(10))\) and
+\(\rho=10^{9(10^T-1)}\), a primitive eighth root mod \(p\).
+The exact finite-defect state \(W=S_{pT}\), *regardless
+of whether the drift vanishes*, satisfies
+\[
+W_C=-10/81+a\rho^{-1},\qquad W_Y=-1/81+b\rho,
+\]
+where the fixed rational constants are
+\[
+a=10/81-219804400/(120758121\cdot10^{189}),\quad
+b=1/81+217557800\cdot10^{189}/120758121.
+\]
+The mountain equation for the **singular window of digit length
+\(pT\)** is exactly \(k^2+W_C+W_Y=0\).
+Thus its success is equivalent to one quadratic-residue test
+in the fixed quartic field \(\mathbb Q(\zeta_8)\), independent
+of the size and factors of \(v\).
+
+**PROVED:** For \(E=-11/81+a\zeta_8^{-1}+b\zeta_8\),
+\[
+\operatorname{Norm}_{\mathbb Q(\zeta_8)/\mathbb Q}(E)
+=(a^2-b^2)^2+(2ab-121/6561)^2.
+\]
+Modulo 23 the coefficients \(a,b,c=-11/81\)
+are \(10,22,1\), so this norm reduces to the quadratic
+nonresidue 7. Hence \(E\) is **not** a rational multiple
+of a square in \(\mathbb Q(\zeta_8)\).
+This is an algebraic barrier to extending the \(u\mid20\)
+perfect-square proof to \(u=8\) by a constant rescaling.
+
+**AUDITED:** a standalone exact Fraction-polynomial program
+computes the three-layer defect in \(\mathbb Q[X]/(X^4+1)\),
+then independently checks seven original modular recurrences
+for true smooth order part 8. Both singular-window outcomes
+occur: \(p=313,7841\) have nonsquare \(-W_C-W_Y\);
+\(p=73,137,233,617,2393\) give squares.
+Dedicated \`a077187-u8-trace-norm.yml\` CI PASS.
+
+**OPEN:** the u=8 singular test is not a universal
+mountain existence theorem; the failing primes still have
+other divisible mountains via nonzero drift. No proof here
+settles the case of a *genuine zero-drift* prime whose
+singular character is negative. The unrestricted A077187
+conjecture remains OPEN. Next research should seek a
+relation tying the stable monodromy to this fixed
+cyclotomic character, or a different full-cycle root
+mechanism, not expand fixed finite-prime cutoffs.
+
+Files: \`u8_singular_norm_structure_2026-10-18.md\`,
+\`audit_u8_singular_trace_norm.py\`,
+\`.github/workflows/a077187-u8-trace-norm.yml\`.
