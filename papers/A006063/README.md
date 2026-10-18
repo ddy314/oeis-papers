@@ -17,6 +17,30 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## A single 7-element seed: a self-contained eventual theorem and counting tree
+
+The sharp cutoff n=173 is **not** needed for this simpler eventual-existence theorem. Starting from the sole explicit permutation `(7,6,5,4,3,2,1)`, with every sum equal to 8, take seven rounds of the elementary reflection rule
+
+```
+n=k**3-m-1,   m<n.
+```
+
+The integer closure in the finite universe `n<=10975` has exact round cardinalities `1,21,189,995,3280,6588,8533,8924`. The last round contains the entire interval `[8915,10975]`. For `n>=10976`, the **smallest** cube `c>=n+8916` always satisfies `c<=2*n` by an explicit cubic inequality, so `m=c-n-1` lies in `[8915,n-1]`, completing strong induction.
+
+**Proved:** `P(n)>0` for every `n>=8915`. This is weaker in its cutoff than the separate exact A006063 result, but *structurally much simpler*: a single seven-term reversal, one reflection lemma, and two independent finite integer-only verifiers. Neither bipartite matching nor the 191 original augmenting words are required.
+
+- `one_seed_eventual.py` constructs actual full permutations via the seven-round finite closure and universal cube-gap induction, with `O(log log n)` reflection layers and `O(n)` output.
+- `one_seed_interval_proof.py` independently derives the same finite interval by integer interval-union reflection. The seven-round interval counts are `1,21,186,870,2077,2037,1031,770`; its final rightmost interval is exactly `[8915,10975]`.
+- `reflection_tree_counts.py` counts all distinct reflection histories from the seed by the exact recurrence `F(7)=1` and `F(n)=sum(F(m) for 7<=m<n if m+n+1 is a cube)`. The final permutation value uniquely determines the predecessor, so histories are distinct permutations.
+
+The tree itself satisfies **the same asymptotic lower bound as the general P(n)**:
+
+```
+liminf_{n->infinity} log(F(n))/(2*n)**(1/3) >= log(2)/2.
+```
+
+Thus even the explicitly constructed one-seed subfamily has universal `exp(Omega(n**(1/3)))` growth, without invoking the sharp-threshold existence certificates. The finite seven-round arithmetic check is still present and clearly distinguished from a wholly computation-free proof.
+
 ## Standalone note: global theorems, not the threshold
 
 [GLOBAL_STRUCTURE.md](GLOBAL_STRUCTURE.md) is a self-contained companion note organizing the threshold-free results: symmetric perfect-2-matching and independent Hall criteria; explicit near-perfect matchings of size `n-O(n**(2/3))` for every `n>=7`; localization of all possible Hall obstructions to thin boundary layers; affine renormalization `P(343n+171)>=P(n)**343`; characteristic-2 parity; and exact strongly connected component factorization. It also distinguishes proven theorems from the open questions of uniform exponential counts and removing finite existence certificates.
@@ -80,6 +104,9 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
+- [one_seed_eventual.py](one_seed_eventual.py): construct all sufficiently large lengths from one 7-point seed and seven exact rounds.
+- [one_seed_interval_proof.py](one_seed_interval_proof.py): independent finite interval-union proof of seven-round coverage.
+- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
 - [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
