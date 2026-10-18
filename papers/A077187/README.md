@@ -519,3 +519,50 @@ phase. See the proof in
 [nine-torsion lifting note](research/nine_torsion_lift_v33_v99_2026-10-18.md).
 The new families are complete for \(0\le b\le2\);
 larger \(b\) remains a mathematical open case, not a counterexample.
+
+
+## Exact Lucas orbit norm for the zero-drift branch (October 18 continuation)
+
+After reviewing the new \`HANDOFF.md\`, the continuation avoids the
+refuted fixed-three-window route and instead treats the **whole stable
+period** of digit windows at once.
+
+For any nonsingular digit layer, let the local mountain equation be
+\(Q(z)=Az^2+Hz+B\), \(z\in\langle 10^d\rangle\), and
+\(h=\operatorname{ord}_p(10^d)\). A new general theorem proves
+\[
+\operatorname{Res}(z^h-1,Q(z))
+=A^h+B^h-\operatorname{tr}
+ \begin{pmatrix}-H&-AB\\1&0\end{pmatrix}^{h}.
+\]
+It holds for all degenerate coefficients and is invariant under
+\(A\mapsto A(10^d)^s,\ B\mapsto B(10^d)^{-s}\).
+It is a genuine cyclic-orbit norm evaluable by
+\(O(\log h)\) matrix powering, requiring **no discrete logarithm,
+square root, or subgroup enumeration**.
+For singular \(10^d=1\) layers the corresponding complete-field
+product is \(2K(1-(-K)^{(p-1)/2})\).
+
+Using the updated reduced stable period
+\(T=\operatorname{lcm}(r,\operatorname{ord}_{v/\gcd(v,9)}(10))\),
+define \(\mathfrak O_p\) as the product of the \(T\) local norms
+for digit lengths \(T+1,\ldots,2T\). If the two-coordinate stable
+drift is **zero**, then
+\[
+\mathfrak O_p=0
+\iff
+\text{some (hence infinitely many) stable digit windows
+contain a divisible mountain.}
+\]
+This is an exact **per-prime criterion**, not a universal
+vanishing theorem. The still-open sufficient implication
+\(\Delta_p=0\implies\mathfrak O_p=0\) needs a new algebraic
+relation between actual window states. It is *not* a repeat
+of the disproved three-window conjecture.
+
+- [Mathematical derivation, Lucas transfer matrix, whole-period criterion](research/lucas_orbit_norm_zero_drift_2026-10-18.md)
+- [Independent 49-window audit](research/audit_lucas_orbit_norm.py)
+- Dedicated CI: \`.github/workflows/a077187-lucas-orbit-norm.yml\` (passed)
+
+This complements the proven infinite subfamilies and preserves the
+unrestricted all-primes problem as OPEN.
