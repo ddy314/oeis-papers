@@ -33,6 +33,8 @@ jobs:
         run: python papers/A006063/independent_match.py
       - name: Check exact membership, Hall witnesses, uniqueness, multiplicity, and counting guards
         run: python papers/A006063/verify_extended.py
+      - name: Exercise linear-output construction up to one million entries
+        run: python papers/A006063/construct_linear.py
 
   pdf:
     runs-on: ubuntu-latest
