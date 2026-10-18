@@ -62,6 +62,42 @@ Two independent checkers:
 - `python papers/A006063/one_seed_eventual.py` (pointwise integer reflection closure, actual constructed permutations)
 - `python papers/A006063/one_seed_interval_proof.py` (symbolic union-of-intervals arithmetic)
 
+### Exact reflection-history counting and uniform entropy
+
+Let `F(n)` count the **different permutations** produced by strict
+reflection histories starting from the one length-7 seed. These histories
+are injectively encoded by their final permutations, because the last
+value of the final permutation equals `m+1`, uniquely identifying
+the previous length `m`.
+
+The resulting exact recurrence is
+
+```
+F(7)=1,
+F(n)=sum(F(m) for 7<=m<n with m+n+1 an integer cube),  n>7.
+```
+
+`F(n)<=P(n)` always, and the seven-round theorem proves
+`F(n)>=1` for every `n>=8915`. Using `s` distinct largest cubes
+and the same polynomial gap estimate, let `rho_s` be determined by
+`sum(rho_s**(-h) for h=1..s)=1`, and take
+`B_s=max(2*s*s+4*s-1,2*s+27)`. Then
+
+```
+F(n) >= rho_s**((floor(cuberoot(2*n))-B_s)/2)
+                                            for n>=8915.
+liminf log(F(n))/(2*n)**(1/3) >= log(2)/2.
+```
+
+This is a **uniform exponential-cube-root lower bound for the tiny
+single-seed reflection-generated subfamily alone**, not merely for the
+full set of legal permutations. Its derivation uses the seven-round
+integer certificate and algebraic inequalities but none of the
+A006063 sharp-threshold matching data.
+
+Reproduce finite exact counts with:
+`python papers/A006063/reflection_tree_counts.py`.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
