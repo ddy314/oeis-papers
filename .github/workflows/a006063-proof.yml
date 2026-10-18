@@ -40,6 +40,8 @@ jobs:
         run: python papers/A006063/count_236.py
       - name: Check odd-cube block lifting and thousands of disjoint switching cycles
         run: python papers/A006063/lift_exponential_subsequence.py
+      - name: Independently verify arbitrary fiber permutations and injection
+        run: python papers/A006063/tensorize_fibers.py
       - name: Exercise linear-output construction up to one million entries
         run: python papers/A006063/construct_linear.py
 
