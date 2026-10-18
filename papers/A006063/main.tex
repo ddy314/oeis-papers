@@ -768,6 +768,85 @@ of eventual existence would still
 require eliminating this last
 seven-round finite arithmetic check.
 
+\section{Monotone signed Waring representations}
+\label{sec:signed-waring}
+The reflection orbit has a direct reformulation
+as an additive-number-theoretic problem.
+The important feature is not just the
+presence of signed cubes, but the
+\emph{monotonicity of every intermediate
+partial reflection}.
+
+\begin{proposition}[Reflection paths and alternating cubes]
+\label{prop:signed-waring}
+Fix any positive starting length $a$ and
+set $x_0=2a+1$.
+A sequence of $r$ strict reflection
+extensions from $a$ to $n$ exists if
+and only if there are integers
+$k_1,\ldots,k_r\ge2$ for which
+\[
+x_j=2k_j^3-x_{j-1}>x_{j-1}
+\qquad(1\le j\le r),
+\]
+and $x_r=2n+1$.
+Equivalently,
+\[
+\boxed{\displaystyle
+2n+1=(-1)^r(2a+1)
++2\sum_{j=1}^{r}(-1)^{r-j}k_j^3,}
+\]
+where the intermediate quantities
+specified by the recursion must be
+strictly increasing positive odd integers.
+\end{proposition}
+\begin{proof}
+Writing $x_j=2n_j+1$,
+the reflection condition
+$n_{j-1}+n_j+1=k_j^3$
+is equivalent to
+$x_{j-1}+x_j=2k_j^3$.
+The strict extension $n_j>n_{j-1}$
+is exactly $x_j>x_{j-1}$.
+Iterating this affine identity
+gives the alternating sum formula.
+Conversely every such increasing
+sequence recovers the necessary
+reflection predecessors and cubes.
+\end{proof}
+
+For the canonical seed $a=7$, a path
+of exactly seven reflections reaches
+$n$ precisely when it admits
+\[
+\boxed{\displaystyle
+n+8=
+k_7^3-k_6^3+k_5^3-k_4^3+
+k_3^3-k_2^3+k_1^3}
+\]
+with the corresponding strictly
+increasing intermediate odd coordinates.
+This converts the global question
+about \emph{bounded reflection depth}
+into an explicit restricted
+signed-Waring representation problem.
+It is stronger than mere eventual
+existence: Theorem~\ref{thm:single-seed}
+proves a growing but
+$O(\log\log n)$-bounded depth,
+not a universal depth of seven.
+
+Experiments with exact interval arithmetic
+suggest that the seven-step orbit already
+covers every length $n\ge8915$,
+but this stronger unbounded statement
+is \emph{not proved here}. It would
+require a uniform theorem about
+alternating cubic representations
+with their intermediate-order
+constraints, rather than an
+unbounded numerical extrapolation.
+
 \section{The reflection tree as a standalone counting model}
 \label{sec:reflection-tree}
 
