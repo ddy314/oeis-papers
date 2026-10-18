@@ -319,7 +319,23 @@ order cutoff**:
 A deliberately small independent check is in
 [structural audit](research/audit_global_block_geometry.py), with
 dedicated [GitHub Actions workflow](../../.github/workflows/a077187-global-geometry.yml).
+A further **exact whole-period identity** (Theorem E in the same note)
+decomposes, for any scalar \(\lambda\), the drift combination
+\(\lambda U_r+V_r\) into a reflected-block baseline and an explicit
+position-phase mismatch:
+\[
+\lambda U_r+V_r=\sum_d P_d\bigl[
+(L_d+q_d-1)\Sigma_d+(\lambda\Theta_d^{-1}-1)B_d\bigr],
+\qquad \Theta_d=P_d^2A_d .
+\]
+This is valid for **every** \(r\), over the composite ring.
+The earlier \(v\mid9\) proof is exactly the case where
+the \(\lambda=1\) mismatch vanishes. The general mismatch is
+**uncontrolled**, not tacitly zero. The new
+[short twisted-flux audit](research/audit_twisted_reflection.py)
+checks it independently on five small orders.
+
 The principal remaining mathematical gap is the **global interaction
-of layer interfaces and the twisted reflection identity**, not the
+of layer interfaces and the position-phase mismatch**, not the
 locally integrable within-layer recurrence. The all-primes conjecture
 remains open.
