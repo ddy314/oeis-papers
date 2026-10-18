@@ -205,3 +205,47 @@ SHA-256-pinned output is validated in CI. As before, this finite
 computer-assisted theorem is subject to independent code and
 mathematical review; **nothing here proves A077187 for unbounded
 multiplicative orders**.
+
+
+## New unrestricted-order structural work (18 October)
+
+The finite cutoff of 1000 remains valid, but the latest work targets
+an **unbounded-order mechanism** rather than further extending the
+cutoff. See
+[order-inflation and scalar-GCD note](research/order_inflation_and_scalar_gcd_2026-10-18.md)
+and [exact reference auditor](research/audit_scalar_gcd_and_inflation.py).
+
+**Proved for every formal order \(r\):** if \(p\mid10^r-1\), its
+actual multiplicative order is \(s\mid r\), and
+\(T_t=\operatorname{lcm}(t,\operatorname{ord}_{v_t}(10))\), then
+\[
+\Delta_r=(T_r/T_s)\Delta_s\pmod p .
+\]
+In particular,
+\[
+\operatorname{rad}\gcd(10^r-1,3T_r)
+\mid\operatorname{rad}\gcd(10^r-1,U_r,V_r),
+\]
+and both drift coordinates are divisible by 9 over the full
+integer repunit ring. The note proves these assertions and an
+equivalence between the **missing reverse radical inclusion** and
+nonzero true-order drift for all primes.
+
+**New conjecture, NOT a theorem:** exact finite computations
+for all \(2\le r\le180\), plus selected higher orders through
+\(r=4624\), give
+\[
+\gcd(10^r-1,U_r,V_r)
+=\gcd(10^r-1,U_r+V_r)
+=\gcd(10^r-1,9T_r).
+\]
+If the weaker global bound
+\(\gcd(10^r-1,U_r+V_r)\mid9T_r\) could be
+proved for arbitrary \(r\), it would imply that the drift
+is nonzero for every prime of exact order \(r\), and hence
+settle the existence conjecture. **This implication is proved;
+its hypothesis is not.**
+
+Reproduce the finite scalar and inflation tests via
+\`python3 papers/A077187/research/audit_scalar_gcd_and_inflation.py\`.
+A separate GitHub Actions workflow runs the test automatically.
