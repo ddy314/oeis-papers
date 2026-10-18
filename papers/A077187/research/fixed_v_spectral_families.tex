@@ -337,6 +337,35 @@ nonzero norms, without factoring them.
 This excludes zero drift for every exponent pair.
 The two-offset witness theorem finishes the proof.
 \end{proof}
+
+\begin{lemma}[Exact 3-adic boundary]
+Suppose \(r=\ord_p(10)=11\cdot3^b2^a5^c\) with
+\(b\ge1\), and set \(A_d=10^{9d10^{d-1}}\) on stable
+digit layers. For \(t\ge0\),
+\[
+\boxed{
+\ord(A_{d+22\cdot3^t}/A_d)
+=3^{\max(b-2-t,0)}.}
+\]
+Consequently the 22-period folding is valid
+precisely for \(b\le2\) among these 3-power extensions.
+\end{lemma}
+\begin{proof}
+Let \(L=22\cdot3^t\) and \(e_d=9d10^{d-1}\).
+The exact difference
+\[
+e_{d+L}-e_d=
+9\cdot10^{d-1}\bigl(L+(d+L)(10^L-1)\bigr)
+\]
+is divisible by \(11\) and by the smooth factor
+\(2^a5^c\) in the stable range.
+By the 3-adic lifting-the-exponent lemma,
+\(v_3(10^L-1)=2+t\), while \(v_3(L)=t\).
+Therefore \(v_3(e_{d+L}-e_d)=2+t\) exactly.
+The claimed order follows from
+\(\ord_p(10)=11\cdot3^b2^a5^c\).
+\end{proof}
+
 The lifting lemma is algebraic; it does not
 automatically give an existence theorem for
 arbitrary \(v_0\) or \(s>9\).
