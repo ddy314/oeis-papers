@@ -35,8 +35,9 @@ def main():
         cached[r]=(T,N,G,U,V)
         expected=gcd(N,9*T)
         assert gcd(N,U+V)==expected,(r,T,'scalar')
+        assert gcd(N,10*U+V)==expected,(r,T,'single-offset slope')
         assert G==expected,(r,T,'vector')
-    print('PASS scalar/vector gcd equality for all 179 orders 2<=r<=180')
+    print('PASS vector/scalar/single-offset-slope gcd equality for all 179 orders 2<=r<=180')
 
     for s,r,p in INFLATION:
         assert exact_order(10,p)==s,(s,r,p,'wrong true order')
