@@ -25,6 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
+- [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
 The **60-seed** reflection-only compression is a useful **methodological boundary**, *provided the empty permutation is admitted alongside the 48 earlier positive witnesses*. In particular, `n=342` requires no seed: `p[i]=343-i` is a complete reversal with constant cube sum `7**3`. Exactly 60 further seeds are unavoidable under reflection alone. The alternating-path operation is the essential new ingredient that escapes that barrier.
@@ -68,6 +69,24 @@ sum(2**(-h)*K/(K-2*h) for h=1..s)
 ```
 
 for `K>=128`. The $n$-dependent branch count is algebraically admissible because `2**s >= 2*s*s+4*s-1` for every `s>=7`. Neither quantitative theorem needs any new finite matching certificate.
+
+## A new exact case: P(236) = 512 with no involution
+
+A cube-sum permutation need not be an involution, even though the cube-sum adjacency matrix is symmetric. In fact, we have a new **exact closed count**
+
+```
+P(236) = 512 = 2**9.
+```
+
+The proof is a short, independently checkable structural calculation. An explicit solution uses only **15 contiguous interval-reflection rows**, `p[i]=c-i`. Its associated alternating digraph has **191 singleton SCCs** and exactly **nine disjoint directed 5-cycle SCCs**, indexed by
+
+```
+S_t = {10+t, 46+t, 71+t, 137+t, 198+t},  t = 0,...,8.
+```
+
+Any other solution corresponds to a directed cycle cover in that graph: all singletons are forced, and each five-cycle offers exactly two choices (keep/flip). The central set `S_4={14,50,75,141,202}` is invariant under any solution and is necessarily oriented as one of two inverse 5-cycles, never an involution.
+
+Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
 
 ## Mathematical method
 
@@ -116,6 +135,7 @@ python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
 python papers/A006063/construct_linear.py
 python papers/A006063/verify_word_paths.py
+python papers/A006063/count_236.py
 ```
 
 All verifiers use Python's standard library only; certificate checks use integers, sets, and exact comparisons.
