@@ -19,23 +19,28 @@
 Let $P(n)$ count permutations $p$ of $\{1,\dots,n\}$ such that
 $i+p_i$ is a perfect cube for every index $i$.
 We give a computer-assisted resolution of the existence
-conjecture recorded as OEIS A006063, as well as an exact
-membership classification for its related sequence A096680:
-$P(n)>0$ for every $n\ge173$, whereas $P(173)=P(174)=1$
+conjecture recorded as OEIS A006063, as well as the exact
+membership classification for A096680:
+$P(n)>0$ for every $n\ge173$, while $P(173)=P(174)=1$
 and $P(n)\ge3$ for every $n\ge175$.
-Exact Hall-set certificates determine all earlier existence failures.
-An interval-reflection lemma reduces the unbounded existence theorem
-to only $109$ explicit core permutations; alternating-cycle
-certificates establish multiplicity.
-Finally we prove the nontrivial quantitative bound
+An explicit seven-block interval involution at $n=173$
+and only $1844$ one-digit cube roots in $191$ alternating-path
+words certify every remaining base size up to $364$.
+An elementary reflection induction covers all larger sizes;
+the earlier $109$-permutation and $61$-seed certificates
+are retained only for independent cross-checking.
+Exact Hall-set certificates classify the earlier failures,
+and alternating-cycle certificates establish multiplicity.
+For every fixed $s\ge2$ we prove an $s$-branch
+reflection-entropy inequality, giving the stronger limit
 \[
-P(n)\ge
-3^{\max\{0,\lfloor(\lfloor(2n)^{1/3}\rfloor-27)/6\rfloor\}}
-=\exp\bigl(\Omega(n^{1/3})\bigr).
+\liminf_{n\to\infty}
+\frac{\log P(n)}{(2n)^{1/3}}
+\ge \frac{\log2}{2}.
 \]
-All finite certificates, exact checkers, and an independent
-matching implementation accompany this note. Priority relative to
-the wider literature and independent certificate review remain open.
+A conditional analogue holds for all perfect-power exponents.
+All finite data and exact checkers accompany this note.
+Literature priority and external independent review remain open.
 \end{abstract}
 
 \section{The reflection principle}
