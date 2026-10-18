@@ -24,7 +24,7 @@ where \(L=10^{d-1}\), \(q=10^d\),
 and \(J=\sum_{j=0}^{m-1}jq^j\).
 We use \(S_d=(C_{10^d-1},Y_{10^d-1})\) for the endpoint state.
 
-For \(p\ge7\) prime, \(p\ne11\), let
+For any prime \(p\nmid10\), let
 \(s=\operatorname{ord}_p(10)\).
 The established stable-period lemma says that
 \(F_{d+T_s}^{(p)}=F_d^{(p)}\) for \(d\ge E_s\), with
@@ -44,7 +44,7 @@ necessarily the *minimal* prime-field period.
 
 ## 2. Universal order-inflation lemma — PROVED
 
-**Theorem.** If \(p\ge7\), \(p\ne11\), and
+**Theorem.** If \(p\) is any prime not dividing 10 and
 \(s=\operatorname{ord}_p(10)\mid r\), then
 \[
 \boxed{T_s\mid T_r,\qquad
