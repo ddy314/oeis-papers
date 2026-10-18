@@ -85,7 +85,7 @@ def main():
         for iteration in range(1,5):
             curr=L*curr+A
             assert 2*curr+1==(2*n+1)*L**iteration
-        print(f"PASS: T^4({n})={(2*n+1)*L**4//2-1//2} "
+        print(f"PASS: T^4({n})={((2*n+1)*L**4-1)//2} "
               f"and exact affine composition.")
 
 if __name__=="__main__":
