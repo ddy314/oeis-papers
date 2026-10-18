@@ -210,6 +210,125 @@ or carry a permitted loop.
 The criterion is global and does not
 depend on any conjectural cutoff.
 
+\begin{theorem}[Uniform near-perfect partial matchings]
+\label{thm:nearperfect}
+For every integer $n\ge7$, write
+\[
+k=\lfloor(n+1)^{1/3}\rfloor,\qquad
+g(k)=(k+1)^3-k^3=3k^2+3k+1.
+\]
+There is an explicitly constructible
+cube-sum \emph{partial permutation}
+matching at least
+\begin{equation}\label{eq:nearperfect}
+\boxed{\displaystyle
+n-\left\lfloor\frac{g(k)}2\right\rfloor}
+\end{equation}
+indices to distinct values within $[1,n]$.
+Consequently the maximum matching of
+the cube-sum bipartite graph has
+deficiency $O(n^{2/3})$ for \emph{every}
+$n$, including lengths where no
+complete cube-sum permutation exists.
+\end{theorem}
+\begin{proof}
+Choose whichever of the consecutive cubes
+$c_-=k^3$ and $c_+=(k+1)^3$
+is closest to $n+1$, and denote it by $c$.
+Their gap is $g(k)$, hence
+$\delta=|c-(n+1)|\le\lfloor g(k)/2\rfloor$.
+Since $n\ge7$, $c_-\ge8$.
+If $c_+>2n$, then
+$c_+-(n+1)\ge n$ while
+$(n+1)-c_-\le n-7$, so the nearer
+cube must be $c_-$. Thus the chosen
+$c$ lies in $[2,2n]$.
+
+The interval
+\[
+J_c=[\max(1,c-n),\ \min(n,c-1)]
+\cap\mathbb Z
+\]
+has precisely $n-\delta$ elements.
+It is invariant under $i\mapsto c-i$.
+On this interval set $p(i)=c-i$,
+giving a bijection $J_c\to J_c$
+with the constant cube sum $i+p(i)=c$.
+Therefore it defines a partial perfect
+matching of size $n-\delta$.
+The claimed bound follows.
+\end{proof}
+
+\begin{theorem}[Localization of Hall obstructions]
+\label{thm:obstruction-localization}
+For $n\ge7$ let
+\[
+K=\lfloor(2n)^{1/3}\rfloor,\qquad
+G=3K^2+3K+1.
+\]
+Every nonempty subset $S\subseteq[1,n]$
+with diameter
+$\operatorname{diam}(S)=\max S-\min S$
+satisfying
+\[
+\boxed{\operatorname{diam}(S)\le n-G}
+\]
+automatically obeys Hall's condition
+$|N(S)|\ge|S|$ in the symmetric
+cube-sum bipartite graph.
+Consequently \emph{every} independent
+Hall obstruction must satisfy
+\[
+\boxed{\operatorname{diam}(S)>n-G,}
+\]
+and must contain vertices from both
+the lower and upper boundary regions
+of width at most $G$.
+\end{theorem}
+\begin{proof}
+Write $a=\min S$, $b=\max S$.
+The candidate integer interval
+\[
+[b+1,a+n]
+\]
+has $n-(b-a)\ge G$ consecutive
+integers, all between $2$ and $2n$.
+Within this range there cannot be
+$G$ consecutive noncubes: the
+difference between consecutive cubes
+is $3j^2+3j+1\le G$ for
+$j\le K$, while the initial integers
+$2,\dots,7$ also give fewer than
+$G$ noncubes.
+Consequently some perfect cube $c$
+lies in $[b+1,a+n]$.
+
+For every $i\in S$ we then have
+$1\le c-i\le n$, and all
+$c-i$ are distinct.
+Thus $i\mapsto c-i$ is an injection
+of $S$ into its neighborhood $N(S)$,
+proving Hall's condition.
+The contrapositive gives the claimed
+diameter restriction. The latter implies
+$\min S<G$ and $\max S>n-G+1$,
+so a Hall obstruction has to meet
+both boundary regions.
+\end{proof}
+
+These theorems supply a completely
+noncomputational approach to the
+existence question. Instead of
+checking all subsets, one need only
+understand \emph{long-spanning
+independent sets} whose vertices
+reach both ends of $[1,n]$.
+Eliminating those obstructions by a
+uniform argument would remove the
+remaining finite matching certificates;
+the near-perfect bound alone does
+not yet yield such an elimination.
+
 \begin{theorem}[Undirected cycle-cover expansion]
 \label{thm:cyclecover}
 If $\mathfrak F_n$ denotes the set of
