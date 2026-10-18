@@ -226,6 +226,37 @@ in \texttt{core\_61\_with\_small.json}, and
 \texttt{verify\_extended.py} certifies this alternate
 compression independently of the $109$-case presentation.
 
+
+\begin{proposition}[Limit of reflection-only compression]\label{prop:atoms}
+Suppose the $48$ known positive lengths below $173$ are
+provided as initial data. Among proofs of all lengths
+$173,\dots,364$ that use only the reflection extension
+of Lemma~\ref{lem:reflect} and independently supplied
+new full-length seed permutations, at least $61$
+extra seeds are necessary, and $61$ suffice.
+\end{proposition}
+\begin{proof}
+Process $n=173,\dots,364$ in ascending order. If no
+cube $c$ yields a previously certified positive
+predecessor $m=c-n-1\in[1,n-1]$, then reflection
+cannot establish $n$ from earlier data, so a new seed
+is forced. Otherwise choose such a predecessor and
+perform reflection, without adding a seed.
+This deterministic closure rule yields $44$ forced
+seeds in $[173,255]$, none in $[256,338]$ (use
+$c=512$ and $m=511-n$), and $17$ in $[339,364]$.
+Thus $44+17=61$, and the attached short
+integer-only checker reproduces the forced
+index list. Every forced seed is unavoidable by
+the definition of the restricted proof rule.
+\end{proof}
+This is \emph{not} a lower bound on arbitrary
+mathematical proofs. The alternating-path
+extension in Lemma~\ref{lem:words} is a different
+operation and indeed replaces those $61$ large
+independent seeds by one explicit involution
+and a small word table.
+
 \begin{theorem}[Complete A006063 membership]\label{thm:exist}
 For every integer $n\ge173$, $P(n)>0$.
 Below $173$, the complete membership list is
@@ -494,6 +525,39 @@ Therefore the ratio on the left side of
 \eqref{eq:liminf} is at least
 $\tfrac12\log\rho_s$ in the limit.
 Letting $s\to\infty$ proves \eqref{eq:liminf}.
+\end{proof}
+
+
+\begin{corollary}[Other power sums, conditional on existence]
+For an integer $d\ge2$, let $P_d(n)$ count
+permutations of $[1,n]$ in which every $i+p_i$
+is a perfect $d$th power. If $P_d(n)>0$
+for all sufficiently large $n$, then
+\[
+\liminf_{n\to\infty}
+\frac{\log P_d(n)}{(2n)^{1/d}}
+\ge\frac{\log2}{2}.
+\]
+\end{corollary}
+\begin{proof}
+For any fixed $s$ and $j=0,\ldots,s-1$, write
+$k=\lfloor(2n)^{1/d}\rfloor$ and use
+$c_j=(k-j)^d$, $m_j=c_j-n-1$.
+The binomial theorem gives, uniformly over
+these finitely many $j$,
+\[
+2(k-j)^d-(k+1)^d-(k-2j-2)^d
+= d k^{d-1}+O_{d,s}(k^{d-2})>1
+\]
+for all sufficiently large $k$.
+It follows that $m_j$ is a smaller positive
+length in the eventual-existence range and
+$\lfloor(2m_j)^{1/d}\rfloor\ge k-2j-2$.
+The distinct reflection families obey the
+same $s$-branch induction as
+Theorem~\ref{thm:entropy}, with a suitable
+constant initial offset in $k$.
+The $\rho_s$ tend to $2$ as before.
 \end{proof}
 
 The coefficient $(\log2)/2$ is a \emph{proved lower
