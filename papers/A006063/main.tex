@@ -1132,6 +1132,91 @@ for reflection-only generation, not
 an upper bound for all admissible
 power-sum permutations.
 
+\section{A dimension barrier for bounded reflection depth}
+\label{sec:depth-barrier}
+
+Even though the seven-element seed reaches
+every sufficiently large length, a genuinely
+\emph{uniformly bounded} number of reflections
+is a separate Diophantine question.
+There is an elementary counting obstruction
+to any bound of at most three reflections.
+
+\begin{theorem}[Reflection-depth sparsity]
+\label{thm:reflection-depth}
+Fix one cube-sum permutation as an initial
+seed, and let $\mathcal D_r(N)$ be the
+set of output lengths at most $N$
+obtainable from it by at most $r$
+strict reflection extensions.
+For $K=\lfloor(2N)^{1/3}\rfloor$,
+\begin{equation}\label{eq:depth-sum}
+\boxed{\displaystyle
+|\mathcal D_r(N)|
+\le \sum_{j=0}^{r}\binom{K-1}{j}.}
+\end{equation}
+For each fixed $r\le2$,
+\[
+\boxed{\displaystyle
+|\mathcal D_r(N)|=O(N^{r/3})=o(N),}
+\]
+and for three or fewer reflections,
+\begin{equation}\label{eq:three-depth}
+\boxed{\displaystyle
+|\mathcal D_3(N)|\le
+\frac N3+O(N^{2/3}).}
+\end{equation}
+In particular, no one-seed reflection
+construction of depth at most three
+can cover every sufficiently large length.
+At least four strict reflections are
+necessary for any one-seed, bounded-depth
+cofinite construction.
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{thm:cube-order}, a
+history producing a length $n\le N$
+uses a strictly increasing sequence
+of cubes chosen from the $K-1$
+possible cubes $2^3,\dots,K^3$.
+A history with exactly $j$ steps
+is thus encoded by a $j$-element
+subset, and there are at most
+$\binom{K-1}{j}$ choices.
+Summing yields \eqref{eq:depth-sum}.
+For fixed $r\le2$ this is
+$O(K^r)=O(N^{r/3})$.
+For $r=3$, the sum is
+\[
+\binom{K-1}{3}+O(K^2)
+=\frac{K^3}{6}+O(K^2)
+\le\frac N3+O(N^{2/3}),
+\]
+because $K^3\le2N$.
+Thus at least $(2/3+o(1))N$
+of the first $N$ lengths cannot be
+reached in at most three steps.
+\end{proof}
+
+More generally, if a fixed finite
+family of $S$ initial permutations
+is allowed, the right side of
+\eqref{eq:depth-sum} is multiplied
+by at most $S$. This makes clear
+why the counting barrier does not
+extend unchanged to arbitrarily
+many input seeds.
+
+The numerical seven-round closure
+in Lemma~\ref{lem:sevenrounds}
+raises the sharper question whether
+\emph{a fixed depth of seven} already
+suffices for all sufficiently large
+lengths. The present theorem does
+not prove this; it places a rigorous
+lower bound of four on any such
+single-seed uniform depth.
+
 \section{A short, local existence certificate}\label{sec:words}
 The preceding reflection argument is infinite and elementary.
 The finite existence verification can itself be made much more
