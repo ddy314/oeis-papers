@@ -160,3 +160,71 @@ Files:
 - \`.github/workflows/a077187-lucas-orbit-norm.yml\`
 
 No new subagents were launched. The unrestricted problem remains OPEN.
+
+
+## Further October 18 results: quantitative phases and double norms
+
+**PROVED (singular half-phase theorem).**
+Write \(\Delta=(U,V)\) for the reduced stable drift and
+\(\sigma=U+V\). For every prime \(p\ge7,\ p\ne11\)
+with \(\sigma\ne0\), **exactly \((p+1)/2\)** classes of
+\(j\bmod p\) have a divisible mountain inside the entire
+\(jT\)-digit singular layer; in fact exactly \(p\) pairs
+\((j,k\bmod p)\) solve its square relation.
+This follows from
+\(k^2+C_{jT}+Y_{jT}
+=k^2+C_T+Y_T+(j-1)\sigma\).
+
+**PROVED (anti-diagonal alternative).**
+If \(\sigma=0\) but \(\Delta\ne0\), then the
+\(r=\operatorname{ord}_p(10)\) offsets
+\(k=10^{jT}+n\) have exactly \(r-\varepsilon_r\)
+nonzero slopes in \(j\), where
+\(\varepsilon_r=[r\text{ odd}]\). Every phase carries
+at most two roots of the associated nonsingular quadratic,
+so at least \(\lceil(r-\varepsilon_r)/2\rceil\)
+distinct phase classes yield witnesses.
+
+**PROVED (Fermat–Lucas double norm).**
+In the first stable post-boundary window, define
+\(Q_j(z)=(A+10jU)z^2+Hz+B+jV\), \(H=-20/81\).
+For \(r\ge3\), with
+\(\mathcal R(j)=\operatorname{Res}(z^r-1,Q_j(z))\),
+\[
+\prod_{j\in\mathbb F_p}\mathcal R(j)
+= \mathcal R(0)(1-U^{p-1})(1-V^{p-1}).
+\]
+This follows from
+\(\prod_j(a+jb)=a(1-b^{p-1})\) and the
+fact that a nonzero polynomial \(10Uz^2+V\) cannot
+vanish on all \(r\ge3\) roots. It is an exact
+algebraic packaging of the nonzero drift case;
+**when drift is zero it supplies no new vanishing**.
+
+**CONJECTURAL empirical observation:** exact repunit-ring
+experiments for all \(2\le r\le300\), plus seven other
+orders, found
+\[
+\gcd(10^r-1,U_r+V_r)=\gcd(10^r-1,U_r,V_r).
+\]
+A general proof or counterexample remains to be found.
+Do not cite it as an established lemma or infer
+nonzero drift for unrestricted orders.
+
+Files:
+- \`quantitative_witness_phases_and_scalar_gcd_2026-10-18.md\`
+- \`audit_quantitative_witness_density.py\`
+- \`audit_fermat_lucas_double_norm.py\`
+- \`probe_scalar_gcd.cpp\`
+- \`.github/workflows/a077187-phase-density.yml\`
+
+The dedicated checks passed on the original version and the
+expanded double-norm version is undergoing CI at this update.
+No subagents were used. The global all-primes A077187 conjecture
+is still OPEN.
+
+**Priority for further research:** establish a relation
+specific to the *actual zero-drift decimal concatenation
+cocycle* that forces one whole-period Lucas orbit norm to
+vanish. Neither the scalar GCD pattern nor a nonzero-drift
+phase-count estimate is such a relation.
