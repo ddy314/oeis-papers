@@ -20,6 +20,10 @@ on:
       - .github/workflows/a077187-order-bound.yml
   workflow_dispatch:
 
+concurrency:
+  group: a077187-bound-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -60,5 +64,6 @@ jobs:
           git add papers/A077187/research/order_bound_744.pdf
           if ! git diff --cached --quiet; then
             git commit -m "paper: compile verified order<=744 proof note PDF"
+            git pull --rebase origin "$(git branch --show-current)"
             git push
           fi
