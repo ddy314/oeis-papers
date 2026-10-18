@@ -595,6 +595,158 @@ the four-block seed and independent
 fiber choices without relying on the
 large finite-certificate archive.
 
+\section{A single-seed eventual existence theorem}
+\label{sec:one-seed}
+There is a substantially more conceptual route
+to \emph{eventual existence} than proving the
+sharp cutoff at $173$. It uses only one
+seven-element permutation, seven rounds of
+integer reflection closure, and a uniform
+cubic gap inequality. In particular, this
+proof never invokes a bipartite matching
+algorithm or any of the earlier $173$--$364$
+permutation certificates.
+
+Let $\mathcal R_0=\{7\}$ and define a
+sequence of finite sets recursively by
+\begin{equation}\label{eq:sevenrounds}
+\mathcal R_{j+1}=\mathcal R_j\cup
+\{k^3-m-1:\ m\in\mathcal R_j,\
+m<k^3-m-1\le10975,\ k\ge2\}.
+\end{equation}
+
+\begin{lemma}[Seven-round arithmetic certificate]
+\label{lem:sevenrounds}
+For $j=0,\ldots,7$ the exact cardinalities
+$|\mathcal R_j|$ are
+\[
+1,\ 21,\ 189,\ 995,\ 3280,\ 6588,\ 8533,\ 8924.
+\]
+Moreover,
+\[
+\boxed{[8915,10975]\cap\mathbb Z
+\subseteq\mathcal R_7.}
+\]
+\end{lemma}
+\begin{proof}
+This is a bounded integer-only calculation,
+reproduced by \texttt{one\_seed\_eventual.py}.
+For each member $m$ and each integer
+$k\ge2$ with $k^3\le21950$,
+form $n=k^3-m-1$ and insert it
+when $m<n\le10975$. After seven
+simultaneous rounds the cardinalities
+are exactly those displayed and all
+$2061$ required lengths are present.
+The computation tests only elementary
+integer identities and finite set
+membership, not the existence of
+matchings. Its exact loop is a
+reproducible finite certificate, not an
+unproved asymptotic inference.
+\end{proof}
+
+\begin{theorem}[Eventual existence from one permutation]
+\label{thm:single-seed}
+The explicit permutation
+\[
+\boxed{p=(7,6,5,4,3,2,1)}
+\]
+at length $7$, whose cube sums all equal
+$8$, together with the reflection-extension
+lemma, proves that
+\[
+\boxed{P(n)>0\quad\text{for every }n\ge8915.}
+\]
+Thus eventual existence requires only one
+elementary starting permutation and
+the seven-round arithmetic certificate,
+without locating the optimal cutoff.
+\end{theorem}
+\begin{proof}
+Each element of $\mathcal R_j$ is a
+length possessing a valid cube-sum
+permutation, by induction on $j$
+using Lemma~\ref{lem:reflect}.
+Therefore the finite interval
+$8915\le n\le10975$ is covered.
+
+For $n\ge10976$, let $k$ be the
+least integer such that
+$k^3\ge n+8916$ and put
+$m=k^3-n-1$. Then $m\ge8915$,
+and $k\ge28$.
+We prove $k^3\le2n$.
+If $k=28$, this follows from
+$n\ge10976$, since $28^3=21952$.
+If $k\ge29$, minimality gives
+$n\ge(k-1)^3-8915$, whence
+\[
+\begin{aligned}
+2n-k^3
+&\ge 2((k-1)^3-8915)-k^3\\
+&=k^3-6k^2+6k-17832\\
+&\ge1685>0.
+\end{aligned}
+\]
+The last polynomial equals $1685$
+at $k=29$ and is strictly increasing
+for all larger integer $k$.
+Thus $8915\le m<n$.
+By strong induction $P(m)>0$,
+so reflection through the cube $k^3$
+produces a valid permutation of length
+$n$. This proves the theorem.
+\end{proof}
+
+\begin{corollary}[Efficient one-seed construction]
+\label{cor:single-seed-alg}
+For every $n\ge8915$, a cube-sum
+permutation of length $n$ is
+constructible using $O(n)$
+unit-cost arithmetic operations
+and $O(\log\log n)$ reflection
+layers beyond a fixed finite lookup.
+\end{corollary}
+\begin{proof}
+For $n\ge10976$, take the least
+cube $k^3\ge n+8916$ as in the
+theorem. Its predecessor satisfies
+\[
+8915\le m=k^3-n-1
+=O(n^{2/3}),
+\]
+since consecutive cubes differ by
+$O(k^2)=O(n^{2/3})$.
+Hence $\log m\le(2/3)\log n+O(1)$,
+which yields $O(\log\log n)$
+recursive stages before reaching
+the finite interval. Every reflection
+writes its newly added positions
+exactly once, so the output work
+is $O(n)$; exact cube roots add
+only polylogarithmic overhead.
+The finite interval is traced through
+at most seven predecessor links,
+ending at the sole seed of length $7$.
+\end{proof}
+
+Theorem~\ref{thm:single-seed} is weaker
+numerically than the fully classified
+cutoff in Theorem~\ref{thm:exist},
+but stronger conceptually in a different
+direction: it establishes eventual
+existence without any large explicit
+matching witness. The residual finite
+verification concerns \emph{reflection
+reachability only}, not bipartite
+matching, and is entirely independent
+of the sharp-threshold classification.
+A completely computation-free proof
+of eventual existence would still
+require eliminating this last
+seven-round finite arithmetic check.
+
 \section{A short, local existence certificate}\label{sec:words}
 The preceding reflection argument is infinite and elementary.
 The finite existence verification can itself be made much more
