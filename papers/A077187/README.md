@@ -38,7 +38,7 @@ The next stage would address \(b=9\) or develop a general mechanism for multipli
 - [exact_b8_fast.py](exact_b8_fast.py), [tower_norm.py](tower_norm.py), [generate_norms_parallel.py](generate_norms_parallel.py) — exact formula and 486-norm computation.
 - [norm_gamma_*.txt](.) — all 486 full integer norms (approximately 5,800 digits each).
 - [one_shot_gmp_b8.cpp](one_shot_gmp_b8.cpp), [all_486_gmp.tsv](all_486_gmp.tsv) — full-range one-shot GMP gcd checks.
-- [audit_all_b8.py](audit_all_b8.py), [independent_relative_check.py](independent_relative_check.py), [check_direct_b8.py](check_direct_b8.py), [verify_all.py](verify_all.py) — exact audits, independent finite-field checks and full digit-layer recurrences.
+- [audit_all_b8.py](audit_all_b8.py), [check_direct_b8.py](check_direct_b8.py), [verify_all.py](verify_all.py) — exact audits, independent finite-field checks and full digit-layer recurrences.
 
 The source scripts use Python 3, SymPy and NumPy. The gcd program uses GMP and a C++17 compiler.
 
@@ -50,3 +50,28 @@ Reproducibility steps (from this directory):
 5. Compile `main.tex` twice with `pdflatex`.
 
 All computational evidence supports the specified infinite subfamily only. The underlying formulas, software and final claims await external mathematical audit. No all-primes proof is claimed.
+
+
+## Unrestricted-order research continuation (October 18, 2026)
+
+The separate research notes do **not** extend the fully certified b=8 result
+to all primes. They develop a general-order finite-defect transfer and
+two-offset drift criterion, then prove the exact elementary invariant
+\[
+\Delta_C+\Delta_Y=9/100\pmod p\ne0
+\]
+for every prime \(p\ge7,\ p\ne11\), whose \(\operatorname{ord}_p(10)\)
+has no prime factors outside \(2,3,5\) and has \(v_3\le2\).
+This gives a proof of the low-\(3\)-adic-order class independent of any
+cyclotomic norm certificates.
+
+- [Elementary invariant and refined zero-drift decision](research/elementary_drift_and_zero_drift_decision_2026-10-18.md)
+- [Exact finite scan, no floating point](research/drift_scan_general.cpp):
+  compile with \`g++ -O3 -std=c++17\` and run with argument \`5000\`.
+- [Independent within-window and subgroup-root audit](research/window_quadratic_audit.py):
+  run \`python research/window_quadratic_audit.py\`.
+
+Finite evidence: 665 checked primes below 5000 (excluding \(p=11\)) all
+had nonzero drift. The square-root/subgroup test rigorously decides any
+individual zero-drift prime, if encountered; **the universal existence
+conjecture remains open.**
