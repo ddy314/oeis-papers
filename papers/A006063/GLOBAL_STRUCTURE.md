@@ -132,6 +132,39 @@ experiments suggest this may hold, but it is **not proved**;
 the certified all-`n>=8915` construction currently uses
 `O(log log n)` reflection layers.
 
+### Reflection entropy has exactly cube-root order
+
+Fix one seed `p`, and consider paths of strictly increasing reflection lengths `n_0<n_1<...<n_r=n`. Every step uses the cube `c_j=n_(j-1)+n_j+1`, and
+
+```
+c_(j+1)-c_j = n_(j+1)-n_(j-1) > 0.
+```
+
+Thus **the cubes in each path are strictly increasing**, and the ordered root set (subset of roots 2..floor(cuberoot(2n))) uniquely determines the path and the permutation. The single-seed reflection count obeys
+
+```
+F(n) <= 2**(floor(cuberoot(2*n))-1).
+log F(n) = Theta(n**(1/3))  as n->infinity.
+```
+
+For a fixed collection of S starting permutations, the corresponding upper bound is `S*2**(K(n)-1)`. Pure reflection from finitely many seeds consequently has **zero entropy per permutation position**, in sharp contrast with the exponential-in-n families produced by disjoint three-cycles.
+
+**Bounded-depth barrier.** At most r reflections give at most `sum(comb(K(N)-1,j) for j=0..r)` different lengths <=N. For fixed r<=2 this is `o(N)`; for r=3 it is `N/3+O(N**(2/3))`. A fixed-seed uniformly cofinite reflection construction therefore needs **at least four steps**. Whether the observed seven-round upper bound extends unconditionally to all large n is an open signed-Waring-type question.
+
+Reproduction: `python papers/A006063/reflection_entropy_barrier.py`.
+
+### Arithmetic codegrees and stronger Hall obstruction localization
+
+Two distinct left vertices `i,j` can share a right neighbor only when two cubes differ by `|i-j|`. As `a**3-b**3=(a-b)*(a*a+a*b+b*b)`, the common-neighbor count is **at most tau(|i-j|)**. Define `D=max(tau(d),1<=d<n)` and let `delta`, `Delta` be the extreme vertex degrees. Cauchy-Schwarz on the neighbor multiplicities gives the exact global inequality
+
+```
+|N(S)| >= |S|*delta**2/(Delta+(|S|-1)*D).
+```
+
+For all `n`, the degrees obey `delta>=(2**(1/3)-1)*n**(1/3)-1` and `Delta<=floor(cuberoot(2*n))`, while `D=O_epsilon(n**epsilon)` for every fixed positive `epsilon`. Thus every Hall-deficient subset (independent or not) must have **size at least `c_epsilon*n**(2/3-epsilon)`** once n is sufficiently large. Coupled with boundary localization, an obstruction must be both arithmetically large and nearly full diameter; this still does **not** rule all of them out.
+
+Reproduction: `python papers/A006063/arithmetic_expansion_audit.py`.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
