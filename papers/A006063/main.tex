@@ -300,12 +300,49 @@ P(n)\ge\sum_{i=1}^{3}P(m_i)
 The displayed logarithmic asymptotic follows immediately.
 \end{proof}
 
+
+\section{An efficient constructive algorithm}
+The proof is also algorithmic. Given $n>364$, choose the
+\emph{least} cube $c=k^3\ge n+174$ and put $m=c-n-1$.
+The cube-gap lemma ensures $173\le m<n$. Minimality gives
+\[
+(k-1)^3<n+174\le k^3
+\quad\Longrightarrow\quad
+173\le m\le3k^2-3k+173=O(n^{2/3}).
+\]
+Repeat until the remaining size is in the certified interval
+$173\le m\le364$, then fill each recorded interval by
+the explicit reflection $p_i=c-i$.
+
+\begin{proposition}[Linear-output construction]
+A valid cube-sum permutation of any $n\ge173$ can be
+constructed in $O(n)$ unit-cost arithmetic operations,
+with $O(\log\log n)$ reflection layers.
+\end{proposition}
+\begin{proof}
+The predecessor bound $m=O(n^{2/3})$ implies
+$\log m\le(2/3)\log n+O(1)$, so the number of
+iterations before the fixed-size base is
+$O(\log\log n)$. The returned intervals are disjoint
+and their union, together with the base interval,
+is $\{1,\dots,n\}$. Therefore exactly $n$ entries
+are written. Each exact integer cube root can
+be computed using $O(\log n)$ comparisons,
+which contributes $O(\log n\log\log n)=o(n)$
+additional unit-cost operations.
+\end{proof}
+The accompanying \texttt{construct\_linear.py}
+implements this procedure with exact integer
+cube roots, and can also display the recursion
+plan without allocating the full output.
+
 \section{Reproduction and limitations}
 All programs require only Python 3 standard-library modules:
 \begin{verbatim}
 python papers/A006063/verify.py
 python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
+python papers/A006063/construct_linear.py
 \end{verbatim}
 The archived data consist of $109$ core witnesses,
 the legacy $192$-row all-base cross-check, $48$ small
