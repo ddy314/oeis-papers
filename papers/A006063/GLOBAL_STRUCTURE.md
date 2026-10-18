@@ -279,6 +279,42 @@ identities and the disjoint dimer-switch inequalities. A separate
 local implementation fully materialized and verified both original
 and modified 54,406-element involutions, all sums being cubes.
 
+### Inverse-paired tensorization: exact involution fiber count
+
+Independent perfect-power fibers can also be paired to create genuine
+**involutions**, even when some base permutations are not involutive.
+In the previous tensor map, a position `(i,r)` maps to
+`(p_r(i),L+1-r)`, so the lifted map is an involution exactly when
+
+```
+p_(L+1-r) = inverse(p_r)                 (r=1,...,L).
+```
+
+Since `L=t**d` is odd and the inverse of a legal power-sum permutation
+is also legal, its **exact** number of involutive middle-block lifts is
+
+```
+I_d(M) * P_d(M)**((L-1)//2).
+```
+
+Consequently, **if** legal involutions exist at all sufficiently large
+lengths, and some M has `I_d(M)>=1` and `P_d(M)>=2`, then
+
+```
+limsup_n log(I_d(n))/n >= log(P_d(M))/(2*M+1) > 0.
+```
+
+Complete the shifted middle interval by a legal involutive prefix of
+size `A=(L-1)//2` and the shortest admissible perfect-power reflection
+on the suffix. This is a general implication from finite ordinary
+multiplicity to exponential involution multiplicity, conditional only
+on eventual involution existence. The earlier taxicab construction
+gives an **unconditional** exponential family without this assumption.
+
+`inverse_fiber_involution_audit.py` independently verifies the
+inverse-fiber equation with a legal 316-element reference involution and
+a different legal, non-involutive five-cycle-switched permutation.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
