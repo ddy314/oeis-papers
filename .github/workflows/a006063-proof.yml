@@ -60,9 +60,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="$(git branch --show-current)"
+          git fetch origin "$branch"
+          source_tex="$(git hash-object papers/A006063/main.tex)"
+          remote_tex="$(git show "origin/$branch:papers/A006063/main.tex" | git hash-object --stdin)"
+          if [ "$source_tex" != "$remote_tex" ]; then
+            echo "Skip stale PDF: main.tex has changed since checkout."
+            exit 0
+          fi
           git add papers/A006063/main.pdf
           if ! git diff --cached --quiet; then
             git commit -m "paper: compile A006063 A096680 classification PDF"
-            git pull --rebase origin "$(git branch --show-current)"
+            git pull --rebase origin "$branch"
             git push
           fi
