@@ -136,22 +136,23 @@ def check_compact():
 
 
 def check_reused_small_compression(yes):
-    """Stronger basis: 61 fresh witnesses plus 48 existing early positives."""
-    core = read("core_61_with_small.json")
-    if len(core) != 61:
-        raise AssertionError("expected exactly 61 additional seed lengths")
-    known = dict(yes)
+    """Optimal reflection-only basis: empty seed + 48 early + 60 new."""
+    core = read("core_60_with_empty.json")
+    if len(core) != 60:
+        raise AssertionError("expected exactly 60 additional seed lengths")
+    known = {0: []}  # Full interval reflection when c=n+1 is a cube.
+    known.update(yes)
     witnessed = 0
     reflected = 0
     for n in range(173, 365):
         options = []
         for c in sorted(cubes_through(2*n)):
             m = c-n-1
-            if 1 <= m < n and m in known:
+            if 0 <= m < n and m in known:
                 options.append((m, c))
         if options:
             if str(n) in core:
-                raise AssertionError(f"unnecessary core-61 witness n={n}")
+                raise AssertionError(f"unnecessary core-60 witness n={n}")
             m, c = options[0]
             known[n] = reflect(known[m], c, n)
             reflected += 1
@@ -161,9 +162,10 @@ def check_reused_small_compression(yes):
             known[n] = core[str(n)]
             check(n, known[n])
             witnessed += 1
-    if (witnessed, reflected) != (61, 131):
+    if (witnessed, reflected) != (60, 132):
         raise AssertionError("unexpected compression totals")
-    print("PASS: 48 early positive witnesses + 61 new seeds "
+    assert known[342] == [343-i for i in range(1,343)]
+    print("PASS: empty matching + 48 early positives + 60 new seeds "
           "cover all 192 sizes n=173..364.")
 
 def check_multiplicity(yes, archive):
