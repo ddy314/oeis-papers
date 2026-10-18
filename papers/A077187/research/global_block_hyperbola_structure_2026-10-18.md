@@ -1,0 +1,201 @@
+# A077187: two-way block words, integrable digit layers, and witness multiplicity
+
+**October 18, 2026 — PROVED structural results. The unrestricted OEIS conjecture remains OPEN.** This continuation emphasizes mathematical organization rather than larger finite-order searches.
+
+## Theorem A: drift equals opposite-order block concatenations
+
+Fix an integer \(r\ge2\), put \(N_r=10^r-1\), write
+\(r=2^a5^cv,\ (v,10)=1\), and let
+\(T=\operatorname{lcm}(r,\operatorname{ord}_v(10))\).
+Let \(C_k=1\Vert\cdots\Vert k\), \(R_k=k\Vert\cdots\Vert1\),
+\(D(k)=\sum_{j=1}^k\ell_{10}(j)\), \(Y_k=10^{-D(k)}R_k\)
+modulo \(N_r\), and \(S_d=(C_{10^d-1},Y_{10^d-1})\).
+
+Define the following **finite integers** (the reversal changes the
+order of the integer blocks, **not the individual decimal digits**):
+\[
+\begin{split}
+W^\uparrow_r&=10^T\Vert(10^T+1)\Vert\cdots\Vert(10^{2T}-1),\\
+W^\downarrow_r&=(10^{2T}-1)\Vert\cdots\Vert(10^T+1)\Vert10^T .
+\end{split}
+\]
+
+**Theorem.** For **every integer \(r\ge2\)**,
+\[
+\boxed{(U_r,V_r):=S_{2T}-S_T
+\equiv(W^\uparrow_r,W^\downarrow_r)\pmod{10^r-1}.}
+\]
+
+**Proof.** Let \(K_0=10^T-1,\ K_1=10^{2T}-1\), and
+\(H=D(K_1)-D(K_0)=9\sum_{d=T+1}^{2T}d10^{d-1}\).
+The previously proved stable-period lemma implies \(r\mid H\),
+so \(10^H=1\pmod{N_r}\).
+The two concatenation identities hold as *ordinary integers*:
+\[
+C_{K_1}=10^H C_{K_0}+W^\uparrow_r,\quad
+R_{K_1}=W^\downarrow_r\,10^{D(K_0)}+R_{K_0}.
+\]
+Normalize the second and subtract the two states:
+\(Y_{K_1}=10^{-H}(W^\downarrow_r+Y_{K_0})\).
+Since \(10^H=1\), the claimed difference follows. QED.
+
+**Consequence.** For any prime \(p\) of exact order \(r\),
+zero drift is *equivalent* to simultaneous divisibility of the two
+oppositely ordered block words. The genuine primitive obstruction is
+therefore
+\[
+\gcd(\Phi_r(10),W^\uparrow_r,W^\downarrow_r),
+\]
+whose prime factors not dividing \(r\) are precisely the true-order
+zero-drift primes. This reformulation is unconditional; the desired
+coprimality statement for all \(r\) is still **unproved**.
+
+## Theorem B: integrability of every constant-length digit window
+
+For any modulus coprime to 10, inside one \(d\)-digit interval set
+\(q=10^d\). The exact step recurrence is
+\[
+C_{k+1}=q C_k+(k+1),\qquad
+Y_{k+1}=q^{-1}(Y_k+k+1).
+\]
+Introduce **polynomial** centered coordinates
+\[
+\boxed{\begin{aligned}
+X_q(k)&=(q-1)^2C_k+k(q-1)+q,\\
+Z_q(k)&=(q-1)^2Y_k-k(q-1)+1 .
+\end{aligned}}\tag{1}
+\]
+Substitution gives the *exact* diagonal semiconjugacy
+\[
+\boxed{X_q(k+1)=qX_q(k),\quad
+Z_q(k+1)=q^{-1}Z_q(k),\quad X_q(k)Z_q(k)=I_q.}\tag{2}
+\]
+Over a field the coordinate change is invertible whenever \(q\ne1\).
+When \(q=1\), equations (1) are still valid but degenerate; do not
+mistake the semiconjugacy for an invertible coordinate transformation.
+
+The normalized mountain residue has the universal identity
+\[
+\boxed{(q-1)^2\frac{M(k+1)}{10^{D(k)}}
+=qX_q(k)+Z_q(k)-2q.}\tag{3}
+\]
+Indeed \(M(k+1)/10^{D(k)}=qC_k+Y_k+k+1\);
+expanding (1) immediately gives (3).
+
+For \(q\ne1\) modulo a prime, the mountain condition is equivalent to
+intersecting an invariant hyperbola with a line:
+\[
+XZ=I_q,\qquad qX+Z=2q.
+\]
+Writing \(t=qX\) gives
+\[
+\boxed{(t-q)^2=q(q-I_q).}\tag{4}
+\]
+A necessary discriminant condition is that \(q(q-I_q)\) be a quadratic
+residue (including zero). It is *not sufficient* without orbit
+membership: \(X\) must lie in \(X_0\langle q\rangle\).
+This is a geometric explanation of the earlier subgroup-root tests.
+
+When \(q=1\), the scaled identity (3) loses information. The direct
+recurrence instead gives the previously established polynomial
+\[
+(n+L)^2+C+Y+L-L^2,\qquad L=10^{d-1},
+\]
+for the normalized mountain at \(k=L+n\), with \((C,Y)\) the
+pre-window state.
+
+**Explicit interface dynamics.** At a digit-length boundary
+\(k=10^d-1\), put \(q'=10q\), \(a=q-1\), \(b=q'-1\). If \(a\ne0\)
+modulo the prime, write \(\lambda=(b/a)^2\). The coordinates at the
+*same state*, before and after switching the digit width, satisfy
+\[
+\begin{aligned}
+X_{q'}(k)&=\lambda X_q(k)+k(b-\lambda a)+q'-\lambda q,\\
+Z_{q'}(k)&=\lambda Z_q(k)-k(b-\lambda a)+1-\lambda.
+\end{aligned}\tag{5}
+\]
+Thus global dynamics consists of invertible diagonal motion inside
+each nonsingular digit window and explicit affine interface maps,
+with separate unipotent \(q=1\) windows. Each local \(I_q\) is
+conserved inside a window, **not across interfaces**.
+
+## Theorem C: reflected-block cancellation and singular-layer flux
+
+For a full \(d\)-digit layer let \(L=10^{d-1}\),
+\(m=9L\), \(q=10^d\), \(A=q^m\), and
+\(S=\sum_{i=0}^{m-1}q^i\). The increasing and descending block integers
+are, respectively,
+\[
+B_d=\sum_{i=0}^{m-1}(L+i)q^{m-1-i},\quad
+R_d^*=\sum_{i=0}^{m-1}(L+i)q^i .
+\]
+Pairing \(i\) with \(m-1-i\) uses
+\(L+m-1=q-1\), giving the **exact integer reflection identity**
+\[
+\boxed{B_d+R_d^*=(L+q-1)S.}\tag{6}
+\]
+The full-layer map \(C'=AC+B_d,\ Y'=A^{-1}(Y+R_d^*)\)
+therefore has the exact twisted scalar relation
+\[
+\boxed{C'+AY'-AC-Y=(L+q-1)S.}\tag{7}
+\]
+In particular the weighted first-moment sum \(J\) cancels completely.
+For a prime field with \(A=1\):
+- If \(q\ne1\), \(S=0\) and \(C'+Y'=C+Y\).
+- If \(q=1\), \(S=m=9L\) and the scalar jump is
+  \(9L^2=9/100\).
+
+This rederives the earlier \(v\mid9\) drift invariant conceptually,
+as a **single singular-window contribution**. When \(A\ne1\),
+the varying twists prevent naive telescoping of (7); that is a
+concrete missing step, not an established cancellation.
+
+## Theorem D: almost every small offset gives infinitely many witnesses
+
+Let \(p\ge7,\ p\ne11\), with \(r=\operatorname{ord}_p(10)\ge3\).
+Let \(T\) be the stable period and suppose \((U,V)\ne(0,0)\).
+For each \(n\in\{0,\dots,r-1\}\), the normalized residue of
+\(M(10^{jT}+n)\) is affine in \(j\) and has slope
+\[
+\boxed{\sigma_n=10^{n+1}U+10^{-n}V.}\tag{8}
+\]
+
+**Theorem.** At most \(\gcd(2,r)\) of the \(r\) slopes vanish.
+For every other offset \(n\), a *unique residue class of*
+\(j\bmod p\) produces a divisible mountain; there is a representative
+\(1\le j\le p\), and \(j\mapsto j+mp\) provides infinitely many
+different mountains. In particular, at least
+\[
+\boxed{r-\gcd(2,r)}
+\]
+distinct fixed-offset families of divisible mountains exist
+whenever the drift is nonzero.
+
+**Proof.** Since \(S_{jT}=S_T+(j-1)(U,V)\), the \(n\) subsequent
+insertions in the next digit window send initial-state differences to
+\((10^nU,10^{-n}V)\); the mountain residue adds another factor 10 to
+the ascending coordinate, proving (8). A nonzero affine slope has one
+zero in \(\mathbb F_p\). If \(U=0\), \(V\ne0\) makes every slope
+nonzero. Otherwise \(\sigma_n=0\) iff
+\(10^{2n+1}=-V/U\). The map \(n\mapsto10^{2n+1}\) on the cyclic group
+of order \(r\) has fibers of size \(\gcd(2,r)\), so it has either no
+solutions or that many. QED.
+
+This replaces the earlier two-offset *existence* observation by a
+quantitative picture of the entire affine family. It does not prove
+nonzero drift for arbitrary primes.
+
+## Research bottleneck
+
+The unrestricted conjecture would follow from ruling out a genuine
+primitive prime common to both block words of Theorem A, but no such
+unbounded-order argument is known. A distinct path is to show that if
+this common prime exists, at least one invariant hyperbola in a stable
+digit-layer cycle still intersects the corresponding mountain line
+in an **attainable subgroup orbit** (Theorem B).
+
+The mathematical source of difficulty is now explicit: the
+interface maps and \(A\ne1\) twists (Theorem C), **not** the
+integrable within-layer dynamics. Finite order-bound experiments are
+orthogonal to that missing global argument. No full proof of
+A077187 is claimed.
