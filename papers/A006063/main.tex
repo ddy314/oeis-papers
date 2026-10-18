@@ -376,6 +376,89 @@ A direct bitmask dynamic program gives its permanent
 as $3$. This computation is independently reproduced in
 \texttt{verify\_extended.py} using exact integers.
 
+\section{A nine-gadget exceptional case at $n=236$}
+\label{sec:236}
+
+An \emph{involution} is a permutation satisfying
+$p^2=\mathrm{id}$. At $n=236$ there are exactly $512$
+cube-sum permutations, \emph{none} of which is an involution.
+This follows from a short alternating-cycle decomposition,
+not from a general permanent computation.
+
+Define a reference permutation $p$ of $[1,236]$ by
+$p(i)=c-i$ on the following fifteen intervals:
+\[
+\begin{array}{r|r@{\qquad}r|r}
+I&c&I&c\\ \hline
+{[1,7]}&8 &[8,9]&216\\
+{[10,18]}&64 &[19,43]&125\\
+{[44,45]}&216 &[46,70]&125\\
+{[71,81]}&216 &[82,106]&125\\
+{[107,134]}&343 &[135,136]&216\\
+{[137,170]}&343 &[171,172]&216\\
+{[173,197]}&343 &[198,208]&216\\
+{[209,236]}&343 &&
+\end{array}
+\]
+These interval images partition $[1,236]$, and
+every prescribed sum is a cube.
+
+\begin{lemma}[Alternating digraph at $236$]\label{lem:236}
+Let $D_p$ be the digraph with an arrow $i\to j$
+whenever $i\ne j$ and $i+p(j)$ is a cube.
+Its strongly connected components comprise
+$191$ singletons and exactly nine five-vertex sets
+\[
+S_t=\{10+t,46+t,71+t,137+t,198+t\},
+\qquad 0\le t\le8.
+\]
+Within each $S_t$ the nontrivial arrows form
+one simple directed $5$-cycle, without chords.
+\end{lemma}
+\begin{proof}
+This is a finite integer check using the only six
+possible cubes $8,27,64,125,216,343$.
+The interval formula specifies every edge; the
+independent \texttt{count\_236.py} verifier checks
+all $236$ rows, the component partition, and
+the five-cycle properties with integer arithmetic.
+It invokes neither a matching solver nor
+a permanent-computation routine.
+\end{proof}
+
+\begin{theorem}[Exact count and involution obstruction]\label{thm:236}
+\[
+\boxed{P(236)=2^9=512.}
+\]
+There is no cube-sum involution on $[1,236]$.
+\end{theorem}
+\begin{proof}
+Given any other cube-sum permutation $q$,
+$f=p^{-1}\circ q$ is a permutation whose arrows
+lie in $D_p$ or are identity loops. Every cycle of
+$f$ is confined to one strongly connected component.
+Each singleton is therefore fixed, while each $S_t$
+has exactly two choices: five fixed points or the
+unique directed $5$-cycle. The choices are independent,
+so there are $2^9$ permutations $q$.
+
+For the central set $S_4=\{14,50,75,141,202\}$,
+the reference permutation restricts to
+\[
+14\mapsto50\mapsto75\mapsto141
+\mapsto202\mapsto14.
+\]
+The only two possible restrictions of $q$ to $S_4$
+are this $5$-cycle and its inverse, neither of
+which is an involution. Thus no $q$ is an involution.
+\end{proof}
+
+The failure of involutivity at $236$ is therefore a
+specific five-cycle obstruction, not a failure of
+cube-sum permutation existence. The proof uses
+only a fifteen-row interval template and an easily
+audited finite graph-decomposition lemma.
+
 \section{Many permutations: an exponential cube-root bound}
 Besides qualitative multiplicity, the reflection family
 yields a strong quantitative statement.
@@ -727,6 +810,7 @@ python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
 python papers/A006063/construct_linear.py
 python papers/A006063/verify_word_paths.py
+python papers/A006063/count_236.py
 \end{verbatim}
 The archived data consist of $109$ core witnesses,
 the legacy $192$-row all-base cross-check, $48$ small
