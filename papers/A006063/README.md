@@ -46,6 +46,29 @@ liminf_{n->infinity} log(P(n)) / (2*n)**(1/3) >= log(2)/2
 No additional finite certificate is needed for this asymptotic bound beyond the already-established qualitative existence theorem. This coefficient is a lower bound, not an unproved claim of optimality.
 
 
+### Near-critical reflection bound (new)
+
+A variable number of reflection branches gives a stronger inequality with an **explicit loss**, rather than only a liminf statement. Let `K=floor(cuberoot(2*n))`. For every `n>=173`,
+
+```
+P(n) >= (127/K) * 2**((K-127)/2)
+```
+
+Furthermore, for **every fixed real epsilon > 0**, some constant `C_epsilon > 0` satisfies
+
+```
+P(n) >= C_epsilon * 2**(K/2) / K**epsilon
+```
+
+The proof chooses `s=floor(log2 K)` branches for the explicit `1/K` factor and `s=ceil(log2(K/epsilon))` for the arbitrary-polynomial-loss result. The crucial inequality is
+
+```
+sum(2**(-h)*K/(K-2*h) for h=1..s)
+    >= 1-2**(-s)+2/K > 1
+```
+
+for `K>=128`. The $n$-dependent branch count is algebraically admissible because `2**s >= 2*s*s+4*s-1` for every `s>=7`. Neither quantitative theorem needs any new finite matching certificate.
+
 ## Mathematical method
 
 **Reflection extension:** If `p` is valid on `{1,...,m}` and `m+n+1=c` is a cube, then extend by `p[i]=c-i` for `m<i<=n`. Each cube gives a disjoint image family since its last value is `p[n]=c-n`. Consequently,
