@@ -451,7 +451,7 @@ be the unique solution of
 \begin{equation}\label{eq:rho}
 \sum_{h=1}^{s}\rho_s^{-h}=1,
 \qquad
-B_s=6(s-1)^2+24(s-1)+15.
+B_s=2s^2+4s-1.
 \end{equation}
 Let $K(n)=\lfloor\sqrt[3]{2n}\rfloor$ as before.
 
@@ -498,8 +498,10 @@ exact polynomial inequality holds:
 &\ge0.
 \end{aligned}
 \]
-The last inequality follows directly from
-$k\ge B\ge6j^2+24j+15$.
+Dividing the final polynomial by $3$, its
+coefficient of $-k$ is $2j^2+8j+5$ and its
+constant term is positive. Hence the last inequality
+follows from $k\ge B\ge2j^2+8j+5$.
 Also $k-2j-2\ge k-2s\ge8$, so
 $m_j\ge256\ge173$ and
 $K(m_j)\ge k-2(j+1)$.
