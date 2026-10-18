@@ -717,3 +717,67 @@ examples (notably \(p=313,7841\) fail this window).
 The dedicated \`a077187-u8-trace-norm.yml\` CI passes.
 This is a fixed-degree structural obstruction, **not**
 a proof of the universal zero-drift existence implication.
+
+
+## Exact layerwise finite-defect flux and u=8 Galois phase mixing (Oct 18)
+
+[New general mathematical note](research/finite_defect_duhamel_flux_and_u8_galois_2026-10-18.md).
+
+**PROVED, for arbitrary multiplicative orders:** write
+\(r=uv\), \(u=2^a5^c\), \(h=\max(a,c)\), and
+let \(\rho_i=\widehat A_i/A_i\) be the first \(h\)
+actual/stable multiplier ratios. With
+\(P_{i-1}=\prod_{j<i}\widehat A_j\),
+\(c_i=L_i/(q_i-1)+1/(q_i-1)^2\),
+\(b_i=-L_i/(q_i-1)+q_i/(q_i-1)^2\),
+and the original prefix state \((C_{i-1},Y_{i-1})\),
+the finite-defect state \(W=S_{pT}\) satisfies
+\[
+\begin{aligned}
+W_C&=\sum_{i\le h}P_{i-1}^{-1}(\rho_i^{-1}-1)(C_{i-1}+c_i),\\
+W_Y&=\sum_{i\le h}P_{i-1}(\rho_i-1)(Y_{i-1}+b_i).
+\end{aligned}
+\]
+Consequently its scalar trace is an exact sum
+of **local defect fluxes**
+\[
+W_C+W_Y=\sum_i(\rho_i-1)
+\left[P_{i-1}(Y_{i-1}+b_i)
+-\rho_i^{-1}P_{i-1}^{-1}(C_{i-1}+c_i)\right].
+\]
+This replaces long affine inverse composition by
+a transparent weighted finite sum and recovers
+the known \(u\mid20\) one-defect theorem.
+
+For \(u=8\), the explicit state from the preceding
+note satisfies the new **fixed hyperbola identity**
+\((W_C+10/81)(W_Y+1/81)=ab\).
+The first nonsingular window therefore has rational
+discriminant \((20/81)^2-40ab\), independent of
+the primitive eighth-root phase. In contrast,
+the singular-window square character depends on
+\(E(\rho)=-11/81+a\rho^{-1}+b\rho\).
+
+**PROVED (Galois phase obstruction):** the rational norm
+\(N=\operatorname{Norm}_{\mathbb Q(\zeta_8)/\mathbb Q}(E)\)
+is nonsquare modulo the **split** prime \(41\)
+(\(N\bmod41=26\)). Thus
+\(\mathbb Q(\zeta_8,\sqrt N)/\mathbb Q\)
+is multiquadratic of degree eight. By Chebotarev,
+a set of rational primes of density \(1/8\) has
+\(\chi_p(N)=-1\) and \(p\equiv1\bmod8\).
+For each such prime, among the **four formal eighth-root
+conjugates**, at least one singular-window square test
+succeeds and at least one fails. This is **not**
+a density statement about the specific phase selected
+by the decimal cocycle and gives **no counterexample
+to A077187**.
+
+[Independent standard-library audit](research/audit_defect_duhamel_flux.py):
+16 true-order prime fields, direct affine-prefix inversion,
+global-period consistency for shorter periods,
+and four split-prime Galois phase tests;
+dedicated \`.github/workflows/a077187-duhamel-flux.yml\`
+**CI PASS**. The remaining obstacle is a *specific
+cross-constraint* between finite defect and true zero
+stable drift. The unrestricted conjecture stays OPEN.
