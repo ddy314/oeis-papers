@@ -25,6 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
+- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -88,6 +89,41 @@ Any other solution corresponds to a directed cycle cover in that graph: all sing
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
 
+## Exponential growth on an explicit infinite subsequence
+
+This is the strongest purely structural counting improvement in this follow-up. For **every odd integer t>=9** define
+
+```
+n_t = (551*t**3 - 1)//2.
+```
+
+Then
+
+```
+P(n_t) >= 2**(9*t**3) = 2**((18*n_t+9)/551)
+limsup(log(P(n))/n) >= 18*log(2)/551 > 0.
+```
+
+Unlike the global near-critical bounds, this is **exponential in n**, but only along the explicit infinite subsequence `n_t`. No exponential-in-n lower bound is asserted for every n.
+
+**Odd-power block lifting lemma:** If `p` is a valid `d`th-power-sum permutation of length `M` and `L=t**d` is odd, place `M` consecutive blocks of length `L` inside the shifted interval starting at `A+1`, where `A=(L-1)//2`. For `x=A+(i-1)*L+r`, set
+
+```
+Q[x] = A+(p[i]-1)*L+(L+1-r).
+x+Q[x] = L*(i+p[i]).
+```
+
+All sums remain `d`th powers, and each old alternating cycle becomes **L independent copies**. For the explicit `M=236` seed there are nine independent five-cycles, giving `9*L` switches.
+
+To turn the shifted middle permutation into an ordinary prefix permutation, use the previously proven construction on `[1,A]` and reflect the suffix `[B+1,n_t]` through the cube `(8*t)**3`, where `B=A+236*L`; that suffix has length exactly `39*L`.
+
+Independent integer checks:
+```sh
+python papers/A006063/lift_exponential_subsequence.py
+```
+
+The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
+
 ## Mathematical method
 
 **Reflection extension:** If `p` is valid on `{1,...,m}` and `m+n+1=c` is a cube, then extend by `p[i]=c-i` for `m<i<=n`. Each cube gives a disjoint image family since its last value is `p[n]=c-n`. Consequently,
@@ -136,6 +172,7 @@ python papers/A006063/verify_extended.py
 python papers/A006063/construct_linear.py
 python papers/A006063/verify_word_paths.py
 python papers/A006063/count_236.py
+python papers/A006063/lift_exponential_subsequence.py
 ```
 
 All verifiers use Python's standard library only; certificate checks use integers, sets, and exact comparisons.
