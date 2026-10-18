@@ -231,6 +231,21 @@ SHA-256:
 \[
 \texttt{f4098f7f7113f0941c5423a33de3e9bf0c0a335c2e4d901b28851fab1495cddc}.
 \]
+A second independent audit evaluates the exact cyclotomic
+value \(\Phi_r(10)\) by the M\"obius-product formula,
+and finds for \emph{every one} of the 35 new classes
+\[
+\boxed{\gcd\bigl(\Phi_r(10),U_r,V_r\bigr)=1.}
+\]
+Indeed \(\Phi_r(10)\mid N_r\), so this is exactly
+\(\gcd(\Phi_r(10),H_r)=1\), using the previously certified
+small integer \(H_r\).
+This stronger finite check factors neither \(H_r\) nor \(N_r\);
+its separate standard-library implementation is
+\texttt{audit\_cyclotomic\_order\_1000.py}.
+It does not hold for every smaller order:
+the \(r=272\) cyclotomic drift gcd is \(17\).
+
 A separate prime-field recurrence, not the ring-sum code,
 verifies the drift pairs
 \[
