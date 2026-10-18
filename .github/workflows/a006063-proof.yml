@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - research/a006063-cube-sum-permutations-20261018
+      - research/a006063-structural-proof-entropy-20261018
     paths:
       - 'papers/A006063/*.tex'
       - 'papers/A006063/*.py'
