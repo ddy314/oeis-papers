@@ -387,3 +387,16 @@ Independent GitHub Actions workflows
 have passed both symbolic proofs and direct field cross-checks.
 The unrestricted all-primes conjecture is **still OPEN**, as the
 uniform elimination has not been proved for arbitrary coprime part \(v\).
+
+
+### A further analytic simplification for \(v\mid99\)
+
+The exact quadratic degree drop for \(v=11\) is now explained by
+[a pure involutive-symmetry proof](research/involutive_spectral_degree_drop_2026-10-18.md).
+Whenever \(10^2\equiv1\pmod v\), the stable phase multipliers obey
+\(A_{-j}=A_j^{-1}\), and the cumulative phases satisfy
+\(P_{\ell+1-j}=P_j\). The quadratic coset weight is symmetric under
+\(\zeta\mapsto\zeta^{-1}\); its weighted contributions cancel in pairs.
+Consequently \(U_2=V_2=0\) **for every \(v\mid99\)**, including
+\(v=33,99\). This is an unconditional structural theorem, but
+**the nonzero-drift result for \(v=33,99\) remains open**.
