@@ -342,3 +342,66 @@ mechanism, not expand fixed finite-prime cutoffs.
 Files: \`u8_singular_norm_structure_2026-10-18.md\`,
 \`audit_u8_singular_trace_norm.py\`,
 \`.github/workflows/a077187-u8-trace-norm.yml\`.
+
+
+## Oct 18 latest: all-order defect Duhamel flux and rigorous phase obstruction
+
+**PROVED:** Exact layerwise Duhamel formula for the
+finite-defect state \(W=S_{pT}\), for **any**
+\(r=\operatorname{ord}_p(10)=uv\), \(u=2^a5^c\),
+\((v,10)=1\). With \(h=\max(a,c)\), the original
+prefix states \((C_{i-1},Y_{i-1})\), and
+\(\rho_i=\widehat A_i/A_i\),
+\(P_{i-1}=\prod_{j<i}\widehat A_j\),
+\[
+W_C=\sum_{i=1}^hP_{i-1}^{-1}
+(\rho_i^{-1}-1)(C_{i-1}+c_i),\quad
+W_Y=\sum_{i=1}^hP_{i-1}
+(\rho_i-1)(Y_{i-1}+b_i).
+\]
+The sum \(W_C+W_Y\) factors termwise as
+\((\rho_i-1)(Z_i-\rho_i^{-1}X_i)\), with
+\(X_i=(C_{i-1}+c_i)/P_{i-1}\) and
+\(Z_i=P_{i-1}(Y_{i-1}+b_i)\).
+This gives a **local-impulse flux representation**
+without reversing the full affine prefix. It is
+distinct from, and does **not** restrict by itself,
+the stable translation \(\Delta\).
+
+**PROVED for \(u=8\):**
+the already established \(W_C,W_Y\) formulas
+yield \((W_C+10/81)(W_Y+1/81)=ab\),
+so all primitive-eighth-root defect states lie on
+a fixed hyperbola and the first-window discriminant
+\((20/81)^2-40ab\) is independent of the phase.
+
+**PROVED GALOIS LIMITATION:** the singular-window
+trace \(E(\rho)=W_C+W_Y\) has rational norm \(N\)
+with \(N\bmod41=26\), a quadratic nonresidue at
+a prime splitting in \(\mathbb Q(\zeta_8)\).
+Therefore \(K(\sqrt N)/\mathbb Q\) has Galois group
+\((\mathbb Z/2)^3\); a rational-prime set of
+Chebotarev density \(1/8\) has p≡1 mod8 and
+\(\chi_p(N)=-1\).
+Among **four formal conjugate phases** at such p,
+both square and nonsquare characters occur.
+The *actual* phase selected by \(r=8v\)
+may have either value. There is **no**
+actual-prime counterexample or density theorem
+for real failures of A077187.
+
+**AUDITED and CI PASS:** 16 true-order prime
+fields via independent Duhamel, stable-prefix
+inversion and (for short T) original two-period
+recursion; conjugate-phase signs at p=41,73,97,137.
+Files \`finite_defect_duhamel_flux_and_u8_galois_2026-10-18.md\`,
+\`audit_defect_duhamel_flux.py\`,
+\`.github/workflows/a077187-duhamel-flux.yml\`.
+
+**OPEN:** bridge the arithmetic condition
+\(\Delta=0\) to a forced root in one stable window;
+a direct rational-square rescue at the \(pT\)-digit
+singular window is ruled out as a universal
+phase-independent argument. Do not confuse
+formal phase density with true order-specified
+decimal phases. A077187 remains OPEN.
