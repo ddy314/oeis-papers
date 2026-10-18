@@ -1,0 +1,25 @@
+name: A077187 exact order-bound certificates
+on:
+  push:
+    branches:
+      - research/a077187-smooth-order-v3-le8-20261017
+    paths:
+      - papers/A077187/research/certify_orders_le500.py
+      - .github/workflows/a077187-order-bound.yml
+  pull_request:
+    paths:
+      - papers/A077187/research/certify_orders_le500.py
+      - .github/workflows/a077187-order-bound.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  exact-order-bound:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify 42 order classes with exact arithmetic (stdlib only)
+        run: python3 papers/A077187/research/certify_orders_le500.py
