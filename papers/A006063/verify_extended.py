@@ -236,6 +236,65 @@ def integer_cuberoot(x):
     return lo
 
 
+
+def count_at_175_exact(permutation):
+    """Exact permanent using directed SCCs; only nontrivial SCC has size 10."""
+    n = len(permutation)
+    edges = directed_edges(permutation)
+    rev = [[] for _ in range(n+1)]
+    for u in range(1, n+1):
+        for v in edges[u-1]:
+            rev[v].append(u)
+    seen, order = set(), []
+
+    def forward(u):
+        seen.add(u)
+        for v in edges[u-1]:
+            if v not in seen:
+                forward(v)
+        order.append(u)
+
+    for u in range(1, n+1):
+        if u not in seen:
+            forward(u)
+    seen.clear()
+    components = []
+
+    def backwards(u, comp):
+        seen.add(u)
+        comp.append(u)
+        for v in rev[u]:
+            if v not in seen:
+                backwards(v, comp)
+
+    for u in reversed(order):
+        if u not in seen:
+            comp = []
+            backwards(u, comp)
+            components.append(comp)
+    nonsingletons = [sorted(c) for c in components if len(c)>1]
+    if n != 175 or nonsingletons != [[4,11,16,23,41,48,102,114,168,175]]:
+        raise AssertionError("unexpected 175-component decomposition")
+
+    total = 1
+    for comp in nonsingletons:
+        idx = {v:j for j,v in enumerate(comp)}
+        dp = {0: 1}
+        for u in comp:
+            nxt = {}
+            allowed = [u] + edges[u-1]
+            for mask, count in dp.items():
+                for v in allowed:
+                    j = idx.get(v)
+                    if j is not None and not (mask & (1 << j)):
+                        nxt[mask | (1 << j)] = nxt.get(mask | (1 << j), 0) + count
+            dp = nxt
+        total *= dp.get((1 << len(comp))-1, 0)
+    if total != 3:
+        raise AssertionError(f"P(175) should be exactly 3, got {total}")
+    print("PASS: P(175)=3 exactly by a 10-by-10 permanent with 165 forced rows.")
+
+
 def check_numeric_guards(limit=100000):
     # Additional implementation tests, NOT substitutes for algebraic lemmas.
     for n in range(365, limit+1):
@@ -259,6 +318,7 @@ def main():
     _, archive = check_compact()
     check_reused_small_compression(yes)
     check_multiplicity(yes, archive)
+    count_at_175_exact(archive[2])
     check_numeric_guards()
     print("ALL EXTENDED CERTIFICATES PASS")
 
