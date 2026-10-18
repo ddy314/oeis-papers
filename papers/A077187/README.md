@@ -666,6 +666,22 @@ undefined; the projective theorem alone does not imply any
 stable-window root. The unrestricted A077187 conjecture stays OPEN.
 
 
+## Fixed-degree singular-window reduction for any smooth part \(u\)
+
+A new *general algebraic theorem* uses the exact finite-defect
+transfer \(W=S_{pT}\), without assuming zero drift. For
+\(r=\operatorname{ord}_p(10)=uv\), \(u=2^a5^c\),
+the entire singular \(pT\)-digit window obeys
+\[
+\frac{M(k)}{10^{D(k-1)}}=k^2+W_C+W_Y\pmod p.
+\]
+Its existence criterion is one square test on an element of the
+fixed cyclotomic field \(\mathbb Q(\zeta_u)\), of degree
+\(\varphi(u)\), with at most \(\varphi(u)\) choices for the
+phase \(v^{-1}\bmod u\). This degree is **independent of
+unbounded coprime part \(v\)**. This is a sufficient
+window criterion, not a universal theorem forcing a square.
+
 ## Zero-drift continuation: fixed quartic trace at smooth order part \(u=8\)
 
 [Exact algebraic note](research/u8_singular_norm_structure_2026-10-18.md)
