@@ -225,8 +225,6 @@ computed, fully specified value
 \[
 \boxed{N\bmod41=26,\quad \chi_{41}(26)=-1.}
 \]
-(The computer-audited coefficients modulo 41, rather than
-the previous line's illustrative values, are authoritative.)
 Because \(41\equiv1\pmod8\), it splits completely
 in \(K\), but \(N\) is nonsquare modulo 41.
 Consequently \(\sqrt N\notin K\). Thus
