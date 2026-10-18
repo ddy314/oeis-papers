@@ -98,6 +98,40 @@ A006063 sharp-threshold matching data.
 Reproduce finite exact counts with:
 `python papers/A006063/reflection_tree_counts.py`.
 
+### Connection to restricted signed Waring representations
+
+Represent lengths by the odd coordinate `x=2*n+1`. Every
+reflection step `m -> n=k**3-m-1>m` becomes
+
+```
+x_next = 2*k**3 - x,
+x_next > x.
+```
+
+Therefore an `r`-step reflection path from an arbitrary starting length
+`a` is equivalent to an alternating signed sum of `r` cubes:
+
+```
+2*n+1 = (-1)**r * (2*a+1)
+        + 2*sum((-1)**(r-j) * k_j**3 for j=1..r)
+```
+
+**with the essential extra constraint** that every intermediate odd
+coordinate strictly increases. For `a=7` and exactly seven steps,
+
+```
+n+8 = k_7**3-k_6**3+k_5**3-k_4**3
+      +k_3**3-k_2**3+k_1**3.
+```
+
+This opens an additive-number-theoretic route independent of matching
+theory: proving that all sufficiently large integers have a seven-cube
+alternating representation satisfying the intermediate inequalities
+would yield a *uniform seven-step construction*. Finite interval
+experiments suggest this may hold, but it is **not proved**;
+the certified all-`n>=8915` construction currently uses
+`O(log log n)` reflection layers.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
