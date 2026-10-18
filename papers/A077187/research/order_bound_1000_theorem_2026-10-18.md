@@ -182,3 +182,35 @@ order classes** in \(2\le r\le1000\).
 This result does not prove the conjecture for *unbounded* multiplicative
 orders. The unbounded nonzero-drift question, or the general root
 criterion in the zero-drift case, remains open.
+
+
+## Stronger finite cyclotomic certificate: all 35 gcds equal 1
+
+An independent computation evaluates \(\Phi_r(10)\) by the Möbius
+product, using **only Python's standard library**, and checks
+\[
+\boxed{\gcd(\Phi_r(10),G_r)=
+\gcd(\Phi_r(10),U_r,V_r)=1
+\qquad\text{for all 35 new }r.}
+\]
+This is stronger than checking the actual orders of small factors of
+\(G_r\): it excludes **every** prime factor of \(\Phi_r(10)\) as a
+simultaneous drift zero, without any factorization of \(G_r\).
+
+Reproduce after compiling and running the C++ program:
+\`\`\`sh
+./order1000 > order1000_rows.tsv
+python3 audit_cyclotomic_order_1000.py order1000_rows.tsv
+\`\`\`
+The script first authenticates the exact 35-row SHA-256, then computes
+\[
+\Phi_r(10)=\prod_{d\mid r}(10^d-1)^{\mu(r/d)}
+\]
+using *exact integer numerator and denominator products* and tests each
+gcd. It does not call the GMP routine or use prime factorization.
+This finite assertion has been checked separately before committing.
+It should **not** be generalized to all orders: among previous
+classes, \(r=272\) has
+\(\gcd(\Phi_{272}(10),U_{272},V_{272})=17\ne1\).
+The weaker target that any nontrivial cyclotomic gcd has prime factors
+dividing \(r\) remains unproved for unbounded \(r\).
