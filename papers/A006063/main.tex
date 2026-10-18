@@ -115,6 +115,146 @@ Hence the second assertion holds and implies the first
 for $n\ge556$.
 \end{proof}
 
+\section{Global graph structure, factorization, and parity}
+\label{sec:graph}
+
+The cube-sum condition is symmetric in its two indices.
+This observation gives a conceptual interpretation of
+existence, multiplicity, exact counting, and parity that
+does not refer to any numerical threshold.
+
+Let $G_n$ be the undirected graph on $[1,n]$,
+with an edge $\{i,j\}$ whenever $i\ne j$
+and $i+j$ is a perfect cube. At a vertex $i$,
+allow a loop exactly when $2i$ is a cube.
+A \emph{spanning cycle-cover configuration}
+is a decomposition of its vertices into
+disjoint allowed loops, single edges
+(dimer components), and unoriented simple
+cycles of length at least three.
+
+\begin{theorem}[Undirected cycle-cover expansion]
+\label{thm:cyclecover}
+If $\mathfrak F_n$ denotes the set of
+spanning cycle-cover configurations of $G_n$,
+and $c(F)$ is the number of its cycles
+of length at least three, then
+\begin{equation}\label{eq:cyclecover}
+\boxed{P(n)=\sum_{F\in\mathfrak F_n}2^{c(F)}.}
+\end{equation}
+Thus $P(n)>0$ if and only if $G_n$
+has a spanning union of loops, dimers,
+and simple cycles. In particular,
+\[
+\boxed{P(n)\equiv I(n)\pmod 2,}
+\]
+where $I(n)$ counts valid involutions.
+\end{theorem}
+\begin{proof}
+Every valid permutation decomposes uniquely
+into fixed points, transpositions, and
+directed cycles of length at least three.
+The first correspond to permitted loops,
+the second to undirected dimer edges,
+and each longer undirected cycle admits
+exactly two orientations. Choices on
+different components are independent,
+giving \eqref{eq:cyclecover}.
+All terms with $c(F)>0$ are even,
+whereas configurations with $c(F)=0$
+are exactly the involutions.
+\end{proof}
+
+Let $H_n$ be the symmetric $n$-by-$n$
+zero-one matrix with
+$(H_n)_{ij}=1$ precisely when $i+j$
+is a perfect cube.
+
+\begin{corollary}[Efficient parity via binary algebra]
+\label{cor:parity}
+\[
+\boxed{P(n)=\operatorname{per}(H_n),\qquad
+P(n)\bmod2=\det(H_n)\bmod2.}
+\]
+In particular $P(n)$ is odd exactly
+when $H_n$ is nonsingular over
+$\mathbb F_2$, and its parity can be
+computed by polynomial-time Gaussian
+elimination without enumerating
+any permutations.
+\end{corollary}
+\begin{proof}
+The permanent expansion enumerates
+the admissible permutations. In
+characteristic two every permutation
+sign in the determinant is $+1$,
+so determinant and permanent coincide.
+\end{proof}
+
+Even more structure appears once any
+single legal permutation has been found.
+For such a permutation $p$, define the
+directed \emph{alternation graph} $D_p$
+with vertex set $[1,n]$ and a
+non-loop arc $i\to j$ when
+$i+p(j)$ is a cube. Let
+$\mathcal S(D_p)$ be its strongly
+connected components, and let
+$B_C$ be the square zero-one matrix
+indexed by $i,j\in C$, with
+$(B_C)_{ij}=1$ if $i+p(j)$
+is a cube (including all diagonal entries).
+
+\begin{theorem}[Exact strong-component factorization]
+\label{thm:sccfactor}
+For \emph{every} legal reference permutation
+$p$ of length $n$,
+\begin{equation}\label{eq:sccfactor}
+\boxed{\displaystyle
+P(n)=\prod_{C\in\mathcal S(D_p)}
+\operatorname{per}(B_C).}
+\end{equation}
+In particular $P(n)=1$ precisely when
+every strong component is a singleton;
+and every nontrivial component contributes
+at least two possible permutations.
+\end{theorem}
+\begin{proof}
+Any second legal permutation $q$
+determines a permutation
+$f=p^{-1}\circ q$ of $[1,n]$,
+and its arcs $i\to f(i)$ are
+allowed by the extended alternation
+graph with the identity loops included.
+Every cycle of $f$ lies entirely
+inside one strongly connected
+component of $D_p$.
+Hence $f$ restricts to independent
+permutations within the components,
+and their numbers multiply.
+Conversely, any such collection of
+internal permutation choices assembles
+into a legal $q$.
+The factorization follows.
+A nontrivial strong component contains
+a directed cycle, which can be toggled
+against the identity on that component,
+proving the final assertion.
+\end{proof}
+
+This theorem explains the previously
+computed $P(236)=512$ from nine
+independent directed five-cycles and
+$191$ singleton components.
+It also unifies the alternating-cycle
+criterion of Lemma~\ref{lem:cycle}
+with exact counting.
+The companion verifier
+\texttt{global\_graph\_audit.py} checks
+the parity identity and component
+factorization in concrete, bounded-size
+instances using exact binary arithmetic.
+
 \section{Threshold-free renormalization and counting entropy}
 \label{sec:renormalization}
 
