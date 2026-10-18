@@ -512,6 +512,150 @@ cube-sum permutation existence. The proof uses
 only a fifteen-row interval template and an easily
 audited finite graph-decomposition lemma.
 
+\section{Power-block lifting and exponential growth on a subsequence}
+\label{sec:lifting}
+
+The nine disjoint alternating cycles at $236$
+can be amplified by a purely algebraic interval
+construction, yielding exponentially many solutions
+at infinitely many \emph{different} lengths.
+The lifting mechanism works for every perfect-power
+exponent, not only cubes.
+
+\begin{lemma}[Odd perfect-power block lifting]
+\label{lem:block}
+Fix $d\ge2$. Let $p$ be a permutation of $[1,M]$
+such that $i+p(i)$ is a perfect $d$th power for
+every $i$. For an odd positive integer $t$,
+set $L=t^d$ and $A=(L-1)/2$.
+On the contiguous interval
+\[
+I=[A+1,A+ML]
+\]
+define, for $1\le i\le M$ and $1\le r\le L$,
+\begin{equation}\label{eq:lift}
+Q\bigl(A+(i-1)L+r\bigr)
+=A+(p(i)-1)L+(L+1-r).
+\end{equation}
+Then $Q$ is a permutation of $I$, and every
+$x+Q(x)$ is a perfect $d$th power.
+Moreover, if $p$ has $h$ pairwise vertex-disjoint
+directed alternating cycles, then $Q$ has
+at least $hL$ pairwise vertex-disjoint
+directed alternating cycles.
+\end{lemma}
+\begin{proof}
+Formula \eqref{eq:lift} reverses the $L$-point
+block corresponding to $i$ onto the block
+corresponding to $p(i)$; thus it is a bijection.
+For $x=A+(i-1)L+r$,
+\[
+\begin{aligned}
+x+Q(x)
+ &=2A+L(i+p(i)-1)+1\\
+ &=L(i+p(i)).
+\end{aligned}
+\]
+As $L=t^d$, this equals $(t k_i)^d$ when
+$i+p(i)=k_i^d$.
+
+Write $x_{i,r}=A+(i-1)L+r$.
+If $i\to j$ is an alternating edge for $p$,
+then for every fixed $r$,
+\[
+x_{i,r}+Q(x_{j,r})=L(i+p(j)),
+\]
+again a perfect $d$th power.
+Consequently each alternating cycle lifts to
+one corresponding cycle for every $r=1,\dots,L$.
+Different values of $r$ and disjoint original
+cycles have disjoint vertex sets.
+\end{proof}
+
+\begin{theorem}[An exponential subsequence]
+\label{thm:exponential-subsequence}
+For every odd integer $t\ge9$, define
+\[
+\boxed{n_t=\frac{551t^3-1}{2}.}
+\]
+Then
+\[
+\boxed{P(n_t)\ge2^{9t^3}
+       =2^{(18n_t+9)/551}.}
+\]
+In particular,
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P(n)}n
+ \ge\frac{18\log2}{551}>0.}
+\]
+\end{theorem}
+\begin{proof}
+Take the explicit $M=236$ permutation
+from Section~\ref{sec:236}, possessing $h=9$
+disjoint alternating $5$-cycles.
+Let $L=t^3$, $A=(L-1)/2$, and
+$B=A+236L=(473L-1)/2$.
+Because $t\ge9$, $A\ge364\ge173$,
+so Theorem~\ref{thm:exist} supplies a valid
+permutation on the prefix $[1,A]$.
+Apply Lemma~\ref{lem:block} to obtain a
+valid permutation on $[A+1,B]$
+with $9L$ independent alternating cycles.
+
+Now let $C=(8t)^3=512L$ and set
+\[
+n_t=C-B-1=\frac{551L-1}{2}.
+\]
+The final suffix $[B+1,n_t]$ has exactly
+$39L>0$ elements. Define the permutation
+there by $x\mapsto C-x$.
+It permutes that suffix because
+$C=B+n_t+1$, and every new sum is the cube
+$C$. Combining the three disjoint intervals
+produces a cube-sum permutation on $[1,n_t]$.
+All $9L$ alternating cycles in the middle
+survive unchanged. Switching any subset of
+them gives $2^{9L}$ distinct permutations,
+proving the claimed inequalities.
+\end{proof}
+
+\begin{corollary}[General power-block amplification]
+\label{cor:amplification}
+Let $d\ge2$, and suppose cube-sum is replaced
+everywhere by perfect $d$th-power sum.
+If valid permutations exist for every
+sufficiently large length and some valid
+permutation on $[1,M]$ contains $h\ge1$
+vertex-disjoint directed alternating cycles,
+then there exists an infinite sequence
+$n_t=\Theta(t^d)$ with
+\[
+\log P_d(n_t)=\Omega(n_t).
+\]
+\end{corollary}
+\begin{proof}
+Choose an integer $b$ with $b^d>2M+1$,
+take odd $t$ large enough that
+$A=(t^d-1)/2$ is in the eventual-existence
+range, and use Lemma~\ref{lem:block}.
+With $L=t^d$, $B=A+ML$ and
+$C=(bt)^d=b^dL$, set $n_t=C-B-1$.
+The suffix $[B+1,n_t]$ is nonempty and is
+permuted by $x\mapsto C-x$.
+The prefix, middle, and suffix combine
+as above, giving at least $2^{hL}$
+solutions. Finally,
+$n_t=(b^d-M-\tfrac12)L-\tfrac12$
+is a positive constant multiple of $L$.
+\end{proof}
+
+This gives an \emph{exponential limsup},
+not an exponential lower bound for all $n$.
+In particular, it is logically distinct from
+the uniform, near-critical reflection
+estimates in Section~\ref{sec:entropy}.
+
 \section{Many permutations: an exponential cube-root bound}
 Besides qualitative multiplicity, the reflection family
 yields a strong quantitative statement.
