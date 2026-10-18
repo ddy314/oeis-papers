@@ -567,6 +567,113 @@ constant initial offset in $k$.
 The $\rho_s$ tend to $2$ as before.
 \end{proof}
 
+
+\begin{theorem}[A near-critical lower bound with explicit loss]
+\label{thm:critical}
+For $K(n)=\lfloor\sqrt[3]{2n}\rfloor$ and every $n\ge173$,
+\begin{equation}\label{eq:critical}
+\boxed{\displaystyle
+P(n)\ge\frac{127}{K(n)}\,2^{(K(n)-127)/2}.}
+\end{equation}
+More generally, for every real $\varepsilon>0$
+there exists $C_\varepsilon>0$ such that
+\begin{equation}\label{eq:eps}
+\boxed{\displaystyle
+P(n)\ge C_\varepsilon\,
+\frac{2^{K(n)/2}}{K(n)^\varepsilon}
+\qquad(n\ge173).}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Write $k=K(n)$. The exact cubic polynomial
+inequality in the proof of
+Theorem~\ref{thm:entropy} works whenever
+\[
+k\ge B_s=2s^2+4s-1,\qquad
+s\ge2;
+\]
+it supplies $s$ \emph{disjoint} reflection
+embeddings with predecessor indices
+$m_h\in[173,n-1]$ and
+$K(m_h)\ge k-2h$ for $h=1,\dots,s$.
+
+First set $F(k)=2^{k/2}/k$, which is increasing
+for all integer $k\ge3$. For $k\ge128$ choose
+$s=\lfloor\log_2 k\rfloor$.
+Then $s\ge7$ and $k\ge 2^s\ge B_s$:
+the last inequality holds at $s=7$, since
+$128\ge125$, and is preserved upon doubling,
+because $2B_s\ge B_{s+1}$ for all $s\ge7$.
+Moreover $k-2s\ge8$, so every predecessor
+is in the increasing range of $F$.
+By the reflection counting lemma,
+\[
+\begin{aligned}
+\frac{\sum_{h=1}^{s}F(k-2h)}{F(k)}
+&=\sum_{h=1}^{s}\frac{2^{-h}k}{k-2h}\\
+&\ge\sum_{h=1}^{s}2^{-h}
+  \left(1+\frac{2h}{k}\right)\\
+&\ge1-2^{-s}+\frac2k>1,
+\end{aligned}
+\]
+using $\sum_{h=1}^s h2^{-h}\ge1$ for
+$s\ge2$ and $k<2^{s+1}$.
+For $k<128$, Theorem~\ref{thm:exist}
+ensures $P(n)\ge1$.
+Because $F$ is increasing for $k\ge7$,
+this implies
+$P(n)\ge F(k)/F(127)$.
+Strong induction using the above inequality
+extends the same bound to all $k\ge128$.
+Since $F(127)=2^{127/2}/127$,
+this is exactly \eqref{eq:critical}.
+
+For the more general result, fix
+$\varepsilon>0$ and define
+$F_\varepsilon(k)=2^{k/2}/k^\varepsilon$.
+It is increasing for all sufficiently
+large $k$. For sufficiently large $k$,
+set $s=\lceil\log_2(k/\varepsilon)\rceil$,
+so $s=O_\varepsilon(\log k)$,
+$k\ge B_s$ and
+$2^{-s}\le\varepsilon/k$.
+Each predecessor is in the increasing
+range of $F_\varepsilon$. By the
+elementary Bernoulli inequality,
+\[
+\left(\frac{k}{k-2h}\right)^\varepsilon
+\ge1+\frac{2\varepsilon h}{k}.
+\]
+Consequently
+\[
+\begin{aligned}
+\frac{\sum_{h=1}^s F_\varepsilon(k-2h)}
+{F_\varepsilon(k)}
+&\ge 1-2^{-s}
++\frac{2\varepsilon}{k}
+ \sum_{h=1}^s h2^{-h}\\
+&\ge1-2^{-s}+\frac{2\varepsilon}{k}>1.
+\end{aligned}
+\]
+Choose an initial $K_\varepsilon$
+large enough for all these inequalities
+to hold at $k\ge K_\varepsilon$.
+By positivity, the bound
+$P(n)\ge C_\varepsilon F_\varepsilon(k)$
+holds for $k<K_\varepsilon$ on taking
+$C_\varepsilon=2^{-K_\varepsilon/2}$.
+The same strong induction proves it
+for every larger $k$, yielding
+\eqref{eq:eps}.
+\end{proof}
+
+These bounds approach the \emph{critical}
+reflection coefficient $\frac12\log2$
+with a logarithmic (indeed arbitrarily small
+polynomial) loss. Their proofs use no new
+computer-assisted certificate beyond the
+existence theorem.
+
 The coefficient $(\log2)/2$ is a \emph{proved lower
 bound}, not an asserted exact exponential growth rate.
 The argument needs only the qualitative existence
