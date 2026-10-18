@@ -7,7 +7,7 @@ This development complements
 \`u8_single_window_density_one_thirtysecond_2026-10-18.md\`,
 rather than raising numerical order cutoffs.
 
-## 1. Universal conjugacy at the last transient digit layer
+## 1. Universal conjugacy at the stable-cutoff digit layer
 
 Let \(p\ge7,\ p\ne11\) be prime, put
 \(r=\operatorname{ord}_p(10)=uv\),
@@ -54,7 +54,7 @@ so the exponent is divisible by \(\gcd(h,r)\).
 The cyclic group \(\langle10^h\rangle\) consists exactly
 of the powers \(10^{gk}\), \(g=\gcd(h,r)\).
 
-**Theorem 1 (terminal-defect orbit gauge).**
+**Theorem 1 (stable-cutoff orbit gauge).**
 The entire late \((pT+h)\)-digit window has a divisible
 mountain iff the **fixed original \(h\)-digit polynomial**
 \[
