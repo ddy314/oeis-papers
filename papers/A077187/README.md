@@ -400,3 +400,44 @@ Whenever \(10^2\equiv1\pmod v\), the stable phase multipliers obey
 Consequently \(U_2=V_2=0\) **for every \(v\mid99\)**, including
 \(v=33,99\). This is an unconditional structural theorem, but
 **the nonzero-drift result for \(v=33,99\) remains open**.
+
+
+## Nine-torsion lift: complete \(v=33\) and \(v=99\) infinite families
+
+A new [nine-torsion spectral lifting lemma](research/nine_torsion_lift_v33_v99_2026-10-18.md)
+shows that when \(v_0\) is coprime to 30 and its phase
+period \(\ell_0=\operatorname{lcm}(v_0,\operatorname{ord}_{v_0}(10))\)
+is prime to 3, multiplying \(v_0\) by 3 or 9 does **not**
+increase the dimension of the stable spectral cocycle.
+The new smooth-index parameter becomes
+\(n=r/\gcd(r,\ell_0)\), with phase
+\(\gamma'=(su)^{-1}\bmod v_0\), \(s\in\{3,9\}\),
+\(u=2^a5^c\). A period of \(T\) digit layers is thus
+folded into just \(\ell_0\) cosets.
+
+For \(v_0=11\), \(\ell_0=22\). This yields **two new
+computer-assisted infinite order-family theorems**:
+\[
+\boxed{\operatorname{ord}_p(10)=33\cdot2^a5^c
+\text{ or }99\cdot2^a5^c
+\Longrightarrow \exists k:p\mid M(k),\ a,c\ge0.}
+\]
+The 20 pre-existing exact \(v=11\) linear resultant norms
+apply **unchanged**. The new phase-aware sieve independently
+checks all 3,850 admissible indices for \(v=33\) and 3,757
+for \(v=99\), and finds
+\(\gcd(N_{g,\gamma},\Phi_r(10))=1\) in every case.
+No new algebraic norms, large-order cutoff, or enumeration of target
+primes is needed.
+
+- [Lifting theorem and full proof](research/nine_torsion_lift_v33_v99_2026-10-18.md)
+- [Exact norm-reuse and 7,607-index exclusion](research/certify_fixed_v33_v99.py)
+- [15 independent prime-field recurrence checks](research/audit_fixed_v33_v99.py)
+- [Updated unified manuscript](research/fixed_v_spectral_families.tex)
+  and [compiled PDF](research/fixed_v_spectral_families.pdf)
+
+The dedicated \`.github/workflows/a077187-v33-v99.yml\`
+reproduces the original 20 exact norms and the new exclusions.
+Together the certified fixed-coprime-order families are now
+\(v\in\{7,11,33,99\}\), with no restriction on \(a,c\).
+The unrestricted A077187 conjecture for arbitrary \(v\) is **OPEN**.
