@@ -259,3 +259,31 @@ would force the \(k=10^{jT_r}\) (no \(+1\)) construction
 to work for all primes \(p\ge7\) except \(11\), which already
 has the short witness \(M(2)=121\).
 This remains a conjectural route, not a claimed theorem.
+
+
+## Exact primitive-order cyclotomic obstruction (October 18)
+
+A new *unbounded-order structural equivalence* sharpens the zero-drift
+problem. For each \(r\ge2\), let \((U_r,V_r)\) be the stable-period
+translation modulo \(10^r-1\), and put
+\[
+H_r=\gcd\bigl(\Phi_r(10),U_r,V_r\bigr).
+\]
+Then **all primes of exact order \(r\) have nonzero drift if and only if**
+\[
+\boxed{\operatorname{rad}(H_r)\mid\operatorname{rad}(r).}
+\]
+This follows from the cyclotomic primitive-order property: the primes
+dividing \(\Phi_r(10)\) but not \(r\) are precisely the primes
+with \(\operatorname{ord}_p(10)=r\). Repeated gcd removal against \(r\)
+decides the criterion without factoring \(10^r-1\).
+
+This is a **reduction**, not proof that the criterion holds at all \(r\).
+If it fails, the surviving prime factors would be genuine zero-drift
+primes, but might still divide other mountain concatenations.
+
+- [Full theorem and proof](research/cyclotomic_exact_obstruction_2026-10-18.md)
+- [Exact primitive-order decision and nine test cases](research/exact_cyclotomic_obstruction.py)
+- [Dedicated CI](../../.github/workflows/a077187-exact-obstruction.yml)
+
+No claim of an unrestricted A077187 proof is made.
