@@ -89,6 +89,30 @@ Any other solution corresponds to a directed cycle cover in that graph: all sing
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
 
+## Universal odd-cycle gadget (new structural unification)
+
+The three-cycle construction is a special case of a general **weighted-cube identity for any odd cycle length `2q+1`**:
+
+```
+(q+1)*X + q*Y = A + 2*q*B
+D_j = ceil(j/2)*(B-X) + floor(j/2)*(B-Y), j=0,...,2q.
+```
+
+If the four constants `A,B,X,Y` are cubes, every nonzero `D_j` lies in `[A,B-2*A]`, and all offsets differ by at least `A`, then the two-block reflection on `(B-A)*u**3` positions contains `A*u**3-1` **disjoint alternating cycles of length `2q+1`**. This gives
+
+```
+P((B-A)*u**3) >= 2**(A*u**3-1)
+```
+
+with no existence certificate or matching algorithm. The case `q=1` is the large three-cycle theorem below; `q=2` explains the small identity
+
+```
+3*5**3 + 2*8**3 = 3**3 + 4*7**3
+P(316*u**3) >= 2**(27*u**3-1).
+```
+
+This identifies the shared algebraic mechanism behind odd-cycle matchings of several lengths rather than treating separate numerical identities as unrelated examples.
+
 ## NEW: entirely computation-free cubic matching family (strongest rate)
 
 The key weighted identity is:
