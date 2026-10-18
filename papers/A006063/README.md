@@ -17,6 +17,21 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## Eventual *involution* existence, not merely general matching
+
+The original seven-element seed `p(i)=8-i` is a legal **involution** fixing position `4`. Each later suffix reflection is an involution on a disjoint new interval. Consequently **every permutation in the entire one-seed reflection tree** remains an involution and fixes 4.
+
+Let `I_4(n)` count legal cube-sum involutions of length n with `p(4)=4`. The seven-round eventual-existence proof and reflection-tree entropy together give
+
+```
+I_4(n) >= F(n) > 0                  (every n>=8915),
+liminf(log(I_4(n))/(2*n)**(1/3)) >= log(2)/2.
+```
+
+This is a stronger **all-length involution theorem** than the previous ordinary matching statement. It also exposes a structural distinction: at n=236 there are 512 legal permutations but *no involution*, whereas every sufficiently large cube-sum graph has a spanning decomposition consisting only of allowed loops and dimers.
+
+`involution_tail_audit.py` reconstructs sample permutations solely from the seven-term seed and exact reflection-closure data and verifies the involution equations `p[p[i]]=i`, the permanent fixed point `p[4]=4`, and the loop/dimer decomposition. The infinite theorem remains mathematical, conditional only on the previously archived finite seven-round arithmetic reachability check.
+
 ## A structural boundary: reflection entropy versus cycle entropy
 
 The reflection method has an **intrinsic information-theoretic upper bound**. In every strictly increasing sequence of reflection extensions the cubes used are strictly increasing, since
@@ -167,7 +182,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
 - [one_seed_eventual.py](one_seed_eventual.py): construct all sufficiently large lengths from one 7-point seed and seven exact rounds.
 - [one_seed_interval_proof.py](one_seed_interval_proof.py): independent finite interval-union proof of seven-round coverage.
-- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
+- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
 - [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
