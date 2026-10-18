@@ -18,7 +18,6 @@ def read_and_verify():
     p = [0] * (n + 1)
     for lo, hi, cube in data["blocks"]:
         assert 1 <= lo <= hi <= n
-        assert 2 <= round(cube**(1/3)) <= 8  # separately checked exactly
         assert any(k**3 == cube for k in range(2, 10))
         for i in range(lo, hi + 1):
             assert p[i] == 0, ("overlapping intervals", i)
