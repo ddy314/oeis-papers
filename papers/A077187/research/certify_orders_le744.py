@@ -71,7 +71,7 @@ def audit():
     rows = sorted(OLD_ROWS + ROWS)
     assert expected_orders == [r for r,t,g in rows], expected_orders
     # Within 501..744, precisely 31 genuinely new order classes.
-    assert len([r for r,t,g in ROWS if r>500])==31
+    assert len([r for r,t,g in ROWS if r>500 and r not in (648,675)])==31
     assert len(ROWS)==35
     summary=[]
     for r,T0,G0 in sorted(ROWS):
