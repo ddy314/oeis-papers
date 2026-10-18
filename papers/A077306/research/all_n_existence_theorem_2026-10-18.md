@@ -1,6 +1,6 @@
 # OEIS A077306: a constructive nonvanishing theorem for every index
 
-**Status: complete elementary proof (October 18, 2026).**
+**Status: alternative explicit elementary construction (October 18, 2026). This is an ALREADY SOLVED OEIS existence problem, not a novel independent conjecture.**
 
 [OEIS A077306](https://oeis.org/A077306) is the smallest positive
 integer divisible by \(n\) that consists of the decimal concatenation
@@ -133,11 +133,19 @@ the proposed \(k\), both mod its smooth part and
 its coprime part. This is a verification of the formula,
 **not** the logical basis of the all-\(n\) theorem.
 
-### OEIS editing note
+### Priority and cross-reference clarification
 
-The OEIS entry does not presently label the
-positivity statement as a conjecture. This provides
-a new **constructive formula/proof** that can be
-submitted as an OEIS comment, subject to checking
-whether an equivalent classical argument has appeared
-elsewhere. No priority or novelty beyond that is asserted.
+OEIS A075001 asks for the *least starting index* k of a
+length-n consecutive-integer concatenation divisible by n.
+Its all-n existence conjecture **was already proved and credited
+to Qichao Wang (2026) in A075001**, before this note.
+OEIS A077306 asks for the *least concatenated integer* arising
+from the same starting-index search; its positivity is therefore
+logically equivalent to A075001 positivity. OEIS A075000 records
+the corresponding smallest concatenated integer divided by n.
+
+This short CRT construction is an **alternative, explicit proof**
+and yields a convenient closed-form witness and infinitely many
+witnesses, **not an additional independent solved OEIS problem**.
+Do not claim new priority or submit it as an uncredited proof of an
+open conjecture. Existing proof: https://oeis.org/A075001 .
