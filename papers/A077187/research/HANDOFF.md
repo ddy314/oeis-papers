@@ -111,3 +111,52 @@ in `zero_drift.md` and the new tail note.
 Reproduction uses Python 3 with SymPy; the tail checks use only the standard
 library. See README for exact commands. A final all-primes theorem has not
 been claimed, and the goal must not be marked complete.
+
+
+## October 18 continuation after the user's update: whole-period orbit norms
+
+**PROVED:** The local \(d\)-digit window equation
+\(Az^2+Hz+B=0,\ z^h=1,\ h=\operatorname{ord}_p(10^d)\)
+has the exact cyclic-group norm
+\[
+\operatorname{Res}_z(z^h-1,Az^2+Hz+B)
+=A^h+B^h-\operatorname{tr}
+ \left(\begin{smallmatrix}-H&-AB\\1&0\end{smallmatrix}\right)^h.
+\]
+This holds with degenerate coefficients and is invariant under the
+subgroup gauge \(A\mapsto A(10^d)^s,\ B\mapsto B(10^d)^{-s}\).
+It is computable in \(O(\log h)\) via matrix powering. The \(q=1\)
+singular-window norm is \(2K(1-(-K)^{(p-1)/2})\).
+
+**PROVED:** With the improved reduced period
+\(T=\operatorname{lcm}(r,\operatorname{ord}_{v/\gcd(v,9)}(10))\),
+if the true stable drift \(\Delta_p=S_{2T}-S_T\) is zero,
+all states repeat every \(T\) layers. Multiply the complete
+orbit norms for the \(T\) windows \(T+1,\ldots,2T\);
+call the resulting scalar \(\mathfrak O_p\).
+Then \(\mathfrak O_p=0\) if and only if some stable digit window
+contains a divisible mountain; any such witness recurs infinitely
+often. Since these windows are longer than \(p\), all subgroup
+offsets are attained. Early windows \(1\le d\le T\) are a
+separate finite check.
+
+**AUDITED:** a standalone standard-library script reproduces
+49 exact finite-field windows, independently comparing the
+transfer-matrix norm with direct within-window roots and checking
+singular windows and gauge invariance. Dedicated GitHub Actions
+job passed.
+
+**OPEN, not inferred from the identities:** Prove
+\(\Delta_p=0\implies\mathfrak O_p=0\), or prove that
+\(\Delta_p\ne0\) universally for all \(p\ge7,\ p\ne11\).
+The orbit-norm target uses the **whole** stable period and is not
+contradicted by the audited three-fixed-window failure.
+A generic affine periodic cocycle need not force that implication;
+the special arithmetic of decimal block forcing must enter.
+
+Files:
+- \`lucas_orbit_norm_zero_drift_2026-10-18.md\`
+- \`audit_lucas_orbit_norm.py\`
+- \`.github/workflows/a077187-lucas-orbit-norm.yml\`
+
+No new subagents were launched. The unrestricted problem remains OPEN.
