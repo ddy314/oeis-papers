@@ -228,3 +228,60 @@ specific to the *actual zero-drift decimal concatenation
 cocycle* that forces one whole-period Lucas orbit norm to
 vanish. Neither the scalar GCD pattern nor a nonzero-drift
 phase-count estimate is such a relation.
+
+
+## October 18: exact projective collision geometry for stable witnesses
+
+**PROVED:** On the first nonsingular window after a stable block,
+the local mountain polynomial has the form
+\[
+Q_j(z)=a(z)+jb(z),\quad
+a=Az^2+Hz+B,\quad b=10Uz^2+V,\quad
+H=-20/81,\quad z\in\mu_r.
+\]
+A root with \(b(z)\ne0\) determines the unique successful
+period phase \(j=-a(z)/b(z)\). A common subgroup root of
+\(a\) and \(b\) instead succeeds for **every** \(j\bmod p\).
+
+**PROVED:** Put \(\alpha=10U,\ \beta=V,\ D=A\beta-B\alpha\)
+and \(\Lambda=D^2+H^2\alpha\beta\). If \(\Delta\ne0\)
+and no universal root exists, all collisions of
+distinct eligible offsets are governed by
+\[
+\iota(z)=-(Dz+H\beta)/(D-H\alpha z).
+\]
+Its projective matrix \(M\) satisfies \(M^2=\Lambda I\).
+If \(\Lambda=0\), the rational phase function reduces
+to an injective fractional-linear map.
+If \(\Lambda\ne0\), the number of distinct successful
+period phases has the exact expression
+\[
+N=(r-n_0)-(e-f)/2,
+\]
+where \(n_0=\deg\gcd(X^r-1,b)\),
+\(e=\deg\gcd(P,F)-\deg\gcd(P,F,b)\),
+\(f=\deg\gcd(P,J)-\deg\gcd(P,J,b)\),
+\[
+F=(-DX-H\beta)^r-(D-H\alpha X)^r,\quad
+J=-H\alpha X^2+2DX+H\beta.
+\]
+This yields \(\lceil(r-n_0)/2\rceil\le N\le r-n_0\).
+All degenerate cases are handled separately.
+
+**AUDITED:** standard-library program tests 360 synthetic
+finite-field configurations and 12 genuine original
+decimal-layer drift vectors against independent
+direct phase enumeration; dedicated GitHub Actions CI PASS.
+
+Files:
+- \`mobius_phase_involution_2026-10-18.md\`
+- \`audit_mobius_phase_involution.py\`
+- \`.github/workflows/a077187-mobius-phase.yml\`
+
+**Scope:** This is a sharpened *nonzero-drift witness-structure*
+theorem, not a proof for the \(\Delta=0\) branch. At zero drift,
+the phase function loses its nonconstant parameter, and neither
+its Möbius involution nor the Fermat–Lucas additive norm
+forces a mountain. The unrestricted conjecture remains OPEN.
+Do not resume large finite-prime or multiplicative-order scans
+as a substitute for the missing arithmetic zero-drift relation.
