@@ -115,6 +115,144 @@ Hence the second assertion holds and implies the first
 for $n\ge556$.
 \end{proof}
 
+\section{Threshold-free renormalization and counting entropy}
+\label{sec:renormalization}
+
+The specific all-$n$ threshold is not needed for
+a powerful global closure property of the
+cube-sum permutation family.
+
+\begin{lemma}[Independent-fiber renormalization]
+\label{lem:renorm-general}
+Fix an integer exponent $d\ge2$ and an odd
+positive integer $t$; set
+$L=t^d$, $A=(L-1)/2$, and
+$T_t(m)=Lm+A$.
+Let $P_d(m)$ denote the number of permutations
+of $[1,m]$ whose index-image sums are
+positive perfect $d$th powers.
+Then for every nonnegative integer $m$,
+\begin{equation}\label{eq:renorm-general}
+\boxed{P_d(T_t(m))\ge P_d(A)P_d(m)^L,}
+\end{equation}
+with $P_d(0)=1$. Moreover,
+\[
+2T_t(m)+1=L(2m+1),\qquad
+T_s(T_t(m))=T_{st}(m).
+\]
+\end{lemma}
+\begin{proof}
+Partition $[1,T_t(m)]$ into a prefix
+$[1,A]$ and the remaining $m$ consecutive
+blocks of length $L$.
+Choose an arbitrary valid permutation on
+the prefix, and choose independently
+$L$ valid permutations
+$p_1,\ldots,p_L$ of $[1,m]$.
+At $x=A+(i-1)L+r$, $1\le r\le L$, define
+\[
+q(x)=A+(p_r(i)-1)L+(L+1-r).
+\]
+This permutes the remaining interval
+and satisfies
+\[
+x+q(x)=L(i+p_r(i)).
+\]
+Each right-hand side is a perfect $d$th
+power, since $L=t^d$.
+Different prefix permutations and
+different tuples of $p_r$ produce
+different full permutations, yielding
+\eqref{eq:renorm-general}.
+The identities for $T_t$ follow directly
+from its affine definition.
+\end{proof}
+
+\begin{lemma}[A four-interval $171$-permutation]
+\label{lem:171}
+The following involution is a cube-sum
+permutation of $[1,171]$:
+\[
+p(i)=
+\begin{cases}
+8-i,&1\le i\le7,\\
+27-i,&8\le i\le19,\\
+64-i,&20\le i\le44,\\
+216-i,&45\le i\le171.
+\end{cases}
+\]
+\end{lemma}
+\begin{proof}
+The four displayed intervals are
+pairwise disjoint and partition $[1,171]$.
+Each is invariant under its indicated
+reflection, whose index-image sum is,
+respectively, $2^3,3^3,4^3$, or $6^3$.
+\end{proof}
+
+\begin{theorem}[Cubic affine closure and entropy monotonicity]
+\label{thm:renorm}
+For every integer $m\ge1$,
+\[
+\boxed{P(343m+171)\ge P(m)^{343}.}
+\]
+Set $T(m)=343m+171$. Then for each
+positive integer $k$,
+\[
+T^k(m)=343^k\Bigl(m+\frac12\Bigr)-\frac12,
+\qquad
+\boxed{P(T^k(m))\ge P(m)^{343^k}.}
+\]
+For $P(m)>0$, define the normalized entropy
+\[
+h(m)=\frac{\log P(m)}{m+\frac12}.
+\]
+It is nondecreasing on each orbit:
+\[
+\boxed{h(T^k(m))\ge h(m).}
+\]
+Consequently, without requiring any
+eventual-existence theorem,
+\begin{equation}\label{eq:globalentropy}
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P(n)}n
+\ge\sup_{\substack{m\ge1\\P(m)>0}}
+\frac{\log P(m)}{m+\frac12}.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:renorm-general}
+with $d=3$, $t=7$, $L=343$, and
+$A=(343-1)/2=171$.
+Lemma~\ref{lem:171} gives $P(171)\ge1$.
+Iterating the inequality and the affine
+composition law yields the second display.
+Since $T^k(m)+1/2=343^k(m+1/2)$,
+the entropy inequality follows on
+taking logarithms.
+For each fixed $m$ with $P(m)>0$,
+the orbit $T^k(m)$ tends to infinity,
+so its entropy gives a lower bound
+for the global limsup. Taking the
+supremum over all such $m$ proves
+\eqref{eq:globalentropy}, interpreted
+in the extended-real sense if necessary.
+\end{proof}
+
+The transformation $2m+1\mapsto343(2m+1)$
+is a multiplicative renormalization of
+the odd coordinate $2m+1$.
+In particular the set of admissible
+lengths is closed under
+$m\mapsto343m+171$, independently of
+the numerical threshold in
+Theorem~\ref{thm:exist}.
+The explicit arithmetic verifier
+\texttt{renormalization.py} checks both
+the four-block seed and independent
+fiber choices without relying on the
+large finite-certificate archive.
+
 \section{A short, local existence certificate}\label{sec:words}
 The preceding reflection argument is infinite and elementary.
 The finite existence verification can itself be made much more
