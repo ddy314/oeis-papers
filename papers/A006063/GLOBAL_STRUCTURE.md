@@ -15,6 +15,53 @@ four-interval affine construction are the objects documented here.
 Nothing in Sections 1–4 assumes a computer-aided verification of the
 sharp threshold 173.
 
+## 0. Eventual existence from one seven-element seed
+
+This is an alternative proof of eventual existence that deliberately **does not aim for the sharp 173 cutoff**.
+
+The only initial witness is the reversal `p=(7,6,5,4,3,2,1)` with `i+p(i)=8`. Under a cube-reflection step, any valid length `m` gives a valid length
+
+```
+n=k**3-m-1, provided m<n.
+```
+
+Let `R_0={7}`, and for `j=0,...,6` define
+
+```
+R_(j+1)= R_j union {k**3-m-1 :
+                        m in R_j, k>=2,
+                        m<k**3-m-1<=10975}.
+```
+
+Seven finite rounds suffice; their cardinalities are exactly
+
+```
+j       0    1    2    3     4     5     6     7
+|R_j|   1   21  189  995  3280  6588  8533  8924
+```
+
+and `R_7` contains the **entire integer interval [8915,10975]**. An independent checker represents each reachable set as a union of integer intervals. The number of disjoint intervals after each round is `1,21,186,870,2077,2037,1031,770`; at stage 7 its last interval is exactly `[8915,10975]`. Both witnesses are executable bounded-integer arithmetic, not matching searches.
+
+**Infinite induction.** For every `n>=10976`, let `k` be the smallest integer with `k**3>=n+8916`, and put `m=k**3-n-1`. Then `k>=28` and `m>=8915`. If `k=28`, `k**3<=2*n` because `n>=10976`. If `k>=29`, minimality gives
+
+```
+2*n-k**3 >= k**3-6*k*k+6*k-17832 >= 1685 > 0.
+```
+
+Therefore `8915<=m<n`, and strong induction supplies a valid permutation at `m`, extended to `n` by reflection. Thus
+
+```
+P(n)>0 for every n>=8915.
+```
+
+Moreover `m=O(n**(2/3))` under the chosen least-cube rule, so direct construction uses `O(log log n)` reflection layers and `O(n)` output operations.
+
+This theorem is **not claimed to be fully computation-free**: it uses a finite seven-round integer check. Its advantage is that the finite premise concerns one simple seed and an elementary reflection-closure calculation, with no 173..364 permutation certificates or bipartite matching routines.
+
+Two independent checkers:
+- `python papers/A006063/one_seed_eventual.py` (pointwise integer reflection closure, actual constructed permutations)
+- `python papers/A006063/one_seed_interval_proof.py` (symbolic union-of-intervals arithmetic)
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
