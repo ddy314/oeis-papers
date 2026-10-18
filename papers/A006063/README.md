@@ -17,6 +17,67 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## A structural boundary: reflection entropy versus cycle entropy
+
+The reflection method has an **intrinsic information-theoretic upper bound**. In every strictly increasing sequence of reflection extensions the cubes used are strictly increasing, since
+
+```
+c_j = n_(j-1)+n_j+1
+c_(j+1)-c_j = n_(j+1)-n_(j-1) > 0.
+```
+
+Thus a reflection history from a fixed starting permutation is uniquely encoded by a subset of `{2**3,3**3,...,floor(cuberoot(2*n))**3}`. In particular, for the single-seed family `F(n)`,
+
+```
+F(n) <= 2**(K(n)-1),   K(n)=floor(cuberoot(2*n)).
+```
+
+Combined with the **previously proved** uniform reflection-tree lower bound,
+
+```
+log F(n) = Theta(n**(1/3))                (n -> infinity).
+```
+
+More generally, `S` fixed finite starting permutations generate at most `S*2**(K(n)-1)` permutations of length n by any number of strict suffix reflections. This is **subexponential in n**. By contrast, our standalone two-block three-cycle construction produces `P(681707*u**3)>=2**(148877*u**3-1)`, which is exponential in n. The contrast proves that reflection-only constructions from finitely many seeds **cannot capture the positive linear entropy supplied by disjoint alternating cycles**.
+
+A separate *depth sparsity* theorem bounds the number of different lengths <=N reachable from one seed in <=r reflections:
+
+```
+#reachable_lengths <= sum(comb(K(N)-1,j) for j=0..r).
+r<=2: o(N) lengths;
+r<=3: N/3 + O(N**(2/3)) lengths.
+```
+
+Therefore **at least four** steps would be necessary to cover all sufficiently large lengths with a bounded-depth one-seed construction. In the first million lengths the actual <=3-step reflection closure from the seven-element seed reaches only 98,749 lengths, well below the upper bound. The possibility of a uniform upper bound of seven steps for all sufficiently large n remains **open**.
+
+`reflection_entropy_barrier.py` verifies exact reflection-tree upper bounds and independently enumerates all root sequences through depth three at several finite ranges. The upper bounds themselves are elementary theorems and do not rely on such numerical tests.
+
+## Local arithmetic expansion and macroscopic Hall obstructions
+
+For distinct cube-sum bipartite left vertices `i!=j`, any shared right neighbor gives two cubes whose difference is `|i-j|`. The factorization
+
+```
+a**3-b**3 = (a-b)*(a*a+a*b+b*b)
+```
+
+implies at most **tau(|i-j|)** common right neighbors, since each divisor `a-b` can determine at most one solution. Here `tau(d)` is the positive-divisor-count function.
+
+Let `delta` and `Delta` denote the minimum and maximum degrees in the cube-sum bipartite graph, and `D=max(tau(d),1<=d<n)`. An exact Cauchy-Schwarz argument gives, for *every* nonempty left vertex set `S` of size `s`,
+
+```
+|N(S)| >= s*delta**2/(Delta+(s-1)*D).
+```
+
+Since `delta >= (2**(1/3)-1)*n**(1/3)-1`, `Delta=O(n**(1/3))` and the standard divisor estimate is `D=O_epsilon(n**epsilon)`, any Hall-deficient set must have
+
+```
+|S| >= c_epsilon * n**(2/3-epsilon)
+```
+
+for **every fixed epsilon>0 and sufficiently large n**. Together with the earlier boundary-diameter theorem, any obstruction must simultaneously be a *large* independent set **and** stretch across a range of length `n-O(n**(2/3))`. This gives a two-dimensional arithmetic-geometric obstruction localization, with no use of the 173 threshold.
+
+`arithmetic_expansion_audit.py` independently validates the codegree inequality and second-moment expansion on exact integer cube-sum graphs.
+
 ## A single 7-element seed: a self-contained eventual theorem and counting tree
 
 The sharp cutoff n=173 is **not** needed for this simpler eventual-existence theorem. Starting from the sole explicit permutation `(7,6,5,4,3,2,1)`, with every sum equal to 8, take seven rounds of the elementary reflection rule
