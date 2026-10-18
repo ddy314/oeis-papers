@@ -781,3 +781,66 @@ dedicated \`.github/workflows/a077187-duhamel-flux.yml\`
 **CI PASS**. The remaining obstacle is a *specific
 cross-constraint* between finite defect and true zero
 stable drift. The unrestricted conjecture stays OPEN.
+
+
+## Latest structural results: terminal-cutoff orbit conjugacy and single-window density obstructions
+
+Two new proved notes continue the **zero-drift / finite-defect
+structure** without increasing any order cutoff:
+
+**[Universal stable-cutoff orbit gauge](research/terminal_defect_universal_orbit_gauge_2026-10-18.md).**
+For \(r=2^a5^cv\), put \(h=\max(1,a,c)\).
+The *entire* late digit-length-\((pT+h)\) window has a
+divisible mountain exactly when the **original**
+\(h\)-digit window's fixed rational quadratic has a
+root in the *full* subgroup \(\langle10^h\rangle\):
+\[
+10^h(C_{h-1}+c_h)y^2-
+\frac{2\cdot10^h}{(10^h-1)^2}y
++(Y_{h-1}+b_h)=0.
+\]
+The subgroup-preserving gauge uses the actual/stable
+\(h\)-th layer multiplier ratio; the coefficients depend
+only on the finite original decimal prefix and on \(h\),
+**not** on the unbounded coprime factor \(v\).
+The threshold \(h\) may exceed the last truly different
+layer (for \(u=4\), only layer 1 differs but \(h=2\)).
+
+For \(h=2\) the exact rational discriminant is
+\[
+-\frac{669867392724508459}{15125000}.
+\]
+It is a nonsquare modulo the fully split prime
+\(41\equiv1\bmod40\), with value \(12\).
+A Chebotarev argument therefore proves **exact
+natural density \(1/32\)** of primes
+\(p\equiv29\bmod40\) with smooth order part \(u=4\)
+for which the **\((pT+2)\) window fails**,
+although the old \(u\mid20\) proof guarantees
+another divisible mountain.
+
+**[Phase-free u=8 first-window obstruction](research/u8_single_window_density_one_thirtysecond_2026-10-18.md).**
+The first full post-defect \(q=10\) equation is
+\(10ay^2-(20/81)y+b=0\) on \(\langle10\rangle\),
+after an exact multiplicative-subgroup gauge.
+Its rational discriminant has value \(24\), a
+nonsquare, at the completely split prime
+\(401\equiv1\bmod80\). Hence an **exact
+natural-density \(1/32\)** set of actual primes
+\(p\equiv57\) or \(73\bmod80\), with smooth order
+part \(u=8\), defeats this entire window.
+
+These are **single-window** density results,
+consistent with the previously certified stronger
+\`zero_drift_continuation_2026-10-18.md\`
+theorem that a density-\(1/128\) set defeats
+**three** fixed early windows at once.
+None concerns the actual \(\Delta=0\) branch
+strongly enough to establish a mountain
+counterexample, and the unrestricted conjecture
+is still OPEN.
+
+Small independent standard-library CI audits:
+[audit terminal gauge and genuine u4 primes](research/audit_terminal_defect_gauge_u4.py)
+and [audit u8 phase-free quadratic](research/audit_u8_positive_density_window_failure.py).
+Both dedicated GitHub Actions jobs passed.
