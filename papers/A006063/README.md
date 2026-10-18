@@ -31,7 +31,7 @@ The 61-seed reflection-only compression remains a useful **methodological bounda
 
 ### Sharper counting result — reflection entropy
 
-Using the largest `s` available cubes at once, rather than only three, gives a family of **fully mathematical** counting inequalities. Let `rho_s` be the unique real root greater than 1 of `sum(rho_s**(-h) for h in 1..s)=1`, and put `B_s=6(s-1)**2+24*(s-1)+15`. For every fixed `s>=2` and `n>=173`,
+Using the largest `s` available cubes at once, rather than only three, gives a family of **fully mathematical** counting inequalities. Let `rho_s` be the unique real root greater than 1 of `sum(rho_s**(-h) for h in 1..s)=1`, and put `B_s=2*s**2+4*s-1`. For every fixed `s>=2` and `n>=173`,
 
 ```
 P(n) >= rho_s ** ((floor(cuberoot(2*n)) - B_s) / 2)
