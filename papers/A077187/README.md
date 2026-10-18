@@ -75,3 +75,31 @@ Finite evidence: 665 checked primes below 5000 (excluding \(p=11\)) all
 had nonzero drift. The square-root/subgroup test rigorously decides any
 individual zero-drift prime, if encountered; **the universal existence
 conjecture remains open.**
+
+
+## Exact repunit-ring order certificates, October 18 continuation
+
+A second **independent computational theorem** now covers all primes whose
+multiplicative order of 10 belongs to 42 specific previously uncovered
+order classes \(r\le500\). For each such \(r\), arithmetic is performed
+directly modulo \(N_r=10^r-1\), without factoring that integer. The
+difference of two exact digit-layer states gives \((U_r,V_r)\); the full
+gcd \(G_r=\gcd(N_r,U_r,V_r)\) has prime factors dividing \(990r\).
+Since a prime of exact multiplicative order \(r\) must exceed \(r\),
+none of those primes can have zero drift, so the general two-offset
+witness theorem applies.
+
+Together with earlier proved smooth-order / \(u\mid20\) classes, this
+gives the **cumulative** existence result for all primes satisfying
+\(\operatorname{ord}_p(10)\le500\), subject to those earlier certificates'
+independent review. The new 42-class result itself does not depend on
+their validity.
+
+- [Mathematical proof, full class list and exact gcd table](research/order_bound_500_certificate_2026-10-18.md).
+- [Self-contained standard-library Python certifier](research/certify_orders_le500.py).
+- Run \`python3 papers/A077187/research/certify_orders_le500.py\` from repository root.
+- GitHub Actions: \`.github/workflows/a077187-order-bound.yml\`.
+
+The unrestricted all-primes OEIS problem remains **open**: certification
+for all \(r\le500\) is a finite order-bound theorem, not a proof for
+unbounded multiplicative orders.
