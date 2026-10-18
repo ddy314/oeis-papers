@@ -9,7 +9,7 @@ from math import gcd, lcm
 from certify_orders_le500 import geom, order_class_drift, split_order, multiplicative_order_10_mod_v
 
 def check(r):
-    T,N,U,V=order_class_drift(r)
+    T,N,G,U,V=order_class_drift(r)
     P=1
     upward=downward=base=error1=error10=0
     for d in range(T+1,2*T+1):
