@@ -58,6 +58,10 @@ jobs:
         run: python papers/A006063/one_seed_interval_proof.py
       - name: Verify exact one-seed reflection-history counting recurrence
         run: python papers/A006063/reflection_tree_counts.py
+      - name: Verify reflection entropy ceiling and finite-depth density barrier
+        run: python papers/A006063/reflection_entropy_barrier.py
+      - name: Audit divisor codegree and Hall second-moment expansion
+        run: python papers/A006063/arithmetic_expansion_audit.py
       - name: Check 40 disjoint alternating cycles at n=362
         run: python papers/A006063/verify_362.py
       - name: Check power-divisor tensor recurrence and amplified 362-gadget
