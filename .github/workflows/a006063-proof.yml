@@ -52,6 +52,8 @@ jobs:
         run: python papers/A006063/renormalization.py
       - name: Verify global cycle-cover parity and strong-component factorization
         run: python papers/A006063/global_graph_audit.py
+      - name: Prove eventual existence from 7-point seed and seven reflection rounds
+        run: python papers/A006063/one_seed_eventual.py
       - name: Check 40 disjoint alternating cycles at n=362
         run: python papers/A006063/verify_362.py
       - name: Check power-divisor tensor recurrence and amplified 362-gadget
