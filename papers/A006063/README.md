@@ -17,6 +17,35 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## Reduced-computation mathematical proof
+
+The **new primary existence certificate** uses *one* explicitly described involution at `n=173` (only seven symmetric reflection interval blocks), followed by exactly **191 short alternating-path words** for `n=174,...,364`. The words use only the cube-root alphabet `{2,3,4,5,6,7,8}` and contain **1,844 root digits total**, compared with the previous full 192-row archive of 51,552 permutation entries.
+
+The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path from the newly free left vertex `n` by right edges `v_j=r_j^3-u_{j-1}`; when `v_j<n`, follow the unique old matching edge backwards to its left endpoint, and terminate on the newly free right vertex `n`. If no vertex repeats, flipping this alternating path makes a new perfect matching. Each row can be checked with only short integer cube-sum identities; the checker does not solve a matching problem or read the previous long certificates.
+
+- [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
+- [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
+- [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
+
+The 61-seed reflection-only compression remains a useful **methodological boundary**: those 61 extra seeds cannot be reduced by *reflection extensions alone* from the known 48 early positive lengths. The alternating-path operation is the essential new ingredient that escapes that barrier.
+
+### Sharper counting result — reflection entropy
+
+Using the largest `s` available cubes at once, rather than only three, gives a family of **fully mathematical** counting inequalities. Let `rho_s` be the unique real root greater than 1 of `sum(rho_s**(-h) for h in 1..s)=1`, and put `B_s=6(s-1)**2+24*(s-1)+15`. For every fixed `s>=2` and `n>=173`,
+
+```
+P(n) >= rho_s ** ((floor(cuberoot(2*n)) - B_s) / 2)
+```
+
+As `s` increases, `rho_s` increases to 2, yielding the **new asymptotic theorem**
+
+```
+liminf_{n->infinity} log(P(n)) / (2*n)**(1/3) >= log(2)/2
+```
+
+No additional finite certificate is needed for this asymptotic bound beyond the already-established qualitative existence theorem. This coefficient is a lower bound, not an unproved claim of optimality.
+
+
 ## Mathematical method
 
 **Reflection extension:** If `p` is valid on `{1,...,m}` and `m+n+1=c` is a cube, then extend by `p[i]=c-i` for `m<i<=n`. Each cube gives a disjoint image family since its last value is `p[n]=c-n`. Consequently,
@@ -62,6 +91,7 @@ python papers/A006063/verify.py
 python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
 python papers/A006063/construct_linear.py
+python papers/A006063/verify_word_paths.py
 ```
 
 All verifiers use Python's standard library only; certificate checks use integers, sets, and exact comparisons.
