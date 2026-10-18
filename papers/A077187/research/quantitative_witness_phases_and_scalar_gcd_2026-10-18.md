@@ -178,3 +178,90 @@ These checks are falsification aids, not the proofs of the
 unbounded results. The exact algebraic arguments above establish
 Theorems A and B. OEIS A077187 in its unrestricted all-primes
 form remains **OPEN**.
+
+
+## 5. The Fermat–Lucas double norm (a unified rank detector)
+
+The previous analysis separates \(\Delta=(U,V)\ne0\) from
+\(\Delta=0\). Both can in fact be encoded in **one exact
+algebraic identity** over \(\mathbb F_p\).
+
+Let \(p\ge7,\ p\ne11\), so \(r=\operatorname{ord}_p(10)\ge3\).
+For the first full nonsingular digit window after the \(j\)-th
+stable block, take the local polynomial
+\[
+Q_j(z)=\bigl(A+10jU\bigr)z^2+Hz+(B+jV),
+\qquad H=-20/81,\qquad z\in\mu_r=\langle10\rangle.
+\]
+Here \(j\in\mathbb F_p\) is a residue of the *relative block
+number*: the actual block index can be \(j+1\), so all residue
+classes have positive representatives. Define its cyclic norm
+\[
+\mathcal R(j)=\operatorname{Res}_z(z^r-1,Q_j(z))
+=\prod_{z\in\mu_r}Q_j(z).
+\]
+
+**Theorem C (Fermat–Lucas double-norm factorization).**
+For **any** coefficients \(A,B,U,V\in\mathbb F_p\),
+and \(H\in\mathbb F_p\), provided \(r\ge3\),
+\[
+\boxed{
+\prod_{j\in\mathbb F_p}\mathcal R(j)
+=\mathcal R(0)
+(1-U^{p-1})(1-V^{p-1}).
+}\tag{6}
+\]
+The right-side product is either \(0\), if the drift is
+nonzero, or \(\mathcal R(0)\), if the drift is zero.
+It is an exact equality, not an estimate.
+
+**Proof.** Interchange the two finite products. For fixed
+\(z\in\mu_r\), put
+\[
+a_z=Az^2+Hz+B,\qquad b_z=10Uz^2+V.
+\]
+The finite-field polynomial identity
+\(\prod_{j\in\mathbb F_p}(X+jY)=X^p-XY^{p-1}\)
+gives
+\[
+\begin{split}
+\prod_{j\in\mathbb F_p}\mathcal R(j)
+&=\prod_{z\in\mu_r}a_z(1-b_z^{p-1})\\
+&=\mathcal R(0)
+  \prod_{z\in\mu_r}(1-b_z^{p-1}).
+\end{split}
+\]
+Each factor in the latter product is 1 when \(b_z=0\)
+and 0 otherwise. Since \(\mu_r\) has at least three
+elements, \(b_z=0\) **for every** \(z\in\mu_r\) if
+and only if \(U=V=0\): otherwise the polynomial
+\(10Uz^2+V\), of degree at most two, cannot vanish
+at all \(r\ge3\) elements. Therefore the product of
+indicators equals
+\((1-U^{p-1})(1-V^{p-1})\), proving (6). QED.
+
+Theorem C can be evaluated as a composition of **two
+finite algebraic norms**: the inner norm is the Lucas
+resultant of the previous research note, and the outer
+norm runs through the additive group of block phases.
+Its factor is the *zero-drift idempotent*
+\[
+e_0(\Delta)=(1-U^{p-1})(1-V^{p-1})\in\{0,1\}.
+\]
+
+**Precise limitation.** If \(\Delta\ne0\), (6) forces
+at least one next-window witness, recovering existence
+from the additive phase norm. If \(\Delta=0\), (6)
+reduces to \(\mathcal R(0)=\mathcal R(0)\); it does not
+force a zero. Thus the formula is a useful global
+factorization and a sharpened explanation of the
+obstruction, **not a resolution** of zero drift.
+It should not be misread as a new universal vanishing
+identity.
+
+This is a **second** exact multiplicative norm beyond the
+whole-stable-cycle product \(\mathfrak O_p\).
+The first takes roots inside a digit window; the second
+takes the \(p\) affine boundary phases. It makes clear why
+the cocycle's translation \(\Delta\) is precisely the
+parameter governing the *amount of new freedom*.
