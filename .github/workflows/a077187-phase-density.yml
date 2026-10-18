@@ -6,6 +6,7 @@ on:
     paths:
       - papers/A077187/research/audit_quantitative_witness_density.py
       - papers/A077187/research/probe_scalar_gcd.cpp
+      - papers/A077187/research/audit_fermat_lucas_double_norm.py
       - .github/workflows/a077187-phase-density.yml
   pull_request:
     paths:
@@ -23,6 +24,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Check exact half-density and anti-diagonal counts
         run: python3 papers/A077187/research/audit_quantitative_witness_density.py
+      - name: Audit Fermat-Lucas double norm over all block phases
+        run: python3 papers/A077187/research/audit_fermat_lucas_double_norm.py
       - name: Build exact scalar-GCD falsification probe
         run: |
           g++ -O3 -std=c++17 papers/A077187/research/probe_scalar_gcd.cpp -lgmpxx -lgmp -o /tmp/scalar_probe
