@@ -133,6 +133,38 @@ def check_compact():
     return constructed, archive
 
 
+
+def check_reused_small_compression(yes):
+    """Stronger basis: 61 fresh witnesses plus 48 existing early positives."""
+    core = read("core_61_with_small.json")
+    if len(core) != 61:
+        raise AssertionError("expected exactly 61 additional seed lengths")
+    known = dict(yes)
+    witnessed = 0
+    reflected = 0
+    for n in range(173, 365):
+        options = []
+        for c in sorted(cubes_through(2*n)):
+            m = c-n-1
+            if 1 <= m < n and m in known:
+                options.append((m, c))
+        if options:
+            if str(n) in core:
+                raise AssertionError(f"unnecessary core-61 witness n={n}")
+            m, c = options[0]
+            known[n] = reflect(known[m], c, n)
+            reflected += 1
+        else:
+            if str(n) not in core:
+                raise AssertionError(f"missing irreducible seed n={n}")
+            known[n] = core[str(n)]
+            check(n, known[n])
+            witnessed += 1
+    if (witnessed, reflected) != (61, 131):
+        raise AssertionError("unexpected compression totals")
+    print("PASS: 48 early positive witnesses + 61 new seeds "
+          "cover all 192 sizes n=173..364.")
+
 def check_multiplicity(yes, archive):
     data = read("second_solutions.json")
     multiple_small = {}
@@ -203,6 +235,7 @@ def check_numeric_guards(limit=100000):
 def main():
     yes = check_small()
     _, archive = check_compact()
+    check_reused_small_compression(yes)
     check_multiplicity(yes, archive)
     check_numeric_guards()
     print("ALL EXTENDED CERTIFICATES PASS")
