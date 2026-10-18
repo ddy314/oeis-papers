@@ -840,6 +840,66 @@ produces a valid permutation of length
 $n$. This proves the theorem.
 \end{proof}
 
+\begin{theorem}[Eventual existence of involutions]
+\label{thm:involution-tail}
+Let $I_4(n)$ denote the number of
+cube-sum \emph{involutions} of $[1,n]$
+satisfying $p(4)=4$, where an
+involution obeys $p^2=\mathrm{id}$.
+Then
+\[
+\boxed{I_4(n)\ge F(n)>0
+\qquad\text{for every }n\ge8915.}
+\]
+More strongly,
+\begin{equation}\label{eq:involution-entropy}
+\boxed{\displaystyle
+\liminf_{n\to\infty}
+\frac{\log I_4(n)}{(2n)^{1/3}}
+\ge\frac{\log2}{2}.}
+\end{equation}
+In particular, the cube-sum graph
+admits a spanning configuration
+consisting entirely of loops and
+disjoint dimers at every $n\ge8915$.
+\end{theorem}
+\begin{proof}
+The sole starting permutation
+$p(i)=8-i$ on $[1,7]$ is an
+involution and fixes the index $4$.
+Every suffix reflection $i\mapsto
+c-i$ in Lemma~\ref{lem:reflect}
+is itself an involution of the new
+interval, which is disjoint from
+all previously defined positions.
+Thus every constructed permutation
+in the one-seed reflection tree
+is an involution fixing $4$.
+Theorem~\ref{thm:single-seed}
+proves $F(n)>0$ for $n\ge8915$,
+and the uniqueness of reflection
+histories proved in
+Lemma~\ref{lem:reflection-count}
+gives $I_4(n)\ge F(n)$.
+Finally, Theorem~\ref{thm:treeentropy}
+supplies \eqref{eq:involution-entropy}.
+The undirected loop-and-dimer
+formulation follows by decomposing
+an involution into fixed points and
+transpositions.
+\end{proof}
+
+This separates two logically different
+facts. The $236$-element cube-sum graph
+admits $512$ ordinary permutations but
+no involutions, by
+Theorem~\ref{thm:236}. Nevertheless,
+the one-seed method proves that
+noninvolutive obstructions cannot
+persist for all large lengths.
+It does so without any matching
+solver or sharp-cutoff data.
+
 \begin{corollary}[Efficient one-seed construction]
 \label{cor:single-seed-alg}
 For every $n\ge8915$, a cube-sum
