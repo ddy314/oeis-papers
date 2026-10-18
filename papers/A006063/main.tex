@@ -135,6 +135,18 @@ witnesses, are checked with exact integer arithmetic.
 The earlier full $192$-row file is retained as an
 additional independent-format audit source.
 
+There is a further useful compression when the $48$
+verified positive sizes below $173$ are reused.
+An ascending reflection-closure algorithm starts from
+those small solutions and, at each $173\le n\le364$,
+uses any already certified $m<n$ for which $m+n+1$
+is a cube. Precisely $131$ lengths are obtained by
+reflection and only $61$ further lengths need explicit
+witnesses. The $61$ additional witnesses are archived
+in \texttt{core\_61\_with\_small.json}, and
+\texttt{verify\_extended.py} certifies this alternate
+compression independently of the $109$-case presentation.
+
 \begin{theorem}[Complete A006063 membership]\label{thm:exist}
 For every integer $n\ge173$, $P(n)>0$.
 Below $173$, the complete membership list is
