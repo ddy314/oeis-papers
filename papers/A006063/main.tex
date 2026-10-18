@@ -27,7 +27,7 @@ An explicit seven-block interval involution at $n=173$
 and only $1844$ one-digit cube roots in $191$ alternating-path
 words certify every remaining base size up to $364$.
 An elementary reflection induction covers all larger sizes;
-the earlier $109$-permutation and $61$-seed certificates
+the earlier $109$-permutation and $60$-seed certificates
 are retained only for independent cross-checking.
 Exact Hall-set certificates classify the earlier failures,
 and alternating-cycle certificates establish multiplicity.
@@ -62,7 +62,7 @@ p_i,&i\le m,\\ c-i,&m<i\le n.
 For different admissible cubes $c$, the images of these
 extensions are disjoint. In particular,
 \begin{equation}\label{eq:count}
-P(n)\ge\!\!\!\!\sum_{\substack{c\in\cubes\\n+2\le c\le 2n}}
+P(n)\ge\!\!\!\!\sum_{\substack{c\in\cubes\\n+1\le c\le 2n}}
 P(c-n-1),
 \end{equation}
 with the convention $P(0)=1$.
@@ -224,33 +224,36 @@ verified positive sizes below $173$ are reused.
 An ascending reflection-closure algorithm starts from
 those small solutions and, at each $173\le n\le364$,
 uses any already certified $m<n$ for which $m+n+1$
-is a cube. Precisely $131$ lengths are obtained by
-reflection and only $61$ further lengths need explicit
-witnesses. The $61$ additional witnesses are archived
-in \texttt{core\_61\_with\_small.json}, and
+is a cube. Precisely $132$ lengths are obtained by
+reflection and only $60$ further lengths need explicit
+witnesses. Here the empty matching is allowed:
+$n=342$ follows directly from $c=343$,
+with $p(i)=343-i$. The $60$ additional
+witnesses are archived in
+\texttt{core\_60\_with\_empty.json}, and
 \texttt{verify\_extended.py} certifies this alternate
 compression independently of the $109$-case presentation.
 
 
 \begin{proposition}[Limit of reflection-only compression]\label{prop:atoms}
-Suppose the $48$ known positive lengths below $173$ are
-provided as initial data. Among proofs of all lengths
+Suppose the empty matching and the $48$ known positive
+lengths below $173$ are provided as initial data. Among proofs of all lengths
 $173,\dots,364$ that use only the reflection extension
 of Lemma~\ref{lem:reflect} and independently supplied
-new full-length seed permutations, at least $61$
-extra seeds are necessary, and $61$ suffice.
+new full-length seed permutations, at least $60$
+extra seeds are necessary, and $60$ suffice.
 \end{proposition}
 \begin{proof}
 Process $n=173,\dots,364$ in ascending order. If no
 cube $c$ yields a previously certified positive
-predecessor $m=c-n-1\in[1,n-1]$, then reflection
+predecessor $m=c-n-1\in[0,n-1]$, then reflection
 cannot establish $n$ from earlier data, so a new seed
 is forced. Otherwise choose such a predecessor and
 perform reflection, without adding a seed.
 This deterministic closure rule yields $44$ forced
 seeds in $[173,255]$, none in $[256,338]$ (use
-$c=512$ and $m=511-n$), and $17$ in $[339,364]$.
-Thus $44+17=61$, and the attached short
+$c=512$ and $m=511-n$), and $16$ in $[339,364]$.
+Thus $44+16=60$, and the attached short
 integer-only checker reproduces the forced
 index list. Every forced seed is unavoidable by
 the definition of the restricted proof rule.
@@ -258,7 +261,7 @@ the definition of the restricted proof rule.
 This is \emph{not} a lower bound on arbitrary
 mathematical proofs. The alternating-path
 extension in Lemma~\ref{lem:words} is a different
-operation and indeed replaces those $61$ large
+operation and indeed replaces those $60$ large
 independent seeds by one explicit involution
 and a small word table.
 
