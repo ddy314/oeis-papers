@@ -184,7 +184,7 @@ H_r&243&243&729&243
 Some representative new values are
 \[
 \begin{array}{r|rrrrrrrr}
-r&504&536&584&624&664&696&725&1000\\\hline
+r&504&536&584&624&664&696&725&744\\\hline
 H_r&567&99&657&351&9&189&9&27
 \end{array}
 \]
@@ -244,9 +244,13 @@ and checks the resulting two-offset witness congruence.
 
 The exact, standard-library Python programs are
 \texttt{certify\_orders\_le500.py},
-\texttt{certify\_orders\_le1000.py},
-and \texttt{audit\_order\_1000\_prime\_field.py},
-in the accompanying \texttt{research/} directory.
+\texttt{certify\_orders\_le744.py},
+and \texttt{audit\_order\_744\_prime\_field.py}.
+The 35 new classes are certified by
+\texttt{single\_period\_order\_1000.cpp}
+(C++17/GMP), independently checked by
+\texttt{audit\_order\_1000\_prime\_field.py},
+all in the accompanying \texttt{research/} directory.
 
 The bounded-order proof requires independent auditing of
 the two previously obtained elementary lemmas and of
