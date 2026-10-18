@@ -11,6 +11,7 @@ on:
       - papers/A077187/research/audit_cyclotomic_spots.py
       - papers/A077187/research/single_period_order_1000.cpp
       - papers/A077187/research/audit_order_1000_prime_field.py
+      - papers/A077187/research/audit_cyclotomic_order_1000.py
       - papers/A077187/research/order_bound_1000.tex
       - .github/workflows/a077187-order-bound.yml
   pull_request:
@@ -22,6 +23,7 @@ on:
       - papers/A077187/research/audit_cyclotomic_spots.py
       - papers/A077187/research/single_period_order_1000.cpp
       - papers/A077187/research/audit_order_1000_prime_field.py
+      - papers/A077187/research/audit_cyclotomic_order_1000.py
       - papers/A077187/research/order_bound_1000.tex
       - .github/workflows/a077187-order-bound.yml
   workflow_dispatch:
@@ -55,6 +57,9 @@ jobs:
           test "$(sha256sum order1000_rows.tsv | cut -d' ' -f1)" = "f4098f7f7113f0941c5423a33de3e9bf0c0a335c2e4d901b28851fab1495cddc"
       - name: Independent prime-field check of new orders
         run: python3 papers/A077187/research/audit_order_1000_prime_field.py
+      - name: Independent cyclotomic coprimality for all new order classes
+        run: |
+          python3 papers/A077187/research/audit_cyclotomic_order_1000.py papers/A077187/research/order1000_rows.tsv
 
   bounded-order-pdf:
     runs-on: ubuntu-latest
