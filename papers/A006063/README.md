@@ -25,7 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
-- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
+- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -88,6 +88,46 @@ S_t = {10+t, 46+t, 71+t, 137+t, 198+t},  t = 0,...,8.
 Any other solution corresponds to a directed cycle cover in that graph: all singletons are forced, and each five-cycle offers exactly two choices (keep/flip). The central set `S_4={14,50,75,141,202}` is invariant under any solution and is necessarily oriented as one of two inverse 5-cycles, never an involution.
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
+
+## NEW: entirely computation-free cubic matching family (strongest rate)
+
+The key weighted identity is:
+
+```
+53**3 + 2*94**3 = 2*87**3 + 79**3.
+```
+
+Let `T=u**3` for **any integer u>=1** and `n=681707*T`. A two-reflection permutation is given by
+
+```
+p(i)=148877*T-i,   1 <= i < 148877*T
+p(i)=830584*T-i,   148877*T <= i <= 681707*T.
+```
+
+Every reference sum is either `(53*u)**3` or `(94*u)**3`. For every `s=1,...,148877*T-1`, the triple
+
+```
+(s, s+172081*T, s+509626*T)
+```
+
+is a valid directed alternating 3-cycle. The swapped sums are `(87*u)**3,(79*u)**3,(87*u)**3`, and all these translated triples are pairwise disjoint. Therefore
+
+```
+P(681707*u**3) >= 2**(148877*u**3-1),
+limsup_n log(P(n))/n >= 148877*log(2)/681707.
+```
+
+This improves the asymptotic constant to about **0.15136**, and, unlike the older certificate-dependent existence and tensorization proofs, is a **pure algebraic construction** requiring only two interval formulas and one exact equality of cubes. It also yields a canonical binary code with `148877*u**3-1` independent bits and exact permutation Hamming distance `3*bit_Hamming_distance`.
+
+An underlying general lemma applies to *any* four perfect cubes `A,B,X,Y` satisfying
+
+```
+A+2*B=2*X+Y,    A+B/2 <= X <= B-A.
+```
+
+It guarantees `P((B-A)*u**3)>=2**(A*u**3-1)`. The example above is concrete and fully explicit; no priority or optimality claim is made about this particular identity.
+
+The independent `audit_three_cycle_identity.py` script checks the four cube constants, all endpoint inequalities, every translated three-cycle at `u=1`, and symbolic identities at larger `u`, without solving any matching problem.
 
 ## Optimized entropy: minimal terminal cube
 
@@ -186,6 +226,7 @@ python papers/A006063/lift_exponential_subsequence.py
 python papers/A006063/tensorize_fibers.py
 python papers/A006063/audit_permutation_code.py
 python papers/A006063/optimize_terminal_cube.py
+python papers/A006063/audit_three_cycle_identity.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
