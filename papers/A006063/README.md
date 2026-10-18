@@ -62,6 +62,8 @@ P(n) % 2 = det(H_n) % 2.
 
 Here `H_n[i,j]` is 1 when `i+j` is a cube, and its determinant is taken over `GF(2)`. Thus **parity is decidable in polynomial time** by binary Gaussian elimination, even though counting all permutations may be difficult.
 
+**Independent-set criterion:** A valid permutation exists if and only if every vertex set `I` containing no internal cube-sum edges (or loops) has `|N(I)|>=|I|`. This follows by reducing any deficient Hall set `S` to `I=S\\N(S)`. All 124 negative certificates already satisfy this stronger condition. A fixed point can only occur at `i=4*r**3`. If `det(H_n)=1 mod 2`, then at least one valid involution must exist, although the reverse implication is not automatic.
+
 For any one known valid permutation `p`, consider arcs `i->j` when `i+p[j]` is a cube. Every alternative matching decomposes independently over the directed **strongly connected components**, and `P(n)` is the product of the permanents of these component submatrices. This unifies exact counting, uniqueness and alternating-cycle multiplicity under a single graph theorem. In particular, the nine five-cycle components at `n=236` immediately give `P(236)=2**9`.
 
 `global_graph_audit.py` independently checks the four-block unique n=171 solution, the nine components at n=236, their exact count, and binary-matrix parity at lengths 7,171,236. No large A006063 existence certificate is used.
