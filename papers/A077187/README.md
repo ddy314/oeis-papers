@@ -1,6 +1,6 @@
 # OEIS A077187 — decimal mountain concatenations (partial results)
 
-**Author:** Qichao Wang. **Date:** 2026-10-17.
+**Author:** Qichao Wang. **Updated:** 2026-10-18.
 **Status:** computer-assisted, not externally peer reviewed. **The unrestricted A077187 conjecture remains OPEN.**
 
 Let
@@ -9,15 +9,74 @@ M(k)=1\Vert2\Vert\cdots\Vert k\Vert(k-1)\Vert\cdots\Vert1
 \]
 be the decimal mountain concatenation. This folder collects the current *partial* existence theorems and reproducible exact-integer certificates.
 
-## Proven subfamilies (subject to independent manuscript and code review)
+## Current proof status
+
+Write `ord_p(10)=u*v`, where `u=2^a*5^c` and `gcd(v,10)=1`.
+The integrated [affine/spectral paper](research/fixed_v_spectral_families.pdf)
+and its [source](research/fixed_v_spectral_families.tex) contain these results:
+
+| Scope | Status | Proof mechanism |
+|---|---|---|
+| `u` divides 20, arbitrary `v` | PROVED | Explicit square and subgroup witness; no drift assumption |
+| `v` divides 9 | PROVED | Elementary invariant `U+V=9/100` |
+| `v=11,33,99`, `a=0` | PROVED | Exact invariant `11*z*U-9*V=909*(z+1)/100` |
+| `v=11,33,99`, `a>=1` | COMPUTATION_CERTIFIED | Ten quadratic norm obstructions and 11385 complete index exclusions |
+| `v=7`, arbitrary `a,c` | COMPUTATION_CERTIFIED | Existing quadratic spectral certificate |
+
+The small primes 3 and 11 have witnesses `M(3)=12321` and `M(2)=121`;
+2 and 5 are impossible because the final digit is 1.
+The new formulas and certificates received an
+[independent audit](research/audit_spectral_update_2026-10-18.md).
+
+The general phase theorem reduces `v` to `t=v/gcd(v,9)` before
+compression. It subsumes the separately retained
+[nine-torsion lift](research/nine_torsion_lift_v33_v99_2026-10-18.md).
+For `v=11*3^b`, the exact multiplier defect also proves why the
+22-phase mechanism stops at `b=2`; this is not an arbitrary cutoff.
+The [linear continuation](research/involution_linear_continuation_2026-10-18.md)
+supplies the Fourier calculation and separates the algebraic odd branch
+from the computer-assisted even branch.
+
+For the other main route, a [tail-phase reduction](research/zero_drift_continuation_2026-10-18.md)
+shrinks the first-window field to order `u/gcd(u,20)`. It also certifies
+that the first three windows after `p` blocks fail on a set of primes
+of density `1/128` with `u=8`. This is an obstruction to that particular
+construction, not to A077187 or to the unproved assertion conditional
+on actual zero drift.
+
+Reproduce the new checks from the repository root:
+
+```sh
+python papers/A077187/research/certify_involutive_families.py
+python papers/A077187/research/audit_reduced_spectral.py
+python papers/A077187/research/certify_fixed_v33_v99.py
+python papers/A077187/research/audit_fixed_v33_v99.py
+python papers/A077187/research/zero_drift_tail_gauge_2026_10_18.py --examples --symbolic
+```
+
+The finite identity tests check implementations; the general claims rest
+on the written algebra and, where labelled, exhaustive exact certificates.
+See [HANDOFF.md](research/HANDOFF.md) for the unresolved proof obligations.
+The dated notes below preserve earlier results and their original scope;
+the current status table supersedes earlier statements that `v=33,99`
+are still open or require norm certificates in both parity branches.
+
+## Earlier stage-8 certificate and its dependency boundary
 
 For primes \(p\ge7\), let \(r=\operatorname{ord}_p(10)\).
-Our cumulative result is the smooth-order family
+The original project claimed the cumulative smooth-order family
 \[
 \boxed{r=2^a3^b5^c,\qquad a,c\ge0,\ 0\le b\le8
 \quad\Longrightarrow\quad \exists k\ge1:\ p\mid M(k).}
 \]
-This folder's new result specifically treats **\(b=8\)**, assuming the earlier affine-monodromy lemma and lower-stage certificates. It does not prove existence for arbitrary prime-order structures, does not compute least \(k\), and does not update OEIS directly.
+The stage-8 paper specifically treats **\(b=8\)**. The audit found that
+the earlier `b<=7` certificate package is not present, so the cumulative
+display must not be read as a closed proof supplied by this checkout.
+The missing recurrence-to-coefficient derivation is now supplied in
+[general_dynamics.md](research/general_dynamics.md); this does not recreate
+the missing lower-stage certificates. The stage-8 arithmetic itself passed
+the checks described in [audit_certificates.md](research/audit_certificates.md).
+No least-k theorem or OEIS edit is claimed.
 
 For \(b=8\), all **486 primitive phases modulo 729** were checked using exact cyclotomic norms and a GMP one-shot gcd sieve. Six phases had nontrivial gcd, with prime factors 52489, 328051, and 839809. Each factor's actual order phase differs from the phase at which the gcd appears; its actual-phase gcd is 1. Therefore no admissible prime makes both affine-drift coordinates vanish in this order class.
 
@@ -29,7 +88,8 @@ For a cubic relative extension, the core identity is
 \[
 \operatorname{Norm}(A+xB+x^2C)=A^3+yB^3+y^2C^3-3yABC,\qquad x^3=y.
 \]
-The next stage would address \(b=9\) or develop a general mechanism for multiplicative orders with prime factors beyond \(2,3,5\).
+The current research priority is a general drift or zero-reachability
+mechanism, rather than another finite exponent layer.
 
 ## Materials
 
@@ -400,3 +460,62 @@ Whenever \(10^2\equiv1\pmod v\), the stable phase multipliers obey
 Consequently \(U_2=V_2=0\) **for every \(v\mid99\)**, including
 \(v=33,99\). This is an unconditional structural theorem, but
 **the nonzero-drift result for \(v=33,99\) remains open**.
+
+
+## Nine-torsion lift: complete \(v=33\) and \(v=99\) infinite families
+
+A new [nine-torsion spectral lifting lemma](research/nine_torsion_lift_v33_v99_2026-10-18.md)
+shows that when \(v_0\) is coprime to 30 and its phase
+period \(\ell_0=\operatorname{lcm}(v_0,\operatorname{ord}_{v_0}(10))\)
+is prime to 3, multiplying \(v_0\) by 3 or 9 does **not**
+increase the dimension of the stable spectral cocycle.
+The new smooth-index parameter becomes
+\(n=r/\gcd(r,\ell_0)\), with phase
+\(\gamma'=(su)^{-1}\bmod v_0\), \(s\in\{3,9\}\),
+\(u=2^a5^c\). A period of \(T\) digit layers is thus
+folded into just \(\ell_0\) cosets.
+
+For \(v_0=11\), \(\ell_0=22\). This yields **two new
+computer-assisted infinite order-family theorems**:
+\[
+\boxed{\operatorname{ord}_p(10)=33\cdot2^a5^c
+\text{ or }99\cdot2^a5^c
+\Longrightarrow \exists k:p\mid M(k),\ a,c\ge0.}
+\]
+The 20 pre-existing exact \(v=11\) linear resultant norms
+apply **unchanged**. The new phase-aware sieve independently
+checks all 3,850 admissible indices for \(v=33\) and 3,757
+for \(v=99\), and finds
+\(\gcd(N_{g,\gamma},\Phi_r(10))=1\) in every case.
+No new algebraic norms, large-order cutoff, or enumeration of target
+primes is needed.
+
+- [Lifting theorem and full proof](research/nine_torsion_lift_v33_v99_2026-10-18.md)
+- [Exact norm-reuse and 7,607-index exclusion](research/certify_fixed_v33_v99.py)
+- [15 independent prime-field recurrence checks](research/audit_fixed_v33_v99.py)
+- [Updated unified manuscript](research/fixed_v_spectral_families.tex)
+  and [compiled PDF](research/fixed_v_spectral_families.pdf)
+
+The dedicated \`.github/workflows/a077187-v33-v99.yml\`
+reproduces the original 20 exact norms and the new exclusions.
+Together the certified fixed-coprime-order families are now
+\(v\in\{7,11,33,99\}\), with no restriction on \(a,c\).
+The unrestricted A077187 conjecture for arbitrary \(v\) is **OPEN**.
+
+
+### Sharp 3-adic limit of the 22-phase argument
+
+An additional exact group-theoretic lemma proves that for
+\(r=\operatorname{ord}_p(10)=11\cdot3^b2^a5^c\), \(b\ge1\),
+and \(A_d=10^{9d10^{d-1}}\) on stable digit layers,
+\[
+\operatorname{ord}(A_{d+22\cdot3^t}A_d^{-1})
+=3^{\max(b-2-t,0)}
+\]
+for every \(t\ge0\). This identifies a **precise obstruction**
+to extending the current 22-phase norm reuse beyond \(b=2\):
+for \(b\ge3\), 22 steps leave a genuine residual \(3^{b-2}\)
+phase. See the proof in
+[nine-torsion lifting note](research/nine_torsion_lift_v33_v99_2026-10-18.md).
+The new families are complete for \(0\le b\le2\);
+larger \(b\) remains a mathematical open case, not a counterexample.

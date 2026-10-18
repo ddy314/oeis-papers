@@ -77,6 +77,8 @@ Define
 g=\gcd(r,\ell),\qquad m=r/g,\qquad T=m\ell.
 \]
 The key point is that \(\ell\) depends only on \(v\), not on \(a,c\).
+Also \(T\ge r\ge\max(a,c)\), so the block starting at \(T+1\)
+is in the stable range.
 
 \begin{lemma}[Reduced short-period phase]\label{lem:phase}
 For every stable digit layer \(d\), the diagonal multiplier
@@ -366,7 +368,7 @@ The two-offset argument gives a witness with \(1\le j\le p\).
 The primes 3 and 11 were handled directly.
 \end{proof}
 
-\section{The existing quadratic family \(v=7\)}
+\section{The existing quadratic family with coprime part seven}
 For \(v=7\), \(h=6\), \(\ell=42\), and
 \(g=7\) if \(a=0\), otherwise \(g=14\).
 The exact coordinates \(U(m),V(m)\) are quadratic in \(m\).
@@ -399,7 +401,7 @@ The affine two-offset argument therefore proves existence for every
 prime of order \(7\cdot2^a5^c\), without dependence on older smooth-order
 certificates.
 
-\section{A direct witness when \(u\mid20\)}
+\section{A direct witness when the smooth part divides 20}
 \begin{theorem}[An arbitrary coprime part]
 If \(u\mid20\), there is a divisible mountain, regardless of whether
 the stable drift vanishes and without restricting \(v\).
@@ -440,6 +442,48 @@ is long enough since \(r<p\). The divisions by 81 are valid for
 \(p\ne3\); the case 3 has the direct witness already given.
 \end{proof}
 
+
+\section{The boundary of the short-period mechanism}
+Lemma~\ref{lem:phase} also contains the nine-torsion lifting lemma:
+for \(v=sv_0\), \(s\mid9\), \((v_0,30)=1\), the reduced phase
+component is \(t=v_0\), and its effective phase is \((su)^{-1}\).
+If \(3\nmid\ell_0\), the field degree is unchanged. The separate
+\texttt{certify\_fixed\_v33\_v99.py} certificate checks 3850 and
+3757 indices, including the odd branches now settled algebraically.
+Its 15 independent prime-field tests agree with the new formulas.
+
+\begin{lemma}[Exact 3-adic boundary]
+Suppose \(r=\ord_p(10)=11\cdot3^b2^a5^c\) with
+\(b\ge1\), and set \(A_d=10^{9d10^{d-1}}\) on stable
+digit layers. For \(t\ge0\),
+\[
+\boxed{
+\ord(A_{d+22\cdot3^t}/A_d)
+=3^{\max(b-2-t,0)}.}
+\]
+Consequently the 22-period folding is valid
+precisely for \(b\le2\) among these 3-power extensions.
+\end{lemma}
+\begin{proof}
+Let \(L=22\cdot3^t\) and \(e_d=9d10^{d-1}\).
+The exact difference
+\[
+e_{d+L}-e_d=
+9\cdot10^{d-1}\bigl(L+(d+L)(10^L-1)\bigr)
+\]
+is divisible by \(11\) and by the smooth factor
+\(2^a5^c\) in the stable range.
+By the 3-adic lifting-the-exponent lemma,
+\(v_3(10^L-1)=2+t\), while \(v_3(L)=t\).
+Therefore \(v_3(e_{d+L}-e_d)=2+t\) exactly.
+The claimed order follows from
+\(\ord_p(10)=11\cdot3^b2^a5^c\).
+\end{proof}
+
+This is an obstruction to reusing the 22-phase proof, not an
+obstruction to the existence of divisible mountains.
+
+\clearpage
 \section{Reproducibility and scope}
 The files \texttt{certify\_fixed\_v7.py} and
 \texttt{certify\_involutive\_families.py} generate the exact norms and
@@ -454,11 +498,24 @@ identities follow from the proofs above. Dedicated CI jobs reproduce
 the certificates. The new linear formulas and exhaustive sieve also
 received a separate audit recorded in
 \texttt{audit\_spectral\_update\_2026-10-18.md}.
+The independent nine-torsion checks are preserved in
+\texttt{certify\_fixed\_v33\_v99.py} and
+\texttt{audit\_fixed\_v33\_v99.py}.
 
 The spectral theorem applies to arbitrary fixed \(v\), but a
 nonzero resultant and the elimination of its actual-order
 prime factors are \emph{not} established for arbitrary \(v\).
 The general all-primes A077187 problem remains open.
+
+The present proofs impose no restriction on \(v\) when \(u\mid20\),
+and no restriction on \(u\) in the certified coprime-part families.
+Outside their union, the unresolved question is either to prove nonzero
+drift or to force a subgroup root on an actual zero-drift orbit.
+The separate note \texttt{zero\_drift\_continuation\_2026-10-18.md}
+reduces the first-window tail phase to order \(u/\gcd(u,20)\), but
+also shows why three fixed initial windows do not universally suffice.
+Those additional reachability results are not assumptions in any of
+the existence proofs in this paper.
 
 \begin{thebibliography}{9}
 \bibitem{oeis} OEIS Foundation,

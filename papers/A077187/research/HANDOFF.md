@@ -1,150 +1,113 @@
-# A077187 research checkpoint
+# A077187 research handoff
 
-**Status: PAUSED at the user's explicit request, 2026-10-17 (Asia/Shanghai).**
-The unrestricted all-primes existence problem is **NOT SOLVED**. This checkpoint
-preserves completed mathematics and the exact outstanding work; it is not an
-all-primes theorem or a replacement for the existing paper.
+Updated 2026-10-18. The user resumed the research and explicitly requested
+**no further subagents**. Work proceeds in the existing PR #8. The unrestricted
+all-primes existence problem is **NOT SOLVED**.
 
-## Location and provenance
+## Version and audit provenance
 
-- Repository checkout: `E:/oeis/a077187` (a separate Git worktree).
+- Checkout: `E:/oeis/a077187`.
 - Branch: `research/a077187-smooth-order-v3-le8-20261017`.
-- Audited baseline: `a77866a4a34e83d6ad7c4f17c9ee07184864c31d`.
-- Existing PR: <https://github.com/dongxuelian2/oeis-papers/pull/8>.
-- Mission file: `C:/Users/29848/.codex/attachments/e2328e7e-cc1c-4585-84aa-917b50841382/goal-objective.md`.
-- The existing `main.tex`, `main.pdf`, README and certificates are unchanged.
-  The new work is saved under `research/`; manuscript integration was interrupted
-  before it began. No new PR, push, or publication was performed.
+- PR: <https://github.com/dongxuelian2/oeis-papers/pull/8>.
+- Original paused checkpoint: `5e5265c` (full prior handoff retained in Git).
+- First updated PR merged at `bff7e96`; next update inspected and integrated
+  through `dea3a4d`, whose source parent is `19af679`.
+- Local pre-integration checkpoint: `1cfefd2`.
+- The spectral audit was completed before the no-subagent instruction;
+  all later integration, tail derivation and checks were done by the primary
+  agent alone. No new agent was started or assigned work after that instruction.
 
-## Completed mathematical results
+## Closed results and proof boundaries
 
-Use the proof-status vocabulary requested in the mission: PROVED means a
-written mathematical derivation, COMPUTATION_CERTIFIED means a finite exact
-certificate with its coverage argument, CONDITIONAL means an unproved
-hypothesis remains, EXPERIMENTAL means finite tests only, and REFUTED means an
-exact counterexample is supplied.
+PROVED means a written algebraic proof; COMPUTATION_CERTIFIED means a
+finite exact computation with a sufficient coverage bound. CONDITIONAL
+and EXPERIMENTAL statements are not promoted to theorems.
 
-1. **PROVED: general eventual affine period.** Write
-   `r=ord_p(10)=u*v`, `u=2^a*5^c`, `gcd(v,10)=1`, and set
-   `T=lcm(r,ord_v(10))`, with `ord_1(10)=1`. The full digit-layer maps
-   repeat after T beyond the initial transient, and their T-layer product is
-   a translation. This gives the correct general replacement for the former
-   smooth-order period r. See `general_dynamics.md`, Sections 1-3.
+1. **PROVED: arbitrary-order stable affine dynamics.** A valid period is
+   `T=lcm(r,ord_v(10))` for `r=u*v`, `u=2^a*5^c`, `(v,10)=1`. Nonzero
+   drift implies a witness at `10^(jT)` or `10^(jT)+1`, `1<=j<=p`.
+   Small exceptions 3 and 11 are handled directly.
+2. **PROVED: reduced spectral phase.** Put `delta=gcd(v,9)`, `t=v/delta`,
+   `ell=lcm(t,ord_t(10))`, `g=gcd(r,ell)`, `m=r/g`. A stable block of
+   length `m*ell` compresses into `ell` cosets in `Q(zeta_g)`. Stable
+   multipliers generate exactly `mu_t`; the cumulative phase has period
+   `ell`. This generalizes the updated PR's nine-torsion lift.
+3. **PROVED: all u dividing 20, with arbitrary v.** Only the first layer
+   differs from its stable continuation. After p blocks the drift cancels
+   and the first-window equation is a square with a root in `<10>`.
+   The explicit witness is `k=10^(pT)+n`,
+   `n=(9*10^T-10) mod r`. This is now integrated in the spectral paper.
+4. **PROVED: all v dividing 9.** Elementary invariant `U+V=9/100`.
+5. **PROVED / COMPUTATION_CERTIFIED: all v dividing 99.** For
+   `r=11*3^b*2^a*5^c`, `b<=2`, odd a=0 has an explicit nonzero invariant
+   `11*z*U-9*V=909*(z+1)/100`. Even a>=1 reduces to ten fixed quadratic
+   norms and 11385 exhaustive index checks, all raw gcds 1. The earlier
+   remote certificate is retained as an independent computation; its
+   counts 3850 and 3757 include the odd branches, explaining the difference.
+6. **PROVED: exact higher-b boundary.** The updated PR proves
+   `ord(A_(d+22*3^t)/A_d)=3^max(b-2-t,0)`. Thus for b>=3 the existing
+   22-phase mechanism cannot be reused unchanged. This is not an OEIS
+   counterexample.
+7. **PROVED: tail-gauge reduction.** After cancelling the current layer
+   multiplier, only later defect phases remain. The first window depends
+   on phase order `u/gcd(u,20)`; a general d-th window has the exact
+   tail order given in `zero_drift_continuation_2026-10-18.md`.
+8. **COMPUTATION_CERTIFIED obstruction to three fixed windows.** For u=8,
+   all three models are rational. Exact squareclass independence plus
+   Chebotarev supplies a set of primes of density 1/128 for which their
+   discriminants are all nonsquares. At p=617 this is checked directly.
+   This concerns the first three windows after p blocks; it does not
+   refute a statement conditional on actual zero drift or the all-primes
+   conjecture. The written proof states all these restrictions.
 
-2. **PROVED in the research notes, pending manuscript integration: a new
-   unrestricted-odd-part subfamily.** Every prime with
-   `v_2(ord_p(10)) <= 2` and `v_5(ord_p(10)) <= 1` has a divisible mountain.
-   No restriction is imposed on any other prime factor or exponent of the
-   order. The crucial fact is `20 | 9*e*10^(e-1)` for every `e>=2`:
-   only the first layer differs from its periodic continuation. If rho is
-   the ratio of the continued and actual first-layer multipliers, repeating
-   the periodic translation p times leaves the explicit state
-   `((rho^(-1)-1)*10/81, (rho-1)/81)`. In the following window,
+## Integration and checks
 
-   \[
-   M(10^{pT}+n)/H_n
-     =\frac{(10z-\rho)^2}{81\rho z},\qquad z=10^n,
-   \]
+The current paper is `fixed_v_spectral_families.tex` and its PDF. It includes
+reduced phases, explicit Fourier sums, odd/even proof separation, the u|20
+witness, the existing v=7 theorem, and the new sharp 3-adic boundary.
+README now leads with the audited current scope instead of an unsupported
+cumulative lower-stage claim. `main.tex` remains the historical stage-8 paper.
 
-   where `H_n` denotes the nonzero power of 10 used to normalize that
-   mountain. Since `rho` belongs to `<10>`, choose
-   `n = (9*10^T-10) mod r`, `0 <= n < r`. This is an explicit witness.
-   The argument using 81 is for `p!=3`; `M(3)=12321` handles 3.
-   This proof was independently examined by the dynamics and certificate
-   audit agents. Consult their final notes for exactly which finite checks
-   were completed; the saved witness self-test initially covered `u|10`,
-   while the independent audit also checked 75 primes below 500 covering
-   all six smooth parts `1,2,4,5,10,20` before the pause.
+Completed local checks:
 
-3. **PROVED: the entire smooth-order family with `v_3(r)<=2`.** Once the
-   transient ends, all layer multipliers are 1. The sum of the two drift
-   coordinates in one r-block is `9/100`, nonzero for `p!=3`.
-   The exceptional small primes have direct witnesses. No old certificate
-   package is needed for this result.
+- `certify_involutive_families.py`: all 20 explicit coordinate identities,
+  ten quadratic norms, complete counts `[3887,3796,3702]`, every gcd 1.
+- `audit_reduced_spectral.py`: 20 selected independent phase/coset/full-layer
+  identities; these are consistency checks, not an infinity proof.
+- Updated PR `certify_fixed_v33_v99.py`: all 3850+3757 indices, every gcd 1.
+- Updated PR `audit_fixed_v33_v99.py`: 15 full-layer comparisons and
+  252 exact 3-adic defect checks.
+- `zero_drift_tail_gauge_2026_10_18.py --examples --symbolic`: seven specified
+  prime comparisons in all three windows, the p=617 obstruction, and all
+  56 rational squareclass tests.
+- The existing v=7/v=11 norm scripts and independent field audits passed
+  the separate spectral audit; no large stage-8 rerun was needed.
+- Updated manuscript compiled twice with pdflatex and its rendered pages
+  were visually inspected. No unresolved references or overfull boxes.
 
-4. **PROVED: the missing smooth-order coefficient bridge.** The complete
-   derivation from digit-layer recurrences to the quadratic drift formulas
-   used by `scalar_reference.py` and the integer group-ring coefficients is
-   now in `general_dynamics.md`, Section 4. This repairs a missing proof
-   dependency in the baseline stage-8 manuscript at the research-note level.
+The updated PR source commit `19af679` has successful nine-torsion and PDF
+jobs (runs 39101285574 and 39101285587). Its PDF bot head `dea3a4d` has
+`action_required` PR runs, which are not mathematical test failures.
+A new reduced-phases CI workflow reproduces the new scripts. Later CI
+status must be checked on the actual pushed revision.
 
-5. **PROVED: exact window criteria.** For `q=10^e!=1`, the normalized
-   mountain is `a*z+b/z-2q/(q-1)^2`, `z in <q>`. The apparent independent
-   parameter `n mod p` cancels. For `q=1`, it is `k^2+C_e+Y_e` when
-   expressed in the layer's end state. These formulas expose the actual
-   zero-drift obstruction; a long window alone does not force a solution.
+## Remaining mathematical task
 
-## Audited computation and exact counterexamples
+No proof yet establishes nonzero drift for arbitrary v, nor subgroup-root
+existence conditional on actual zero drift when u does not divide 20.
+The first-window phase reduction does not force a root, and using three
+fixed windows is now provably insufficient without additional structure.
+A successful continuation must use a relation imposed by actual zero drift,
+a uniform phase-cancellation mechanism, or a different witness construction.
+Do not default to b=9, larger prime scans, or additional numerical cutoffs.
 
-- Stage-8 certificate arithmetic: no error was found. All 486 files and row
-  conditions were inspected; five norms, one full one-shot GCD, three direct
-  decimal drift vectors, and 30 small independent cyclotomic resultants
-  were recomputed successfully. The full 486 expensive computations were
-  not repeated in this session. Details are in `audit_certificates.md`.
-- The committed `verify_all.py` alone does not recompute all GCDs or norms.
-  The complete workflow does regenerate them before running that script.
-- `independent_relative_check.py`, linked by the baseline README, is absent.
-- The cumulative baseline `b<=7` claim has no complete prior-stage proof
-  package in this checkout. Do not silently promote it to a closed proof.
-- **REFUTED:** period r for arbitrary orders. At `p=43,r=21`, successive
-  r-block increments differ; the correct T is 42. This does not refute
-  period r for smooth orders.
-- **REFUTED:** every `q=1` window contains a zero. For `p=11,e=2`, the
-  normalized polynomial is `k^2+9`, which has no root modulo 11. This does
-  not refute the conditional assertion about a genuine zero-drift orbit.
-- **REFUTED:** all possible initial states are covered by one stable
-  period's zero lines. At `p=37,r=T=3`, at most 25 affine lines are available,
-  too few to cover the 37-by-37 affine plane. Actual reachable states matter.
-- **EXPERIMENTAL:** no genuine zero drift was found among primes from 7
-  through 1000. This was not used as a universal proof, and the bound was
-  not continually increased.
+The original stage-8 arithmetic audit is in `audit_certificates.md`.
+The b<=7 certificate package is still absent; the local coefficient bridge
+in `general_dynamics.md` repairs the derivation but not those missing data.
+The historical cumulative claim is therefore not a closed proof supplied
+by this checkout. Earlier counterexamples and failed routes remain recorded
+in `zero_drift.md` and the new tail note.
 
-## CI state verified during this session
-
-- Dedicated certificate workflow:
-  <https://github.com/dongxuelian2/oeis-papers/actions/runs/39037140817>
-  **success**, on source commit `51c5b046a44e470ef578e15efa480d2a4d8e0460`.
-  Its listed steps regenerated all norms, ran the GMP sieve and verifier,
-  compiled the PDF, and committed the output as the audited baseline.
-- Latest PR-triggered generic workflow:
-  <https://github.com/dongxuelian2/oeis-papers/actions/runs/39037822180>
-  **action_required**, with no jobs. This workflow targets a different
-  paper, `papers/A075000-A075002`, and must not be described as an A077187
-  mathematical check.
-- The new research notes and checks have not been run on GitHub Actions.
-
-## Files and reproduction
-
-- `general_dynamics.md`: complete recurrence, period and coefficient proofs.
-- `general_dynamics_check.py`: independent binary geometric-moment checks,
-  direct window checks, and the exact p=43 counterexample.
-- `zero_drift.md`: new subfamily construction, failed routes and remaining
-  obstruction; `zero_drift_probe.py` preserves its completed checks.
-- `audit_certificates.md`: independent arithmetic and new-theorem audit.
-
-The available Python with SymPy 1.14.0 and NumPy 2.2.5 is
-`C:/Users/29848/AppData/Local/Programs/Python/Python313/python.exe`.
-From `papers/A077187/research`, the completed checks can be rerun with:
-
-```text
-python general_dynamics_check.py
-python zero_drift_probe.py --selftest
-```
-
-## Outstanding work when the user resumes
-
-1. Consolidate and review the u-divides-20 theorem and its precise explicit
-   witness in a single manuscript proof; record the independent audit.
-2. Integrate the already derived smooth-order bridge and correct the README
-   scope, dead link and standalone-verifier description. Recompile and
-   visually review the paper only after those edits.
-3. The all-primes gap remains for orders whose 2/5 part does not divide 20,
-   outside the separately established smooth subclasses. Multiple initial
-   exceptional layers no longer yield the single square factorization
-   automatically. Neither universal nonzero drift nor universal solvability
-   of a periodic window has been proved for those cases.
-4. Preserve the user's priority: seek a general mechanism or a strictly
-   smaller obstruction, not another finite b-layer or a larger prime scan.
-
-**Stop reason:** the user explicitly requested a pause and a saved checkpoint.
-No mathematical success claim should be inferred from ending this session.
+Reproduction uses Python 3 with SymPy; the tail checks use only the standard
+library. See README for exact commands. A final all-primes theorem has not
+been claimed, and the goal must not be marked complete.

@@ -98,6 +98,8 @@ def verify_examples():
     K = 10**189
     aa = Q(10, 81)+2*(d2+c3)/K
     bb = Q(1, 81)+2*K*(f2+b3)
+    assert aa == Q(10, 81)-Q(219804400, 120758121*K)
+    assert bb == Q(1, 81)+Q(217557800*K, 120758121)
     rows = []
     coefficients = u8_window_coefficients()
     for p in examples:
