@@ -13,7 +13,7 @@
 \DeclareMathOperator{\Norm}{Norm}
 \newcommand{\cat}{\mathbin{\Vert}}
 \title{Spectral Compression of Decimal Mountain Concatenations:\\
-Two Infinite Multiplicative-Order Families Beyond the Smooth Case}
+Four Infinite Multiplicative-Order Families Beyond the Smooth Case}
 \author{Qichao Wang}
 \date{October 18, 2026 \quad \textit{computer-assisted partial result}}
 \begin{document}\maketitle
@@ -21,7 +21,8 @@ Two Infinite Multiplicative-Order Families Beyond the Smooth Case}
 For \(M(k)=1\cat2\cat\cdots\cat k\cat(k-1)\cat\cdots\cat1\),
 we prove that every prime \(p\) with
 \(\ord_p(10)=7\cdot2^a5^c\) or
-\(\ord_p(10)=11\cdot2^a5^c\), \(a,c\ge0\),
+\(\ord_p(10)=11\cdot3^b2^a5^c\),
+\(a,c\ge0,\ 0\le b\le2\),
 divides at least one \(M(k)\).
 The argument first compresses the stable affine drift for a
 \emph{fixed} coprime-order component \(v\) to at most
@@ -31,7 +32,9 @@ Both drift coordinates become polynomials of degree at most two
 in \(m=r/\gcd(r,\ell)\) over a fixed-degree cyclotomic field.
 Exact quadratic (\(v=7\)) and degenerate linear (\(v=11\))
 resultants, followed by factorization-free cyclotomic sieves,
-exclude simultaneous zero drift in the two families.
+exclude simultaneous zero drift in these families.
+A nine-torsion lifting lemma folds the new cases \(v=33,99\)
+into the same 22-phase algebra as \(v=11\), reusing its norms.
 This does not resolve the unrestricted OEIS A077187 conjecture.
 \end{abstract}
 
@@ -259,6 +262,85 @@ cannot divide \(r\), zero drift is impossible.
 The affine two-offset witness theorem finishes the proof.
 \end{proof}
 
+
+\section{Nine-torsion lifting: two more infinite families}
+
+\begin{lemma}[Nine-torsion folding]
+Let \(v_0\) be coprime to \(30\), and put
+\(\ell_0=\operatorname{lcm}(v_0,\ord_{v_0}(10))\),
+assuming \(3\nmid\ell_0\).
+For \(s\in\{1,3,9\}\), suppose
+\(\ord_p(10)=r=s v_0u\), \(u=2^a5^c\), and let
+\(g_0=\gcd(r,\ell_0)\), \(n=r/g_0\),
+\(\xi=10^n\bmod p\).
+The stable multipliers and cumulative phases are
+\(\ell_0\)-periodic, and the full drift is expressed
+using the \emph{same} fixed-\(v_0\) spectral formulas
+as in (1), with \(m=n\) and phase
+\(\gamma'=(su)^{-1}\bmod v_0\).
+\end{lemma}
+\begin{proof}
+Because \(s\mid9\), the stable multiplier exponents
+\(9d10^{d-1}\) vanish modulo \(s\).
+Their shift by \(\ell_0\) vanishes modulo \(v_0\)
+since \(v_0\mid\ell_0\) and
+\(10^{\ell_0}\equiv1\bmod v_0\); it vanishes
+modulo \(u\) in the stable range.
+The product of \(\ell_0\) consecutive multipliers
+is 1: the exponent is divisible by \(u\) and \(s\),
+and modulo \(v_0\) this follows from
+\(v_0\mid\ell_0\) and
+\(v_0\mid(10^{\ell_0}-1)/9\).
+Therefore \(P_d\) has the same short period.
+Now \(T=\operatorname{lcm}(r,\ell_0)=n\ell_0\).
+For each \(j\le\ell_0\), the \(n\) values
+\(q_{T+j+t\ell_0}\) are exactly the roots of
+\(z^n=\xi^j\), while division of the stable
+exponent by \(n=su/(g_0/v_0)\) gives
+\[
+A_{T+j}=\xi^{(g_0/v_0)\gamma'9j10^{j-1}}.
+\]
+Substituting into the universal coset sums (1)
+proves the claim, including the singular root.
+\end{proof}
+
+\begin{corollary}[Infinite families with \(v=33,99\)]
+Every prime \(p\) with
+\[
+\boxed{\ord_p(10)=11\cdot3^b2^a5^c,\quad
+a,c\ge0,\quad b=1,2}
+\]
+divides a decimal mountain \(M(k)\).
+\end{corollary}
+\begin{proof}
+Take \(v_0=11\), so \(\ell_0=22\).
+For \(s=3,9\), the folding lemma reduces both
+drift coordinates to the already certified
+\emph{linear} 22-phase polynomials, evaluated at
+\(n=11su/\gcd(r,22)\) and
+\(\gamma'=(su)^{-1}\bmod11\).
+A zero drift would force \(p\) to divide the
+corresponding nonzero integer norm
+\(N_{g_0,\gamma'}=|\Norm(4000\mathcal R)|\)
+from the \(v=11\) case.
+Thus \(r<p\le N_{g_0,\gamma'}\) and
+\(p\mid\Phi_r(10)\).
+The separate exact modular cyclotomic checker
+tests all 3,850 phase-admissible indices for
+\(s=3\) and all 3,757 for \(s=9\).
+It verifies
+\[
+\gcd(N_{g_0,\gamma'},\Phi_r(10))=1
+\]
+in every case, using the same fixed twenty
+nonzero norms, without factoring them.
+This excludes zero drift for every exponent pair.
+The two-offset witness theorem finishes the proof.
+\end{proof}
+The lifting lemma is algebraic; it does not
+automatically give an existence theorem for
+arbitrary \(v_0\) or \(s>9\).
+
 \section{Reproducibility and scope}
 The files \texttt{certify\_fixed\_v7.py} and
 \texttt{certify\_fixed\_v11.py} generate all exact norms and
@@ -266,7 +348,10 @@ check every phase-dependent cyclotomic gcd, without factoring
 the large norm integers or enumerating target primes.
 Independent prime-field tests are in
 \texttt{audit\_fixed\_v7.py} and \texttt{audit\_fixed\_v11.py}.
-Dedicated CI jobs reproduce each certificate.
+The nine-torsion lift is independently checked by
+\texttt{certify\_fixed\_v33\_v99.py} and
+\texttt{audit\_fixed\_v33\_v99.py}.
+Dedicated CI jobs reproduce all certificates.
 
 The spectral theorem applies to arbitrary fixed \(v\), but a
 nonzero resultant and the elimination of its actual-order
