@@ -25,7 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
-- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
+- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -88,6 +88,25 @@ S_t = {10+t, 46+t, 71+t, 137+t, 198+t},  t = 0,...,8.
 Any other solution corresponds to a directed cycle cover in that graph: all singletons are forced, and each five-cycle offers exactly two choices (keep/flip). The central set `S_4={14,50,75,141,202}` is invariant under any solution and is necessarily oriented as one of two inverse 5-cycles, never an involution.
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
+
+## Optimized entropy: minimal terminal cube
+
+The earlier explicit sequence `n=(551*t**3-1)//2` uses the convenient but nonminimal suffix-reflection cube `(8*t)**3`. We can shrink that redundant suffix to `O(t**2)` by taking the **least integer cube above the middle-block endpoint**.
+
+For every odd integer `t>=9`, put `L=t**3`, take `k_t` minimal with `k_t**3>473*L`, and define
+
+```
+N_t = k_t**3 - (473*L+1)//2
+P(N_t) >= P((L-1)//2)*512**L >= 3*2**(9*L).
+```
+
+Here `N_t = (473/2+o(1))*L`, so the exponential subsequence theorem improves from `18*log(2)/551` to
+
+```
+limsup(log(P(n))/n) >= 18*log(2)/473.
+```
+
+The fully general d-th-power version yields `limsup(log(P_d(n))/n) >= log(P_d(M))/(M+1/2)` whenever eventual existence and `P_d(M)>1` hold. The proof does **not** assume a universal exponential lower bound for all integers. `optimize_terminal_cube.py` checks exact full permutations for `t=9` (`N=185502`) and `t=11` (`N=321274`) and confirms all independent five-cycle switches.
 
 ## Binary permutation code with exact Hamming metric
 
@@ -166,6 +185,7 @@ Independent integer checks:
 python papers/A006063/lift_exponential_subsequence.py
 python papers/A006063/tensorize_fibers.py
 python papers/A006063/audit_permutation_code.py
+python papers/A006063/optimize_terminal_cube.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
