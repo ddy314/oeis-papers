@@ -40,6 +40,7 @@ The 190 base lengths `175..364` have explicit cycle witnesses. For `365..553`, r
 ## Proof artifacts
 
 - [main.tex](main.tex): full paper source; [main.pdf](main.pdf) is produced and committed by the PDF workflow.
+- [certificates/core_61_with_small.json](certificates/core_61_with_small.json): the stronger 61-new-seed compression reusing 48 early positive witnesses.
 - [certificates/core_109.json](certificates/core_109.json): 109 primary existence witnesses.
 - [certificates/base_permutations.json](certificates/base_permutations.json): original independent 192-row audit data.
 - [certificates/exact_classification_below_173.json](certificates/exact_classification_below_173.json): 48 valid permutations and 124 Hall-deficient sets.
