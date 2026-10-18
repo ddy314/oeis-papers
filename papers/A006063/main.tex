@@ -1916,6 +1916,162 @@ cube-sum permutation existence. The proof uses
 only a fifteen-row interval template and an easily
 audited finite graph-decomposition lemma.
 
+\section{A taxicab principle for exponentially many involutions}
+\label{sec:taxicab-involutions}
+
+Positive exponential entropy is not restricted to
+general permutations with odd directed cycles.
+Equal sums of two perfect powers generate
+large families of actual \emph{involutions}.
+The argument is valid for any fixed exponent
+$d\ge2$.
+
+\begin{theorem}[Perfect-power taxicab switching]
+\label{thm:taxicab-switching}
+Fix $d\ge2$, and suppose positive perfect
+$d$th powers $A,B,C,D$ satisfy
+\[
+\boxed{A+B=C+D,\qquad
+\frac32A\le C<\frac12B.}
+\]
+Let $I_d(n)$ count permutations $p$
+of $[1,n]$ with $p^2=\mathrm{id}$
+and every $i+p(i)$ a perfect
+$d$th power. For every positive integer
+$u$, with $T=u^d$,
+\begin{equation}\label{eq:taxicab-involutions}
+\boxed{\displaystyle
+I_d((B-A)T)\ge
+2^{\left\lfloor(AT-1)/2\right\rfloor}.}
+\end{equation}
+There is an injective encoding of the
+$\lfloor(AT-1)/2\rfloor$ binary choices
+into these involutions which multiplies
+Hamming distances by exactly four.
+Consequently,
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}
+\frac{\log I_d(n)}n
+\ge\frac{A\log2}{2(B-A)}>0.}
+\]
+\end{theorem}
+\begin{proof}
+Since $A<C<B/2$, we have $B>2A$.
+Put $N=(B-A)T$ and start with
+the two-block reflection involution
+\[
+p(i)=
+\begin{cases}
+AT-i,&1\le i<AT,\\
+BT-i,&AT\le i\le N.
+\end{cases}
+\]
+The two blocks are separately invariant,
+and the sums are the $d$th powers
+$AT=(uA^{1/d})^d$ and
+$BT=(uB^{1/d})^d$.
+
+Write $H=\lfloor(AT-1)/2\rfloor$.
+For each integer $s=1,\ldots,H$,
+consider the four distinct vertices
+\[
+a_s=s,\quad b_s=AT-s,\quad
+c_s=CT-s,\quad
+d_s=(B-C)T+s.
+\]
+Here $a_s,b_s$ belong to the first
+block, while $c_s,d_s$ belong
+to the second block, since
+$H\le AT/2\le(C-A)T$.
+The inequalities $2C<B$ and
+$2H<AT$ imply that the four
+coordinate ranges obtained by varying
+$s$ are pairwise disjoint.
+Thus all $H$ quadruples are
+vertex-disjoint.
+
+The reference involution has
+transpositions
+$(a_s\,b_s)$ and $(c_s\,d_s)$.
+For any chosen quadruple, replace
+these by
+$(a_s\,c_s)$ and $(b_s\,d_s)$.
+The new sums are
+\[
+a_s+c_s=CT,\qquad
+b_s+d_s=(A+B-C)T=DT,
+\]
+both perfect $d$th powers.
+This is again an involution, and
+the independent choices on the $H$
+disjoint quadruples give $2^H$
+different legal involutions.
+
+Changing one choice changes precisely
+the four corresponding permutation
+values, yielding the exact Hamming
+distance multiplier four.
+Finally $H=\frac12AT+O(1)$ and
+$N=(B-A)T$, so taking logarithms
+along the infinite sequence $u\to\infty$
+proves the entropy bound.
+\end{proof}
+
+\begin{corollary}[Two explicit cubic identities]
+\label{cor:taxicab-cubes}
+For every integer $u\ge1$, with $T=u^3$,
+\[
+\boxed{\displaystyle
+I_3(54406T)\ge
+2^{\lfloor(4913T-1)/2\rfloor}.}
+\]
+This follows from the small identity
+\[
+17^3+39^3=26^3+36^3,
+\]
+using $(A,B,C,D)=(4913,59319,17576,46656)$.
+A second identity,
+\[
+99^3+172^3=120^3+163^3,
+\]
+gives the stronger optional numerical estimate
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log I_3(n)}n
+\ge\frac{970299\log2}{8236298}>0.}
+\]
+Neither identity is asserted to optimize
+the constant; the structural
+taxicab-switching theorem is independent
+of choosing a special example.
+\end{corollary}
+\begin{proof}
+Each identity and its inequalities
+$\frac32A\le C<B/2$
+are verified by integer multiplication,
+so Theorem~\ref{thm:taxicab-switching}
+applies. In the second case
+$A=970299$, $B=5088448$ and
+$B-A=4118149$, producing
+$A\log2/[2(B-A)]$ as displayed.
+\end{proof}
+
+The construction distinguishes the
+two entropy sources in the cube-sum graph.
+Reflection-only descendants of finitely
+many fixed seeds have zero entropy
+per site by
+Corollary~\ref{cor:entropy-separation}.
+Yet globally there are both ordinary
+permutations \emph{and involutions}
+with positive upper exponential entropy,
+by Theorems~\ref{thm:three-cycle}
+and~\ref{thm:taxicab-switching}.
+The latter needs only a four-term
+equal-power identity; it does not
+assume any eventual-existence threshold.
+
 \section{A computation-free exponential construction}
 \label{sec:three-cycle}
 A particularly simple weighted identity of four cubes
