@@ -48,6 +48,10 @@ jobs:
         run: python papers/A006063/optimize_terminal_cube.py
       - name: Independently verify computation-free cubic three-cycle family
         run: python papers/A006063/audit_three_cycle_identity.py
+      - name: Check 40 disjoint alternating cycles at n=362
+        run: python papers/A006063/verify_362.py
+      - name: Check power-divisor tensor recurrence and amplified 362-gadget
+        run: python papers/A006063/verify_tensor_recurrence.py
       - name: Exercise linear-output construction up to one million entries
         run: python papers/A006063/construct_linear.py
 
