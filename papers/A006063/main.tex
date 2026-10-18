@@ -536,6 +536,69 @@ produces more permutations than all the previous
 asymptotic constructions, with \emph{no} finite
 matching certificate or eventual-existence theorem.
 
+\begin{proposition}[Weighted-cube odd-cycle principle]
+\label{prop:odd-cycle}
+Let $q\ge1$, and let $A,B,X,Y$ be positive
+cubes such that
+\[
+(q+1)X+qY=A+2qB.
+\]
+For $0\le j\le2q$ put
+\[
+D_j=\left\lceil j/2\right\rceil(B-X)
++\left\lfloor j/2\right\rfloor(B-Y).
+\]
+Assume $A\le D_j\le B-2A$ for $j\ge1$
+and $|D_j-D_k|\ge A$ whenever $j\ne k$.
+Then for every integer $u\ge1$,
+\[
+\boxed{P((B-A)u^3)\ge2^{Au^3-1}.}
+\]
+In fact the family encodes $Au^3-1$ independent
+binary choices, each of which changes precisely
+$2q+1$ permutation positions.
+\end{proposition}
+\begin{proof}
+Put $T=u^3$ and define the two-interval
+reflection $p(i)=AT-i$ for $i<AT$ and
+$p(i)=BT-i$ for $AT\le i\le(B-A)T$.
+The interval hypotheses make this a valid
+permutation with cube sums $AT$ and $BT$.
+For each $1\le s<AT$, let
+$v_j=s+D_jT$ for $0\le j\le2q$.
+The gap conditions place $v_0$ in the first
+reflection block and the other vertices in
+the second, while ensuring that the translated
+cycles for different $s$ are disjoint.
+The edge sums $v_j+p(v_{j+1})$ are
+alternately $XT$ and $YT$ for $j<2q$.
+The final edge is a cube as well, since
+\[
+v_{2q}+p(v_0)
+=(A+2qB-qX-qY)T=XT.
+\]
+Thus the $AT-1$ cycles can be switched
+independently, proving the count and
+Hamming-distance statement.
+\end{proof}
+
+For $q=1$ this recovers the three-cycle
+identity $2X+Y=A+2B$. For $q=2$ it
+becomes $3X+2Y=A+4B$. In particular,
+\[
+3\cdot5^3+2\cdot8^3=3^3+4\cdot7^3
+\]
+gives $(A,B,X,Y)=(27,343,125,512)$
+and offsets $(D_0,\ldots,D_4)
+=(0,218,49,267,98)$, satisfying every
+hypothesis. Consequently
+\[
+\boxed{P(316u^3)\ge2^{27u^3-1}}
+\]
+for every positive integer $u$.
+This unifies the three- and five-cycle
+constructions through one algebraic identity.
+
 \begin{lemma}[Three-cycle identity gadget]
 \label{lem:three-cycle}
 Let $A,B,X,Y$ be positive perfect cubes satisfying
