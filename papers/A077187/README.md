@@ -249,3 +249,13 @@ its hypothesis is not.**
 Reproduce the finite scalar and inflation tests via
 \`python3 papers/A077187/research/audit_scalar_gcd_and_inflation.py\`.
 A separate GitHub Actions workflow runs the test automatically.
+
+
+The same finite audit also confirms the **stronger single-offset slope**
+identity \(\gcd(10^r-1,10U_r+V_r)=\gcd(10^r-1,9T_r)\)
+for \(2\le r\le180\), with selected higher-order samples.
+A universal proof of even its weaker divisibility form
+would force the \(k=10^{jT_r}\) (no \(+1\)) construction
+to work for all primes \(p\ge7\) except \(11\), which already
+has the short witness \(M(2)=121\).
+This remains a conjectural route, not a claimed theorem.
