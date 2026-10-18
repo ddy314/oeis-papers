@@ -1,111 +1,327 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage[margin=0.85in]{geometry}
+\usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{A finite-certificate proof of the cube-sum permutation conjecture (OEIS A006063)}
-\author{Research note for independent audit}
-\date{18 October 2026}
+\newtheorem{proposition}{Proposition}
+\newcommand{\good}{\mathcal{G}}
+\newcommand{\cubes}{\mathcal{C}}
+\title{Cube-Sum Permutations: Exact Membership, Multiplicity, and an Exponential Lower Bound}
+\author{Qichao Wang\\
+\small Independent mathematical and computational review requested}
+\date{October 18, 2026}
 \begin{document}
 \maketitle
-
 \begin{abstract}
-A permutation $p$ of $\{1,\ldots,n\}$ is called a cube-sum
-permutation if $i+p_i$ is a perfect cube for every $i$.
-OEIS A006063 conjectures that such a permutation exists for every
-$n\ge 173$. We reduce the infinite assertion to only $192$ finite
-cases ($173\le n\le364$) by an elementary interval-reflection
-extension. We supply the complete $192$ integer permutation witnesses
-($51{,}552$ entries) and an exact standalone checker. The resulting
-argument is a computer-assisted proof candidate, pending independent
-checking of the certificate and literature priority.
+Let $P(n)$ count permutations $p$ of $\{1,\dots,n\}$ such that
+$i+p_i$ is a perfect cube for every index $i$.
+We give a computer-assisted resolution of the existence
+conjecture recorded as OEIS A006063, as well as an exact
+membership classification for its related sequence A096680:
+$P(n)>0$ for every $n\ge173$, whereas $P(173)=P(174)=1$
+and $P(n)\ge2$ for every $n\ge175$.
+Exact Hall-set certificates determine all earlier existence failures.
+An interval-reflection lemma reduces the unbounded existence theorem
+to only $109$ explicit core permutations; alternating-cycle
+certificates establish multiplicity.
+Finally we prove the nontrivial quantitative bound
+\[
+P(n)\ge
+3^{\max\{0,\lfloor(\lfloor(2n)^{1/3}\rfloor-27)/6\rfloor\}}
+=\exp\bigl(\Omega(n^{1/3})\bigr).
+\]
+All finite certificates, exact checkers, and an independent
+matching implementation accompany this note. Priority relative to
+the wider literature and independent certificate review remain open.
 \end{abstract}
 
-\begin{lemma}[Reflection extension]\label{lem:extension}
-Suppose $0\le m<n$ and a cube-sum permutation exists for $m$.
-If $m+n+1=c$ is a perfect cube, then one exists for $n$.
-\end{lemma}
-\begin{proof}
-Retain the original permutation on $\{1,\ldots,m\}$ and, for
-$m+1\le i\le n$, define $p_i=c-i$. Because $c=m+n+1$,
-the map $i\mapsto c-i$ is a bijection of the interval
-$\{m+1,\ldots,n\}$ to itself and $i+p_i=c$ for every new index.
-Thus the union is a permutation of $\{1,\ldots,n\}$ satisfying
-the required condition.
-\end{proof}
+\section{The reflection principle}
+Write $\cubes=\{k^3:k=2,3,\dots\}$ and let $P(n)$ be the
+number of cube-sum permutations of $\{1,\dots,n\}$.
+By convention the empty permutation is permitted only in the
+general extension lemma; our classification concerns $n\ge1$.
+Let $\good=\{n\ge1:P(n)>0\}$.
 
-\begin{lemma}[Every large interval contains a usable cube]\label{lem:cube}
-For every integer $n\ge365$, there is a perfect cube $c$
-satisfying $n+174\le c\le2n$.
-\end{lemma}
-\begin{proof}
-For $365\le n\le555$, take $c=9^3=729$.
-Now suppose $n\ge556$ and let $k$ be the least integer with
-$k^3\ge n+174$. Then $k\ge10$ and
-$(k-1)^3<n+174$, hence, by integrality,
-$n\ge(k-1)^3-173$. For every integer $k\ge10$,
+\begin{lemma}[Reflection and counting]\label{lem:reflect}
+If $0\le m<n$ and $c=m+n+1$ is a cube, every valid
+permutation $p$ on $\{1,\dots,m\}$ extends to a valid permutation
+$q$ on $\{1,\dots,n\}$ via
 \[
-2((k-1)^3-173)-k^3
-=k^3-6k^2+6k-348\ge0.
+q_i=\begin{cases}
+p_i,&i\le m,\\ c-i,&m<i\le n.
+\end{cases}
 \]
-The last expression is $112$ at $k=10$, and its successive
-difference is $3k^2-9k+1>0$ for $k\ge10$.
-Consequently $k^3\le2n$. Taking $c=k^3$ proves the claim.
-\end{proof}
-
-\begin{lemma}[Finite base certificate]\label{lem:finite}
-For every integer $173\le n\le364$, a cube-sum permutation exists.
+For different admissible cubes $c$, the images of these
+extensions are disjoint. In particular,
+\begin{equation}\label{eq:count}
+P(n)\ge\!\!\!\!\sum_{\substack{c\in\cubes\\n+2\le c\le 2n}}
+P(c-n-1),
+\end{equation}
+with the convention $P(0)=1$.
 \end{lemma}
 \begin{proof}
-The accompanying file
-\texttt{certificates/base\_permutations.json} is an ordered array
-of $192$ explicit permutations, one for each $n=173,\ldots,364$.
-Each row $p$ is independently certified by the elementary
-integer-only checks
-\[
-|p|=n,\qquad
-\operatorname{sort}(p)=(1,\ldots,n),\qquad
-\forall\, i\in\{1,\ldots,n\}\ \exists\,k\in\mathbb Z_{\ge2}:
-\ i+p_i=k^3.
-\]
-The file contains $51{,}552$ integer entries in total.
-These checks are implemented without floating-point arithmetic
-or external packages in \texttt{verify.py}.
-The separate script \texttt{independent\_match.py}
-regenerates independent witnesses using augmenting paths,
-without reading the archived certificate.
+Because $c=m+n+1$, reflection $i\mapsto c-i$
+permutes precisely the new interval $\{m+1,\dots,n\}$,
+and $i+q_i=c$ there. Old indices retain their cube sums.
+The embedding is injective for each $c$ and two different
+$c$ yield different last entries $q_n=c-n$. The claimed
+sum counts disjoint families.
 \end{proof}
 
-\begin{theorem}\label{thm:main}
-For every integer $n\ge173$ there exists a permutation
-$p_1,\ldots,p_n$ of $1,\ldots,n$ such that
-$i+p_i$ is a perfect cube for every $1\le i\le n$.
-Equivalently, the conjectured tail of OEIS A006063 is complete.
+\begin{lemma}[The cube-gap bound]\label{lem:gap}
+For each $n\ge365$ some cube $c$ satisfies
+$n+174\le c\le2n$.
+For each $n\ge556$ some cube $c$ satisfies
+$n+176\le c\le2n$.
+\end{lemma}
+\begin{proof}
+For $365\le n\le555$, take $c=729$.
+For $n\ge556$, let $k$ be the least integer with
+$k^3\ge n+176$; then $k\ge10$ and
+$n\ge(k-1)^3-175$. Thus
+\[
+2n-k^3\ge k^3-6k^2+6k-352\ge0.
+\]
+The final polynomial equals $108$ at $k=10$ and
+has strictly positive successive differences
+$3k^2-9k+1$ for $k\ge10$.
+Hence the second assertion holds and implies the first
+for $n\ge556$.
+\end{proof}
+
+\section{Finite certificates and exact membership}
+Our finite data are provided as UTF-8 JSON arrays of integers.
+A valid witness $p$ is checked solely by
+\[
+\operatorname{sort}(p)=(1,\dots,n),\qquad
+\forall i\quad i+p_i\in\cubes.
+\]
+For a negative instance, let
+$N_n(S)=\{j\in[1,n]:\exists i\in S,\ i+j\in\cubes\}$.
+Hall's marriage theorem gives the immediate obstruction
+\begin{equation}\label{eq:hall}
+|N_n(S)|<|S|\quad\Longrightarrow\quad P(n)=0.
+\end{equation}
+The file \texttt{exact\_classification\_below\_173.json}
+provides $48$ explicit valid permutations and $124$
+explicit Hall-deficient subsets, exactly partitioning
+$1\le n\le172$. Every assertion is directly checked
+by \texttt{verify\_extended.py}. For instance, for $n=172$
+the $27$ left indices
+\[
+\begin{gathered}
+S=\{1,5,8,13,20,31,35,38,42,43,45,92,96,99,\\
+104,111,122,126,129,133,134,136,153,157,160,165,172\}
+\end{gathered}
+\]
+have precisely $26$ distinct possible right neighbors.
+Thus $172\notin\good$, making the threshold below sharp.
+
+For the unbounded tail, only the $109$ witness sizes
+\begin{equation}\label{eq:core}
+173\le n\le255,\qquad 339\le n\le364
+\end{equation}
+require explicit stored permutations.
+Indeed for each $256\le n\le338$, put
+$m=511-n\in[173,255]$; then
+$m+n+1=512=8^3$, so Lemma~\ref{lem:reflect}
+constructs the missing $83$ cases.
+This compresses the previously saved $192$ base cases
+by $83/192>43\%$. All $109$ stored witnesses in
+\texttt{core\_109.json}, and all $192$ reconstructed
+witnesses, are checked with exact integer arithmetic.
+The earlier full $192$-row file is retained as an
+additional independent-format audit source.
+
+\begin{theorem}[Complete A006063 membership]\label{thm:exist}
+For every integer $n\ge173$, $P(n)>0$.
+Below $173$, the complete membership list is
+\begin{align*}
+\good\cap[1,172]=\{&
+7,19,26,37,44,56,63,66,68,80,82,85,87,98,100,\\
+&103,105,110,112,115,116,117,118,119,120,121,\\
+&122,123,124,125,126,127,128,129,130,131,132,\\
+&133,135,147,149,150,151,152,155,156,159,171\}.
+\end{align*}
+In sequence-index notation this gives
+\[
+\boxed{\operatorname{A006063}(j)=j+124\quad(j\ge49).}
+\]
 \end{theorem}
 \begin{proof}
-Use strong induction on $n$. The base cases
-$173\le n\le364$ follow from Lemma~\ref{lem:finite}.
-For $n\ge365$, Lemma~\ref{lem:cube} provides
-$n+174\le c\le2n$ with $c$ a perfect cube.
-Set $m=c-n-1$. Then $173\le m<n$.
-By the induction hypothesis, $m$ has a cube-sum permutation.
-Since $m+n+1=c$, Lemma~\ref{lem:extension} extends it to $n$.
+The exact finite witnesses establish $173\le n\le364$,
+and the Hall certificates settle the smaller sizes.
+For $n\ge365$, Lemma~\ref{lem:gap} gives a cube
+$c\in[n+174,2n]$. The predecessor
+$m=c-n-1$ satisfies $173\le m<n$.
+By strong induction $P(m)>0$, and
+Lemma~\ref{lem:reflect} yields $P(n)>0$.
+There are precisely $48$ positive indices below $173$,
+so the $49$th and all later sequence terms are consecutive.
 \end{proof}
 
-\paragraph{Reproduction and scope.}
-Run \texttt{python verify.py} and
-\texttt{python independent\_match.py} in the
-\texttt{papers/A006063} directory. Both use only the Python
-standard library. The mathematical induction proves an unbounded
-result; numerical checks above $364$ are optional implementation
-smoke tests, not premises of the proof. The present note does not
-claim literature priority, peer review, or knowledge of the
-number of cube-sum permutations for a given size.
+\section{Multiplicity and the second OEIS classification}
+A cube-sum permutation $p$ is a perfect matching in the
+bipartite graph with left and right vertices $1,\dots,n$,
+where $(i,j)$ is an edge exactly when $i+j\in\cubes$.
+For any matching $p$, form a directed graph $D_p$ on the
+left vertices, putting $i\to j$ whenever $i\ne j$
+and $(i,p_j)$ is a cube-sum edge.
 
-\paragraph{Source.}
-N.~J.~A.~Sloane et al.,
-\href{https://oeis.org/A006063}{OEIS A006063},
-including Robert Israel's 2018 existence conjecture and
-finite verification to $1000$.
+\begin{lemma}[Alternating-cycle criterion]\label{lem:cycle}
+For a valid permutation $p$, there exists another distinct
+valid permutation if and only if $D_p$ has a directed cycle.
+\end{lemma}
+\begin{proof}
+Along a directed cycle $i_1\to\dots\to i_t\to i_1$,
+replace $p_{i_s}$ by $p_{i_{s+1}}$ (cyclic indices).
+Every moved pair is an allowed edge, and all right
+vertices remain distinct. Conversely, if $q\ne p$ is
+another valid permutation, the nontrivial cycles of
+the permutation $p^{-1}\circ q$ consist of directed
+cycles in $D_p$. Thus acyclicity is a rigorous
+uniqueness certificate.
+\end{proof}
+
+The file \texttt{second\_solutions.json} records directed
+cycles, not complete duplicate permutations. Direct
+finite checking establishes: among the $48$ positive
+lengths below $173$, exactly
+\[
+E=\{112,115,116,117,119,124,125,126,127,128,129,130,133\}
+\]
+have a directed alternating cycle; every other positive
+length below $173$, as well as $173$ and $174$, has
+an acyclic $D_p$ and therefore a unique permutation.
+
+Furthermore, all $190$ base cases $175\le n\le364$
+have explicit alternating-cycle certificates.
+To extend the multiplicity assertion:
+for $365\le n\le553$, the cube $729$ gives
+$m=728-n\in[175,363]$. The two exceptional lengths
+$554,555$ have separate explicit alternating-cycle
+certificates obtained by extending the unique solutions
+at $174,173$ respectively.
+For $n\ge556$, the stronger part of
+Lemma~\ref{lem:gap} gives
+$m=c-n-1\ge175$. Two distinct solutions for $m$
+remain distinct after reflection, finishing an induction.
+
+\begin{theorem}[Complete A096680 membership]\label{thm:multi}
+The positive integers with at least two cube-sum permutations
+are exactly
+\[
+\boxed{E\ \cup\ \{175,176,177,\dots\}.}
+\]
+In particular $P(173)=P(174)=1$, and the sequence terms
+satisfy
+\[
+\boxed{\operatorname{A096680}(j)=j+161\quad(j\ge14).}
+\]
+\end{theorem}
+
+\section{Many permutations: an exponential cube-root bound}
+Besides qualitative multiplicity, the reflection family
+yields a strong quantitative statement.
+Let $K(n)=\lfloor\sqrt[3]{2n}\rfloor$, with the floor
+defined using integer comparisons (not floating point).
+
+\begin{lemma}[Three disjoint embeddings]\label{lem:triple}
+If $K(n)=k\ge27$, each of
+$k^3,(k-1)^3,(k-2)^3$ gives a reflection extension
+from a predecessor $m\ge173$ with $m<n$,
+and all three predecessors obey $K(m)\ge k-6$.
+\end{lemma}
+\begin{proof}
+By definition, $k^3\le2n<(k+1)^3$.
+For the smallest of these cubes, set
+$m=(k-2)^3-n-1$. Then
+\[
+2m>2(k-2)^3-(k+1)^3-2
+=k^3-15k^2+21k-19.
+\]
+The right side exceeds $(k-6)^3$ for $k\ge27$, since
+the difference is
+\[
+3k^2-87k+197>0
+\quad (k\ge27).
+\]
+Thus $2m>(k-6)^3\ge21^3$, which implies
+$m\ge173$ and $K(m)\ge k-6$.
+Also $(k-2)^3<k^3\le2n$, so $m<n$.
+The other two cubes give larger predecessors
+and satisfy the same bounds.
+Distinct cubes yield disjoint matching families
+by Lemma~\ref{lem:reflect}.
+\end{proof}
+
+\begin{theorem}[A096904 quantitative bound]\label{thm:many}
+For all integers $n\ge173$, with
+$q(n)=\max\{0,\lfloor(K(n)-27)/6\rfloor\}$,
+\[
+\boxed{P(n)\ge3^{q(n)}}.
+\]
+In particular
+\[
+\log P(n)\ \ge\
+\frac{\log3}{6}(2n)^{1/3}-O(1),
+\]
+so $P(n)$ grows at least exponentially in $n^{1/3}$.
+\end{theorem}
+\begin{proof}
+If $K(n)<27$ then $q(n)=0$, and
+Theorem~\ref{thm:exist} supplies $P(n)\ge1$.
+For $K(n)\ge27$, Lemma~\ref{lem:triple}
+provides three distinct extensions from smaller
+predecessors $m_i\ge173$ with
+$K(m_i)\ge K(n)-6$. Thus
+$q(m_i)\ge q(n)-1$.
+By strong induction and the disjointness of the
+three extension images,
+\[
+P(n)\ge\sum_{i=1}^{3}P(m_i)
+\ge3\cdot3^{\max(0,q(n)-1)}
+\ge3^{q(n)}.
+\]
+The displayed logarithmic asymptotic follows immediately.
+\end{proof}
+
+\section{Reproduction and limitations}
+All programs require only Python 3 standard-library modules:
+\begin{verbatim}
+python papers/A006063/verify.py
+python papers/A006063/independent_match.py
+python papers/A006063/verify_extended.py
+\end{verbatim}
+The archived data consist of $109$ core witnesses,
+the legacy $192$-row all-base cross-check, $48$ small
+positive permutations, $124$ negative Hall sets,
+and compact alternating-cycle certificates.
+The infinite inductive and counting lemmas are
+mathematical arguments rather than extrapolations
+from numerical experiments.
+
+The status is a \emph{computer-assisted proof candidate}
+pending independent scrutiny of the finite certificate,
+its interpretation, and literature priority.
+The present manuscript does not compute the exact values
+of $P(n)$ in general, nor does it claim external peer review.
+
+\begin{thebibliography}{9}
+\bibitem{oeisA006063}
+N.~J.~A. Sloane et al., \emph{A006063: A card-arranging problem},
+\url{https://oeis.org/A006063}; existence conjecture
+attributed there to Robert Israel (2018).
+\bibitem{oeisA096680}
+Ray Chandler, \emph{A096680: Values with more than one cube-sum
+permutation}, \url{https://oeis.org/A096680}.
+\bibitem{oeisA096904}
+Ray Chandler, \emph{A096904: Number of cube-sum permutations},
+\url{https://oeis.org/A096904}.
+\bibitem{hall}
+P. Hall, On representatives of subsets,
+\emph{J. London Math. Soc.} 10 (1935), 26--30.
+\end{thebibliography}
 \end{document}
