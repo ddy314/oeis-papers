@@ -223,6 +223,8 @@ To turn the shifted middle permutation into an ordinary prefix permutation, use 
 Independent integer checks:
 ```sh
 python papers/A006063/lift_exponential_subsequence.py
+python papers/A006063/verify_362.py
+python papers/A006063/verify_tensor_recurrence.py
 python papers/A006063/tensorize_fibers.py
 python papers/A006063/audit_permutation_code.py
 python papers/A006063/optimize_terminal_cube.py
@@ -230,6 +232,38 @@ python papers/A006063/audit_three_cycle_identity.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
+
+## New: power-divisor counting recurrence and stronger exponential subsequence
+
+Let `P_d(n)` count permutations of `[1,n]` with each `i+p[i]` a perfect `d`th power; adopt `P_d(0)=1`.
+For an odd `t` with `L=t**d | (2*n+1)`, define
+`A=(L-1)//2`, `q=(2*n+1)//L`, and `M_b=b**d-(q+1)//2`.
+Then the **power-divisor tensor recurrence** is
+
+```
+P_d(n) >= P_d(A) * sum(P_d(M_b)**L
+    for b >= 2 if M_b >= 0 and b**d < q).
+```
+
+It simultaneously generalizes ordinary suffix reflection (`t=1`) and the independent-fiber block lift (`t>1`). The contributions for different `b` are **disjoint**, since the last assigned value is `(b*t)**d-n`.
+
+A new **43-interval reflection template** for `n=362` contains **40 pairwise disjoint alternating cycles**, independently certified by [verify_362.py](verify_362.py), with 182 involved vertices and no matching solver. Hence `P(362)>=2**40`. Setting `M=362`, `b=9`, `q=733` gives the improved infinite family
+
+```
+N_t = (733*t**3 - 1)//2,  t odd >= 7
+P(N_t) >= P((t**3-1)//2) * 2**(40*t**3)
+limsup(log(P(n))/n) >= 80*log(2)/733 > 0.0756.
+```
+
+This strengthens the earlier `236`-gadget constant `18*log(2)/551` by more than a factor of three, without any new large-scale matching calculations.
+
+**A precise method limitation:** A nontrivial odd cubic scale requires `t**3 | (2*n+1)` for some `t>=3`. By Möbius inclusion-exclusion, those lengths have density only `1 - 8/(7*zeta(3)) = 0.0492487...`. Therefore the centered tensor method, on its own, does **not** establish a uniform exponential-in-`n` lower bound. This is a limitation of this construction, not a no-go result for other ideas.
+
+Artifacts:
+
+- [certificates/forty_cycles_362.json](certificates/forty_cycles_362.json): 43 interval rows and 40 disjoint alternating cycles.
+- [verify_362.py](verify_362.py): exact integer, solver-free structural audit.
+- [verify_tensor_recurrence.py](verify_tensor_recurrence.py): tests two distinct cube suffixes at fixed `n`, and the new `t=7,9` amplification constructions.
 
 ## Mathematical method
 
