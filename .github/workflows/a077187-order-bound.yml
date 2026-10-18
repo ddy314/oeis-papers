@@ -7,6 +7,7 @@ on:
       - papers/A077187/research/certify_orders_le500.py
       - papers/A077187/research/certify_orders_le744.py
       - papers/A077187/research/audit_order_744_prime_field.py
+      - papers/A077187/research/order_bound_744.tex
       - papers/A077187/research/audit_cyclotomic_spots.py
       - .github/workflows/a077187-order-bound.yml
   pull_request:
@@ -14,12 +15,13 @@ on:
       - papers/A077187/research/certify_orders_le500.py
       - papers/A077187/research/certify_orders_le744.py
       - papers/A077187/research/audit_order_744_prime_field.py
+      - papers/A077187/research/order_bound_744.tex
       - papers/A077187/research/audit_cyclotomic_spots.py
       - .github/workflows/a077187-order-bound.yml
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   exact-order-bound:
@@ -35,3 +37,28 @@ jobs:
         run: python3 papers/A077187/research/certify_orders_le744.py
       - name: Independently check high-order finite-field drift vectors
         run: python3 papers/A077187/research/audit_order_744_prime_field.py
+
+  bounded-order-pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Compile bounded-order research note
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: order_bound_744.tex
+          working_directory: papers/A077187/research
+          latexmk_use_xelatex: false
+      - name: Commit generated PDF (push only)
+        if: github.event_name == 'push'
+        run: |
+          test -s papers/A077187/research/order_bound_744.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add papers/A077187/research/order_bound_744.pdf
+          if ! git diff --cached --quiet; then
+            git commit -m "paper: compile verified order<=744 proof note PDF"
+            git push
+          fi
