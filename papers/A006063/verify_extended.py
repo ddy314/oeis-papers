@@ -97,6 +97,8 @@ def check_small():
         neighbors = {c-i for i in S for c in cubes if 1 <= c-i <= n}
         if len(neighbors) >= len(S):
             raise AssertionError(f"not a Hall deficiency, n={n}")
+        if neighbors.intersection(S):
+            raise AssertionError(f"negative Hall set is not independent, n={n}")
     expected = [
         7,19,26,37,44,56,63,66,68,80,82,85,87,98,100,103,105,
         110,112,115,116,117,118,119,120,121,122,123,124,125,126,
