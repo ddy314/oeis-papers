@@ -37,6 +37,10 @@ The 190 base lengths `175..364` have explicit cycle witnesses. For `365..553`, r
 
 **Exponential count:** For `k=floor(cuberoot(2*n))>=27`, the three cubes `k^3,(k-1)^3,(k-2)^3` give disjoint extensions from `m_i>=173`, with `K(m_i)>=k-6`. Strong induction gives `P(n)>=3**q(n)`.
 
+## Constructive algorithm
+
+The new `construct_linear.py` algorithm chooses the **least cube** `c=k^3>=n+174` at each step and reduces to `m=c-n-1=O(n**(2/3))`. This gives **O(log log n) reflection layers** and writes the complete answer in **O(n) unit-cost operations**. Exact integer cube roots avoid floating-point rounding. The default check constructs a permutation for `n=1,000,000` and audits its entries; `--plan 1000000000000000000000000` computes a gigantic instance's block layout without allocating the output.
+
 ## Proof artifacts
 
 - [main.tex](main.tex): full paper source; [main.pdf](main.pdf) is produced and committed by the PDF workflow.
@@ -47,6 +51,7 @@ The 190 base lengths `175..364` have explicit cycle witnesses. For `365..553`, r
 - [certificates/second_solutions.json](certificates/second_solutions.json): alternating-cycle witnesses for 13 early cases, all sizes 175..364, and exceptional sizes 554 and 555.
 - [verify.py](verify.py): audit original 192 base cases and recursive witnesses.
 - [independent_match.py](independent_match.py): independent augmenting-path generator for the 192 base cases.
+- [construct_linear.py](construct_linear.py): efficient O(n)-output constructor and huge-integer block planner.
 - [verify_extended.py](verify_extended.py): audit all new certificates, uniqueness, multiplicity, compact bases, and structural numeric regression tests.
 
 Run, from repository root:
@@ -55,6 +60,7 @@ Run, from repository root:
 python papers/A006063/verify.py
 python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
+python papers/A006063/construct_linear.py
 ```
 
 All verifiers use Python's standard library only; certificate checks use integers, sets, and exact comparisons.
