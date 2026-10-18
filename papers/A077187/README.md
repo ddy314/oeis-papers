@@ -622,3 +622,45 @@ A dedicated small CI workflow runs both plus bounded scalar probes.
 
 **Remaining open:** whether all true zero-drift primes have a
 stable-window root. No unrestricted all-primes proof is claimed.
+
+
+## Exact Möbius phase-incidence theorem (October 18 continuation)
+
+A new [projective phase-involution proof](research/mobius_phase_involution_2026-10-18.md)
+goes beyond the former two-offset or half-phase lower bounds.
+For a nonsingular stable window the local condition has
+\[
+Q_j(z)=(A+j\alpha)z^2+Hz+(B+j\beta)=0,\quad
+z\in\mu_r,\quad \alpha=10U,\ \beta=V.
+\]
+When drift is nonzero, eligible offsets \(z\) determine unique
+successful phases \(j=-[Az^2+Hz+B]/[\alpha z^2+\beta]\).
+All collisions between **distinct** eligible offsets are controlled
+by a single projective involution:
+\[
+\iota(z)=-\frac{Dz+H\beta}{D-H\alpha z},
+\qquad D=A\beta-B\alpha.
+\]
+Its matrix squares to \((D^2+H^2\alpha\beta)I\).
+If this scalar vanishes and no offset is an all-phase root,
+the phase map is injective. Otherwise the exact number of
+successful phases is
+\[
+N=(r-n_0)-(e-f)/2,
+\]
+where \(n_0,e,f\) are degrees of explicitly given
+**finite-field polynomial GCDs**, not results of enumerating
+cycles or subgroup elements. A common zero of the numerator
+and slope on \(\mu_r\) makes **all \(p\) phases** successful.
+Consequently nonzero drift gives
+\(N\ge\lceil(r-\gcd(2,r))/2\rceil\), often strictly more.
+
+The [independent standard-library audit](research/audit_mobius_phase_involution.py)
+compares polynomial-GCD counts with direct finite-field
+phase enumeration for **360 synthetic situations and 12
+genuine decimal-concatenation state vectors**.
+Dedicated \`.github/workflows/a077187-mobius-phase.yml\` CI **PASSED**.
+
+**Boundary:** at true zero drift, the phase map is constant or
+undefined; the projective theorem alone does not imply any
+stable-window root. The unrestricted A077187 conjecture stays OPEN.
