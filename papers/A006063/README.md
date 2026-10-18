@@ -69,6 +69,42 @@ identities and the disjoint dimer-switch inequalities. A separate
 local implementation fully materialized and verified both original
 and modified 54,406-element involutions, all sums being cubes.
 
+### Inverse-paired tensorization: exact involution fiber count
+
+Independent perfect-power fibers can also be paired to create genuine
+**involutions**, even when some base permutations are not involutive.
+In the previous tensor map, a position `(i,r)` maps to
+`(p_r(i),L+1-r)`, so the lifted map is an involution exactly when
+
+```
+p_(L+1-r) = inverse(p_r)                 (r=1,...,L).
+```
+
+Since `L=t**d` is odd and the inverse of a legal power-sum permutation
+is also legal, its **exact** number of involutive middle-block lifts is
+
+```
+I_d(M) * P_d(M)**((L-1)//2).
+```
+
+Consequently, **if** legal involutions exist at all sufficiently large
+lengths, and some M has `I_d(M)>=1` and `P_d(M)>=2`, then
+
+```
+limsup_n log(I_d(n))/n >= log(P_d(M))/(2*M+1) > 0.
+```
+
+Complete the shifted middle interval by a legal involutive prefix of
+size `A=(L-1)//2` and the shortest admissible perfect-power reflection
+on the suffix. This is a general implication from finite ordinary
+multiplicity to exponential involution multiplicity, conditional only
+on eventual involution existence. The earlier taxicab construction
+gives an **unconditional** exponential family without this assumption.
+
+`inverse_fiber_involution_audit.py` independently verifies the
+inverse-fiber equation with a legal 316-element reference involution and
+a different legal, non-involutive five-cycle-switched permutation.
+
 ## Eventual *involution* existence, not merely general matching
 
 The original seven-element seed `p(i)=8-i` is a legal **involution** fixing position `4`. Each later suffix reflection is an involution on a disjoint new interval. Consequently **every permutation in the entire one-seed reflection tree** remains an involution and fixes 4.
@@ -269,7 +305,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
 - [one_seed_eventual.py](one_seed_eventual.py): construct all sufficiently large lengths from one 7-point seed and seven exact rounds.
 - [one_seed_interval_proof.py](one_seed_interval_proof.py): independent finite interval-union proof of seven-round coverage.
-- [taxicab_involution_audit.py](taxicab_involution_audit.py): pure algebraic two-dimer switches yielding exponentially many involutions and Hamming-distance codes.\n- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
+- [inverse_fiber_involution_audit.py](inverse_fiber_involution_audit.py): verify inverse-paired arbitrary fiber permutations produce legal involutions.\n- [taxicab_involution_audit.py](taxicab_involution_audit.py): pure algebraic two-dimer switches yielding exponentially many involutions and Hamming-distance codes.\n- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
 - [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
