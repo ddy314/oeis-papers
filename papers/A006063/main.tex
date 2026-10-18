@@ -2,6 +2,7 @@
 \usepackage[margin=0.85in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{multicol}
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -90,6 +91,84 @@ $3k^2-9k+1$ for $k\ge10$.
 Hence the second assertion holds and implies the first
 for $n\ge556$.
 \end{proof}
+
+\section{A short, local existence certificate}\label{sec:words}
+The preceding reflection argument is infinite and elementary.
+The finite existence verification can itself be made much more
+transparent than an array of $192$ long permutations:
+we give \emph{one} explicit involution at size $173$,
+then $191$ short alternating-path words.
+Only $1844$ single-digit cube roots are needed.
+
+\begin{lemma}[An explicit order-$173$ involution]\label{lem:seed173}
+There is a cube-sum permutation on $[1,173]$, given on
+each listed interval $I$ by $p(i)=c-i$. Intervals
+paired by a double arrow use the same cube $c$:
+\[
+\begin{array}{c|c}
+\text{intervals }I&c\\\hline
+[1,7]&8\\
+[22,42]&64\\
+[106,110]&216\\
+[8,12]\ \longleftrightarrow\ [15,19]&27\\
+[13,14]\ \longleftrightarrow\ [111,112]&125\\
+[20,21]\ \longleftrightarrow\ [104,105]&125\\
+[43,103]\ \longleftrightarrow\ [113,173]&216
+\end{array}
+\]
+\end{lemma}
+\begin{proof}
+The eleven intervals partition $[1,173]$.
+Reflection $i\mapsto c-i$ preserves each of the
+first three intervals and exchanges the two intervals
+in each of the last four rows. Thus it defines an
+involution, and every sum $i+p(i)$ is a cube.
+\end{proof}
+
+\begin{lemma}[An alternating-word extension]\label{lem:words}
+Suppose $p$ is a cube-sum permutation of $[1,n-1]$.
+Let $w=r_1\cdots r_t$ be a finite word of positive
+integer cube roots. Starting from $u_0=n$, define
+$v_j=r_j^3-u_{j-1}$. For $j<t$, require $v_j\in[1,n-1]$
+and let $u_j=p^{-1}(v_j)$. Suppose all these
+$u_0,u_1,\dots,u_{t-1}$ are distinct,
+all $v_1,\dots,v_t$ are distinct, and $v_t=n$.
+Then replacing the old matching edges by
+\[
+q(u_{j-1})=v_j\quad (1\le j\le t),
+\]
+while keeping all other old assignments, yields
+a cube-sum permutation of $[1,n]$.
+\end{lemma}
+\begin{proof}
+The old matching edges removed along this path are
+$u_j\mapsto v_j$ for $j<t$; these form a bijection
+between the old visited left and right vertices.
+Their replacements join $u_{j-1}$ to $v_j$ and have
+sum $r_j^3$ by construction. The new left vertex $n$
+and the new right vertex $n$ are incorporated, without
+repeating any endpoint. Every untouched vertex retains
+its old matching edge.
+\end{proof}
+
+The \texttt{augmenting\_cube\_words.txt} appendix lists
+one word for each $n=174,\dots,364$.
+Every root is a single decimal digit in $\{2,\dots,8\}$.
+The words are checked using Lemma~\ref{lem:words}
+and the predecessor matching obtained from the previous
+word; this is \emph{local} verification, not a
+matching search or a scan to a large cutoff.
+The independent, standard-library-only
+\texttt{verify\_word\_paths.py} checks
+all required edge equalities and endpoint distinctness.
+The seven-line interval seed plus $1844$ root digits
+certifies all $192$ base cases of
+Theorem~\ref{thm:exist}; combined with the
+cube-gap induction this proves existence for
+\emph{every} $n\ge173$.
+The older long witness archives remain as secondary
+independent cross-checks, not as prerequisites
+of this compact proof.
 
 \section{Finite certificates and exact membership}
 Our finite data are provided as UTF-8 JSON arrays of integers.
@@ -324,6 +403,105 @@ The displayed logarithmic asymptotic follows immediately.
 \end{proof}
 
 
+\section{A universal reflection-entropy bound}\label{sec:entropy}
+The fixed three-branch construction above is only
+one instance of a general branching mechanism. In fact,
+one may use \emph{any fixed number} of the largest
+available cubes and obtain a sharp limiting coefficient
+for this family of lower bounds.
+
+For each integer $s\ge2$, let $\rho_s\in(1,2)$
+be the unique solution of
+\begin{equation}\label{eq:rho}
+\sum_{h=1}^{s}\rho_s^{-h}=1,
+\qquad
+B_s=6(s-1)^2+24(s-1)+15.
+\end{equation}
+Let $K(n)=\lfloor\sqrt[3]{2n}\rfloor$ as before.
+
+\begin{theorem}[Reflection entropy]\label{thm:entropy}
+For all $s\ge2$ and $n\ge173$,
+\begin{equation}\label{eq:entropy}
+\boxed{\displaystyle P(n)\ge
+\rho_s^{\left(K(n)-B_s\right)/2}.}
+\end{equation}
+In particular,
+\begin{equation}\label{eq:liminf}
+\boxed{\displaystyle
+\liminf_{n\to\infty}
+\frac{\log P(n)}{(2n)^{1/3}}
+\ \ge\ \frac{\log 2}{2}.}
+\end{equation}
+Equivalently, for every $\varepsilon>0$ there is
+a constant $C_\varepsilon$ such that
+\[
+P(n)\ge
+\exp\left(\left(\tfrac12\log2-\varepsilon\right)
+(2n)^{1/3}-C_\varepsilon\right)
+\quad(n\ge173).
+\]
+\end{theorem}
+\begin{proof}
+Fix $s$ and write $B=B_s$, $\rho=\rho_s$.
+We prove \eqref{eq:entropy} by strong induction.
+For $K(n)<B$, the right side is at most $1$,
+and $P(n)\ge1$ by Theorem~\ref{thm:exist}.
+
+Now suppose $k=K(n)\ge B$. For each
+$j=0,\dots,s-1$, take the cube
+$c_j=(k-j)^3$ and put $m_j=c_j-n-1$.
+Since $k^3\le2n<(k+1)^3$, the following
+exact polynomial inequality holds:
+\[
+\begin{aligned}
+2m_j-(k-2j-2)^3
+&\ge 2(k-j)^3-(k+1)^3-1
+ -(k-2j-2)^3\\
+&=3k^2-(6j^2+24j+15)k\\
+&\qquad+6j^3+24j^2+24j+6\\
+&\ge0.
+\end{aligned}
+\]
+The last inequality follows directly from
+$k\ge B\ge6j^2+24j+15$.
+Also $k-2j-2\ge k-2s\ge8$, so
+$m_j\ge256\ge173$ and
+$K(m_j)\ge k-2(j+1)$.
+Each $c_j\le k^3\le2n$, so $m_j<n$.
+
+The $s$ reflection extensions are pairwise disjoint
+by their distinct last images, as in
+Lemma~\ref{lem:reflect}.
+Using the strong induction hypothesis, we obtain
+\[
+\begin{aligned}
+P(n)
+&\ge\sum_{j=0}^{s-1}P(m_j)\\
+&\ge\sum_{j=0}^{s-1}
+\rho^{(K(m_j)-B)/2}\\
+&\ge\rho^{(k-B)/2}
+\sum_{j=0}^{s-1}\rho^{-(j+1)}
+=\rho^{(k-B)/2}.
+\end{aligned}
+\]
+This proves the first assertion. The $\rho_s$ are
+strictly increasing and converge to $2$, since
+their defining finite geometric sums approach
+$\sum_{h\ge1}2^{-h}=1$. For each fixed $s$,
+$B_s$ is a constant independent of $n$ and
+$K(n)=(2n)^{1/3}+O(1)$.
+Therefore the ratio on the left side of
+\eqref{eq:liminf} is at least
+$\tfrac12\log\rho_s$ in the limit.
+Letting $s\to\infty$ proves \eqref{eq:liminf}.
+\end{proof}
+
+The coefficient $(\log2)/2$ is a \emph{proved lower
+bound}, not an asserted exact exponential growth rate.
+The argument needs only the qualitative existence
+Theorem~\ref{thm:exist}; it makes no further use of
+numerical matching data.
+
 \section{An efficient constructive algorithm}
 The proof is also algorithmic. Given $n>364$, choose the
 \emph{least} cube $c=k^3\ge n+174$ and put $m=c-n-1$.
@@ -366,6 +544,7 @@ python papers/A006063/verify.py
 python papers/A006063/independent_match.py
 python papers/A006063/verify_extended.py
 python papers/A006063/construct_linear.py
+python papers/A006063/verify_word_paths.py
 \end{verbatim}
 The archived data consist of $109$ core witnesses,
 the legacy $192$-row all-base cross-check, $48$ small
@@ -380,6 +559,25 @@ pending independent scrutiny of the finite certificate,
 its interpretation, and literature priority.
 The present manuscript does not compute the exact values
 of $P(n)$ in general, nor does it claim external peer review.
+
+
+\clearpage
+\appendix
+\section{All 191 short alternating-path words}
+\noindent The integer at the left is the new size $n$;
+the following one-digit symbols are the successive
+cube roots $r_j$ in Lemma~\ref{lem:words}.
+Together with the explicit seed in
+Lemma~\ref{lem:seed173}, these words form an
+independently and locally checkable existence
+certificate for $173\le n\le364$.
+
+\begin{multicols}{3}
+\scriptsize\ttfamily
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\input{certificates/augmenting_words_table.tex}
+\end{multicols}
 
 \begin{thebibliography}{9}
 \bibitem{oeisA006063}
