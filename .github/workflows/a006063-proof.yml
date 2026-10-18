@@ -46,6 +46,8 @@ jobs:
         run: python papers/A006063/audit_permutation_code.py
       - name: Verify optimal terminal cubes and improved exponential code sizes
         run: python papers/A006063/optimize_terminal_cube.py
+      - name: Independently verify computation-free cubic three-cycle family
+        run: python papers/A006063/audit_three_cycle_identity.py
       - name: Exercise linear-output construction up to one million entries
         run: python papers/A006063/construct_linear.py
 
