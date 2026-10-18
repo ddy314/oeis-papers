@@ -27,7 +27,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
-The 61-seed reflection-only compression remains a useful **methodological boundary**: those 61 extra seeds cannot be reduced by *reflection extensions alone* from the known 48 early positive lengths. The alternating-path operation is the essential new ingredient that escapes that barrier.
+The **60-seed** reflection-only compression is a useful **methodological boundary**, *provided the empty permutation is admitted alongside the 48 earlier positive witnesses*. In particular, `n=342` requires no seed: `p[i]=343-i` is a complete reversal with constant cube sum `7**3`. Exactly 60 further seeds are unavoidable under reflection alone. The alternating-path operation is the essential new ingredient that escapes that barrier.
 
 ### Sharper counting result — reflection entropy
 
@@ -74,12 +74,12 @@ for `K>=128`. The $n$-dependent branch count is algebraically admissible because
 **Reflection extension:** If `p` is valid on `{1,...,m}` and `m+n+1=c` is a cube, then extend by `p[i]=c-i` for `m<i<=n`. Each cube gives a disjoint image family since its last value is `p[n]=c-n`. Consequently,
 
 ```
-P(n) >= sum(P(c-n-1) for cubes c with n+2 <= c <= 2*n)
+P(n) >= sum(P(c-n-1) for cubes c with n+1 <= c <= 2*n)
 ```
 
 with `P(0)=1` (the empty matching convention).
 
-**Finite certificate compression:** Only the 109 sizes `173..255` and `339..364` need their own explicit witness. Every size `256..338` is reflected from `m=511-n`, since `m+n+1=512=8^3`. Thus the earlier 192 base-case witnesses reduce to 109 stored primary witnesses; the original 192-row archive remains available for cross-checking. The elementary cube-gap lemma then reduces all sizes `n>=365` to smaller solved sizes `m>=173`.
+**Earlier finite certificate compression:** The old standalone archive stores 109 witnesses for `173..255` and `339..364` (not an optimal seed count once the empty permutation is allowed). Every size `256..338` is reflected from `m=511-n`, since `m+n+1=512=8^3`. Thus the earlier 192 base-case witnesses reduce to 109 stored primary witnesses; the original 192-row archive remains available for cross-checking. The elementary cube-gap lemma then reduces all sizes `n>=365` to smaller solved sizes `m>=173`.
 
 **Negative cases:** A subset `S` of left vertices is an obstruction when its cube-sum neighbor set `N(S)` has `|N(S)|<|S|`, by Hall's marriage theorem. This certifies all 124 non-members below 173. At `n=172`, there is an explicit 27-left/26-right Hall obstruction, proving the sharpness of the 173 threshold.
 
@@ -96,7 +96,8 @@ The new `construct_linear.py` algorithm chooses the **least cube** `c=k^3>=n+174
 ## Proof artifacts
 
 - [main.tex](main.tex): full paper source; [main.pdf](main.pdf) is produced and committed by the PDF workflow.
-- [certificates/core_61_with_small.json](certificates/core_61_with_small.json): the stronger 61-new-seed compression reusing 48 early positive witnesses.
+- [certificates/core_60_with_empty.json](certificates/core_60_with_empty.json): the **minimal 60-seed** reflection-only basis, reusing the empty permutation and 48 early positives.
+- [certificates/core_61_with_small.json](certificates/core_61_with_small.json): historical, slightly redundant 61-seed basis that excluded the empty permutation.
 - [certificates/core_109.json](certificates/core_109.json): 109 primary existence witnesses.
 - [certificates/base_permutations.json](certificates/base_permutations.json): original independent 192-row audit data.
 - [certificates/exact_classification_below_173.json](certificates/exact_classification_below_173.json): 48 valid permutations and 124 Hall-deficient sets.
