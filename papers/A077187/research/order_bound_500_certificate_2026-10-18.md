@@ -164,16 +164,51 @@ the SHA-256 digest, and six modular reduction test vectors. It requires
 only a standard Python installation. A dedicated GitHub Actions workflow
 runs this check on changes to the certificate.
 
-## Open structural problem
+## False stronger conjecture and a refined cyclotomic target
 
-For all integers \(r\) tested here, the greatest-common-divisor
-obstruction is supported only on primes dividing \(990r\). This suggests
-the *stronger* universal arithmetic statement
+It is **false** that the repunit gcd is always supported on
+prime divisors of \(990r\). We found two exact counterexamples
+*to that proposed strengthening*, not to A077187:
 \[
-\operatorname{rad}\gcd(10^r-1,U_r,V_r)
-\mid\operatorname{rad}(990r).
+\begin{array}{c|r|r|r}
+r&T&G_r&\text{unexpected divisor}\\\hline
+174&2436&189=27\cdot7&7\\
+258&1806&189=27\cdot7&7
+\end{array}
 \]
-**We do not claim this for all \(r\)**: the 42 checks and additional
-finite experiments cannot prove it. A universal proof, or an analysis
-of any failure of this stronger statement for a different \(r\), could
-be the decisive next step toward the unrestricted A077187 conjecture.
+Here \(7\nmid990r\), but \(\operatorname{ord}_7(10)=6\), a proper
+divisor of 174 and 258. Hence these are merely **lower-order
+contaminants**, not primes whose *exact* order is \(r\).
+
+A cleaner approach is to take the **cyclotomic** rather than the
+full repunit modulus,
+\[
+H_r=\gcd\bigl(\Phi_r(10),U_r,V_r\bigr).
+\]
+Every prime \(p\) of exact order \(r\) divides \(\Phi_r(10)\).
+Therefore, a verified condition that every prime factor of \(H_r\)
+divides \(r\) is sufficient for nonzero drift at *every* prime
+of exact order \(r\), since \(r\mid p-1\). This avoids all
+nonprimitive prime factors of \(10^r-1\) except those that also divide
+the relevant cyclotomic value (typically order-index divisors).
+
+Exact independent evaluations gave:
+\[
+\begin{array}{r|rrrrrrrrrr}
+r&56&88&104&112&168&174&258&272&312&336\\\hline
+H_r&1&1&1&1&1&1&1&17&1&1
+\end{array}
+\]
+In particular \(\Phi_{174}(10)\) and \(\Phi_{258}(10)\) are
+nonzero modulo 7, so the extraneous 7 disappears.
+
+**Open direction.** Test, and if possible prove, the *refined*
+uniform assertion
+\[
+\operatorname{rad}\gcd\bigl(\Phi_r(10),U_r,V_r\bigr)
+\mid\operatorname{rad}(r).
+\]
+This is **not proved** for arbitrary \(r\), and may also have
+counterexamples. If true, it would exclude all exact-order zero
+drift and resolve the all-primes existence conjecture.
+The 42-class theorem proved above does *not* require this speculation.
