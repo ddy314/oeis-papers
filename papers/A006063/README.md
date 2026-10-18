@@ -17,6 +17,58 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## Taxicab switching: exponentially many *involutions* without finite certificates
+
+A new purely algebraic global principle produces **exponentially many legal involutions**, not merely arbitrary cube-sum permutations. For any fixed exponent `d>=2`, take four *perfect d-th powers* `A,B,C,D` with
+
+```
+A+B=C+D
+(3*A)/2 <= C < B/2.
+```
+
+For every integer u>=1 put `T=u**d`, `N=(B-A)*T` and start from the two-block involution
+
+```
+p(i)=A*T-i   on [1,A*T-1]
+p(i)=B*T-i   on [A*T,(B-A)*T].
+```
+
+For each `s=1,...,H=floor((A*T-1)/2)`, take four vertices
+
+```
+a=s,       b=A*T-s,
+c=C*T-s,   d=(B-C)*T+s.
+```
+
+The vertex quadruples are disjoint. Their baseline dimers `(a,b)` and
+`(c,d)` have perfect-power sums `A*T,B*T`, whereas the alternative
+dimers `(a,c)` and `(b,d)` have perfect-power sums `C*T,D*T`.
+Each switch preserves the involution property and changes exactly four
+permutation entries. Switching arbitrary subsets gives
+
+```
+I_d((B-A)*u**d) >= 2**floor((A*u**d-1)/2),
+limsup log(I_d(n))/n >= A*log(2)/(2*(B-A)) > 0.
+```
+
+The encoding multiplies all binary Hamming distances by exactly **4**.
+A particularly small cubic example is the taxicab identity
+
+```
+17**3 + 39**3 = 26**3 + 36**3.
+I_3(54406*u**3) >= 2**floor((4913*u**3-1)/2).
+```
+
+The identity `99**3+172**3=120**3+163**3` is another example,
+giving the stronger optional coefficient `970299*log(2)/8236298`;
+neither is asserted optimal. The general theorem does not depend on
+the sharp cutoff or any finite matching certificate.
+
+The independent `taxicab_involution_audit.py` checks both integer
+identities and the disjoint dimer-switch inequalities. A separate
+local implementation fully materialized and verified both original
+and modified 54,406-element involutions, all sums being cubes.
+
 ## Eventual *involution* existence, not merely general matching
 
 The original seven-element seed `p(i)=8-i` is a legal **involution** fixing position `4`. Each later suffix reflection is an involution on a disjoint new interval. Consequently **every permutation in the entire one-seed reflection tree** remains an involution and fixes 4.
@@ -217,7 +269,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
 - [one_seed_eventual.py](one_seed_eventual.py): construct all sufficiently large lengths from one 7-point seed and seven exact rounds.
 - [one_seed_interval_proof.py](one_seed_interval_proof.py): independent finite interval-union proof of seven-round coverage.
-- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
+- [taxicab_involution_audit.py](taxicab_involution_audit.py): pure algebraic two-dimer switches yielding exponentially many involutions and Hamming-distance codes.\n- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
 - [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
