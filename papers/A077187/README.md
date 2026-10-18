@@ -339,3 +339,51 @@ The principal remaining mathematical gap is the **global interaction
 of layer interfaces and the position-phase mismatch**, not the
 locally integrable within-layer recurrence. The all-primes conjecture
 remains open.
+
+
+## Latest: fixed-coprime-order spectral compression and two new INFINITE families
+
+A new **general structural theorem** shows that for any fixed coprime
+part \(v\) of \(r=\operatorname{ord}_p(10)=2^a5^cv\),
+the full stable drift, despite spanning
+\(T=\operatorname{lcm}(r,\operatorname{ord}_v(10))\) digit layers,
+reduces to at most
+\[
+\ell=\operatorname{lcm}(v,\operatorname{ord}_v(10))
+\]
+cyclotomic phase classes. Both drift coordinates are polynomials
+of degree at most two in \(m=r/\gcd(r,\ell)\), with coefficients in
+a cyclotomic field of degree at most \(\varphi(\ell)\) **independent
+of unbounded \(a,c\)**. The formulas include all \(q=1\) singular
+layers exactly, whose two reflected block contributions equal \(9/200\).
+
+The new **computer-assisted infinite-order-class theorems** assert
+\[
+\boxed{\operatorname{ord}_p(10)
+=7\cdot2^a5^c\ \text{or}\ 11\cdot2^a5^c
+\quad\Longrightarrow\quad p\mid M(k)\text{ for some }k.}
+\]
+These are **not** merely finite \(r\le1000\) checks. For \(v=7\),
+twelve fixed degree-six quadratic resultants and 4532
+factorization-free cyclotomic exclusions close the class. For \(v=11\),
+twenty fixed degree-ten *linear* resultants (the quadratic coefficients
+vanish exactly) and 3943 phase-aware exclusions close the class.
+Each norm is pinned; no target primes are enumerated or giant
+repunit factorizations used.
+
+- [Unified typeset paper](research/fixed_v_spectral_families.tex)
+  and [compiled PDF](research/fixed_v_spectral_families.pdf)
+  (produced by GitHub Actions).
+- [Generic spectral derivation and complete \(v=7\) theorem](research/fixed_v_spectral_compression_v7_2026-10-18.md).
+- [Linear-degeneracy derivation and complete \(v=11\) theorem](research/fixed_v11_linear_spectral_theorem_2026-10-18.md).
+- [Exact quadratic norms and elimination](research/certify_fixed_v7.py).
+- [Exact linear norms and elimination](research/certify_fixed_v11.py).
+- [Independent field-level checks: \(v=7\)](research/audit_fixed_v7.py)
+  and [\(v=11\)](research/audit_fixed_v11.py).
+
+Independent GitHub Actions workflows
+\`.github/workflows/a077187-fixed-v7.yml\` and
+\`.github/workflows/a077187-fixed-v11.yml\`
+have passed both symbolic proofs and direct field cross-checks.
+The unrestricted all-primes conjecture is **still OPEN**, as the
+uniform elimination has not been proved for arbitrary coprime part \(v\).
