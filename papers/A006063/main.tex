@@ -634,6 +634,77 @@ is a special subfamily of the new tensorized
 construction.
 \end{proof}
 
+\begin{theorem}[Asymptotically optimal terminal reflection]
+\label{thm:optimized-entropy}
+Let $t\ge9$ be odd and $L=t^3$. Let $k_t$
+be the least integer satisfying
+\[
+k_t^3>473L,
+\]
+and define
+\[
+\boxed{N_t=k_t^3-\frac{473L+1}{2}.}
+\]
+Then
+\[
+\boxed{P(N_t)\ge
+P\!\left(\frac{L-1}{2}\right)512^L
+\ge3\cdot2^{9L}.}
+\]
+Furthermore,
+\[
+N_t=\left(\frac{473}{2}+o(1)\right)L
+\qquad(t\to\infty),
+\]
+and therefore
+\begin{equation}\label{eq:optimized-entropy}
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P(n)}n
+\ge\frac{18\log2}{473}.}
+\end{equation}
+\end{theorem}
+\begin{proof}
+Take the $236$-element tensorized gadget
+of Lemma~\ref{lem:block}.
+The valid prefix has length $A=(L-1)/2$
+and the lifted middle block ends at
+$B=(473L-1)/2$.
+The strict inequality $k_t^3>473L=2B+1$
+guarantees the suffix interval
+$[B+1,N_t]$ is nonempty: indeed
+\[
+N_t-B=k_t^3-473L>0.
+\]
+Reflection through the cube $k_t^3$
+permutes that suffix since
+$B+N_t+1=k_t^3$.
+The middle blocks have $512^L$ independent
+choices, the prefix has $P(A)$ choices,
+and the suffix is fixed.
+The first bound follows, and $P(A)\ge3$
+because $A\ge364$.
+By minimality,
+\[
+(k_t-1)^3\le473t^3<k_t^3,
+\]
+so $k_t=473^{1/3}t+O(1)$.
+Thus $k_t^3=473t^3+O(t^2)$ and
+$N_t=(473/2)t^3+O(t^2)$.
+Dividing $9L\log2$ by $N_t$
+establishes \eqref{eq:optimized-entropy}.
+\end{proof}
+
+The fixed terminal cube $(8t)^3$ used
+in Theorem~\ref{thm:exponential-subsequence}
+is convenient for a simple closed formula
+$n_t=(551t^3-1)/2$, but is not
+asymptotically optimal. Selecting the
+\emph{least} admissible terminal cube
+as above shrinks the suffix from
+$39t^3$ to $O(t^2)$, and improves the
+linear entropy coefficient from
+$18\log2/551$ to $18\log2/473$.
+
 \begin{corollary}[Multiplicity forces exponential subsequences]
 \label{cor:amplification}
 Fix $d\ge2$. Suppose $P_d(n)>0$ for all
@@ -758,6 +829,33 @@ Applying $\Phi_t$ multiplies all distances
 by exactly five, while preserving cardinality.
 Since $n_t=(551L-1)/2$, both claimed
 linear asymptotics follow.
+\end{proof}
+
+\begin{corollary}[Optimal general terminal choice]
+\label{cor:optimal-general}
+Under the assumptions of
+Corollary~\ref{cor:amplification},
+the stronger universal estimate holds:
+\[
+\boxed{\displaystyle
+\limsup_{n\to\infty}
+\frac{\log P_d(n)}n
+\ge\frac{\log P_d(M)}{M+\frac12}.}
+\]
+\end{corollary}
+\begin{proof}
+Put $L=t^d$ with odd $t$ and
+$B=((2M+1)L-1)/2$. Take the least
+integer $k$ for which
+$k^d>(2M+1)L$. Since
+$k=(2M+1)^{1/d}t+O(1)$, the
+reflected suffix gives a terminal
+size $n=k^d-B-1$ with
+$n=(M+\tfrac12)L+O(t^{d-1})$.
+The independent-fiber middle and
+eventually valid prefix yield
+$P_d(n)\ge P_d(M)^L$.
+Taking logarithms proves the bound.
 \end{proof}
 
 This gives an \emph{exponential limsup},
