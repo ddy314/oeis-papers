@@ -5,7 +5,18 @@ These checks do not import the composite-ring C++ routine or its
 geometric-sum implementation; instead use the standard field rational
 formulas, with a separate q=1 case.
 """
-from sympy import isprime, n_order
+def isprime(p):
+    return p>1 and all(p%d for d in range(2,int(p**0.5)+1))
+
+def n_order(a,p):
+    assert isprime(p) and p not in (2,5)
+    x=a%p
+    n=1
+    while x!=1:
+        n+=1
+        x=x*a%p
+        assert n<=p
+    return n
 
 CASES = [
     # prime, actual multiplicative order, stable period, U, V
