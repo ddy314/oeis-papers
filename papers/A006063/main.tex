@@ -512,6 +512,154 @@ cube-sum permutation existence. The proof uses
 only a fifteen-row interval template and an easily
 audited finite graph-decomposition lemma.
 
+\section{A computation-free exponential construction}
+\label{sec:three-cycle}
+A particularly simple weighted identity of four cubes
+produces more permutations than all the previous
+asymptotic constructions, with \emph{no} finite
+matching certificate or eventual-existence theorem.
+
+\begin{lemma}[Three-cycle identity gadget]
+\label{lem:three-cycle}
+Let $A,B,X,Y$ be positive perfect cubes satisfying
+\[
+A+2B=2X+Y,\qquad
+A+\tfrac12B\le X\le B-A.
+\]
+For every positive integer $u$, put $T=u^3$
+and $N=(B-A)T$. There are at least
+\[
+\boxed{2^{AT-1}}
+\]
+different permutations $p$ of $[1,N]$ for which
+$i+p(i)$ is a perfect cube.
+\end{lemma}
+\begin{proof}
+The displayed inequalities give $B\ge4A$.
+Define a reference permutation by two reflections:
+\[
+p(i)=
+\begin{cases}
+AT-i,&1\le i<AT,\\
+BT-i,&AT\le i\le (B-A)T.
+\end{cases}
+\]
+The first interval maps to itself under the
+first reflection, and the second also maps to
+itself under the second reflection.
+Every original sum is $AT$ or $BT$,
+both perfect cubes.
+
+Set $d_1=B-X$ and $d_2=X-A$.
+The hypotheses imply
+\[
+d_1\ge A,\qquad
+d_2-d_1\ge A,\qquad
+d_2+A=X\le B-A.
+\]
+For every $s=1,\ldots,AT-1$, the triple
+\[
+C_s=(s,\ s+d_1T,\ s+d_2T)
+\]
+lies inside $[1,N]$, with the second
+and third vertices in the second reflection
+interval. The three translated ranges are
+pairwise disjoint by the displayed gap
+inequalities. Thus all $AT-1$ triples are
+pairwise vertex-disjoint.
+
+Along the directed three-cycle
+$s\to s+d_1T\to s+d_2T\to s$,
+the three alternative matching sums are
+\[
+\begin{aligned}
+s+p(s+d_1T)&=XT,\\
+(s+d_1T)+p(s+d_2T)&=(A+2B-2X)T=YT,\\
+(s+d_2T)+p(s)&=XT.
+\end{aligned}
+\]
+Because $T$ and $A,B,X,Y$ are cubes,
+every new sum is a cube. Switching
+any subset of the $AT-1$ disjoint
+cycles yields $2^{AT-1}$ pairwise
+different legal permutations.
+\end{proof}
+
+\begin{theorem}[Explicit high-entropy cube-sum permutations]
+\label{thm:three-cycle}
+For every integer $u\ge1$,
+\begin{equation}\label{eq:three-cycle}
+\boxed{\displaystyle
+P(681707u^3)\ge2^{148877u^3-1}.}
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:three-cycle-rate}
+\boxed{\displaystyle
+\limsup_{n\to\infty}\frac{\log P(n)}n
+\ge \frac{148877\log2}{681707}>0.}
+\end{equation}
+This theorem is entirely computation-free,
+apart from elementary multiplication of
+four displayed integers.
+\end{theorem}
+\begin{proof}
+Apply Lemma~\ref{lem:three-cycle} with
+\[
+\begin{array}{ll}
+A=53^3=148877,&B=94^3=830584,\\
+X=87^3=658503,&Y=79^3=493039.
+\end{array}
+\]
+Indeed,
+\[
+A+2B=1810045=2X+Y,
+\]
+and
+\[
+A+\tfrac12B=564169
+\le X=658503\le681707=B-A.
+\]
+Hence the $AT-1=148877u^3-1$
+explicit cycles are disjoint. More precisely,
+each has the form
+\[
+s\longrightarrow s+172081u^3
+\longrightarrow s+509626u^3
+\longrightarrow s,
+\]
+with alternative sums $(87u)^3,(79u)^3,(87u)^3$.
+No matching search, graph decomposition,
+or auxiliary finite base case is involved.
+Taking logarithms along the sequence
+$n=681707u^3$ proves the second claim.
+\end{proof}
+
+\begin{corollary}[Linear-distance binary permutation codes]
+\label{cor:three-cycle-codes}
+For $N=681707u^3$ there is an injective
+map from $\{0,1\}^{148877u^3-1}$
+into legal cube-sum permutations of $[1,N]$
+that multiplies all Hamming distances by
+exactly three. Its distance enumerator is
+\[
+\bigl(1+z^3\bigr)^{148877u^3-1}.
+\]
+In particular, a greedy binary code
+subfamily has exponentially many legal
+permutations with pairwise Hamming
+distance proportional to $N$.
+\end{corollary}
+\begin{proof}
+Each bit chooses whether to switch one
+of the pairwise disjoint three-cycles.
+A changed bit changes precisely three
+mapped positions. The distance identity
+and polynomial follow immediately.
+The greedy Hamming-ball argument from
+Corollary~\ref{cor:goodcode} applies
+unchanged.
+\end{proof}
+
 \section{Power-block lifting and exponential growth on a subsequence}
 \label{sec:lifting}
 
