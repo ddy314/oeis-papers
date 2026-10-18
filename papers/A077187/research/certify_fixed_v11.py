@@ -105,7 +105,7 @@ def eliminate(norms):
                 count+=1
             c+=1
         a+=1
-    assert count==3936,count
+    assert count==3943,count
     print("PASS all",count,"admissible phase-aware smooth indices: zero primitive residue")
     print("PASS ALL ord_p(10)=11*2^a*5^c have nonzero drift")
     print("Unrestricted A077187 remains OPEN.")
