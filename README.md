@@ -27,3 +27,4 @@ reproducibility materials.
   for decimal mountain concatenations, covering smooth multiplicative orders
   ord_p(10) = 2^a 3^b 5^c with b <= 8. The unrestricted conjecture remains OPEN;
   includes the new 486-phase cyclotomic norm tower and exact gcd certificates.
+- [A006063 / A096680 / A096904](papers/A006063/): exact cube-sum permutation membership and multiplicity classifications, 109 core witness certificates, Hall obstructions, and an exponential cube-root lower bound on permutation counts. Includes independent checks and a PDF research note.
