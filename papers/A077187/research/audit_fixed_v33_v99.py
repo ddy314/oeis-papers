@@ -97,6 +97,22 @@ def folded_spectral(p,r,s):
     assert P==1
     return (U%p,V%p)
 
+def audit_3adic_phase_depth():
+    count=0
+    for b in range(1,8):
+        for a in (0,1,3):
+            for c in (0,1):
+                r=11*3**b*2**a*5**c
+                d=2+max(a,c)  # safely in the stable range
+                for t in range(6):
+                    L=22*3**t
+                    exp0=(9*d*pow(10,d-1,r))%r
+                    exp1=(9*(d+L)*pow(10,d+L-1,r))%r
+                    order=r//gcd(r,(exp1-exp0)%r)
+                    assert order==3**max(b-2-t,0),(a,b,c,t,order)
+                    count+=1
+    print(f"PASS sharp 3-adic phase defect in {count} independent exponent checks")
+
 if __name__=="__main__":
     for s,p,r,T,wU,wV in CASES:
         assert isprime(p) and r%(11*s)==0
@@ -108,4 +124,5 @@ if __name__=="__main__":
         assert spect==full==(wU,wV),(p,s,r,spect,full,(wU,wV))
         print(f"PASS s={s}, p={p}, r={r}, T={T}, drift={spect}")
     print("PASS 15 fully independent original-digit-layer vs 22-phase checks")
+    audit_3adic_phase_depth()
     print("The unbounded theorem additionally requires the v11 exact norms and cyclotomic index sieve.")
