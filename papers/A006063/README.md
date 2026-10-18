@@ -25,7 +25,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
-- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
+- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -89,6 +89,35 @@ Any other solution corresponds to a directed cycle cover in that graph: all sing
 
 Thus **no legal involution exists at n=236**, despite 512 valid general permutations. The verification is a finite exact graph check, but it does not call a matching or permanent solver. Run `python papers/A006063/count_236.py`.
 
+## General theorem: independent-fiber tensorization
+
+The previous odd-power block lift can be strengthened: **each fiber r=1,...,L can use a different legal base permutation p_r**. For odd `t`, `L=t**d`, `A=(L-1)//2`, and every `i=1,...,M`, define
+
+```
+x=A+(i-1)*L+r
+Q[x]=A+(p_r[i]-1)*L+(L+1-r)
+x+Q[x]=L*(i+p_r[i]).
+```
+
+Every constructed sum is a perfect d-th power; each output fiber remains separately bijective. The independent choices inject into the set of legal interval permutations, yielding **exactly `P_d(M)**L` constructed middle-block permutations**, without choosing or enumerating alternating cycles.
+
+For general exponent `d>=2`, assuming eventual existence and just **one length `M` with `P_d(M)>=2`**, choose integer `b` with `b**d>2*M+1` and odd `t` sufficiently large. Then at
+
+```
+n_t=(b**d-M-1/2)*t**d-1/2
+P_d(n_t) >= P_d((t**d-1)/2) * P_d(M)**(t**d)
+limsup_n(log P_d(n)/n) >= log(P_d(M))/(b**d-M-1/2)>0.
+```
+
+In the specific cubic `M=236` construction (with `P(236)=512` and `b=8`), this sharpens the finite coefficient to
+
+```
+P((551*t**3-1)/2) >= P((t**3-1)/2)*512**(t**3)
+                       >= 3*2**(9*t**3)   for odd t>=9.
+```
+
+`tensorize_fibers.py` independently checks distinct legal matchings on different fibers, preserves the exact cube sums, and verifies injectivity by changing a single fiber. This theorem is algebraic; the new script is a regression check.
+
 ## Exponential growth on an explicit infinite subsequence
 
 This is the strongest purely structural counting improvement in this follow-up. For **every odd integer t>=9** define
@@ -120,6 +149,7 @@ To turn the shifted middle permutation into an ordinary prefix permutation, use 
 Independent integer checks:
 ```sh
 python papers/A006063/lift_exponential_subsequence.py
+python papers/A006063/tensorize_fibers.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
