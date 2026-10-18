@@ -107,7 +107,39 @@ def check(p):
     assert sorted(p[1:])==list(range(1,n+1))
     assert all(i+p[i] in cs for i in range(1,n+1))
 
+def test_uniform_gap_bounds():
+    """Exact smoke tests of two purely algebraic global theorems."""
+    for n in (7,10,26,172,173,236,1000,10000,100000):
+        k=2
+        while (k+1)**3<=n+1:
+            k+=1
+        c=min((k**3,(k+1)**3),key=lambda x:abs(x-(n+1)))
+        gap=(k+1)**3-k**3
+        assert 2<=c<=2*n
+        delta=abs(c-(n+1))
+        assert delta<=gap//2
+        lo=max(1,c-n)
+        hi=min(n,c-1)
+        assert hi-lo+1==n-delta
+        assert all(lo<=c-i<=hi for i in (lo,hi))
+        K=2
+        while (K+1)**3<=2*n:
+            K+=1
+        G=(K+1)**3-K**3
+        if n>=G:
+            for a in (1,n//3,n//2):
+                b=min(n,a+n-G)
+                if b<a:continue
+                lo2=b+1
+                hi2=a+n
+                cs=[z**3 for z in range(2,K+2) if lo2<=z**3<=hi2]
+                assert cs, (n,a,b,lo2,hi2)
+        print(f"PASS global cube gap n={n}: "
+              f"matching defect <= {delta}, maximum gap {G}.")
+
+
 def main():
+    test_uniform_gap_bounds()
     cases={7:[0]+[8-i for i in range(1,8)],
            171:four_block_171(),
            236:fourteen_plus_one_block_236()}
