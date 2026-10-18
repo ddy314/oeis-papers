@@ -17,6 +17,55 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
    
    so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
 
+## Global structure, beyond the sharp threshold
+
+### Affine renormalization and semigroup action
+
+A **pure four-interval construction** supplies a length-171 cube-sum involution:
+`p(i)=8-i` on `1..7`, `27-i` on `8..19`, `64-i` on `20..44`, `216-i` on `45..171`.
+
+Hence, with `T(n)=343*n+171`, the independent-fiber block construction gives **for every n>=1**
+
+```
+P(T(n)) >= P(n)**343
+T**k(n) = 343**k*(n+1/2)-1/2
+P(T**k(n)) >= P(n)**(343**k).
+```
+
+The exponentiation is literal (iterated affine action, not a computational bound). For every `n` with `P(n)>0`, its normalized entropy `h(n)=log P(n)/(n+1/2)` cannot decrease along its orbit. Therefore
+
+```
+limsup_N log(P(N))/N >= sup_{n>=1, P(n)>0} log(P(n))/(n+1/2).
+```
+
+This is an **exact, threshold-free closure property**, independent of the statement that every n>=173 is admissible.
+
+The more general odd-perfect-power renormalization uses `L=t**d`, `A=(L-1)//2`, `T_t(n)=L*n+A` and satisfies
+
+```
+P_d(T_t(n)) >= P_d(A) * P_d(n)**L,
+2*T_t(n)+1 = L*(2*n+1),
+T_s(T_t(n)) = T_(s*t)(n).
+```
+
+`renormalization.py` reconstructs the explicit four-block seed and verifies two lifts, including independent choices of one 316-element cube-sum permutation fiber.
+
+### Global graph and parity identities
+
+Let `G_n` have an undirected edge `{i,j}` when `i+j` is a cube and a loop at `i` when `2*i` is a cube. Every cube-sum permutation decomposes into loops, transpositions (undirected dimers), and directed cycles of length at least three. Thus
+
+```
+P(n) = sum(2**number_of_long_cycles(F) for each undirected spanning cycle-cover F).
+P(n) % 2 = number_of_legal_involutions(n) % 2.
+P(n) % 2 = det(H_n) % 2.
+```
+
+Here `H_n[i,j]` is 1 when `i+j` is a cube, and its determinant is taken over `GF(2)`. Thus **parity is decidable in polynomial time** by binary Gaussian elimination, even though counting all permutations may be difficult.
+
+For any one known valid permutation `p`, consider arcs `i->j` when `i+p[j]` is a cube. Every alternative matching decomposes independently over the directed **strongly connected components**, and `P(n)` is the product of the permanents of these component submatrices. This unifies exact counting, uniqueness and alternating-cycle multiplicity under a single graph theorem. In particular, the nine five-cycle components at `n=236` immediately give `P(236)=2**9`.
+
+`global_graph_audit.py` independently checks the four-block unique n=171 solution, the nine components at n=236, their exact count, and binary-matrix parity at lengths 7,171,236. No large A006063 existence certificate is used.
+
 ## Reduced-computation mathematical proof
 
 The **new primary existence certificate** uses *one* explicitly described involution at `n=173` (only seven symmetric reflection interval blocks), followed by exactly **191 short alternating-path words** for `n=174,...,364`. The words use only the cube-root alphabet `{2,3,4,5,6,7,8}` and contain **1,844 root digits total**, compared with the previous full 192-row archive of 51,552 permutation entries.
@@ -25,7 +74,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 
 - [certificates/augmenting_cube_words.txt](certificates/augmenting_cube_words.txt): 191 locally checkable 1-digit-root words; 2,947 bytes with comments and indices.
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
-- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
+- [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
 
@@ -253,6 +302,8 @@ python papers/A006063/tensorize_fibers.py
 python papers/A006063/audit_permutation_code.py
 python papers/A006063/optimize_terminal_cube.py
 python papers/A006063/audit_three_cycle_identity.py
+python papers/A006063/renormalization.py
+python papers/A006063/global_graph_audit.py
 ```
 
 The default two cases are `t=9, n=200839` and `t=11, n=366690`. They check the full permutations and all `9*t**3` independently switchable cycles. The theorem itself is algebraic and does not rely on these finite tests. The block-lifting lemma generalizes to **every perfect-power exponent d>=2**, conditionally on eventual existence of suitable prefix permutations.
