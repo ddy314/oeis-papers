@@ -165,6 +165,33 @@ For all `n`, the degrees obey `delta>=(2**(1/3)-1)*n**(1/3)-1` and `Delta<=floor
 
 Reproduction: `python papers/A006063/arithmetic_expansion_audit.py`.
 
+### A global involution tail with a designated fixed point
+
+The single-seed reflection theorem proves more than eventual existence
+of arbitrary cube-sum permutations. The seed at length 7 is
+`p(i)=8-i`, a legal involution with `p(4)=4`.
+Every reflection extension acts by a second involution on a *disjoint
+new interval*. Thus its direct sum with the old permutation remains
+an involution, and position 4 never changes.
+
+Let `I_4(n)` count cube-sum involutions on [n] that fix 4. Then
+
+```
+I_4(n) >= F(n) > 0                      (every n>=8915)
+liminf(log(I_4(n))/(2*n)**(1/3)) >= log(2)/2.
+```
+
+So the one-seed reflection tree gives many legal involutions at
+**every sufficiently large length**, without using the sharp
+existence threshold or any matching searches. This also proves the
+undirected cube-sum graph has a spanning loop/dimer cover for all
+n>=8915. The result contrasts with the independently certified
+exception n=236, where P(236)=512 but not one valid involution exists.
+
+The proof requires *no additional computational premise*: it is the
+involution invariant of the previously verified reflection closure.
+Audit: `python papers/A006063/involution_tail_audit.py`.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
