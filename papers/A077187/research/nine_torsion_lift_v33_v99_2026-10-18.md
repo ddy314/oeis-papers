@@ -217,3 +217,61 @@ python3 papers/A077187/research/audit_fixed_v33_v99.py
 This extends the infinite subfamilies, but it neither proves
 nonzero drift for arbitrary coprime-order \(v\) nor resolves
 the unrestricted OEIS A077187 problem.
+
+
+## 5. Exact 3-adic boundary of this folding mechanism
+
+The restriction \(b\le2\) has an algebraic explanation rather than
+being an arbitrary cutoff imposed by the finite exclusion.
+
+**Proposition (sharp 3-primary multiplier defect).** Let
+\(r=\operatorname{ord}_p(10)=11\cdot3^b2^a5^c\),
+\(b\ge1\), and let \(d\) be in the stable digit-layer range.
+For any \(t\ge0\), write \(L_t=22\cdot3^t\).
+Then the ratio of stable layer multipliers has **exact order**
+\[
+\boxed{\operatorname{ord}\bigl(A_{d+L_t}/A_d\bigr)
+=3^{\max(b-2-t,0)}\quad\text{in }\mathbb F_p^\times.}
+\tag{4}
+\]
+Here \(A_d=10^{9d10^{d-1}}\).
+
+**Proof.** Put \(e_d=9d10^{d-1}\). The exponent difference is
+\[
+e_{d+L_t}-e_d
+=9\cdot10^{d-1}\bigl((d+L_t)10^{L_t}-d\bigr).
+\]
+Since \(L_t\) is even and divisible by 11, this difference is
+divisible by 11. The smooth factor \(2^a5^c\) divides each
+\(e_d\) in the stable range. The lifting-the-exponent lemma gives
+\[
+v_3(10^{L_t}-1)=v_3(10-1)+v_3(L_t)=2+t.
+\]
+Writing the bracket as
+\(L_t+(d+L_t)(10^{L_t}-1)\), its first term has
+3-adic valuation \(t\) and the second has valuation at least
+\(t+2\). Therefore
+\[
+\boxed{v_3(e_{d+L_t}-e_d)=2+t}
+\]
+*exactly*, independent of \(d\). The order of
+\(10^{e_{d+L_t}-e_d}\) inside the cyclic group of order
+\(11\cdot3^b2^a5^c\) is thus precisely
+\(3^{\max(b-2-t,0)}\). QED.
+
+In particular:
+- If \(b=1\) or \(2\), the multiplier is already
+  **22-periodic**, enabling the fixed \(v=11\) algebra.
+- If \(b\ge3\), its 22-step ratio has exact order
+  \(3^{b-2}>1\), so the same 22-period folding is
+  **provably impossible**.
+- A multiplier period (not necessarily the minimal period among
+  *all* positive shifts) is \(22\cdot3^{b-2}\).
+  Its cyclotomic dimension grows with \(b\), so a further
+  general theorem needs a new \(3\)-adic cancellation or tower
+  argument, not more reuse of the existing 20 norms.
+
+This locates the precise boundary of the new infinite-family proof.
+It does **not** imply that \(b\ge3\) contains mountain
+counterexamples; only this particular short-period mechanism stops
+working without additional mathematics.
