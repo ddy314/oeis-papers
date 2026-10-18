@@ -103,3 +103,20 @@ their validity.
 The unrestricted all-primes OEIS problem remains **open**: certification
 for all \(r\le500\) is a finite order-bound theorem, not a proof for
 unbounded multiplicative orders.
+
+
+### Cyclotomic refinement and negative controls
+
+The tempting extension
+\(\operatorname{rad}(G_r)\mid\operatorname{rad}(990r)\) for *all*
+\(r\) is false: at \(r=174,258\), one finds \(G_r=189=27\cdot7\),
+although \(7\nmid990r\). These are not counterexamples to the mountain
+conjecture because \(\operatorname{ord}_7(10)=6\), not 174 or 258.
+
+Working modulo \(\Phi_r(10)\) filters such lower-order prime factors.
+For ten independent check cases, the refined gcd
+\(\gcd(\Phi_r(10),U_r,V_r)\) is 1 except at \(r=272\), where it is 17,
+a divisor of \(r\). See
+[cyclotomic spot checker](research/audit_cyclotomic_spots.py) and
+[mathematical explanation](research/order_bound_500_certificate_2026-10-18.md).
+This is a finite observation, not an all-order theorem.
