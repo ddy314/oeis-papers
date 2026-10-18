@@ -21,7 +21,7 @@ We give a computer-assisted resolution of the existence
 conjecture recorded as OEIS A006063, as well as an exact
 membership classification for its related sequence A096680:
 $P(n)>0$ for every $n\ge173$, whereas $P(173)=P(174)=1$
-and $P(n)\ge2$ for every $n\ge175$.
+and $P(n)\ge3$ for every $n\ge175$.
 Exact Hall-set certificates determine all earlier existence failures.
 An interval-reflection lemma reduces the unbounded existence theorem
 to only $109$ explicit core permutations; alternating-cycle
@@ -209,16 +209,19 @@ length below $173$, as well as $173$ and $174$, has
 an acyclic $D_p$ and therefore a unique permutation.
 
 Furthermore, all $190$ base cases $175\le n\le364$
-have explicit alternating-cycle certificates.
+have \emph{two distinct} alternating-cycle certificates,
+archived as \texttt{second\_solutions.json} and
+\texttt{third\_solutions.json}. They yield three different
+permutations, counting the original matching.
 To extend the multiplicity assertion:
 for $365\le n\le553$, the cube $729$ gives
 $m=728-n\in[175,363]$. The two exceptional lengths
-$554,555$ have separate explicit alternating-cycle
+$554,555$ have separate pairs of alternating-cycle
 certificates obtained by extending the unique solutions
 at $174,173$ respectively.
 For $n\ge556$, the stronger part of
 Lemma~\ref{lem:gap} gives
-$m=c-n-1\ge175$. Two distinct solutions for $m$
+$m=c-n-1\ge175$. Three distinct solutions for $m$
 remain distinct after reflection, finishing an induction.
 
 \begin{theorem}[Complete A096680 membership]\label{thm:multi}
@@ -227,12 +230,32 @@ are exactly
 \[
 \boxed{E\ \cup\ \{175,176,177,\dots\}.}
 \]
-In particular $P(173)=P(174)=1$, and the sequence terms
+Moreover $P(n)\ge3$ for every $n\ge175$, while
+$P(173)=P(174)=1$. The sequence terms
 satisfy
 \[
 \boxed{\operatorname{A096680}(j)=j+161\quad(j\ge14).}
 \]
 \end{theorem}
+
+
+\paragraph{Sharpness of the constant three.}
+The bound $P(n)\ge3$ for all $n\ge175$ cannot be
+improved to four: $P(175)=3$ exactly.
+For the stored matching at $175$, the directed
+alternation graph has precisely one nontrivial
+strongly connected component,
+\[
+\{4,11,16,23,41,48,102,114,168,175\},
+\]
+and the other $165$ vertices are singleton components.
+Every cycle of a permutation alternative lies in a
+strongly connected component, so the permanent reduces
+to the $10$-by-$10$ component's allowed-edge matrix
+(including the matching self-edges).
+A direct bitmask dynamic program gives its permanent
+as $3$. This computation is independently reproduced in
+\texttt{verify\_extended.py} using exact integers.
 
 \section{Many permutations: an exponential cube-root bound}
 Besides qualitative multiplicity, the reflection family
@@ -347,7 +370,7 @@ python papers/A006063/construct_linear.py
 The archived data consist of $109$ core witnesses,
 the legacy $192$-row all-base cross-check, $48$ small
 positive permutations, $124$ negative Hall sets,
-and compact alternating-cycle certificates.
+and compact pairs of alternating-cycle certificates.
 The infinite inductive and counting lemmas are
 mathematical arguments rather than extrapolations
 from numerical experiments.
