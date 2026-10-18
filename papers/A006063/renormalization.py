@@ -11,7 +11,7 @@ modification confined to one fiber.
 from math import isqrt
 
 L, A = 343, 171
-SEED = [(1,7,8),(8,19,27),(20,44,64),(45,171)]
+SEED = [(1,7,8),(8,19,27),(20,44,64),(45,171,216)]
 
 def cube_sum_check(p):
     n=len(p)-1
