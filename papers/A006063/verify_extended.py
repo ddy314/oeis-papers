@@ -78,6 +78,7 @@ def check_cycle(perm, cycle):
     check(n, other)
     if other == perm:
         raise AssertionError(f"cycle failed to change permutation n={n}")
+    return other
 
 
 def check_small():
@@ -197,8 +198,29 @@ def check_multiplicity(yes, archive):
         m = 728 - n
         perm = reflect(archive[m-173], 729, n)
         check_cycle(perm, row["cycle"])
-    print("PASS: exact A096680 classification: 13 early positives, "
-          "173/174 unique, >=175 multiple by induction.")
+    third = read("third_solutions.json")
+    if [row["n"] for row in third["tail"]] != list(range(175, 365)):
+        raise AssertionError("third-solution base index mismatch")
+    first_tail = {row["n"]: row["cycle"] for row in tail}
+    for row in third["tail"]:
+        n = row["n"]
+        perm = archive[n-173]
+        first = check_cycle(perm, first_tail[n])
+        second = check_cycle(perm, row["cycle"])
+        if first == second:
+            raise AssertionError(f"two cycles gave same extra matching n={n}")
+    if {row["n"] for row in third["exceptional"]} != {554, 555}:
+        raise AssertionError("third-solution exception index mismatch")
+    first_exc = {row["n"]: row["cycle"] for row in exceptional}
+    for row in third["exceptional"]:
+        n = row["n"]
+        perm = reflect(archive[728-n-173], 729, n)
+        first = check_cycle(perm, first_exc[n])
+        second = check_cycle(perm, row["cycle"])
+        if first == second:
+            raise AssertionError(f"duplicate third matching n={n}")
+    print("PASS: complete A096680 classification and THREE "
+          "distinct solutions for all n>=175 by induction.")
 
 
 def integer_cuberoot(x):
