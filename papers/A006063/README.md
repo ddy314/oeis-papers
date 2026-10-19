@@ -62,6 +62,38 @@ for a full matching, respectively, but
 this last numerical observation is
 **not** yet a uniform mathematical theorem.
 
+## Phase I reduced to four explicit bipartite Hall patterns
+
+The [Phase I Hall-pattern reduction](PHASE_I_FOUR_HALL_PATTERNS.md)
+refines the fixed 14-edge near-bipartite
+core over `467<=n<=560`. Its
+canonical bipartition has charge
+imbalance **0, 2 or 4**; all 94
+lengths can be balanced by one
+of just **four** fixed edge patterns:
+
+- Imbalance 4: select the two edges
+  `(70,146),(84,132)` (32 lengths).
+- Imbalance 2: select `(84,132)`
+  (53 lengths), except at `n=559`
+  select `(101,115)` instead.
+- Imbalance 0: select no edge
+  (8 lengths).
+
+This selection gives equal-sized
+bipartition classes **by a simple
+charge equation**, without a matching
+solver. A separate, explicitly
+**computational** standard-library
+[94-case Hall audit](verify_phase_i_hall_patterns.py)
+finds a bipartite perfect matching
+for every selected residual graph.
+A uniform, noncomputational Hall
+proof is still missing. The result
+reduces the target from 94 unrelated
+general graph matchings to four
+bipartite correction regimes.
+
 ## New bounded nonbipartite core: remove only 14/10/16 fixed edges
 
 The [small bipartite-core theorem](SMALL_BIPARTITE_CORE.md)
