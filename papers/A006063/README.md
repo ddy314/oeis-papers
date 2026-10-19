@@ -5,6 +5,30 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## New dual short-path theorem: 193 odd paths and 245 even paths
+
+The [dual reflection-path theorem](DUAL_REFLECTION_PATHS.md)
+proves that the even-cube graph using only
+`512,1000` has exactly 245 connected components
+on every `580<=n<=665`, with
+`N1=1, N2=744-n, N3=n-511, N4=11`.
+For odd n, removing fixed 256 leaves **244
+even-cube components without singletons**,
+but splits an odd-cube component into
+**194 odd-cube modules**. Removing fixed
+500 instead yields **193 odd-cube modules
+without singletons**, and **245 even-cube
+modules with two singletons**. The two
+component counts sum to **438** under either
+normalization. The formulas are proved by
+two reflection translations (386 and 488),
+not by perfect-matching search.
+
+The [independent arithmetic audit](verify_dual_reflection_paths.py)
+checks the full two-skeleton size tables.
+These are structural decompositions, not a
+positive four-cube matching existence proof.
+
 ## Exact Phase III forced cascades from six small boundary checks
 
 The new [Phase III fixed-point duality theorem](PHASE_III_FIXED_POINT_DUALITY.md)
