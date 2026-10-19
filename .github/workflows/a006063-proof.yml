@@ -60,6 +60,8 @@ jobs:
         run: python papers/A006063/verify_tutte_581.py
       - name: Check exact forced degree-one vertices in all high-start four-cube phases
         run: python papers/A006063/verify_four_cube_boundary_forcing.py
+      - name: Audit Phase III dual fixed-point odd defects and complete forced cascades
+        run: python papers/A006063/verify_phase_iii_cascade.py
       - name: Audit primary 56 determinant shapes plus the direct forced-173 theorem
         run: python papers/A006063/verify_56_plus_forcing.py
       - name: Audit 70 exceptional identities and all four symbolic template families
