@@ -384,28 +384,38 @@ the alternating path at each step**;
 calling this a case-free proof of
 the high base would be incorrect.
 
-## 8. Tutte obstruction at the 581 fixed-point switch (PROVED)
+## 8. Correct Phase III fixed points and the 581 hybrid Tutte barrier
 
-The [explicit 31-interval Tutte witness](TUTTE_OBSTRUCTION_581.md)
-proves that the four-color graph on
-`[1,581]\\{108}` with cube sums
-`{343,512,729,1000}` has **no**
-undirected perfect matching. Deleting
-103 vertices leaves 105 connected
-components, all of odd size; this
-violates the necessary inequality
-`o(G-S)<=|S|` of Tutte's theorem.
-Unlike a failed blossom search, this is
-a fully specified finite arithmetic
-certificate with no matching algorithm.
-It explains why the Phase III
-experiment switches the sole fixed
-point to 256 at n=581.
+**Correction:** A four-cube involution using sums
+`{343,512,729,1000}` cannot have fixed point
+108, since `2*108=216` is not in that palette.
+All odd lengths in Phase III (581..665), not
+just 581, must select a valid fixed point;
+the independent matching audit shows that
+**either 256 or 500 works at all 43 odd lengths**.
 
-This theorem is a **negative result**;
-the three phase-wide positive matching
-claims remain experimentally verified
-rather than symbolically proved.
+The [103-vs-105 Tutte certificate](TUTTE_OBSTRUCTION_581.md)
+at n=581 is still a nontrivial *hybrid
+five-cube obstruction*: even allowing
+cube 216 for fixed point 108, restricting
+all its other 2-cycles to the four Phase III
+colors is impossible. Indeed after
+deleting 108 and 103 more vertices, the
+four-color graph splits into 105 odd
+components. Thus at least one
+**nontrivial** sum-216 pair is required
+in any five-cube involution fixing 108
+at this length. The certificate does
+not establish a four-color positive
+existence theorem, which remains
+experimentally supported.
+
+The [corrected Phase III initial-leaf
+theorem](FOUR_CUBE_BOUNDARY_FORCING.md)
+uses fixed point 256 for every odd
+n=581..665. Its only initial leaf
+is vertex 87 for odd n<=641;
+odd n>=643 have no initial leaf.
 
 ## 9. What moving the start can and cannot solve
 
