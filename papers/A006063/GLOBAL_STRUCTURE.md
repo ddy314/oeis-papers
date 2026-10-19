@@ -342,6 +342,8 @@ implementations, and `parity_minimal_involutions.py` reconstructs
 actual permutations and checks the involution equation and exact fixed
 point sets.
 
+This finite coverage is also certified **independently by symbolic parity-interval algebra**: `parity_interval_proof.py` encodes each parity length as `t=(n-p)/2` and performs the exact interval reflection `t -> (k**3-1-2*p)//2 - t` through odd cube roots. After **12 simultaneous rounds**, the odd/even reachable sets have 41,057/121,707 lengths in 2,997/7,047 merged intervals, respectively, and each target interval is contained in one merged interval. This avoids checking any full matching or even iterating through all individual reachable lengths during the closure step.
+
 **Infinite step.** For odd n>100001 or even n>302000, let M be the
 respective lower endpoint 70001 or 230000 and choose the least **odd**
 root k with `k**3>=n+M+1`. Let `m=k**3-n-1`. Then m has the same parity
