@@ -62,6 +62,38 @@ for a full matching, respectively, but
 this last numerical observation is
 **not** yet a uniform mathematical theorem.
 
+## New bounded nonbipartite core: remove only 14/10/16 fixed edges
+
+The [small bipartite-core theorem](SMALL_BIPARTITE_CORE.md)
+strengthens the planarity result: removing
+**14** edges at Phase I's maximum n=560,
+**10** at Phase II's n=579, and **16** at
+Phase III's n=665 makes the three
+maximal graphs bipartite. The exact
+finite edge lists are fixed once per
+palette, so every smaller graph in
+each interval inherits a proper
+bipartition automatically. The deletion
+sizes are **optimal for those maximal
+graphs**, using the four odd planar
+faces and shortest dual odd-face
+pairings (14/15/21, 10/13/16,
+16/18/24).
+
+An explicit [standard-library
+audit](verify_small_bipartite_core.py)
+verifies the integer edge colors,
+bipartite coloring, and dual distances.
+This gives an exact reduction of
+each four-cube matching question to
+**a bipartite Hall condition plus
+at most 16 exceptional edges**,
+independent of n. It does *not*
+yet establish those Hall conditions,
+so the phase-wide positive existence
+theorem remains open without solver
+computations.
+
 ## Three explicit planar rotations cover all 199 four-cube graphs
 
 The new [planarity theorem](THREE_ROTATION_PLANARITY.md)
