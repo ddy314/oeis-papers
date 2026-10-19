@@ -1,20 +1,32 @@
-# A006063: full algebraic determinant form for 57 shapes + six other families
+# A006063: 56 algebraic shapes, forced 173, six templates, and symbolic avalanche
 
-**Current primary existence proof.** Exactly **57 independently printed
-integer boundary-balance identities** (795 reflected blocks) and
-**six symbolic input/output block-rearrangement families**
-construct 82 independent seed lengths. The six families generate
-**25** of those lengths, including the 12-block three-switch,
-15-block constrained-switch, and 10-block nested-switch constructions.
-The 82 expanded witnesses contain 1,009 blocks in total.
+**Current reduced existence proof:** The critical length `173` is
+proved directly by [forced-reflection leaf peeling](FORCED_REFLECTION_PEELING.md).
+The other previously exceptional lengths are described by
+**56 cubic-root/output-order determinant shapes** (784 blocks),
+while six previously derived symbolic templates construct **25**
+further seed lengths. Thus 1 forced seed + 56 determinant seeds +
+25 parametric-template seeds = **82 established bases**, and
+the preexisting cubic-reflection closures give every length in
+`[173,364]`. The interval-overlap avalanche propagates them to
+all `n>=173`, symbolically.
 
-The two elementary lemmas and a completely symbolic cubic-gap
-induction prove that every `n>=173` admits a permutation with all
-`i+p(i)` perfect cubes. The proof does not require executing a
-matching algorithm, checking 191 augmenting words, or reading an
-archived permutation array. The retained 60/66/70/74/82/109-row
-certificates are optional redundant cross-checks. This remains
-an explicit **finite case proof**, not a case-free theorem.
+A new **three-band forced avalanche** for all `173<=n<=181`
+proves that the reflected bands
+`[125,342-n]`, `[34,215-n]`, and `[95,276-n]`
+are forced successively, identifying `582-3*n` reflected pairs.
+The same graph-theoretic argument proves
+`P(173)=1`, `P(174)=1`, and `P(175)=3`
+by a 15-/19-round leaf-stripping certificate and a nine-cycle
+core. It also proves that any 173-to-174 extension rewires
+**25** existing assignments.
+
+The full older 57-shape determinant proof and 57 numeric
+endpoint identities remain available as independent
+cross-checks, but **173 no longer requires an algebraic
+shape or endpoint table**. A general case-free proof of the
+entire middle interval is still open; the remaining 56
+positive shape certificates have not been eliminated.
 
 ## 1. Two elementary operations
 
@@ -45,9 +57,9 @@ exists and `m+n+1=k^3`, retain it on `[1,m]` and append
 `[m+1,n]`, so the resulting permutation is legal. This operation
 requires no matching theorem or computational hypothesis.
 
-## 2. Universal determinant parameterization of all 57 residual cases
+## 2. Algebraic determinant parameterization (56 necessary shapes; 57 retained redundantly)
 
-The remaining 57 cases are now **mathematically parameterized** by the
+The original 57 cases are **mathematically parameterized** by the
 [unimodular block-order theorem](UNIMODULAR_BLOCK_FACTORY.md). The
 [57 cubic-order shapes](certificates/finite_57_cubic_order_shapes.txt)
 contain only an output-block permutation `pi` and a cubic root
@@ -98,6 +110,16 @@ atlas is retained only as an independent redundant check.
 
 ### 2a. Six additional compact block families
 
+## 3. The reduced finite arithmetic base: 56 + 1 + 25
+
+The active [56-shape algebraic table](certificates/finite_56_cubic_order_shapes.txt)
+contains no precomputed interval boundaries and recovers **784** input
+blocks from exact Cramer determinants. The excluded `n=173` shape
+is replaced by the [forced-neighbor theorem](FORCED_REFLECTION_PEELING.md),
+with a 15-round purely graph-theoretic uniqueness proof. The
+[56+forced checker](verify_56_plus_forcing.py) reconstructs
+all 82 seeds without reading any legacy endpoint atlas.
+
 ## 3. The self-contained finite arithmetic base
 
 The 57 parameter shapes above derive all **795** residual reflected
@@ -143,8 +165,9 @@ each nonempty block. The output intervals automatically partition
 
 ## 4. Closure: all lengths from 173 to 364
 
-Take the empty permutation at length `0`, the 57 exceptional rows
-and the 25 symbolic outputs of the six parameter families,
+Take the empty permutation at length `0`, the 56 required determinant
+shapes, the forced-reflection base at `173`, and the 25 symbolic
+outputs of the six parameter families,
 and apply the cubic suffix-reflection lemma in increasing order of
 the target length `n`. At each omitted `n<=364`, test whether a
 cube `c` among `8,27,64,125,216,343,512` has
@@ -227,15 +250,29 @@ explicit Hall sets in the linked note. Moreover,
 simple single-cube avalanche since the required interval
 `[513,678]` contains no cube.
 
-**Theorem (exact scope).** The 57 positive algebraic cubic-order
-shapes, six explicit block template families, the empty permutation,
-the finite reflection closures, and the interval-overlap avalanche
-prove `P(n)>0` for **every `n>=173`**. The initial finite
-shape selection and 57 positivity conditions have **not**
+**Theorem (exact scope).** The forced-reflection theorem at 173,
+56 positive algebraic cubic-order shapes, six explicit block
+template families, the empty permutation, the finite reflection
+closures, and the interval-overlap avalanche prove `P(n)>0` for **every `n>=173`**. The initial finite
+shape selection and 56 positivity conditions have **not**
 been eliminated. A case-free result would require a stronger
 local cube-sum matching or augmentation theorem.
 
 ## 6. Verification, limitations, and next mathematical questions
+
+[verify_56_plus_forcing.py](verify_56_plus_forcing.py) reads
+the **56 reduced cubic-order shapes**, reconstructs their
+strictly positive integer lengths, calls the independent
+forced-leaf proof for the omitted `173` seed, and combines
+these with the original 25 algebraic-template constructions
+to verify all 82 bases. It never reads the older 57-row
+endpoint certificate.
+
+[verify_forced_peeling.py](verify_forced_peeling.py) independently
+checks the three parametric forced bands, exact uniqueness
+at 173 and 174, the 10-vertex core and count at 175, and
+the 25 obligatory reassignments from 173 to 174.
+
 
 [verify_57_plus_templates.py](verify_57_plus_templates.py) reads
 **only the 57 exceptional rows** and regenerates 25 other base
@@ -257,11 +294,12 @@ both bijectivity and the cubic-sum property. The older
 redundant audits. The **interval-overlap infinite-tail induction**
 is symbolic and is not a computational assumption.
 
-**Unresolved:** There remain **57 finite positivity obligations
-for 57 selected determinant parameter sets**, rather than 57 required
-endpoint-multiset identities. The interval-overlap avalanche does not
-prove the base interval without those choices. The determinant theorem algebraically generates the other 57
-seed lengths, and six compact templates cover 25 lengths;
-however the 57 parameter choices have not been eliminated.
+**Unresolved:** There remain **56 finite positivity obligations
+for 56 selected determinant parameter sets**, along with the new
+non-parametric, finite forced-leaf certificate for length 173. The interval-overlap avalanche does not
+prove the base interval without those choices. The determinant theorem algebraically generates 56 selected
+base lengths, the leaf theorem generates 173, and six compact
+templates cover 25 lengths; the remaining 56 parameter choices
+have not been eliminated.
 Neither a minimality statement for 57 nor an independent
 peer-review or literature-priority claim is made.
