@@ -5,6 +5,14 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Interval-overlap avalanche: a complete symbolic tail, not a case-free finite base (2026-10-19)
+
+The new [INTERVAL_OVERLAP_AVALANCHE.md](INTERVAL_OVERLAP_AVALANCHE.md) proves the exact interval propagation rule: if every length in `[a,b]` is admissible and a cube `c` lies in `[a+b+2,2b+2]`, then every length in `[a,c-a-1]` is admissible. Starting from `[173,364]`, the cubes `9^3,10^3,11^3,...` yield `[173,555]`, then `[173,826]`, and so on, to infinity. The proof is a direct symbolic inequality, with no finite search in the tail. The standalone LaTeX note now uses this as the primary infinite-tail proof; the main paper includes it as a separate theorem.
+
+**Crucial limitation:** This theorem does NOT prove the initial interval `[173,364]` without the pre-existing finite shape data. Simple cube-reflection domains can cover and overlap while Hall fails: at `n=65`, the four-row set `{3,40,59,64}` has only `{5,24,61}` as neighbors. Moreover, a pure suffix-reflection derivation of `n=173` would need `m=42` or `m=169`, both explicitly ruled out by short Hall obstructions. The avalanche from `[173,338]` also stops before 339: no cube lies in `[513,678]`.
+
+**Research gap:** A genuinely case-free existence theorem still needs a **new local matching/augmentation or gluing theorem** to establish the finite base, not just overlap of reflection intervals. Keep PR in Draft; do not state that finite casework has been eliminated.
+
 ## Current proof: all 57 residual lengths have algebraic formulas (2026-10-19)
 
 **The remaining 57 exceptional witnesses have been converted into symbolic integer determinant families**, not merely abbreviated endpoint identities. A general **unimodular block-order theorem** proves that the relevant integer matrices have determinants in `{0,1}`; all 57 chosen orders have determinant 1. For each shape, its input block lengths are **integer-polynomial functions of the cube roots** obtained by Cramer's rule, and the algebraic identity for output-block prefixes proves bijectivity automatically. Therefore the primary representation of the finite proof needs no independent endpoint-cancellation identities for these 57 cases.
