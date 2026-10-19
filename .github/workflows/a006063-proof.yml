@@ -42,6 +42,10 @@ jobs:
         run: python papers/A006063/verify_82_seed_proof.py
       - name: Audit 74 exceptional identities and three algebraic template families
         run: python papers/A006063/verify_74_plus_templates.py
+      - name: Audit 70 exceptional identities and fourth eleven-block family
+        run: python papers/A006063/verify_70_plus_templates.py
+      - name: Verify final 66 exceptions and twelve-block three-switch construction
+        run: python papers/A006063/verify_66_plus_templates.py
       - name: Audit 70 exceptional identities and all four symbolic template families
         run: python papers/A006063/verify_70_plus_templates.py
       - name: Verify exact P(236) and non-involution five-cycle decomposition
