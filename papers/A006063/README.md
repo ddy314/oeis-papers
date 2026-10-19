@@ -5,7 +5,17 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Current finite proof: 66 exceptional identities + four symbolic families (2026-10-19)
+## Latest finite proof: 57 exceptional identities + six symbolic families (2026-10-19)
+
+The new primary [self-contained mathematical argument](COMPRESSED_FINITE_PROOF.md) and two LaTeX manuscripts use **57 numeric endpoint-multiset identities (795 blocks)** plus **six algebraic block-rearrangement families**, generating **25 further base lengths (214 blocks)**. All **82 original independent seed lengths** are still established (1,009 intervals when fully expanded), and the same elementary cubic suffix-reflection closure supplies the 26 smaller and 132 middle derived lengths. A symbolic cube-gap induction proves every `n>=173`.
+
+- [57 exceptional identities](certificates/finite_57_exceptional_atlas.txt) and [LaTeX appendix](certificates/finite_57_exceptional_atlas.tex).
+- [4-, 5-, 6-block formulas](PARAMETRIC_BLOCK_TEMPLATES.md), [12-block three-switch formula](BINARY_BLOCK_FAMILY.md), [15-block constrained-switch formula](FIFTEEN_BLOCK_FAMILY.md), and [10-block nested-switch formula](TEN_BLOCK_FAMILY.md).
+- [Independent 57+templates arithmetic checker](verify_57_plus_templates.py), which does not consume any previous 60/66/70/74/82/109 atlas or archived permutation array.
+
+The additional 15-block family establishes lengths `228,229,231,238,240,241`. The 10-block nested-switch family establishes `345,351,357`. Exact independent reconstruction confirmed the full 192-length target interval and every cubic index-image sum. **This remains a finite case proof; 57 separate arithmetic identities have not been eliminated.** GitHub Actions and PDF compilation must be checked separately.
+
+## Earlier finite proof: 66 exceptional identities + four symbolic families (2026-10-19)
 
 The strongest self-contained existence proof is now [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md), reproduced in the [standalone LaTeX note](finite_base_note.tex) and the main paper. It uses **66 independent endpoint-multiset identities (885 reflected blocks)** plus **four algebraic block-rearrangement families** yielding 16 additional base lengths. The most useful new identity is the [12-block three-switch family](BINARY_BLOCK_FAMILY.md), whose optional zero-length blocks generate the eight lengths `131,132,150,151,155,156,174,175` with no individual endpoint-table checks. The [earlier three symbolic families](PARAMETRIC_BLOCK_TEMPLATES.md) generate eight other base lengths.
 
