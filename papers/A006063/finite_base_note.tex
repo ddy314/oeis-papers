@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: 66 Integer Identities and Four Algebraic Templates}
+\title{Cube-Sum Permutations: 60 Integer Identities and Five Algebraic Templates}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -17,8 +17,8 @@
 Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
 for which every $i+p(i)$ is a perfect cube.
 We prove $P(n)>0$ for every $n\ge 173$ from
-$66$ exceptional integer endpoint identities ($885$
-reflected blocks) and four general algebraic
+$60$ exceptional integer endpoint identities ($816$
+reflected blocks) and five general algebraic
 block-rearrangement templates giving sixteen further seeds.
 An elementary suffix-reflection rule and a cubic-gap
 inequality extend the construction to all later lengths.
@@ -70,7 +70,7 @@ The new reflection is a bijection from
 $[m+1,n]$ to itself, and each new sum is $c$.
 \end{proof}
 
-\section{Four algebraic block families and 66 exceptional identities}
+\section{Five algebraic block families and 60 exceptional identities}
 
 \begin{lemma}[Reflected-block rearrangement]\label{lem:rearrange}
 Choose positive input-block lengths
@@ -177,6 +177,57 @@ This is one symbolic rearrangement construction
 with three optional empty blocks, not eight
 separate finite endpoint certificates.
 
+\paragraph{Family V (15 blocks, two constrained switches).}
+Take $\alpha,\beta\in\{0,1\}$ with
+$\alpha\le\beta$ and
+$t\in\{0,7+4\beta+2\alpha\}$.
+Define the ordered input block lengths
+\[
+\begin{gathered}
+\ell_1=2\beta,\quad
+\ell_2=7-\alpha-4\beta-\alpha\beta,\quad
+\ell_3=\alpha,\quad\ell_4=\alpha\beta,\\
+\ell_5=13+4\beta,\quad\ell_6=\alpha,\quad
+\ell_7=23-4\beta-\alpha,\quad\ell_8=13+4\beta,\\
+\ell_9=48-\alpha-45\beta+\alpha\beta,\quad
+\ell_{10}=2\beta,\quad\ell_{11}=\beta(39-\alpha),\\
+\ell_{12}=t,\quad\ell_{13}=30+\alpha-t,\quad
+\ell_{14}=13+4\beta,\quad
+\ell_{15}=91+\alpha-t.
+\end{gathered}
+\]
+The output block order is
+\[
+(10,4,6,2,8,3,11,1,9,14,7,12,15,5,13).
+\]
+All lengths are nonnegative, with empty blocks omitted.
+Because $\alpha\beta=\alpha$, the nominal reflected
+sums are
+\[
+\begin{gathered}
+21+43\beta,\ 8,\ 28-\alpha,\ 8,\ 216,\\
+21+2\alpha+4\beta,\ 125,\ 64,\ 125,\ 105-41\beta,\\
+125,\ 209-2\alpha-4\beta+t,\ 343,\ 216,\ 343.
+\end{gathered}
+\]
+Every \emph{nonempty} block has a cubic sum:
+blocks $1,10,11$ are used only if $\beta=1$;
+blocks $3,4,6$ are used only if
+$\alpha=\beta=1$; and block $12$ is empty
+if $t=0$, otherwise its sum is $216$.
+The total length is
+\[
+\boxed{n=238+\alpha+2\beta-t},
+\]
+so the three allowed pairs
+$(\alpha,\beta)=(0,0),(0,1),(1,1)$
+with their two possible $t$ values give
+\[
+\boxed{228,229,231,238,240,241}.
+\]
+This is a symbolic cubic-sum construction;
+it does not require verifying six separate endpoint lists.
+
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
 Suppose all breakpoints $b_j(n)$ are affine
@@ -199,16 +250,16 @@ The obstruction concerns \emph{fixed} cube sums
 and affine endpoints only, not varying cube
 sums or composition of reflection templates.
 
-In total these \emph{four symbolic identities}
-give sixteen base lengths
+In total these \emph{five symbolic identities}
+give twenty-two base lengths
 \[
-66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,254
+66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,228,229,231,238,240,241,254
 \]
-without sixteen separate endpoint-table checks.
+without twenty-two separate endpoint-table checks.
 
-\paragraph{The remaining 66 rows.}
+\paragraph{The remaining 60 rows.}
 
-The appendix records $66$ exceptional rows of the form
+The appendix records $60$ exceptional rows of the form
 $n\; b_1:k_1\;\cdots\;b_t:k_t$.
 The corresponding cubical sums are $c_j=k_j^3$
 and the first boundary is $b_0=0$.
@@ -216,10 +267,10 @@ For every row, the boundaries increase,
 $1\le L_j<R_j\le n+1$,
 and the multiset equality in
 Lemma~\ref{lem:balance} holds exactly.
-These are $885$ simple integer-interval
+These are $816$ simple integer-interval
 identities. Exactly $10$ listed rows have
-$n<173$ and exactly $56$ have $173\le n\le364$.
-Together with the sixteen algebraic-template lengths,
+$n<173$ and exactly $50$ have $173\le n\le364$.
+Together with the twenty-two algebraic-template lengths,
 there are $22$ lower and $60$ upper seeds.
 
 The following two lists give every omitted
@@ -263,7 +314,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $56$ upper exceptional rows, the four
+The $50$ upper exceptional rows, the ten
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -331,18 +382,18 @@ at $m$ and Lemma~\ref{lem:suffix}.
 The theorem uses explicit finite
 arithmetic equalities and short symbolic
 lemmas. The optional script
-\texttt{verify\_66\_plus\_templates.py}
-checks the $66$ exceptional rows, regenerates
-all sixteen template cases and checks finite closure
+\texttt{verify\_60\_plus\_templates.py}
+checks the $60$ exceptional rows, regenerates
+all twenty-two template cases and checks finite closure
 without matching or other external data.
 It is not a premise for the proof.
 A uniform, case-free formula replacing
-the remaining $66$ exceptional rows is
+the remaining $60$ exceptional rows is
 \emph{not} claimed.
 
 \clearpage
 \appendix
-\section{The 66 exceptional integer-multiset witnesses}
+\section{The 60 exceptional integer-multiset witnesses}
 \label{app:table}
 Every token $b:k$ means $p(i)=k^3-i$
 up to endpoint $b$. For each row, verify
@@ -353,7 +404,7 @@ Lemma~\ref{lem:balance}.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_66_exceptional_atlas.tex}
+\input{certificates/finite_60_exceptional_atlas.tex}
 \end{multicols}
 
 \end{document}
