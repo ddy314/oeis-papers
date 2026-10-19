@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: 70 Integer Identities and Four Algebraic Templates}
+\title{Cube-Sum Permutations: 66 Integer Identities and Four Algebraic Templates}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -17,9 +17,9 @@
 Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
 for which every $i+p(i)$ is a perfect cube.
 We prove $P(n)>0$ for every $n\ge 173$ from
-$70$ exceptional integer endpoint identities ($927$
+$66$ exceptional integer endpoint identities ($885$
 reflected blocks) and four general algebraic
-block-rearrangement templates giving eight further seeds.
+block-rearrangement templates giving sixteen further seeds.
 An elementary suffix-reflection rule and a cubic-gap
 inequality extend the construction to all later lengths.
 An explicit predecessor table explains all remaining
@@ -135,42 +135,47 @@ $2Z-2Y+X-W$. Taking $(Y,Z)=(64,125)$,
 the choices $(X,W)=(8,64),(27,64),(8,27)$
 give $n=66,85,103$, respectively.
 
-\paragraph{Family IV (eleven blocks, including degeneration).}
-Let $X,Y,Z,W$ be positive cubes and let $Q$ be an
-integer. Define
+\paragraph{Family IV (twelve blocks and three binary switches).}
+Let $X,T,Q$ be integers and put
 \[
 \begin{aligned}
-a&=4Z-2W-Y-1,&b&=4W+X+2Y-8Z+1,\\
-c&=2Z-W-X,&d&=Q+4W+2X-8Z+1,\\
-e&=3Z-W-X-Q,&f&=3W+2Y-6Z+1.
+u&=X-7,&v&=T-2X+7,&w&=X+27-T,\\
+z&=Q+2T-2X-121,&h&=X+152-T-Q.
 \end{aligned}
 \]
-Suppose $a,b,c,e,f>0$ and $d\ge0$.
-The input block lengths are
+Assume $u,v,z\ge0$ and $w,h>0$.
+Use input lengths
 \[
-(a,b,c,a,c,d,e,a,f,a,e)
+(3,u,v,w,3,w,z,h,3,27,3,h)
 \]
-and their output order is
+and output block order
 \[
-(10,2,5,8,3,6,11,4,9,1,7).
+(11,2,3,6,9,4,7,12,5,10,1,8).
 \]
-Lemma~\ref{lem:rearrange}
-gives the successive nominal sums
+The reflected-block lemma computes the twelve
+nominal index-image sums as
 \[
-(Z,X,Y,Z,Y,Q,W,Z,W,Z,W)
+(125,X,T,64,125,64,Q,216,125,216,125,216).
 \]
-and total length $n=4Z-W-X-Q-1$.
-When $d>0$, assume $Q$ is also a cube.
-When $d=0$, delete the sixth (empty) block
-from both orders: the value of $Q$ then
-need \emph{not} be a cube, and
-$n=3W+X-4Z$. With
-$(Y,Z,W)=(64,125,216)$ and $X=8,27$,
-taking $Q=125$ yields lengths $150,131$;
-taking $d=0$ yields lengths $156,175$.
-This proves four cases by a single
-symbolic family, without comparing four
-numerical endpoint lists.
+When the second, third, or seventh block is nonempty,
+its nominal sum $X$, $T$, or $Q$, respectively,
+must be a cube. Any zero-length block is omitted
+from both orders and imposes no cube condition.
+The total length is
+\[
+n=276+X-T-Q.
+\]
+Take $X\in\{7,8\}$, choose
+$T\in\{2X-7,27\}$, and independently choose
+$Q\in\{121-2T+2X,125\}$. All eight resulting
+length choices satisfy the positivity and cube
+conditions. The $2^3$ distinct lengths are
+\[
+\boxed{131,132,150,151,155,156,174,175}.
+\]
+This is one symbolic rearrangement construction
+with three optional empty blocks, not eight
+separate finite endpoint certificates.
 
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
@@ -195,15 +200,15 @@ and affine endpoints only, not varying cube
 sums or composition of reflection templates.
 
 In total these \emph{four symbolic identities}
-give twelve base lengths
+give sixteen base lengths
 \[
-66,85,100,103,119,122,131,150,156,175,182,254
+66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,254
 \]
-without twelve separate endpoint-table checks.
+without sixteen separate endpoint-table checks.
 
-\paragraph{The remaining 70 rows.}
+\paragraph{The remaining 66 rows.}
 
-The appendix records $70$ exceptional rows of the form
+The appendix records $66$ exceptional rows of the form
 $n\; b_1:k_1\;\cdots\;b_t:k_t$.
 The corresponding cubical sums are $c_j=k_j^3$
 and the first boundary is $b_0=0$.
@@ -211,10 +216,10 @@ For every row, the boundaries increase,
 $1\le L_j<R_j\le n+1$,
 and the multiset equality in
 Lemma~\ref{lem:balance} holds exactly.
-These are $927$ simple integer-interval
-identities. Exactly $13$ listed rows have
-$n<173$ and exactly $57$ have $173\le n\le364$.
-Together with the twelve algebraic-template lengths,
+These are $885$ simple integer-interval
+identities. Exactly $10$ listed rows have
+$n<173$ and exactly $56$ have $173\le n\le364$.
+Together with the sixteen algebraic-template lengths,
 there are $22$ lower and $60$ upper seeds.
 
 The following two lists give every omitted
@@ -238,8 +243,8 @@ cube     already constructed predecessors m
          100,103,105
 \end{verbatim}
 \end{quote}
-Together with the $13$ exceptional lower seeds
-and the nine algebraic-template lower seeds,
+Together with the $10$ exceptional lower seeds
+and the twelve algebraic-template lower seeds,
 these supply $48$ distinct lengths below 173.
 
 \paragraph{Second: 49 reflected lengths in
@@ -258,7 +263,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $57$ upper exceptional rows, the three
+The $56$ upper exceptional rows, the four
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -326,18 +331,18 @@ at $m$ and Lemma~\ref{lem:suffix}.
 The theorem uses explicit finite
 arithmetic equalities and short symbolic
 lemmas. The optional script
-\texttt{verify\_70\_plus\_templates.py}
-checks the $70$ exceptional rows, regenerates
-all twelve template cases and checks finite closure
+\texttt{verify\_66\_plus\_templates.py}
+checks the $66$ exceptional rows, regenerates
+all sixteen template cases and checks finite closure
 without matching or other external data.
 It is not a premise for the proof.
 A uniform, case-free formula replacing
-the remaining $70$ exceptional rows is
+the remaining $66$ exceptional rows is
 \emph{not} claimed.
 
 \clearpage
 \appendix
-\section{The 70 exceptional integer-multiset witnesses}
+\section{The 66 exceptional integer-multiset witnesses}
 \label{app:table}
 Every token $b:k$ means $p(i)=k^3-i$
 up to endpoint $b$. For each row, verify
@@ -348,7 +353,7 @@ Lemma~\ref{lem:balance}.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_70_exceptional_atlas.tex}
+\input{certificates/finite_66_exceptional_atlas.tex}
 \end{multicols}
 
 \end{document}
