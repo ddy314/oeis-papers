@@ -379,6 +379,40 @@ These stronger global structural results need only finite
 perfect-matching base certificates. They do not assert sharp values of
 the new eventual thresholds.
 
+### Linear entropy on both parity-minimal subsequences
+
+In the taxicab two-block involution, the baseline has one fixed point
+from a block if and only if that block's cube sum is **even**.
+Each disjoint four-vertex dimer switch changes only transpositions,
+so it never creates or removes fixed points.
+
+Restricting the cube-scaling parameter `u` to **odd** positive
+integers, the two explicit taxicab identities give
+
+```
+even n = 54406*u**3:
+  J_0(n) >= 2**((4913*u**3-1)//2),   zero fixed points.
+
+odd n = 4118149*u**3:
+  J_1(n) >= 2**((970299*u**3-1)//2), exactly one fixed point.
+```
+
+Here `J_0` counts fixed-point-free legal involutions at even lengths
+and `J_1` counts involutions with exactly one fixed point at odd
+lengths. Both are *parity-minimal*, and both admit positive linear
+entropy along their explicit infinite subsequences:
+
+```
+limsup_even log J_0(n)/n >= 4913*log(2)/108812
+limsup_odd  log J_1(n)/n >= 970299*log(2)/8236298.
+```
+
+These are **pure algebraic counts**, not matching search results.
+They complement the earlier *all-length* parity-minimal theorem,
+whose uniform proven growth remains `exp(Omega(n**(1/3)))`.
+The statement that `J_min(n)>=exp(c*n)` for *every* sufficiently
+large n remains **unproved**.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
