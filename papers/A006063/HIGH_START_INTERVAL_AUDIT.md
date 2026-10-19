@@ -172,6 +172,39 @@ admit involutions if two fixed points are
 allowed. Earlier claims that no involution
 existed at those lengths were an error.
 
+### The five colors are collectively irredundant (PROVED by Hall)
+
+The five-cube palette is not merely an artifact of a solver
+search. **Deleting any one of these five cubes makes at
+least one length in [467,665] impossible**, even if one
+allows arbitrary (non-involutive) cube-sum permutations.
+
+For each omitted cube in the first column, at the given
+length n, the listed set S of input rows has as its
+**entire** set of remaining possible image columns N(S)
+the set on the right:
+
+| omitted cube | n | S | N(S) |
+|---|---:|---|---|
+| 216 | 467 | 5,30,78,126,174,247,295,343,416,464 | 48,96,169,217,265,313,338,386,434 |
+| 343 | 467 | 1,80,159,238,297,376,455 | 57,136,215,274,353,432 |
+| 512 | 475 | 89,216,475 | 127,254 |
+| 729 | 470 | 5,174,301,343,470 | 42,169,211,338 |
+| 1000 | 652 | 1,218,387,435,514,604,652 | 77,125,215,294,342,511 |
+
+Each equality is checked directly by evaluating
+`(C\\{omitted cube}-S) intersect [1,n]`.
+In all five cases, **|N(S)|=|S|-1**, contradicting
+Hall's necessary condition. No computational matching
+solver is required to validate these five certificates.
+
+This establishes *irredundancy within the displayed
+five-cube palette for the entire proposed band*.
+It does **not** prove that no *different* choice of
+four cubes, perhaps including smaller cubes such
+as 125 or 64, could work uniformly; such a global
+four-cube exclusion would require separate analysis.
+
 ### Proposed single mathematical target
 
 Remove the vertex 108 when n is odd, and call
