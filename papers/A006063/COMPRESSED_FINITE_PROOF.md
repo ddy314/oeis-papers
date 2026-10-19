@@ -183,35 +183,57 @@ previously constructed shorter length by this one operation.
 This is not a claim of a globally minimal basis under arbitrary
 permutation constructions.
 
-## 5. Entire infinite tail by an elementary cubic gap inequality
+## 5. Exact interval-overlap avalanche (no computation in the infinite tail)
 
-We now show `P(n)>0` for every `n>=365` by strong induction.
-Assume the theorem for every integer `173<=m<n`.
-Choose the **least integer cube** `c=k^3>=n+174`.
-We need `c<=2*n`, which makes
-`m=c-n-1` an integer in `[173,n-1]`.
+The full [mathematical proof and sharp Hall limitations](INTERVAL_OVERLAP_AVALANCHE.md)
+are written out separately.
 
-If `365<=n<=555`, then `k=9`, `c=729` and
-`729<=2*n`.
-
-For `n>=556`, we have `k>=10`. Since the preceding
-cube is strictly below `n+174`, integer arithmetic gives
-`n>=(k-1)^3-173`, and hence
+**Avalanche lemma.** If every length in `[a,b]` admits a cube-sum
+permutation and an integer cube `c` obeys
 
 ```
-2*n-k^3 >= 2*(k-1)^3-346-k^3
-          = k^3-6*k^2+6*k-348 >= 112 > 0,    k>=10.
+a+b+2 <= c <= 2*b+2,
 ```
 
-The last cubic polynomial is `112` at `k=10` and
-strictly increases for larger integer `k`, since its
-first difference is `3*k^2-9*k+1>0` for `k>=10`.
-The suffix-reflection lemma therefore completes the induction.
+then every length in `[a,c-a-1]` also admits one. For each
+new length `n`, put `m=c-n-1`; the inequalities ensure
+`a<=m<=b` and `m<n`. The cubic suffix reflection
+`p(i)=c-i` on `[m+1,n]` extends the permutation.
 
-**Theorem.** The 57 exceptional endpoint-multiset identities,
-six algebraic block templates, the empty permutation, and
-the elementary suffix reflection and cubic-gap lemmas prove
-`P(n)>0` for **every `n>=173`**.
+Starting with the independently established finite interval
+`[173,364]`, choose `c=9^3=729`: the inequalities
+`539<=729<=730` give the extended interval `[173,555]`.
+For every `k>=9`, use `c=(k+1)^3` to extend
+`[173,k^3-174]` to `[173,(k+1)^3-174]` because
+
+```
+k^3+1 <= (k+1)^3 <= 2*k^3-346,
+f(k)=k^3-3*k^2-3*k-347 >= f(9)=112,
+f(k+1)-f(k)=3*k^2-3*k-5 > 0.
+```
+
+The expanding upper bounds tend to infinity; therefore
+every `n>=173` is covered with **no new finite certificate**.
+
+**Not a finite-base elimination theorem.** Domain overlap alone
+does not imply Hall. At `n=65`, reflection domains `[1,63]`
+and `[60,65]` cover the full range, but
+`S={3,40,59,64}` has just three cube-sum neighbors
+`{5,24,61}`. Length `173` cannot be obtained by suffix
+reflection from a shorter good length: its only possible
+predecessors are `42` and `169`, both excluded by
+explicit Hall sets in the linked note. Moreover,
+`[173,338]` cannot extend past `338` using the
+simple single-cube avalanche since the required interval
+`[513,678]` contains no cube.
+
+**Theorem (exact scope).** The 57 positive algebraic cubic-order
+shapes, six explicit block template families, the empty permutation,
+the finite reflection closures, and the interval-overlap avalanche
+prove `P(n)>0` for **every `n>=173`**. The initial finite
+shape selection and 57 positivity conditions have **not**
+been eliminated. A case-free result would require a stronger
+local cube-sum matching or augmentation theorem.
 
 ## 6. Verification, limitations, and next mathematical questions
 
@@ -232,12 +254,13 @@ the actual permutations for all **240 covered positive lengths**
 (48 below 173 and all 192 lengths in 173..364) and checked
 both bijectivity and the cubic-sum property. The older
 60/66/70/74/82/109-row certificates remain available for
-redundant audits. The **symbolic infinite-tail induction**
-is not a computational assumption.
+redundant audits. The **interval-overlap infinite-tail induction**
+is symbolic and is not a computational assumption.
 
-**Unresolved:** There remain **57 finite positivity certificates for the
-57 algebraic determinant parameter sets**, rather than 57 required
-endpoint-multiset identities. The determinant theorem algebraically generates the other 57
+**Unresolved:** There remain **57 finite positivity obligations
+for 57 selected determinant parameter sets**, rather than 57 required
+endpoint-multiset identities. The interval-overlap avalanche does not
+prove the base interval without those choices. The determinant theorem algebraically generates the other 57
 seed lengths, and six compact templates cover 25 lengths;
 however the 57 parameter choices have not been eliminated.
 Neither a minimality statement for 57 nor an independent
