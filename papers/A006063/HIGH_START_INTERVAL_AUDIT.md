@@ -280,7 +280,113 @@ and/or output order with n, or use a theorem such
 as Tutte's 1-factor criterion that does not fix a
 piecewise-reflection word in advance.
 
-## 6. What moving the start can and cannot solve
+## 6. A full odd-reflection path quotient theorem (PROVED)
+
+The companion [ODD_CUBE_PATH_QUOTIENT.md](ODD_CUBE_PATH_QUOTIENT.md)
+proves that, throughout the entire proposed
+high base `467<=n<=665`, the graph using just
+odd cube sums **343 and 729** decomposes into
+**exactly 193 paths**, each with **2, 3, or 4
+vertices**. The two reflections compose
+to translation by 386, and their fixed
+initial matching pairs all vertices in
+`[1,386]`.
+
+Even more precisely:
+
+```
+467<=n<=557:
+  #2-paths = 579-n, #3-paths = n-386, #4-paths = 0;
+558<=n<=665:
+  #2-paths = 22,    #3-paths = 728-n, #4-paths = n-557.
+```
+
+There is a closed formula for the number
+`q(n)` of odd-cardinality path components
+after deleting the proposed fixed point
+108 for odd n; see the linked proof.
+Every five-color involution with that
+fixed-point rule must use **at least
+`q(n)/2` even-cube 2-cycles**. In
+particular, n=556,557,558 require
+**at least 85** such even-cube edges.
+This is a macroscopic constraint, not a
+tiny missing-edge patch.
+
+A second exact **finite-state gadget theorem**
+shows that each of these paths admits at
+most **five legal external-vertex masks**.
+A perfect five-cube involution exists
+if and only if one can select disjoint
+edges of even sums 216,512,1000 whose
+endpoint masks lie in these 1/2/3/4-path
+tables; the remaining odd-cube edges
+then match uniquely. This is an
+equivalent **193-component compatible
+state problem**, not a proved solution.
+
+An arithmetic-only checker
+[verify_odd_cube_path_quotient.py](verify_odd_cube_path_quotient.py)
+audits the formulas across the band
+without a matching solver or any old
+permutation atlas. The theorems themselves
+need only simple interval arithmetic.
+
+## 7. Two-seed alternating ladders (EXPERIMENT ONLY)
+
+Let a five-color involution on n have
+fixed point 108 exactly when n is odd.
+Add two new vertices `x=n+1,y=n+2`.
+If there is an **alternating simple path**
+from x to y, beginning and ending
+with currently unmatched edges and
+alternating with the old 2-cycles,
+flipping along the path produces a
+five-color involution on n+2 with the
+same fixed-point rule.
+
+This elementary **path-flip lemma is
+fully proved**: an alternating path
+of `2r+1` edges contains `r`
+old matching edges and `r+1` new
+edges. Removing the old and adding
+the new pairs matches every internal
+vertex exactly once and matches
+both new endpoints. Cubic sums
+are preserved because every edge
+in the alternating path is one of
+the five permitted reflections.
+
+A new [two-seed iterative audit](verify_high_start_two_seed_ladder.py)
+uses a general matching solver only
+to obtain starting involutions at
+**467 and 468**, then carries out
+the above elementary operation
+successively for every parity:
+
+```
+467 -> 469 -> ... -> 665   (99 path flips)
+468 -> 470 -> ... -> 664   (98 path flips).
+```
+
+All **197** augmenting-path searches succeeded
+in the tested deterministic ordering.
+The largest observed path had **47
+edges on the odd ladder** and **45
+edges on the even ladder**.
+
+These data compress the experiment
+from 199 independently solved matchings
+to two initial matches and 197
+elementary path flips. But there is
+still **no uniform theorem guaranteeing
+the alternating path at each step**;
+calling this a case-free proof of
+the high base would be incorrect.
+
+## 8. What moving the start can and cannot solve
+
+
 
 
 
