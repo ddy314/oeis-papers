@@ -5,11 +5,22 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Current finite proof: 82 elementary arithmetic identities (October 19, 2026)
+## Latest finite proof: 74 exceptional identities + 3 algebraic templates
+
+**Latest primary proof (October 19, 2026):** [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md) and [PARAMETRIC_BLOCK_TEMPLATES.md](PARAMETRIC_BLOCK_TEMPLATES.md), with the standalone [finite_base_note.tex](finite_base_note.tex), now establish `P(n)>0` for all `n>=173` using **74 explicit exceptional endpoint-multiset equalities (969 blocks)** and **three pure algebraic block-rearrangement schemes** generating eight more seed lengths (`66,85,100,103,119,122,182,254`). This accounts for the same 82 finite seeds as before, but the eight template instances no longer require separate endpoint checking. The remaining 26 sub-173 and 132 middle lengths follow by the original strictly increasing cubic suffix reflection, and the unbounded tail by a symbolic cubic-gap inequality.
+
+- [74 exceptional rows](certificates/finite_74_exceptional_atlas.txt), with the [typeset appendix](certificates/finite_74_exceptional_atlas.tex).
+- [Three algebraic formulas and affine-rigidity obstruction](PARAMETRIC_BLOCK_TEMPLATES.md).
+- [Independent 74+templates audit](verify_74_plus_templates.py), not using the old 82-row table or matching.
+- [Redundant 82-row complete certificate](certificates/finite_82_seed_atlas.txt), now optimized to **1,009** blocks (down from 1,009 and the original 109-row count of 1,123). Independent checker [verify_82_seed_proof.py](verify_82_seed_proof.py) remains available.
+
+**Boundary:** Three parameterized families replace eight particular cases; they do *not* constitute a case-free construction for all the remaining 74 lengths. CI/PDF status must be confirmed after the latest workflow runs, not assumed.
+
+## Earlier 82-row independent arithmetic certificate (October 19, 2026)
 
 The latest self-contained proof is [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md), with a typeset standalone paper [finite_base_note.tex](finite_base_note.tex), a complete [82-row arithmetic atlas](certificates/finite_82_seed_atlas.txt) and independent [exact checker](verify_82_seed_proof.py).
 
-Rather than rely on 109 independent entries, the new proof uses **82 endpoint-multiset identities in 1,030 reflection blocks**: 22 seeds below 173 and 60 seeds in 173..364. An explicit grouped predecessor table certifies 26 additional smaller lengths and 49 missing lengths in 173..255 or 339..364, followed by one uniform reflection through cube 512 for all 83 lengths 256..338. The proof for every n>=365 remains purely algebraic, via the least cube >= n+174.
+Rather than rely on 109 independent entries, the new proof uses **82 endpoint-multiset identities in 1,009 reflection blocks**: 22 seeds below 173 and 60 seeds in 173..364. An explicit grouped predecessor table certifies 26 additional smaller lengths and 49 missing lengths in 173..255 or 339..364, followed by one uniform reflection through cube 512 for all 83 lengths 256..338. The proof for every n>=365 remains purely algebraic, via the least cube >= n+174.
 
 The prior 109-identity proof below is retained as an **independent redundant certificate**. In particular, the 82-row proof does not depend on the 109-row table, any matching algorithm, the original 191 augmenting words, or the previous JSON permutation archives. **This is still finite casework, not a parameter-free construction.** GitHub Actions must execute successfully before claiming CI verification of the updated LaTeX PDF.
 
