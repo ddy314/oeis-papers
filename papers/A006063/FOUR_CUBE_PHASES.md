@@ -77,6 +77,34 @@ It only requires them under the extra
 the first search. The corrected statement
 above removes that unnecessary restriction.
 
+### Exact Tutte barrier for the excluded fixed point (PROVED)
+
+The failure of the four-cube involution at n=581 with
+**sole fixed point 108** is now a pure mathematical
+theorem, not merely a blossom solver result.
+See [TUTTE_OBSTRUCTION_581.md](TUTTE_OBSTRUCTION_581.md).
+
+After deleting 108, remove an explicit union of
+**31 integer intervals containing 103 vertices**.
+The remaining graph with sums `343,512,729,1000`
+splits into **105 odd connected components**:
+60 singletons, 18 triples, 13 5-vertex,
+2 7-vertex, 7 11-vertex, 3 17-vertex,
+one 63-vertex and one 93-vertex component.
+Thus `o(G-S)=105>|S|=103` violates
+Tutte's 1-factor theorem. The component count
+can be checked using only integer reflection
+arithmetic; [verify_tutte_581.py](verify_tutte_581.py)
+does this without any matching solver.
+
+**Scope:** This excludes a four-cube *involution*
+with only fixed point 108. It does not rule out
+general cube-sum permutations or involutions
+whose fixed point is 256 or 500. Existence
+with those alternative fixed points remains
+verified by matching computation, not
+established by the negative certificate.
+
 ## 3. Why the phase structure is mathematically useful
 
 The three palettes overlap and differ
