@@ -2434,6 +2434,124 @@ archive. The older $109$-row table
 is preserved as an independent
 redundant check.
 
+\subsection{The interval-overlap avalanche and its finite obstruction}
+\label{subsec:interval-overlap-avalanche}
+
+\begin{lemma}[Exact cubic reflection of a good interval]
+\label{lem:reflection-overlap}
+Suppose every integer $m\in[a,b]$, $0\le a\le b$,
+has a legal cube-sum permutation. For a cube $c$,
+every integer $n$ in the nonempty interval
+\[
+\bigl[
+\max\{1,\lceil c/2\rceil,c-b-1\},\
+c-a-1
+\bigr]
+\]
+also has a legal cube-sum permutation.
+\end{lemma}
+\begin{proof}
+Take $m=c-n-1$. By the displayed bounds,
+$a\le m\le b$ and $0\le m<n$.
+Keep the old permutation on $[1,m]$ and set
+$p(i)=c-i$ on $[m+1,n]$. The suffix is mapped
+bijectively to itself, with constant sum $c$.
+\end{proof}
+
+\begin{lemma}[Interval-overlap avalanche]
+\label{lem:interval-avalanche}
+Suppose every length in $[a,b]$ is legal,
+where $1\le a\le b$. If a cube $c$ satisfies
+\[
+\boxed{a+b+2\le c\le2b+2},
+\]
+then every length in the larger interval
+$[a,c-a-1]$ is legal.
+\end{lemma}
+\begin{proof}
+By Lemma~\ref{lem:reflection-overlap},
+the new interval of lengths includes $b+1$
+because $a\le c-b-2\le b$ and
+$c\le2(b+1)$. It continues through
+$c-a-1\ge b+1$; it therefore meets the
+already established interval immediately,
+with no gap.
+\end{proof}
+
+\begin{theorem}[Infinite avalanche from the finite base]
+\label{thm:interval-avalanche-tail}
+If all lengths $173\le n\le364$ are legal,
+then every length $n\ge173$ is legal,
+without any additional finite certificate.
+\end{theorem}
+\begin{proof}
+For $a=173$, $b=364$, the cube $9^3=729$
+lies in the avalanche window $[539,730]$.
+Consequently $[173,555]$ is legal.
+Assume $[173,k^3-174]$ is legal for $k\ge9$.
+The cube $(k+1)^3$ obeys
+\[
+k^3+1\le(k+1)^3\le2k^3-346,
+\]
+since the last inequality is equivalent to
+\[
+f(k)=k^3-3k^2-3k-347\ge0,
+\]
+with $f(9)=112$ and
+$f(k+1)-f(k)=3k^2-3k-5>0$ for $k\ge9$.
+Lemma~\ref{lem:interval-avalanche}
+extends the good interval through
+$(k+1)^3-174$. Induction on $k$ proves
+the assertion.
+\end{proof}
+
+\paragraph{Why overlap does not by itself remove the finite base.}
+At $n=65$, the domains $[1,63]$ of the
+$64$-reflection and $[60,65]$ of the
+$125$-reflection overlap and jointly cover
+$[1,65]$. Yet
+\[
+S=\{3,40,59,64\},\qquad
+N(S)=\{5,24,61\}
+\]
+under the available cube sums $8,27,64,125$,
+so Hall's inequality fails.
+Likewise no smaller legal length can produce
+$n=173$ by a single suffix reflection:
+the only possible predecessors are
+$m=42$ and $m=169$, via cubes $216,343$.
+For $m=42$, the six-row set
+\[
+[1,2]\cup[20,21]\cup[38,39]
+\]
+has just the four cube-sum neighbors
+$[6,7]\cup[25,26]$.
+For $m=169$, the fourteen-row set
+\[
+\begin{gathered}
+[8,9]\cup[38,39]\cup[45,46]\cup[99,100]\\
+{}\cup[129,130]\cup[136,137]\cup[160,161]
+\end{gathered}
+\]
+has only the twelve neighbors
+\[
+\begin{gathered}
+[18,19]\cup[25,26]\cup[55,56]\\
+{}\cup[79,80]\cup[86,87]\cup[116,117].
+\end{gathered}
+\]
+These are direct Hall obstructions.
+There is also no cube in the interval
+$[513,678]$, the necessary avalanche
+window for extending $[173,338]$ through
+$339$. Thus the avalanche lemma completely
+removes the infinite tail's finite checks,
+but \emph{does not derive the original
+$173$--$364$ base interval without the
+separately constructed finite witnesses}.
+Such a claim would require an additional
+local augmentation or gluing theorem.
+
 \begin{proposition}[A finite parity obstruction at $n=236$]
 \label{prop:236-no-involution-elementary}
 The base length $236$ has cube-sum
