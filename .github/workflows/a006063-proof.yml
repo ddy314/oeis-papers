@@ -38,6 +38,8 @@ jobs:
         run: python papers/A006063/verify_word_paths.py
       - name: Audit 109 explicit interval endpoint multiset identities
         run: python papers/A006063/finite_endpoint_identity.py
+      - name: Check the reduced 82-seed arithmetic proof and reflection closure
+        run: python papers/A006063/verify_82_seed_proof.py
       - name: Verify exact P(236) and non-involution five-cycle decomposition
         run: python papers/A006063/count_236.py
       - name: Check odd-cube block lifting and thousands of disjoint switching cycles
