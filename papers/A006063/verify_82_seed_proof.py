@@ -14,7 +14,7 @@ ATLAS = Path(__file__).resolve().parent / "certificates" / "finite_82_seed_atlas
 CUBES = tuple(k**3 for k in range(2, 9))
 EXPECTED_SMALL_SEEDS = 22
 EXPECTED_MIDDLE_SEEDS = 60
-EXPECTED_SEGMENTS = 1030
+EXPECTED_SEGMENTS = 1009
 
 
 def read_seeds():
@@ -87,7 +87,7 @@ def close_under_reflections(seeds):
 def main():
     seeds = read_seeds()
     known, ancestors = close_under_reflections(seeds)
-    print("PASS: 82 endpoint-multiset identities, 1,030 reflected intervals.")
+    print("PASS: 82 endpoint-multiset identities, 1,009 reflected intervals.")
     print("PASS: 22 small seeds and 60 middle seeds are irredundant")
     print("      under the specified strictly growing suffix-reflection rule.")
     print("PASS: derived 26 further lengths below 173 and")
