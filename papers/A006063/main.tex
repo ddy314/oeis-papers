@@ -969,16 +969,40 @@ lengths which are \emph{not} reachable
 below the respective interval
 endpoints are $69601$ (odd)
 and $228026$ (even).
-An additional independent
-implementation reconstructs the
-complete involutions at the
-interval endpoints and verifies
-all cube sums and their precise
-fixed-point sets.
-No general matching algorithm,
-permutation enumeration, or
-sharp-threshold certificates
-enter this verification.
+A second, algorithmically
+independent checker
+\texttt{parity\_interval\_proof.py}
+works with \emph{unions of integer
+intervals} in the coordinate
+$t=(n-p)/2$ where $p\in\{0,1\}$
+is the length parity. An odd-cube
+reflection becomes $t\mapsto d-t$
+with $d=(k^3-1-2p)/2$.
+For every current interval $[a,b]$,
+the strict-extension constraints
+give the exactly reflected interval
+\[
+\left[d-\min\left(b,
+\left\lfloor\tfrac{d-1}{2}\right\rfloor\right),
+d-\max(a,d-T_{\max})\right]
+\]
+when the lower and upper source
+bounds are consistent, with
+$T_{\max}=(H-p)/2$.
+After just twelve simultaneous
+rounds, the merged unions contain
+both claimed parity-specific
+coverage intervals. The resulting
+numbers of reachable parity lengths
+are respectively $41057$ and
+$121707$, in $2997$ and $7047$
+disjoint integer intervals.
+The first checker also reconstructs
+full involutions at the endpoints
+and verifies the exact fixed
+point sets. Neither checker uses
+a matching solver or the
+sharp-threshold certificates.
 \end{proof}
 
 \begin{theorem}[Eventual parity-minimal involutions]
