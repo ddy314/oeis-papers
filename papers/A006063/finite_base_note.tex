@@ -1,12 +1,12 @@
 \documentclass[10pt]{article}
-\usepackage[margin=0.85in]{geometry}
+\usepackage[margin=0.8in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath,amssymb,amsthm}
 \usepackage{multicol}
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: An Elementary Finite-Interval Certificate}
+\title{Cube-Sum Permutations: An 82-Identity Elementary Certificate}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -14,208 +14,202 @@
 \maketitle
 
 \begin{abstract}
-Let $P(n)$ count permutations $p$ of $\{1,\dots,n\}$
-such that $i+p(i)$ is a perfect cube for every $i$.
-We establish $P(n)>0$ for all $n\ge173$ by
-a short reflection argument and $109$ explicit
-finite integer identities. A general boundary-cancellation
-lemma converts each finite instance into
-an equality of two multisets of endpoints.
-No matching algorithm, large permutation array,
-or sequence of dependent augmenting paths is
-required to \emph{check} the certificate.
-The proof is elementary but retains a finite
-$109$-row table; it is not a uniform case-free
-construction for the complete base interval.
+Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
+for which every $i+p(i)$ is a perfect cube.
+We prove $P(n)>0$ for every $n\ge 173$ from exactly
+$82$ explicit endpoint-multiset identities, comprising
+$1{,}030$ reflected integer intervals, plus an elementary
+suffix-reflection rule and a cubic-gap inequality.
+An explicit predecessor table explains all remaining
+finite lengths without a matching search, a large
+permutation archive, or dependent augmenting paths.
+The finite case distinctions are \emph{not} eliminated:
+this is a solver-free, hand-checkable certificate rather
+than a case-free parameterized construction.
 \end{abstract}
 
-\section{The boundary-cancellation principle}
+\section{Two elementary lemmas}
 
-\begin{lemma}[Integer endpoint balance]
-\label{lem:balance}
-Let $n\ge1$, choose a partition
-$0=b_0<b_1<\cdots<b_t=n$
-and positive perfect cubes $c_1,\ldots,c_t$.
-Put $L_j=c_j-b_j$ and
-$R_j=c_j-b_{j-1}$.
+\begin{lemma}[Boundary cancellation]\label{lem:balance}
+Let $0=b_0<b_1<\cdots<b_t=n$ and let
+$c_1,\ldots,c_t$ be positive integer cubes.
+Set $L_j=c_j-b_j$ and $R_j=c_j-b_{j-1}$.
 Assume $1\le L_j<R_j\le n+1$.
-The piecewise reflection
+Then $p(i)=c_j-i$ for $b_{j-1}<i\le b_j$
+is a cube-sum permutation if and only if
 \[
-p(i)=c_j-i,\qquad b_{j-1}<i\le b_j
+\boxed{\{1,R_1,\ldots,R_t\}_{\mathrm{multi}}
+ =\{n+1,L_1,\ldots,L_t\}_{\mathrm{multi}}.}
 \]
-is a cube-sum permutation of $[1,n]$
-if and only if
-\begin{equation}\label{eq:balance}
-\boxed{\{1,R_1,\ldots,R_t\}_{\rm multi}
-=\{n+1,L_1,\ldots,L_t\}_{\rm multi}.}
-\end{equation}
 \end{lemma}
 \begin{proof}
-On input interval $(b_{j-1},b_j]$, the map is
-a bijection onto the integer interval
-$[L_j,R_j)$, with sum $i+p(i)=c_j$.
-Write $f(x)$ for the number of output
-intervals covering $x$. The jump
-$f(x)-f(x-1)$ equals the multiplicity
-of $x$ among left endpoints minus
-its multiplicity among right endpoints.
-Identity \eqref{eq:balance} says that
-this jump is $1$ at $x=1$,
-$-1$ at $x=n+1$, and zero otherwise.
-Thus $f(x)=1$ for every $1\le x\le n$.
-Every output occurs exactly once,
-and the cube-sum condition holds.
-The converse is immediate from the
-same endpoint-counting identity.
+Each input block maps bijectively onto the integer
+interval $[L_j,R_j)$. At an integer $x$, the jump
+in the total interval-coverage count is the
+multiplicity of $x$ as a left endpoint minus
+its multiplicity as a right endpoint.
+The displayed identity makes that jump $1$
+at $x=1$, $-1$ at $x=n+1$, and zero everywhere
+else. Thus coverage is exactly one at
+every $x\in[1,n]$. Reversing this argument
+proves necessity.
 \end{proof}
 
-\section{The finite table}
-
-In Appendix~\ref{app:table}, a row labelled $n$
-has tokens $b:k$. They mean $b_j=b$,
-$c_j=k^3$, and the preceding boundary
-is $b_{j-1}$ (the first boundary is $0$).
-The last token ends at $b_t=n$.
-
-\begin{lemma}[The base interval]
-\label{lem:base}
-For every $n$ satisfying
-\[
-173\le n\le255
-\quad\text{or}\quad
-339\le n\le364,
-\]
-there exists a cube-sum permutation
-of $[1,n]$.
+\begin{lemma}[Growing cubic suffix]\label{lem:suffix}
+Suppose $0\le m<n$, $m+n+1=c$ is a cube,
+and a cube-sum permutation on $[1,m]$ exists
+(the $m=0$ permutation is empty).
+Keep the existing permutation on $[1,m]$
+and set $p(i)=c-i$ for $m<i\le n$.
+Then $p$ is a cube-sum permutation on $[1,n]$.
 \end{lemma}
 \begin{proof}
-The appendix records $109$ explicit rows
-using cube roots $k\in\{2,\ldots,8\}$.
-Every row has strictly increasing boundaries,
-all $1\le L_j<R_j\le n+1$, and the equality
-of multisets in \eqref{eq:balance}.
-These are direct integer identities:
-the entire table consists of $1123$
-intervals. Lemma~\ref{lem:balance}
-therefore proves the claim without
-any matching search.
-
-For example, the row $n=340$ is
-\[
-7:2,\quad19:3,\quad44:4,\quad171:6,\quad340:8.
-\]
-The two endpoint lists, after sorting,
-both equal
-\[
-(1,8,20,45,172,341).
-\]
-For the exceptional $n=236$, the
-row with $15$ pieces gives the common
-sorted endpoint list
-\[
-\begin{gathered}
-1,8,10,19,44,46,71,82,\\
-107,135,137,171,173,198,209,237.
-\end{gathered}
-\]
-The same elementary equality is checked
-for all the remaining rows.
+The new reflection is a bijection from
+$[m+1,n]$ to itself, and each new sum is $c$.
 \end{proof}
 
-\section{Reflection and the infinite tail}
+\section{An explicit 82-identity finite certificate}
 
-\begin{lemma}[Suffix reflection]
-\label{lem:suffix}
-If $0\le m<n$ and $m+n+1=c=k^3$,
-then every cube-sum permutation on
-$[1,m]$ extends to $[1,n]$ by
-\[
-p(i)=
-\begin{cases}
-p_m(i),&1\le i\le m,\\
-c-i,&m<i\le n.
-\end{cases}
-\]
-For $m=0$, the empty permutation is used.
+The appendix records $82$ rows of the form
+$n\; b_1:k_1\;\cdots\;b_t:k_t$.
+The corresponding cubical sums are $c_j=k_j^3$
+and the first boundary is $b_0=0$.
+For every row, the boundaries increase,
+$1\le L_j<R_j\le n+1$,
+and the multiset equality in
+Lemma~\ref{lem:balance} holds exactly.
+These are $1{,}030$ simple integer-interval
+identities. Exactly $22$ listed rows have
+$n<173$ and exactly $60$ have $173\le n\le364$.
+
+The following two lists give every omitted
+base length without further matching data.
+For any tabulated predecessor $m$ under
+cube $c$, define $n=c-m-1$ and apply
+Lemma~\ref{lem:suffix}. The lists are
+ordered by cube, so every predecessor is
+either a seed or was obtained in an earlier row.
+
+\paragraph{First: 26 reflected lengths below 173.}
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+cube     already constructed predecessors m
+  8      0
+ 27      0,7
+ 64      0,7,19,26
+125      0,7,19,26,37,44,56
+216      44,56,63,66,68,80,82,85,87,
+         100,103,105
+\end{verbatim}
+\end{quote}
+Together with the $22$ lower seeds,
+these supply $48$ distinct lengths below 173.
+
+\paragraph{Second: 49 reflected lengths in
+$[173,255]\cup[339,364]$.}
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+cube     previously constructed predecessors m
+216      0,7,19,26,37
+343      0,87,98,100,103,105,110,112,
+         115,116,117,118,119,120,121,122,
+         123,124,125,126,128,129,130,131,
+         132,133,135,147,149,150,151,152,
+         155,156,159
+512      147,149,150,151,152,155,156,
+         159,171
+\end{verbatim}
+\end{quote}
+The $60$ upper seed rows and these $49$
+reflections are exactly the $109$ integers
+in $[173,255]\cup[339,364]$.
+There is no circular dependency:
+each predecessor $m$ is strictly smaller
+than its constructed length $n$.
+
+For example, $211=343-131-1$,
+$340=512-171-1$, and $342=343-0-1$.
+The first example replaces a previously
+necessary-looking $53$-segment independent
+row by one suffix reflection.
+
+\begin{lemma}[Complete finite interval]\label{lem:base}
+For every integer $173\le n\le364$,
+a cube-sum permutation of $[1,n]$ exists.
 \end{lemma}
 \begin{proof}
-The new interval $[m+1,n]$
-is invariant under $i\mapsto c-i$,
-and all its index-image sums equal $c$.
+The explicit arithmetic rows and the two
+predecessor tables establish the claim for
+$[173,255]\cup[339,364]$. For each of the
+$83$ remaining lengths $256\le n\le338$,
+take $m=511-n\in[173,255]$.
+Then $m<n$ and $m+n+1=512=8^3$,
+so Lemma~\ref{lem:suffix} applies.
 \end{proof}
 
-\begin{theorem}[All lengths from $173$ onward]
-\label{thm:main}
+\section{A purely symbolic infinite tail}
+
+\begin{theorem}
 For every integer $n\ge173$,
 there is a permutation $p$ of $[1,n]$
-such that every $i+p(i)$ is
-a perfect cube.
+such that $i+p(i)$ is a perfect cube
+for all indices $i$.
 \end{theorem}
 \begin{proof}
-Lemma~\ref{lem:base} covers
-$173\le n\le255$ and $339\le n\le364$.
+The base interval is Lemma~\ref{lem:base}.
+For $n\ge365$, assume the claim for
+every smaller integer at least 173,
+and let $k^3$ be the least integer cube
+satisfying $k^3\ge n+174$.
+Thus $m=k^3-n-1\ge173$.
 
-For $256\le n\le338$, take
-$m=511-n\in[173,255]$.
-Then $m<n$ and $m+n+1=512=8^3$.
-Lemma~\ref{lem:suffix} covers
-these $83$ remaining finite cases.
-
-For $365\le n\le555$, take
-$c=729=9^3$.
-The predecessor $m=728-n$
-satisfies $173\le m<n$, so
-the suffix reflection gives the result
-by strong induction.
-
-For $n\ge556$, let $k$ be the least
-integer with $k^3\ge n+174$,
-and put $m=k^3-n-1$.
-By construction $m\ge173$.
-Since $k\ge10$, the minimality of $k$
-gives $n\ge(k-1)^3-173$. Hence
+If $365\le n\le555$, then $k=9$
+and $k^3=729\le2n$. For $n\ge556$,
+minimality of $k$ implies $k\ge10$
+and $n\ge(k-1)^3-173$. Therefore
 \[
 \begin{aligned}
 2n-k^3
-&\ge2((k-1)^3-173)-k^3\\
+&\ge 2(k-1)^3-346-k^3\\
 &=k^3-6k^2+6k-348\\
 &\ge112>0.
 \end{aligned}
 \]
-The last polynomial takes value $112$
-at $k=10$ and has strictly positive
-successive differences $3k^2-9k+1$
-for $k\ge10$. Thus $k^3\le2n$,
-whence $m<n$.
-The suffix-reflection lemma and
-strong induction finish the proof.
+The final polynomial equals $112$ at
+$k=10$ and increases thereafter:
+its first difference is $3k^2-9k+1>0$.
+In either case $k^3\le2n$ and hence
+$m<n$. Apply the induction hypothesis
+at $m$ and Lemma~\ref{lem:suffix}.
 \end{proof}
 
-\paragraph{Scope.}
-The mathematical validity of this proof
-reduces to the displayed elementary lemma,
-$109$ explicit integer-multiset equalities,
-and the two short induction cases.
-The finite table is indispensable to the
-proof in this form: it does not assert
-a hidden closed formula or a
-case-free argument for $173\le n\le364$.
+\paragraph{Logical scope.}
+The theorem uses explicit finite
+arithmetic equalities and short symbolic
+lemmas. The optional script
+\texttt{verify\_82\_seed\_proof.py}
+checks the $82$ rows and finite closure
+without matching or other external data.
+It is not a premise for the proof.
+A uniform, case-free formula replacing
+the $82$ rows is \emph{not} claimed.
 
 \clearpage
 \appendix
-\section{Explicit finite interval table}
+\section{All 82 explicit integer-multiset witnesses}
 \label{app:table}
-\noindent All tokens are $b:k$,
-meaning $p(i)=k^3-i$ until the
-listed endpoint $b$. Each row
-can be checked by the same multiset
-identity in Lemma~\ref{lem:balance}.
+Every token $b:k$ means $p(i)=k^3-i$
+up to endpoint $b$. For each row, verify
+the same endpoint balance of
+Lemma~\ref{lem:balance}.
 
 \begin{multicols}{2}
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_block_atlas.tex}
+\input{certificates/finite_82_seed_atlas.tex}
 \end{multicols}
 
 \end{document}
