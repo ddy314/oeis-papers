@@ -152,6 +152,25 @@ library. **Bipartiteness after
 deleting a few edges does not
 itself prove perfect matching.**
 
+### Phase I requires only four exceptional-edge Hall templates
+
+The new [Phase I four-pattern reduction](PHASE_I_FOUR_HALL_PATTERNS.md)
+shows that all 94 lengths `467..560`
+can be corrected using exactly
+four finite exceptional-edge choices,
+selected from their canonical
+bipartition imbalance. They are
+`empty`, `{(84,132)}`,
+`{(101,115)}` (only n=559),
+or `{(70,146),(84,132)}`.
+The balancing equation holds
+algebraically; an optional
+[94-case augmenting-path audit](verify_phase_i_hall_patterns.py)
+confirms a bipartite perfect matching
+of each remainder. The necessary
+uniform Hall theorem is **not yet
+proved without finite computation**.
+
 ### Only 10–16 edges obstruct bipartiteness (PROVED)
 
 The [bounded bipartite-core theorem](SMALL_BIPARTITE_CORE.md)
