@@ -163,6 +163,14 @@ and their sum agrees with the indicated `n`. Across the
 number of blocks in a shape is **43**, and the total number
 of generated input blocks is **795**.
 
+The separate [57-row positivity digest](certificates/finite_57_determinant_positivity_summary.txt)
+records the exact minimum and maximum reconstructed block lengths,
+together with the minimum/maximum coordinates of `M^{-1}u`,
+for each shape. There are **28 even-block and 29 odd-block** shapes;
+thus their cubic dilations have exactly the two parity-dependent
+length formulas proved below. The digest is a redundant audit,
+not an additional endpoint certificate.
+
 Thus **all 57 residual finite witnesses have an algebraic
 *definition* through one general theorem**. None needs its
 own endpoint-cancellation identity. The set of 57 choices
