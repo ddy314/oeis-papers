@@ -66,6 +66,8 @@ jobs:
         run: python papers/A006063/verify_dual_reflection_paths.py
       - name: Verify three uniform cyclic-color planar rotation systems
         run: python papers/A006063/verify_three_rotation_planarity.py
+      - name: Verify optimal 14/10/16-edge bipartite deletions via four odd planar faces
+        run: python papers/A006063/verify_small_bipartite_core.py
       - name: Audit 26 algebraic planar-face word templates and vertex intervals
         run: python papers/A006063/verify_planar_face_word_templates.py
       - name: Prove 14-10-16 dual-path near-bipartite theorem in all 199 phase graphs
