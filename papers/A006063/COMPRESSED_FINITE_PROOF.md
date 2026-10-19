@@ -1,8 +1,12 @@
-# A006063: 82 arithmetic generators for the entire existence tail
+# A006063: 74 exceptional identities + 3 algebraic block families
 
 **Status:** explicit finite mathematical proof with a smaller, solver-free
 certificate; not a parameter-free construction or a claim about priority.
-This note refines, but does not invalidate, the 109-row arithmetic atlas in
+The current reduced proof uses **74 exceptional integer identities** and **three
+parameterized, purely algebraic block-rearrangement families** producing
+eight further base lengths. See [PARAMETRIC_BLOCK_TEMPLATES.md](PARAMETRIC_BLOCK_TEMPLATES.md).
+A complete 82-row atlas remains as a redundant independent proof,
+refining (but not invalidating) the older 109-row arithmetic atlas in
 `FINITE_INTERVAL_PROOF.md`. The previously separate counting results are
 unchanged. The finite base is now self-contained without any external
 classification of shorter admissible lengths.
@@ -36,10 +40,15 @@ exists and `m+n+1=k^3`, retain it on `[1,m]` and append
 `[m+1,n]`, so the resulting permutation is legal. This operation
 requires no matching theorem or computational hypothesis.
 
-## 2. Smaller self-contained arithmetic base
+## 2. Three parametric families and 74 exceptional base identities
 
-[certificates/finite_82_seed_atlas.txt](certificates/finite_82_seed_atlas.txt)
-gives **82 explicit boundary-balance identities**, comprising:
+[certificates/finite_74_exceptional_atlas.txt](certificates/finite_74_exceptional_atlas.txt)
+gives **74 exceptional boundary-balance identities**, comprising **969**
+reflected blocks. The **8 omitted lengths**
+`66,85,100,103,119,122,182,254` follow from three algebraic formulas
+for 4-, 5-, and 6-block rearrangements. The [symbolic derivations](PARAMETRIC_BLOCK_TEMPLATES.md)
+require only positivity inequalities in cubes and a trivial input/output
+block-reordering lemma. Thus the **82 total established seed lengths** are:
 
 - **22 seeds below 173:** `66,82,85,100,103,116,118,119,120,121,122,123,
   125,126,127,129,131,132,150,151,155,156`.
@@ -51,13 +60,17 @@ gives **82 explicit boundary-balance identities**, comprising:
 
 Each row `n b_1:k_1 ... b_t:k_t` means
 `c_j=k_j^3` on the interval `(b_(j-1),b_j]`.
-These **1,030 intervals** satisfy the exact endpoint-balance
-identities above. Several especially long rows have been replaced by
+The complete, redundantly preserved 82-row certificate has **1,009**
+intervals; the primary 74 exceptional rows contribute **969** of them.
+Every exceptional row satisfies the integer endpoint-balance identity;
+the remaining eight rows follow symbolically from the three templates. Several especially long rows have been replaced by
 independently verified shorter identities; for example, the seed
 `n=206` now has 15 segments, while `n=344` has 12.
-The original 109-row atlas used 1,123 intervals, so the new certificate
-reduces both independent row count (**109 to 82**) and explicit
-interval identities (**1,123 to 1,030**). This is a reduction in
+The older 109-row atlas used 1,123 intervals. The logical number
+of separately checked numeric identities is reduced **109 -> 74**,
+with **three independent parameterized formulas** replacing eight
+individual equalities. The fully expanded 82-row comparison atlas
+has **1,009** reflected intervals (instead of 1,123). This is a reduction in
 finite casework, not its elimination.
 
 No permutation-array archive is an input to this certificate: every
@@ -65,7 +78,8 @@ identity is written out as a short, human-checkable sequence of integers.
 
 ## 3. Closure: all lengths from 173 to 364
 
-Take the empty permutation at length `0`, the 82 displayed seeds,
+Take the empty permutation at length `0`, the 74 exceptional rows
+and the eight explicit outputs of the three parameter templates,
 and apply the cubic suffix-reflection lemma in increasing order of
 the target length `n`. At each omitted `n<=364`, test whether a
 cube `c` among `8,27,64,125,216,343,512` has
@@ -96,7 +110,7 @@ lengths below 173: the 48 needed lower lengths are **constructed**
 from the 22 printed lower seeds and the empty seed. Likewise,
 this note does not assert nonexistence at any smaller lengths.
 
-Every displayed seed is irredundant **within the stated 82-seed
+Every selected seed length is irredundant **within the stated 82-length
 system under strictly growing cubic suffix reflections**: when
 processed in increasing order, no seed can be obtained from a
 previously constructed shorter length by this one operation.
@@ -128,27 +142,31 @@ strictly increases for larger integer `k`, since its
 first difference is `3*k^2-9*k+1>0` for `k>=10`.
 The suffix-reflection lemma therefore completes the induction.
 
-**Theorem.** The 82 explicitly displayed endpoint-multiset
-identities, the empty permutation, and the elementary reflection
-and cubic-gap lemmas prove `P(n)>0` for **every `n>=173`**.
+**Theorem.** The 74 exceptional endpoint-multiset identities,
+three pure algebraic block templates, the empty permutation, and
+the elementary suffix reflection and cubic-gap lemmas prove
+`P(n)>0` for **every `n>=173`**.
 
 ## 5. What is checked, and what remains open
 
-`verify_82_seed_proof.py` independently reads **only**
-`finite_82_seed_atlas.txt`. It checks exact integer endpoint
-multisets, segment bounds, row counts, total interval count, and
-strictly increasing cubic-reflection closure through 364.
-It does **not** read the older 109-row atlas, a matching certificate,
-an OEIS membership file, or any prior permutation archive.
+`verify_74_plus_templates.py` independently reads **only** the
+74 exceptional rows and regenerates the eight further seed lengths
+using the three symbolic block formulas. It verifies their cubes,
+endpoint multisets, and the strictly growing reflection closure.
+It does **not** read the older 109-row atlas, the redundant 82-row atlas,
+a matching certificate, an OEIS membership file, or any stored
+permutation array. The separate `verify_82_seed_proof.py` continues
+to verify the entire 82-row, 1,009-block comparison atlas.
 
 The proof can be checked on paper, row by row, without executing
-the script. The script is a reproducibility aid, **not a hidden
-computational premise**. The infinite-tail argument is symbolic
+the script. The scripts are reproducibility aids, **not hidden
+computational premises**. The infinite-tail argument is symbolic
 and is not outsourced to a numerical check.
 
-**Unresolved:** replacing the 82 explicit rows by a small number
-of parameterized constructions that are proved in a case-free
-fashion. In particular, an endpoint-multiset *verification lemma*
+**Unresolved:** replacing the remaining 74 exceptional rows by
+uniform mathematical constructions. The three template families
+are a first partial parameterization, but do not by themselves
+eliminate all numerical casework. In particular, an endpoint-multiset *verification lemma*
 does not itself generate the rows and should not be conflated with
 a uniform analytic existence proof. The absence of a nontrivial
 parameter-free base proof is stated explicitly.
