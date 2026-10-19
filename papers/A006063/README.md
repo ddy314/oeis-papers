@@ -1,3 +1,31 @@
+# A006063 — final review entry point (2026-10-19)
+
+**Read this first:** [Final proof map (PDF)](A006063_final_proof_map.pdf) |
+[Final reader's guide and audit](FINAL_READER_GUIDE.md).
+
+The **core A006063 theorem** (a cube-sum permutation exists for all
+`n >= 173`) is established by 56 explicit integer-determinant
+shape certificates, a separate forced-neighbor proof at 173,
+25 symbolic template seeds, finite cubic-suffix closure of [173,364],
+and a purely symbolic infinite interval-overlap avalanche.
+It remains a **finite-certificate proof, not a case-free proof**.
+
+The **exact membership below 173** (48 positive, 124 Hall-negative)
+and the **A096680 multiplicity theorem** use additional finite
+certificates, documented separately in the guide.
+The **199-case higher-start four-cube involution program** still
+requires an unproved uniform Hall/matching theorem. Its computational
+matching successes must not be represented as proved general
+four-cube existence.
+
+**Correction applied to `main.tex`:** the strict reflection-only
+minimal *new* seed count relative to the 48 small positive indices
+and empty seed is **60 = 44 + 16**, not 57. This is distinct from
+the historical 57 determinant-shape cases (now reduced to 56
+plus a direct proof at 173).
+
+---
+
 # Cube-sum permutation classifications (OEIS A006063, A096680, A096904)
 
 **Date:** 2026-10-18  
