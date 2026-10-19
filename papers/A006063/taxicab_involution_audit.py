@@ -41,6 +41,14 @@ def verify_symbolically(roots,u):
     d=((B-C)*T+1,(B-C)*T+H)
     assert a[1]<b[0]<b[1]<A*T
     assert A*T<=c[0]<=c[1]<d[0]<=d[1]<=N
+    if u%2:
+        expected_fixed = ((1 if A%2==0 else 0) +
+                          (1 if B%2==0 else 0))
+        assert expected_fixed==(0 if roots==(17,39,26,36) else 1)
+        if expected_fixed:
+            assert A*T <= B*T//2 <= N
+    # All switching quadruples consist of transpositions only.
+    # Their members cannot be a central fixed point of either block.
     for s in (1,2,max(1,H//2),H):
         x,y,z,w=s,A*T-s,C*T-s,(B-C)*T+s
         assert x+y==A*T and z+w==B*T
@@ -59,6 +67,7 @@ def materialize_small(roots):
         p[i]=B*T-i
     assert sorted(p[1:])==list(range(1,N+1))
     assert all(p[p[i]]==i for i in range(1,N+1))
+    assert all(p[i]!=i for i in range(1,N+1))
     powers={x**3 for x in roots}
     assert all(i+p[i] in powers for i in range(1,N+1))
 
@@ -73,6 +82,7 @@ def materialize_small(roots):
         q[w]=y
     assert sorted(q[1:])==list(range(1,N+1))
     assert all(q[q[i]]==i for i in range(1,N+1))
+    assert all(q[i]!=i for i in range(1,N+1))
     assert all(i+q[i] in powers for i in range(1,N+1))
     assert sum(q[i]!=p[i] for i in range(1,N+1)) == 4*len(range(1,H+1,3))
     print(f"PASS: explicitly constructed original and modified "
