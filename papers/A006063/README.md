@@ -5,6 +5,16 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Newest high-start research: four-cube phases and 193-path quotient (2026-10-19)
+
+The [four-cube phase analysis](FOUR_CUBE_PHASES.md) shows experimentally that **199/199 lengths in [467,665] have an involution using at most FOUR cubic sums per length**, not necessarily all five. The phase palettes are `{216,343,512,729}` for 467–560, `{216,512,729,1000}` for 561–579, and `{343,512,729,1000}` for 580–665. Even n have no fixed point; odd n fix 108 except **n=581**, where fixing **256** instead gives a four-color involution. A [separate graph-matching audit](verify_high_start_four_color_phases.py) checks all 199. **This is a finite computational observation, not yet a case-free theorem.**
+
+The [193-path quotient theorem](ODD_CUBE_PATH_QUOTIENT.md), by contrast, **is proved symbolically**: the odd-cube graph with sums 343,729 decomposes, for every n in [467,665], into exactly **193 paths with 2–4 vertices**. Their size counts are explicit affine functions of n. After removing fixed point 108 for odd n, a closed formula counts the odd path components, proving that any proposed five-cube involution with that fixed point requires **at least q(n)/2 even-cube edges**—at n=556,557,558 this is at least **85** edges.
+
+A further [exact path-gadget state theorem](ODD_CUBE_PATH_QUOTIENT.md) reduces existence of five-cube involutions to a matching of the even-cube reflections meeting at most five admissible local vertex masks per path. This is an equivalence theorem, not an existence theorem. [Pure-integer audit](verify_odd_cube_path_quotient.py) checks the 193-component formulas without NetworkX. The [two-seed alternating ladder](verify_high_start_two_seed_ladder.py) is an independent experiment deriving all 199 involutions from two base matchings and 197 alternating-path flips, but its path-existence checks are not yet symbolic.
+
+The next useful target is **three uniform four-color matching theorems**, with a single allowed fixed-point change at 581, rather than one uniform five-color Tutte theorem. The already proved lower-base existence proof and infinite suffix avalanche remain unchanged.
+
 ## High-start avalanche study: the 467–665 five-cube involution window
 
 New [HIGH_START_INTERVAL_AUDIT.md](HIGH_START_INTERVAL_AUDIT.md) compares mathematically valid self-propagating avalanche bases. The *minimum width for two successive cube reflections* beginning with `k^3` is `(3k^2+3k+2)/2`, giving `[229,364]` (136 lengths), `[334,499]` (166), `[467,665]` (199), and `[1639,2047]` (409). Higher start reduces leaf degeneracy but raises the absolute base width.
