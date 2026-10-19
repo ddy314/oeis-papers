@@ -123,7 +123,94 @@ planarity observations; it requires
 only these three small, independently
 checkable combinatorial embeddings.
 
-## 3. What the theorem contributes—and what it does not
+## 3. The face count reduces to just 26 color-word templates
+
+For an even more explicit arithmetic account of
+the three Euler face counts, encode each palette's
+four cube sums in **increasing numeric order**
+as `A,B,C,D`. In Phase III, note that
+the *rotation* is still `A,C,B,D`;
+the letters below refer to cube values,
+not to clockwise rank.
+
+For any oriented face, read the cube-color
+word encountered along its directed boundary
+and choose the **lexicographically least
+cyclic rotation** of that word. The face
+also has a well-defined minimum vertex.
+The resulting complete list of face
+types uses only **8, 9 and 9 templates**:
+
+**Phase I, n=560 (A=216, B=343, C=512, D=729)**
+
+| cyclic face word | allowed minimum vertex | faces |
+|---|---|---:|
+| ABCDCABCDC | [1,38] ∪ [40,59] ∪ [61,83] | 81 |
+| BCDBCD | [1,62] | 62 |
+| ABCDDABCDD | [1,23] | 23 |
+| ABCDDBCDCABCDDBCDCDD | {47} | 1 |
+| ABCDCABDC | {39} | 1 |
+| ABCDC | {84} | 1 |
+| ABCDCBCDC | {60} | 1 |
+| BCD | {63} | 1 |
+
+The total is `81+62+23+5=171` faces.
+
+**Phase II, n=579 (A=216, B=512, C=729, D=1000)**
+
+| cyclic face word | allowed minimum vertex | faces |
+|---|---|---:|
+| ABCBABCBCDBABCBABCBCDB | [13,28] ∪ [30,41] | 28 |
+| ABCBCDCABCBCDC | [1,13] ∪ [15,26] | 25 |
+| ABCBCDBABCDC | [1,11] | 11 |
+| ABCBCDBABCBCDB | [71,80] | 10 |
+| ABCBABCBCDBABCBBCBCDB | {29} | 1 |
+| ABCBCDCABCCDC | {14} | 1 |
+| ABCBCDCBCDCABCBCDCBCDC | {53} | 1 |
+| ABCBCBABCDC | {12} | 1 |
+| ABCBCDB | {81} | 1 |
+
+The total is `28+25+11+10+5=79` faces.
+
+**Phase III, n=665 (A=343, B=512, C=729, D=1000)**
+
+| cyclic face word | allowed minimum vertex | faces |
+|---|---|---:|
+| ACDCBACDCB | [72,86] ∪ [88,144] | 72 |
+| ACBACB | [1,62] | 62 |
+| BDCBDC | [64,120] | 57 |
+| ABDCBABDCB | [9,11] ∪ [13,35] | 26 |
+| ABDCBACD | [1,8] | 8 |
+| ACDCACDCB | {87} | 1 |
+| ACB | {63} | 1 |
+| ABCBABDCB | {12} | 1 |
+| ABDCB | {36} | 1 |
+
+The total is `72+62+57+26+8+4=229` faces.
+
+The validity of each template is checked
+by the explicit reflection rule
+`v -> c-v` and the uniform successor
+rotation at the next vertex. The
+permitted minimum-vertex sets are
+unions of **short integer intervals**,
+rather than arbitrary lists of hundreds
+of faces. In each case, the intervals
+count every cyclic face word exactly
+once and the total word lengths equal
+`2E`. This yields a compact 26-family
+**finite arithmetic proof certificate**
+of the three planar endpoint embeddings.
+
+The independent checker additionally
+compares these words and minimum
+vertices, not just their aggregate
+Euler face counts. This still relies
+on finitely stated arithmetic
+identities; it does not imply the
+unproved positive matching theorem.
+
+## 4. What the theorem contributes—and what it does not
 
 The full four-color perfect-matching
 problem is now restricted to a family
