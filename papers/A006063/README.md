@@ -5,6 +5,14 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## High-start avalanche study: the 467–665 five-cube involution window
+
+New [HIGH_START_INTERVAL_AUDIT.md](HIGH_START_INTERVAL_AUDIT.md) compares mathematically valid self-propagating avalanche bases. The *minimum width for two successive cube reflections* beginning with `k^3` is `(3k^2+3k+2)/2`, giving `[229,364]` (136 lengths), `[334,499]` (166), `[467,665]` (199), and `[1639,2047]` (409). Higher start reduces leaf degeneracy but raises the absolute base width.
+
+The strongest experimental candidate is **[467,665]**: a short **purely mathematical twofold-reflection lemma** proves that *every index* has at least two partners among only **five cube sums** `216,343,512,729,1000`. A separate [experimental audit](verify_high_start_five_cubes.py), using NetworkX's general-graph perfect-matching algorithm, found an **involutive permutation for all 199 lengths** using only those five cubes. Every odd length admits a checked involution with the **single fixed point 108**, and every even length admits a fixed-point-free involution. **This last 199/199 statement has NOT been proved without matching computation.** The precise mathematical target is Tutte's 1-factor condition on the restricted five-cube graph after deleting 108 for odd n.
+
+*If* that single uniform Tutte condition were proved, the existing interval avalanche would prove the stronger theorem that **every n>=467 admits a cube-sum involution**, not just an arbitrary permutation: cubic suffix reflection preserves involutions. But this high-start theorem would not replace the proof of the original `173<=n<=466` range. This research does not alter the current finite existence theorem or claim the 57/56 parameter obligations have disappeared.
+
 ## Local forced-reflection avalanche and a reduced 56-shape base (2026-10-19)
 
 A new [forced-reflection peeling proof](FORCED_REFLECTION_PEELING.md) studies the cube-sum graph directly, without constructing its perfect matching by a determinant or endpoint atlas. If vertex `i` has exactly one cubic-sum neighbor `j`, every legal permutation forces **both** `p(i)=j` and `p(j)=i`, and deleting those vertices preserves the exact number of permutations.
