@@ -2434,6 +2434,155 @@ archive. The older $109$-row table
 is preserved as an independent
 redundant check.
 
+\subsection{Forced reflection peeling at the critical base}
+\label{subsec:forced-reflection-peeling}
+
+\begin{lemma}[Forced neighbor and reflected pair]
+\label{lem:forced-neighbor}
+Let $V$ be a finite set of positive integers, with
+cube-sum adjacency $i\sim j$ whenever $i+j$ is a
+cube. If $i\in V$ has exactly one neighbor $j\in V$,
+every cube-sum permutation $p:V\to V$ satisfies
+$p(i)=j$ and $p(j)=i$. Deleting $i,j$ (or only
+$i$ when $i=j$) therefore preserves exactly the
+number of cube-sum permutations of the induced
+residual vertex set.
+\end{lemma}
+\begin{proof}
+The $i$th row can use only image $j$.
+Since the cube-sum graph is symmetric, column $i$
+can only be supplied by row $j$. Both assignments
+are therefore forced, and restriction or extension
+gives mutually inverse maps between permutations.
+\end{proof}
+
+\begin{theorem}[Three forced bands]
+\label{thm:forced-bands}
+For every $173\le n\le181$, the following
+three successive reflected bands are forced
+in \emph{every} cube-sum permutation:
+\[
+\begin{array}{c|c|c}
+\text{round}&\text{first endpoints }i& i+p(i)\\ \hline
+1 &[125,342-n]&216\\
+2 &[34,215-n]&64\\
+3 &[95,276-n]&216
+\end{array}
+\]
+Here each row is deleted together with its
+reflected images before the next round.
+Exactly $582-3n$ forced reflected pairs are
+identified by these three bands.
+\end{theorem}
+\begin{proof}
+Since $2n<512$, all relevant cube sums
+are $8,27,64,125,216,343$. On the first
+band, cubes up to $125$ give no positive
+neighbor, and $343-i>n$; thus the unique
+neighbor is $216-i$. Their image interval
+is $[n-126,91]$.
+On the second band, the possible $125-i$
+is in this deleted image interval,
+and $216-i>n$, leaving only $64-i$;
+its images form $[n-151,30]$.
+On the third band, the possible $125-i$
+lies in the deleted second image interval,
+and $343-i>n$, leaving $216-i$.
+All partners are distinct and belong to
+the still remaining vertices.
+The band sizes are
+$218-n$, $182-n$, and $182-n$, so their
+sum is $582-3n$.
+\end{proof}
+
+\begin{theorem}[Exact counts at $173,174,175$]
+\label{thm:forced-base}
+For the cube-sum permutation counting function,
+\[
+\boxed{P(173)=1,\quad P(174)=1,\quad P(175)=3.}
+\]
+In particular the existence at $n=173$
+is established without a determinant shape
+or a precomputed endpoint-multiset identity.
+\end{theorem}
+\begin{proof}
+At $n=173$, after the three forced bands
+the additional batches of first endpoints
+and their required cube sums are
+\[
+\begin{array}{c|l}
+\text{round}& \text{first endpoints : cube}\\ \hline
+4&\{4,5\}:8,\ [8,12]:27\\
+5&\{45,46,106,107,108,122\}:216\\
+6&\{31\}:64,\ \{172,173\}:216\\
+7\!-\!15&(92,216),(1,8),(20,125),(111,125),
+(13,125),\\
+& (104,125),(6,8),(123,216),(32,64)
+\end{array}
+\]
+Each first endpoint has exactly one neighbor
+remaining when its round is reached;
+this follows by direct subtraction from the
+six cubes at most $343$. All $173$ vertices
+are removed. Thus the resulting permutation
+is unique, with fixed points $4,32,108$.
+
+At $n=174$, the corresponding rounds are
+\[
+\begin{array}{c|l}
+1\!-\!3&[125,168]:216,\ [34,41]:64,\ [95,102]:216\\
+4&\{4\}:8,\ [8,11]:27\\
+5&\{45,46,47,106,107,108\}:216\\
+6&\{15\}:27,\ \{172,173,174\}:216\\
+7\!-\!19&(113,216),(22,27),(3,125),(94,125),
+(33,125),\\
+&(124,125),(7,27),(105,216),(14,27),
+(112,216),\\
+&(21,27),(2,125),(93,125).
+\end{array}
+\]
+Again every vertex is removed by forced choices,
+so the permutation is unique, with fixed
+points $4,108$.
+
+At $n=175$ the first three bands are
+$[125,167]$, $[34,40]$, $[95,101]$.
+Use rounds $4$--$19$ of the preceding table,
+but omit $\{4\}$ from round $4$ and
+replace its interval $[8,11]$ by $[8,10]$.
+The remaining ten vertices are precisely
+\[
+\{4,11,16,23,41,48,102,114,168,175\}.
+\]
+Their induced cube-sum graph is the loop at
+$4$, the edge $(4,23)$, and the chordless
+nine-cycle
+\[
+23-41-175-168-48-16-11-114-102-23.
+\]
+If $p(4)=4$, the odd cycle has exactly
+two directed cycle covers, one for each
+orientation. Otherwise $p(4)=23$
+forces $p(23)=4$; the eight remaining
+vertices form a path with a unique
+cover by four reciprocal pairs. Thus
+there are exactly $2+1=3$ permutations.
+\end{proof}
+
+\begin{corollary}[One fewer algebraic shape]
+\label{cor:56-plus-forcing}
+The proof of the finite interval $[173,364]$
+may use the $56$ cubic-root/output-order
+shapes in Appendix~\ref{app:reduced-shapes},
+the six algebraic block families generating
+$25$ further seed lengths, and the unique
+forced matching of $173$ from
+Theorem~\ref{thm:forced-base}.
+Together these establish the same $82$
+seed lengths as before. The excluded
+$173$ determinant shape is redundant.
+\end{corollary}
+
 \subsection{The interval-overlap avalanche and its finite obstruction}
 \label{subsec:interval-overlap-avalanche}
 
@@ -4529,4 +4678,23 @@ Ray Chandler, \emph{A096904: Number of cube-sum permutations},
 P. Hall, On representatives of subsets,
 \emph{J. London Math. Soc.} 10 (1935), 26--30.
 \end{thebibliography}
+
+\clearpage
+\section{Reduced set of 56 algebraic cubic-order shapes}
+\label{app:reduced-shapes}
+The critical length $n=173$ is proved directly
+by forced-reflection peeling rather than from
+the determinant parameter table. For each of
+the remaining $56$ shapes, the block lengths
+are positive integer determinants by
+Theorem~\ref{thm:unimodular-block-factory}.
+The excluded original $57$-shape table
+remains an optional independent audit.
+\begin{multicols}{2}
+\scriptsize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\input{certificates/finite_56_cubic_order_shapes.tex}
+\end{multicols}
+
 \end{document}
