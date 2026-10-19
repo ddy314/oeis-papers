@@ -2882,10 +2882,10 @@ An ascending reflection-closure algorithm starts from
 those small solutions and, at each $173\le n\le364$,
 uses any already certified $m<n$ for which $m+n+1$
 is a cube. Precisely $132$ lengths are obtained by
-reflection and only $57$ further lengths need explicit
+reflection and only $60$ further lengths need explicit
 witnesses. Here the empty matching is allowed:
 $n=342$ follows directly from $c=343$,
-with $p(i)=343-i$. The $57$ additional
+with $p(i)=343-i$. The $60$ additional
 witnesses are archived in
 \texttt{core\_60\_with\_empty.json}, and
 \texttt{verify\_extended.py} certifies this alternate
@@ -2897,8 +2897,8 @@ Suppose the empty matching and the $48$ known positive
 lengths below $173$ are provided as initial data. Among proofs of all lengths
 $173,\dots,364$ that use only the reflection extension
 of Lemma~\ref{lem:reflect} and independently supplied
-new full-length seed permutations, at least $57$
-extra seeds are necessary, and $57$ suffice.
+new full-length seed permutations, at least $60$
+extra seeds are necessary, and $60$ suffice.
 \end{proposition}
 \begin{proof}
 Process $n=173,\dots,364$ in ascending order. If no
@@ -2916,7 +2916,11 @@ index list. Every forced seed is unavoidable by
 the definition of the restricted proof rule.
 \end{proof}
 This is \emph{not} a lower bound on arbitrary
-mathematical proofs. The alternating-path
+mathematical proofs. This $60$-seed minimum concerns the
+restricted reflection-only closure with all $48$ positive
+small lengths and the empty seed already available; it is
+distinct from the historical $57$ algebraic shape choices.
+The alternating-path
 extension in Lemma~\ref{lem:words} is a different
 operation and indeed replaces those $57$ large
 independent seeds by one explicit involution
