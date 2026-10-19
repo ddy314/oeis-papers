@@ -5,6 +5,20 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Finite 173–364 gap: explicit algebraic proof without matching algorithms
+
+**This is the current focused result.** [FINITE_INTERVAL_PROOF.md](FINITE_INTERVAL_PROOF.md) proves the missing finite base interval using a single elementary **boundary cancellation lemma** plus [109 explicit piecewise-reflection rows](certificates/finite_block_atlas.txt), now reproduced in the LaTeX appendix.
+
+For each row, take endpoints `0=b_0<...<b_t=n` and cube roots `k_j`. Define `L_j=k_j**3-b_j` and `R_j=k_j**3-b_(j-1)`. The row defines a legal permutation precisely when `1<=L_j<R_j<=n+1` and
+
+```
+multiset(1,R_1,...,R_t) = multiset(n+1,L_1,...,L_t).
+```
+
+All 109 displayed rows (n=173..255 and 339..364) satisfy this integer identity: **1,123** reflected intervals in total, roots 2..8. The remaining n=256..338 follow from the single reflection `m=511-n`, `m+n+1=512`; n>=365 follows by strong induction and the existing cube-gap lemma. Thus this gives a **self-contained, paper-checkable finite arithmetic certificate** of all n>=173 without executing the 191 augmenting words or any perfect-matching solver.
+
+**Important limitation:** this is not yet a uniform case-free derivation. The 109 explicit rows remain finite casework, albeit plain integer identities rather than computationally generated matchings. `finite_endpoint_identity.py` independently audits the list; it is optional for the proof.
+
 ## Results
 
 1. **Exact A006063 membership.** `P(n)>0` for every `n>=173`. The 48 positive lengths below 173 are exactly those listed by OEIS; all 124 negative lengths have explicit Hall-obstruction witnesses. Therefore **`A006063(j)=j+124` for every index `j>=49`**, strengthening the formerly conjectural tail formula (which was stated for indices >=173).
