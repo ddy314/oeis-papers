@@ -52,6 +52,10 @@ jobs:
         run: python papers/A006063/verify_57_plus_templates.py
       - name: Reconstruct all 57 exceptions as exact unimodular algebraic families and test cubic dilations
         run: python papers/A006063/verify_unimodular_factory.py
+      - name: Verify pure forced reflection peeling and exact counts at 173, 174, 175
+        run: python papers/A006063/verify_forced_peeling.py
+      - name: Audit primary 56 determinant shapes plus the direct forced-173 theorem
+        run: python papers/A006063/verify_56_plus_forcing.py
       - name: Audit 70 exceptional identities and all four symbolic template families
         run: python papers/A006063/verify_70_plus_templates.py
       - name: Verify exact P(236) and non-involution five-cycle decomposition
