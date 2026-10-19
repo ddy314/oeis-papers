@@ -1,15 +1,29 @@
-# A direct Tutte obstruction at n=581 when the fixed point is 108
+# Hybrid five-cube Tutte obstruction at n=581
 
-**PROVED: the four-cube palette `{343,512,729,1000}` cannot
-support a cube-sum involution on `[1,581]` whose only fixed point
-is 108.** The proof uses a small explicitly defined set of
-integer intervals, reflection arithmetic, and Tutte's 1-factor
-theorem, not a general-graph matching algorithm.
+**PROVED: if a cube-sum involution at n=581 fixes
+108 and uses the palette
+`{216,343,512,729,1000}`, then it must use
+cube 216 on at least one nontrivial 2-cycle.**
+Merely using 216 at the fixed point and
+restricting every 2-cycle to
+`{343,512,729,1000}` is impossible.
 
-This explains why the proposed four-cube phase construction
-at n=581 changes the lone fixed point to 256 (or 500).
-Those positive existence claims remain separately supported
-by computation, not by this negative theorem.
+**Important correction:** The four-cube
+palette `{343,512,729,1000}` does not
+contain 216, so an involution using only
+these four cubes cannot fix 108 **at any
+odd length**, not merely 581. Valid
+single fixed points for this palette
+are 256 or 500. The obstruction below
+is therefore about a *hybrid five-cube
+normalization* rather than a valid
+four-cube fixed-108 case.
+
+The statement is a genuine Tutte
+graph-theoretic certificate, proved
+by elementary integer reflection
+arithmetic and the 1-factor theorem,
+not a failed matching-solver call.
 
 ## 1. The graph and its 31-interval obstruction set
 
@@ -81,7 +95,7 @@ reproduces all sizes from the 31 displayed
 intervals, without NetworkX, SciPy, optimization
 or any archived cube-sum permutations.
 
-## 3. Tutte's theorem rules out the fixed-108 involution
+## 3. Tutte's theorem rules out the hybrid restricted involution
 
 Tutte's 1-factor theorem states that a finite
 loopless undirected graph H has a perfect
@@ -98,11 +112,13 @@ o(G-S) = 105 > 103 = |S|.
 Consequently G **has no perfect matching**.
 
 A cube-sum involution on `[1,581]` with
-exactly one fixed point at 108 would restrict
-to a perfect matching on G: its 2-cycles are
-undirected edges of G and they cover all
-other vertices. This contradicts Tutte.
-Therefore no such involution exists. QED.
+sole fixed point 108 **and no other cube-216
+edges** would restrict to a perfect matching
+on G: its 2-cycles are edges of G and cover
+all other vertices. This contradicts Tutte.
+Thus any five-cube involution with fixed
+point 108 must use at least one additional
+nontrivial 2-cycle whose index sum is 216. QED.
 
 The obstruction is *not* a bipartite Hall
 obstruction for ordinary permutations:
@@ -114,24 +130,32 @@ not rule out an involution with fixed point
 256 or 500, since deleting a different
 fixed vertex produces a different graph.
 
-## 4. Consequences for the high-start proof strategy
+## 4. Consequences and limitations
 
-The proposed palette for Phase III is
-`{343,512,729,1000}`. An auxiliary
-matching experiment finds a valid
-involution at n=581 with only fixed point
-256; by contrast, the theorem above
-**rigorously proves that keeping 108 as
-the sole fixed point is impossible**.
+The [three four-cube phases](FOUR_CUBE_PHASES.md)
+must use a valid fixed-point rule. In
+Phase III, every odd n uses fixed point
+256 or 500 (because 216 is not among
+its four cube sums); this has been
+independently rechecked for all odd
+581<=n<=665.
 
-Thus the change of fixed point is not
-merely a normalization preference:
-under the specified Phase III palette,
-the proposed fixed-108 normalization
-has a concrete Tutte barrier.
+The present proof says something
+**stronger than the trivial invalidity
+of fixed point 108 in Phase III**:
+even if the fifth cube 216 is permitted
+at the self-loop 108, one must also use
+at least one separate 216-reflection
+pair to obtain a five-cube involution
+at n=581. The 103-vs-105 component
+certificate explains a real combinatorial
+deficit in the remaining four-color
+graph. The amount of additional
+216-colored matching used is a separate
+question.
 
-This is a **negative structural theorem**,
-not a uniform proof of the three four-color
-existence phases. It sharpens the
-boundary condition for any future
-case-free construction on [580,665].
+This negative result neither constructs
+nor excludes four-cube involutions with
+fixed point 256 or 500, nor does it
+establish a phase-wide positive matching
+theorem.
