@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: 74 Integer Identities and Three Algebraic Templates}
+\title{Cube-Sum Permutations: 70 Integer Identities and Four Algebraic Templates}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -17,8 +17,8 @@
 Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
 for which every $i+p(i)$ is a perfect cube.
 We prove $P(n)>0$ for every $n\ge 173$ from
-$74$ exceptional integer endpoint identities ($969$
-reflected blocks) and three general algebraic
+$70$ exceptional integer endpoint identities ($927$
+reflected blocks) and four general algebraic
 block-rearrangement templates giving eight further seeds.
 An elementary suffix-reflection rule and a cubic-gap
 inequality extend the construction to all later lengths.
@@ -135,6 +135,43 @@ $2Z-2Y+X-W$. Taking $(Y,Z)=(64,125)$,
 the choices $(X,W)=(8,64),(27,64),(8,27)$
 give $n=66,85,103$, respectively.
 
+\paragraph{Family IV (eleven blocks, including degeneration).}
+Let $X,Y,Z,W$ be positive cubes and let $Q$ be an
+integer. Define
+\[
+\begin{aligned}
+a&=4Z-2W-Y-1,&b&=4W+X+2Y-8Z+1,\\
+c&=2Z-W-X,&d&=Q+4W+2X-8Z+1,\\
+e&=3Z-W-X-Q,&f&=3W+2Y-6Z+1.
+\end{aligned}
+\]
+Suppose $a,b,c,e,f>0$ and $d\ge0$.
+The input block lengths are
+\[
+(a,b,c,a,c,d,e,a,f,a,e)
+\]
+and their output order is
+\[
+(10,2,5,8,3,6,11,4,9,1,7).
+\]
+Lemma~\ref{lem:rearrange}
+gives the successive nominal sums
+\[
+(Z,X,Y,Z,Y,Q,W,Z,W,Z,W)
+\]
+and total length $n=4Z-W-X-Q-1$.
+When $d>0$, assume $Q$ is also a cube.
+When $d=0$, delete the sixth (empty) block
+from both orders: the value of $Q$ then
+need \emph{not} be a cube, and
+$n=3W+X-4Z$. With
+$(Y,Z,W)=(64,125,216)$ and $X=8,27$,
+taking $Q=125$ yields lengths $150,131$;
+taking $d=0$ yields lengths $156,175$.
+This proves four cases by a single
+symbolic family, without comparing four
+numerical endpoint lists.
+
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
 Suppose all breakpoints $b_j(n)$ are affine
@@ -157,16 +194,16 @@ The obstruction concerns \emph{fixed} cube sums
 and affine endpoints only, not varying cube
 sums or composition of reflection templates.
 
-In total these \emph{three symbolic identities}
-give eight base lengths
+In total these \emph{four symbolic identities}
+give twelve base lengths
 \[
-66,85,100,103,119,122,182,254
+66,85,100,103,119,122,131,150,156,175,182,254
 \]
-without eight separate endpoint-table checks.
+without twelve separate endpoint-table checks.
 
-\paragraph{The remaining 74 rows.}
+\paragraph{The remaining 70 rows.}
 
-The appendix records $74$ exceptional rows of the form
+The appendix records $70$ exceptional rows of the form
 $n\; b_1:k_1\;\cdots\;b_t:k_t$.
 The corresponding cubical sums are $c_j=k_j^3$
 and the first boundary is $b_0=0$.
@@ -174,10 +211,10 @@ For every row, the boundaries increase,
 $1\le L_j<R_j\le n+1$,
 and the multiset equality in
 Lemma~\ref{lem:balance} holds exactly.
-These are $969$ simple integer-interval
-identities. Exactly $16$ listed rows have
-$n<173$ and exactly $58$ have $173\le n\le364$.
-Together with the eight algebraic-template lengths,
+These are $927$ simple integer-interval
+identities. Exactly $13$ listed rows have
+$n<173$ and exactly $57$ have $173\le n\le364$.
+Together with the twelve algebraic-template lengths,
 there are $22$ lower and $60$ upper seeds.
 
 The following two lists give every omitted
@@ -201,8 +238,8 @@ cube     already constructed predecessors m
          100,103,105
 \end{verbatim}
 \end{quote}
-Together with the $16$ exceptional lower seeds
-and the six algebraic-template lower seeds,
+Together with the $13$ exceptional lower seeds
+and the nine algebraic-template lower seeds,
 these supply $48$ distinct lengths below 173.
 
 \paragraph{Second: 49 reflected lengths in
@@ -221,7 +258,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $58$ upper exceptional rows, the two
+The $57$ upper exceptional rows, the three
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -289,18 +326,18 @@ at $m$ and Lemma~\ref{lem:suffix}.
 The theorem uses explicit finite
 arithmetic equalities and short symbolic
 lemmas. The optional script
-\texttt{verify\_74\_plus\_templates.py}
+\texttt{verify\_70\_plus\_templates.py}
 checks the $74$ exceptional rows, regenerates
 all eight template cases and checks finite closure
 without matching or other external data.
 It is not a premise for the proof.
 A uniform, case-free formula replacing
-the remaining $74$ exceptional rows is
+the remaining $70$ exceptional rows is
 \emph{not} claimed.
 
 \clearpage
 \appendix
-\section{The 74 exceptional integer-multiset witnesses}
+\section{The 70 exceptional integer-multiset witnesses}
 \label{app:table}
 Every token $b:k$ means $p(i)=k^3-i$
 up to endpoint $b$. For each row, verify
@@ -311,7 +348,7 @@ Lemma~\ref{lem:balance}.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_74_exceptional_atlas.tex}
+\input{certificates/finite_70_exceptional_atlas.tex}
 \end{multicols}
 
 \end{document}
