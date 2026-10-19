@@ -5,56 +5,40 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Uniform leaf-boundary formulas for all three four-cube phases
+## Corrected four-cube phase fixed points and boundary forcing
 
-The [new forced-edge theorem](FOUR_CUBE_BOUNDARY_FORCING.md)
-identifies **all initial degree-one vertices**
-for the four-cube graph in each high-start phase,
-using only elementary reflection-domain inequalities.
-In particular, Phase I 512–560 forces the entire
-suffix [512,n] under cube 729; Phase II has exactly
-two forced edges at every length; and Phase III
-has no leaves at even lengths but changes its
-odd-length forced vertex at thresholds 596/621.
-The n=581 fixed-256 exception forces 87<->425.
-A [pure-Python audit](verify_four_cube_boundary_forcing.py)
-verifies every degree-one set for all 199 lengths
-with no matching solver. These are necessary
-conditions, not proof of the positive four-color
-phase conjecture.
+The four-cube experimental phase table now uses the
+**arithmetically valid fixed-point rules**:
+odd n in Phases I/II (467..579) fix 108
+(cube sum 216), while odd n in Phase III
+(581..665) fix **256** (cube sum 512).
+The second Phase III choice **500** also
+works experimentally for all 43 odd lengths.
+Earlier claims that Phase III could fix 108
+except at 581 were incorrect: 216 does not
+belong to that phase's cube palette.
 
-## A fully certified Tutte obstruction at n=581
+The [revised forced-edge theorem](FOUR_CUBE_BOUNDARY_FORCING.md)
+identifies all initial degree-one vertices.
+Phase I at n>=512 forces the suffix
+[512,n] under cube 729; Phase II has
+exactly two initial leaves; Phase III
+has no initial leaves for even n, and,
+using fixed 256, has the single leaf 87
+for odd n<=641, disappearing at n>=643.
+The [standard-library audit](verify_four_cube_boundary_forcing.py)
+checks this across all 199 lengths.
+These are necessary conditions, not a
+phase-wide matching existence proof.
 
-A new [31-interval mathematical witness](TUTTE_OBSTRUCTION_581.md)
-proves the exact reason the third four-cube phase cannot
-continue fixing 108 at n=581: deleting 108 and a
-103-vertex integer set from the graph using
-`{343,512,729,1000}` leaves **105 odd connected
-components**. Tutte's theorem gives `105>103`,
-so no perfect matching—and hence no involution
-with sole fixed point 108—exists. This is checked
-by [a standard-library arithmetic verifier](verify_tutte_581.py),
-not by a matching solver. It does not rule out the
-experimentally observed involutions fixing 256 or 500,
-nor does it settle the overall four-color phase theorem.
-
-## Newest high-start research: four-cube phases and 193-path quotient (2026-10-19)
-
-The [four-cube phase analysis](FOUR_CUBE_PHASES.md) shows experimentally that **199/199 lengths in [467,665] have an involution using at most FOUR cubic sums per length**, not necessarily all five. The phase palettes are `{216,343,512,729}` for 467–560, `{216,512,729,1000}` for 561–579, and `{343,512,729,1000}` for 580–665. Even n have no fixed point; odd n fix 108 except **n=581**, where fixing **256** instead gives a four-color involution. A [separate graph-matching audit](verify_high_start_four_color_phases.py) checks all 199. **This is a finite computational observation, not yet a case-free theorem.**
-
-The [193-path quotient theorem](ODD_CUBE_PATH_QUOTIENT.md), by contrast, **is proved symbolically**: the odd-cube graph with sums 343,729 decomposes, for every n in [467,665], into exactly **193 paths with 2–4 vertices**. Their size counts are explicit affine functions of n. After removing fixed point 108 for odd n, a closed formula counts the odd path components, proving that any proposed five-cube involution with that fixed point requires **at least q(n)/2 even-cube edges**—at n=556,557,558 this is at least **85** edges.
-
-A further [exact path-gadget state theorem](ODD_CUBE_PATH_QUOTIENT.md) reduces existence of five-cube involutions to a matching of the even-cube reflections meeting at most five admissible local vertex masks per path. This is an equivalence theorem, not an existence theorem. [Pure-integer audit](verify_odd_cube_path_quotient.py) checks the 193-component formulas without NetworkX. The [two-seed alternating ladder](verify_high_start_two_seed_ladder.py) is an independent experiment deriving all 199 involutions from two base matchings and 197 alternating-path flips, but its path-existence checks are not yet symbolic.
-
-The next useful target is **three uniform four-color matching theorems**, with a single allowed fixed-point change at 581, rather than one uniform five-color Tutte theorem. The already proved lower-base existence proof and infinite suffix avalanche remain unchanged.
-
-## High-start avalanche study: the 467–665 five-cube involution window
-
-New [HIGH_START_INTERVAL_AUDIT.md](HIGH_START_INTERVAL_AUDIT.md) compares mathematically valid self-propagating avalanche bases. The *minimum width for two successive cube reflections* beginning with `k^3` is `(3k^2+3k+2)/2`, giving `[229,364]` (136 lengths), `[334,499]` (166), `[467,665]` (199), and `[1639,2047]` (409). Higher start reduces leaf degeneracy but raises the absolute base width.
-
-The strongest experimental candidate is **[467,665]**: a short **purely mathematical twofold-reflection lemma** proves that *every index* has at least two partners among only **five cube sums** `216,343,512,729,1000`. A separate [experimental audit](verify_high_start_five_cubes.py), using NetworkX's general-graph perfect-matching algorithm, found an **involutive permutation for all 199 lengths** using only those five cubes. Every odd length admits a checked involution with the **single fixed point 108**, and every even length admits a fixed-point-free involution. **This last 199/199 statement has NOT been proved without matching computation.** The precise mathematical target is Tutte's 1-factor condition on the restricted five-cube graph after deleting 108 for odd n.
-
-*If* that single uniform Tutte condition were proved, the existing interval avalanche would prove the stronger theorem that **every n>=467 admits a cube-sum involution**, not just an arbitrary permutation: cubic suffix reflection preserves involutions. But this high-start theorem would not replace the proof of the original `173<=n<=466` range. This research does not alter the current finite existence theorem or claim the 57/56 parameter obligations have disappeared.
+The [31-interval Tutte obstruction](TUTTE_OBSTRUCTION_581.md)
+is retained with its correct scope:
+at n=581, a five-cube involution that
+fixes 108 cannot use sum 216 **only**
+for that fixed point. If all remaining
+2-cycles used the other four cube sums,
+deleting 103 vertices would leave 105
+odd components, contradicting Tutte.
 
 ## Local forced-reflection avalanche and a reduced 56-shape base (2026-10-19)
 
