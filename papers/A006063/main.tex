@@ -1101,6 +1101,46 @@ are tautological for involutions,
 so the achieved counts are minimal.
 \end{proof}
 
+\begin{corollary}[Odd-cube perfect matchings for every large even length]
+\label{cor:odd-cube-matching}
+For every even $n\ge230000$, there
+is a fixed-point-free involution
+$p$ such that \emph{every}
+$i+p(i)$ is an \emph{odd}
+perfect cube. Equivalently,
+the odd and even integers of
+$[1,n]$ can be paired bijectively
+using edges whose endpoint sums
+are odd cubes.
+
+For every odd $n\ge70001$
+there is a cube-sum involution
+with exactly one fixed point
+at $4$, whose cube sums are
+odd at \emph{all} indices
+$i\ge8$; the first seven sums
+are all $8$.
+\end{corollary}
+\begin{proof}
+The even seed $p_{26}(i)=27-i$
+has only the odd cube sum $27$,
+and every subsequent extension
+uses an odd cube. The final
+involution is fixed-point-free,
+so each transposition joins
+an odd integer to an even
+integer.
+
+The odd seed $p_7(i)=8-i$
+has precisely seven positions
+with the even cube sum $8$,
+and later odd-cube reflections
+introduce no further even
+cube sums. Theorem~\ref{thm:minimal-fixed}
+supplies the required constructions
+at all sufficiently large lengths.
+\end{proof}
+
 Define $J_{\min}(n)$ to count
 legal cube-sum involutions
 with no fixed point when $n$
