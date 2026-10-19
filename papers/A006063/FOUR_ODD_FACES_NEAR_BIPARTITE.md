@@ -1,6 +1,6 @@
 # A006063 — all 199 four-cube graphs are at most 16 edges from bipartite
 
-**PROVED:** Each of the three four-cube phases on
+**PROVED, including sharpness at the three maximal graphs:** Each of the three four-cube phases on
 `467<=n<=665` admits one fixed, length-independent set
 of at most **14, 10, or 16 exceptional cube-sum edges**,
 whose removal makes every graph in that phase bipartite.
@@ -129,7 +129,150 @@ applications of the *uniform color rotation*
 from the planar theorem; no general
 planarity algorithm is needed.
 
-## 3. Why the three certificates cover all 199 lengths
+## 3. Sharpness: the exact minimum number of odd-cycle edges
+
+The three displayed deletion sets are not just short:
+they are **minimum-cardinality bipartizing
+edge sets in their respective maximal graphs**.
+
+**General theorem (odd-face metric matching formula).**
+Let G be a connected plane graph with exactly
+four odd facial boundary walks A,B,C,D. Give
+every edge of the plane dual unit weight,
+and write d(X,Y) for the shortest dual-path
+distance between faces X and Y. Then the
+minimum number of primal edges whose
+deletion makes G bipartite is **exactly**
+
+```
+tau(G)=min(
+ d(A,B)+d(C,D),
+ d(A,C)+d(B,D),
+ d(A,D)+d(B,C)).
+```
+
+**Proof.** Suppose F is any edge set
+for which G-F is bipartite. Color the
+vertices of G-F with two colors; this
+colors all vertices of G as well.
+Let F' consist of the *monochromatic*
+edges of G. Then F' is a subset of F.
+
+For any facial closed walk W, the
+number of bichromatic edges traversed
+by W is even: every such traversal
+changes vertex color, and the closed
+walk must return to its initial color.
+Thus the number of monochromatic
+edge occurrences is congruent to
+the facial boundary length modulo 2.
+In the plane dual, F' therefore has
+odd degree at exactly the four odd
+faces, and even degree elsewhere:
+it is a dual **T-join** for
+T={A,B,C,D}.
+
+Every such T-join decomposes into
+paths pairing its four odd-degree
+terminals, with optional cycles.
+The total path length is bounded
+below by one of the three displayed
+pairwise-distance sums. Consequently
+
+```
+|F| >= |F'| >= tau_metric.
+```
+
+Conversely, take shortest dual paths
+for the pairing attaining the minimum.
+Their symmetric difference is a
+dual T-join of size at most the
+sum of their lengths. Deleting
+the corresponding primal edges makes
+every resulting facial walk even,
+by the preceding odd-face merging
+argument, and hence makes G
+bipartite. This proves equality. QED.
+
+For the three explicit planar
+rotations, the following are the
+complete six-distance tables.
+Face names are their **minimum
+vertex labels**, which identify
+the four odd faces uniquely.
+
+**Phase I, n=560:** odd faces
+A=39, B=84, C=60, D=63.
+
+| dual face pair | distance |
+|---|---:|
+| 39–84 | 7 |
+| 39–60 | 7 |
+| 39–63 | 11 |
+| 84–60 | 10 |
+| 84–63 | 8 |
+| 60–63 | 7 |
+
+Three pairing lengths:
+`7+7=14`, `7+8=15`, `11+10=21`.
+Thus **tau(G_560)=14**.
+
+**Phase II, n=579:** odd faces
+A=29, B=14, C=12, D=81.
+
+| dual face pair | distance |
+|---|---:|
+| 29–14 | 5 |
+| 29–12 | 6 |
+| 29–81 | 8 |
+| 14–12 | 8 |
+| 14–81 | 7 |
+| 12–81 | 5 |
+
+Three pairing lengths:
+`5+5=10`, `6+7=13`, `8+8=16`.
+Thus **tau(G_579)=10**.
+
+**Phase III, n=665:** odd faces
+A=87, B=63, C=12, D=36.
+
+| dual face pair | distance |
+|---|---:|
+| 87–63 | 12 |
+| 87–12 | 8 |
+| 87–36 | 8 |
+| 63–12 | 8 |
+| 63–36 | 10 |
+| 12–36 | 12 |
+
+Three pairing lengths:
+`12+12=24`, `8+10=18`,
+`8+8=16`.
+Thus **tau(G_665)=16**.
+
+The dual distances are exact finite
+integer statements in the three
+**previously specified constant-color
+rotation systems**. Their lower bounds
+may be checked by breadth-first
+layers in the tiny dual face graphs
+(171, 79 and 229 faces);
+the explicit two paths in Section 2
+attain the minimizing pairings.
+[verify_near_bipartite_phases.py](verify_near_bipartite_phases.py)
+now audits all six distances per
+graph without a matching or
+planarity-finding library.
+
+The equality tau=14/10/16 concerns
+the three **maximal** graphs.
+The same edge sets establish only
+**upper bounds** for smaller induced
+graphs; it is not claimed that
+the bounds remain optimal at every
+intermediate n.
+
+## 4. Why the three certificates cover all 199 lengths
 
 **Theorem (uniform 16-edge near-bipartiteness).**
 For every integer `n in [467,665]`,
@@ -169,7 +312,7 @@ isolated vertex, which does not create
 odd faces. The starting maximum graphs
 have exactly four odd faces.
 
-## 4. What remains for positive matching existence
+## 5. What remains for positive matching existence
 
 For any graph H with `H-F` bipartite,
 let U,V be a bipartition of H-F.
