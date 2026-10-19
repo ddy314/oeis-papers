@@ -9,8 +9,10 @@ involution. They do not by themselves establish
 existence of a perfect matching in the residual core.
 
 Let `V_n=[1,n]` for even n. For odd n let
-`V_n=[1,n]\\{f_n}`, with f_n=108 except
-at n=581, where f_n=256. For a four-cube palette
+`V_n=[1,n]\\{f_n}`, with `f_n=108` for
+`n<=579` and `f_n=256` for `n>=580`.
+Both choices have a cubic self-sum in their
+respective palettes. For a four-cube palette
 C, make a loopless graph on V_n with edges
 `{i,j}` for `i!=j`, `i+j in C`. A vertex
 of degree one has its incident pair forced
@@ -98,26 +100,27 @@ and `1000-108=892>n`. QED.
 
 ## 3. Phase III: [580,665], colors 343,512,729,1000
 
-**Theorem III (exact initial leaf changes).**
-For even n throughout [580,664],
-the graph has **no** degree-one vertex.
+**Theorem III (exact initial leaf changes under the valid fixed-point rule).**
+For even n throughout [580,664], the loopless
+graph has **no** degree-one vertex.
 
-For odd n with fixed point 108, the
-initial degree-one set is exactly:
+For odd n throughout [581,665], the required
+fixed point is **256** (the cube self-sum 512).
+The remaining graph has exactly the following
+initial degree-one vertices:
 
 ```
-n in [583,595] odd:     {404}, forcing 404<->325;
-n in [597,619] odd:     empty;
-n in [621,665] odd:     {621}, forcing 621<->379.
+n in [581,641] odd:   {87}, forcing 87<->425;
+n in [643,665] odd:   empty.
 ```
 
-At the exceptional odd length n=581,
-when fixed point **256** is chosen,
-the initial degree-one set is exactly
-`{87}`, forcing `87<->425`.
+The alternative fixed point **500** is also
+permitted by this phase's 1000 cube; the
+displayed degree-one statement specifically
+uses the fixed-256 normalization.
 
-**Proof.** At n=580 the four
-reflection domains are
+**Proof.** At n=580 the four reflection
+domains are
 
 ```
 343:  [1,342],
@@ -126,39 +129,26 @@ reflection domains are
 1000: [420,580].
 ```
 
-They give at least two distinct
-nonloop partners at every vertex;
-the potential even-cube loops at
-256 and 500 each have two other
-neighbors. For later new vertices
+They give at least two distinct nonloop
+partners to every vertex; the potential
+even-cube loops at 256 and 500 each have
+two other neighbors. For new vertices
 `581<=i<=665`, the two partners
 `729-i` and `1000-i` are always
-positive and inside `[1,n]`;
-hence even graphs have minimum degree
-at least two.
+positive and inside `[1,n]`. Thus
+all even graphs have minimum degree 2.
 
-When 108 is removed in an odd graph,
-only its possible neighbors 235,
-404, and (once n>=621) 621
-can lose an edge. Vertex 235 has
-two other allowed neighbors 277 and
-494; vertex 404 gains its second
-surviving neighbor at
-`1000-404=596`; and vertex 621
-has only `1000-621=379` remaining.
-This yields the three displayed
-odd subintervals.
-
-At n=581 with fixed vertex 256
-instead, vertex 87 loses
-`343-87=256`, retains
-`512-87=425`, and the remaining
-two cubes give partners larger
-than 581. Its other former
-neighbor of 256, vertex 473,
-retains 39 and 527, and hence
-no other leaf is introduced.
-QED.
+When vertex 256 is removed at odd n, its
+only other in-range neighbors are
+`343-256=87` and `729-256=473`.
+Vertex 473 retains 39 (cube 512) and
+527 (cube 1000), while vertex 87
+retains 425 (cube 512). It acquires
+another neighbor, 642 (cube 729),
+as soon as `n>=642`. These are the
+only vertices whose nonloop degrees
+can decrease when 256 is removed.
+The theorem follows. QED.
 
 ## 4. Precise use in a future four-cube proof
 
@@ -167,8 +157,7 @@ boundary theorem**, not a perfect
 matching theorem. It partitions
 the high-window study into finitely
 many regimes determined by the exact
-reflection thresholds 512, 596, and
-621, and gives all initially forced
+reflection thresholds 512 and 642, and gives all initially forced
 edges in each phase.
 
 Removing these pairs sometimes
