@@ -70,10 +70,23 @@ def main():
     # Four colors never suffice uniformly on the whole interval:
     # Hall already fails at n=467 for four deletions, and at
     # n=569 when removing the cube 1000.
-    for missed in COLORS:
-        n=569 if missed==1000 else 467
-        assert not has_cube_sum_permutation(
-            n, tuple(c for c in COLORS if c!=missed)), (missed,n)
+    hall_witnesses = {
+        216: (467, (5,30,78,126,174,247,295,343,416,464),
+              (48,96,169,217,265,313,338,386,434)),
+        343: (467, (1,80,159,238,297,376,455),
+              (57,136,215,274,353,432)),
+        512: (475, (89,216,475), (127,254)),
+        729: (470, (5,174,301,343,470), (42,169,211,338)),
+        1000:(652, (1,218,387,435,514,604,652),
+              (77,125,215,294,342,511)),
+    }
+    for missed,(n, rows, expected_cols) in hall_witnesses.items():
+        allowed=tuple(c for c in COLORS if c!=missed)
+        actual_cols=sorted({c-i for i in rows for c in allowed
+                            if 1<=c-i<=n})
+        assert actual_cols==list(expected_cols),(missed,n,actual_cols)
+        assert len(actual_cols)+1==len(rows)
+        assert not has_cube_sum_permutation(n,allowed)
     # At 360/362, the lower five-color band lacks LOOPLESS
     # perfect matchings, not involutions in general. We do not
     # incorrectly assert absence of an involution with two loops.
@@ -83,7 +96,7 @@ def main():
     print("PASS: min degree >=2 on each of 199 high-window graphs")
     print("PASS: 99 even lengths have fixed-point-free involutions")
     print("PASS: 100 odd lengths have involutions fixing only 108")
-    print("PASS: every single-cube deletion has a Hall counterexample")
+    print("PASS: every cube deletion has a 3–10-row elementary Hall witness")
     print("NOT PROVED: a uniform, computation-free Tutte inequality")
 
 
