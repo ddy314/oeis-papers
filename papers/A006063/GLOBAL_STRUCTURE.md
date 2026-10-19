@@ -315,6 +315,70 @@ gives an **unconditional** exponential family without this assumption.
 inverse-fiber equation with a legal 316-element reference involution and
 a different legal, non-involutive five-cycle-switched permutation.
 
+## Parity-optimal involutions and uniform minimal-fixed-point entropy
+
+The previously proved eventual involution existence theorem can be
+strengthened to the **minimum possible number of fixed points**, with no
+reference to the sharp threshold 173:
+
+```
+odd  n>=70001:  valid cube-sum involution with exactly 1 fixed point (4)
+even n>=230000: valid cube-sum involution with exactly 0 fixed points.
+```
+
+Two very small seeds suffice: `p(i)=8-i` on `[1,7]` is an involution
+fixing only 4; `p(i)=27-i` on `[1,26]` is a fixed-point-free involution.
+A reflection through an **odd cube** `c=k**3` preserves parity and
+introduces **no new fixed point**, because its reflection center `c/2`
+is nonintegral.
+
+**Finite exact step (no matching algorithms).** Use only odd cube roots
+in the recurrence `n=k**3-m-1>m`. The length-7 seed reaches all 15,001
+odd lengths in `[70001,100001]`, and the length-26 seed reaches all
+36,001 even lengths in `[230000,302000]`. The last unreachable
+same-parity lengths before those regions are 69,601 and 228,026,
+respectively. This is checked by two independent direct integer
+implementations, and `parity_minimal_involutions.py` reconstructs
+actual permutations and checks the involution equation and exact fixed
+point sets.
+
+**Infinite step.** For odd n>100001 or even n>302000, let M be the
+respective lower endpoint 70001 or 230000 and choose the least **odd**
+root k with `k**3>=n+M+1`. Let `m=k**3-n-1`. Then m has the same parity
+as n, m>=M, and `m<n`. The last inequality uses
+
+```
+2*n-k**3 >= 2*(k-2)**3-k**3-2*M
+          = k**3-12*k*k+24*k-16-2*M.
+```
+
+The polynomial is increasing for k>=57; in the odd case k>=57 and
+its value at 57 is 7555>0. For even n>302000 the minimum k is
+at least 83, and its value at 83 is 31095>0. Induction finishes the
+construction for every larger same-parity n.
+
+**Uniform lower bound on the count.** Let `J_min(n)` count legal
+involutions with no fixed point when n is even, or with the *sole*
+fixed point 4 when n is odd. The proof also establishes
+
+```
+liminf_{n->infinity} log(J_min(n))/(2*n)**(1/3) >= log(2)/4.
+```
+
+Indeed, count odd-cube-only reflection histories from each parity
+seed. For s odd roots `q,q-2,...,q-2(s-1)` and
+`K(n)=floor(cuberoot(2*n))`, exact cube-gap inequalities imply
+`K(m_j)>=K(n)-4(j+1)` for sufficiently large n. The s-branch
+recursion has a geometric growth root `rho_s`, satisfying
+`sum(rho_s**(-h) for h in 1..s)=1`, so it gives a lower bound with
+exponent `(K(n)-B_s)/4`. Letting s->infinity yields the coefficient
+`log(2)/4`.
+
+These stronger global structural results need only finite
+**arithmetic reachability**, not the much larger historic
+perfect-matching base certificates. They do not assert sharp values of
+the new eventual thresholds.
+
 ## 1. Exact graph and independent-set formulations
 
 Let G_n have vertices [n], an undirected edge ij for i != j when
