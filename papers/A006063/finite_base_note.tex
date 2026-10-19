@@ -135,6 +135,28 @@ $2Z-2Y+X-W$. Taking $(Y,Z)=(64,125)$,
 the choices $(X,W)=(8,64),(27,64),(8,27)$
 give $n=66,85,103$, respectively.
 
+\begin{lemma}[Affine-word rigidity]\label{lem:rigid}
+Fix a finite list of integer cubes $C_1,\ldots,C_t$.
+Suppose all breakpoints $b_j(n)$ are affine
+functions of $n$ with $b_0(n)=0$ and $b_t(n)=n$.
+The resulting fixed-cube reflection word can
+be a valid permutation for at most two distinct
+values of $n$.
+\end{lemma}
+\begin{proof}
+Every legal permutation satisfies the sum identity
+\[
+ \sum_{j=1}^{t} C_j\bigl(b_j(n)-b_{j-1}(n)\bigr)
+ =\sum_{i=1}^n(i+p(i))=n(n+1).
+\]
+Its left side is affine in $n$; its right
+side is a monic quadratic. The equality
+cannot hold for three distinct values.
+\end{proof}
+The obstruction concerns \emph{fixed} cube sums
+and affine endpoints only, not varying cube
+sums or composition of reflection templates.
+
 In total these \emph{three symbolic identities}
 give eight base lengths
 \[
