@@ -8,8 +8,8 @@ for all 199 lengths using sums
 `{216,343,512,729,1000}`.
 A more restrictive reanalysis shows that **no individual
 length requires all five cube sums to obtain an involution**.
-Three **four-cube palettes** suffice, with a single
-exception to the *fixed-point-108 convention*.
+Three **four-cube palettes** suffice, with a uniform
+fixed-point rule for each phase.
 
 ## 1. The three-phase four-cube statement
 
@@ -23,8 +23,7 @@ to a specified set of integer cubes `C`.
 |---|---|---|
 | 467 through 560 | 216,343,512,729 | none if even; exactly 108 if odd |
 | 561 through 579 | 216,512,729,1000 | none if even; exactly 108 if odd |
-| 580 through 665 | 343,512,729,1000 | none if even; exactly 108 if odd, **except 581** |
-| 581 | 343,512,729,1000 | exactly 256 |
+| 580 through 665 | 343,512,729,1000 | none if even; exactly 256 if odd (500 also works) |
 
 These three phases comprise 94, 19 and 86
 lengths respectively, totaling 199.
@@ -42,68 +41,46 @@ matching computations. Therefore the proposed
 phase theorem is **not a certified
 computation-free result**.
 
-## 2. The apparent critical n=581 is a fixed-point artifact
+## 2. Correct cubic fixed points for each palette
 
-At odd n, a cube-sum involution must have
-an odd number of fixed points. When only
-these cube sums are permitted, potential
-fixed points are the halves of the
-available **even** cubes:
+An involution with a single fixed point f must satisfy
+`2*f in C`. This is a **necessary arithmetic constraint
+before any graph-matching argument**.
 
-```
-216/2=108,  512/2=256,  1000/2=500.
-```
+- Phases I and II include 216, so the odd-n fixed
+  point **108** is valid.
+- Phase III omits 216. Its only permitted fixed points
+  from even cubes are **256** (sum 512) and
+  **500** (sum 1000). In particular **108 is forbidden
+  at every odd Phase III length**, not only 581.
+- Independent full-band general-graph matching
+  checks find an involution at every odd n in
+  581..665, **with either 256 or 500 as the
+  sole fixed point**. Even n admit no fixed points.
 
-The original experiment fixed 108 at
-all odd lengths. Under this *additional*
-constraint, n=581 was the sole length in
-this phase decomposition for which
-no four-cube palette worked.
+**Correction to the earlier research log:** The previous
+statement that Phase III could fix 108 at all odd
+lengths except 581 was false. It omitted the
+elementary requirement `2*f in C` and its
+corresponding experimental verifier failed its
+own fixed-point check. Both the verifier and the
+phase theorem have now been corrected.
 
-At n=581, if 216 is omitted, the
-remaining four cubes
-`{343,512,729,1000}`
-still allow an involution, provided
-its unique fixed point is **256**
-(or alternatively 500, as another
-independent matching check shows).
-Indeed `2*256=512` is cubic.
+### A separate, stronger hybrid Tutte barrier at 581
 
-Thus it would be **false** to claim
-that n=581 intrinsically requires all
-five colors for a cube-sum involution.
-It only requires them under the extra
-`p(108)=108` normalization used in
-the first search. The corrected statement
-above removes that unnecessary restriction.
-
-### Exact Tutte barrier for the excluded fixed point (PROVED)
-
-The failure of the four-cube involution at n=581 with
-**sole fixed point 108** is now a pure mathematical
-theorem, not merely a blossom solver result.
-See [TUTTE_OBSTRUCTION_581.md](TUTTE_OBSTRUCTION_581.md).
-
-After deleting 108, remove an explicit union of
-**31 integer intervals containing 103 vertices**.
-The remaining graph with sums `343,512,729,1000`
-splits into **105 odd connected components**:
-60 singletons, 18 triples, 13 5-vertex,
-2 7-vertex, 7 11-vertex, 3 17-vertex,
-one 63-vertex and one 93-vertex component.
-Thus `o(G-S)=105>|S|=103` violates
-Tutte's 1-factor theorem. The component count
-can be checked using only integer reflection
-arithmetic; [verify_tutte_581.py](verify_tutte_581.py)
-does this without any matching solver.
-
-**Scope:** This excludes a four-cube *involution*
-with only fixed point 108. It does not rule out
-general cube-sum permutations or involutions
-whose fixed point is 256 or 500. Existence
-with those alternative fixed points remains
-verified by matching computation, not
-established by the negative certificate.
+The [31-interval Tutte certificate](TUTTE_OBSTRUCTION_581.md)
+still proves a mathematically meaningful but
+different assertion: if the fifth cube 216
+were admitted **solely for the fixed point 108**
+and every nontrivial 2-cycle were restricted to
+the four cubes `{343,512,729,1000}`, then
+n=581 would remain impossible. Deleting 108
+and a 103-vertex set leaves 105 odd components.
+Therefore any five-cube involution at 581 fixing
+108 must also use cube 216 in **at least one
+nontrivial 2-cycle**. This is an auxiliary
+five-color restriction, not a four-color
+fixed-point exception.
 
 ## 3. Why the phase structure is mathematically useful
 
@@ -140,8 +117,8 @@ naturally into three shorter structural
 lemmas, rather than one large
 five-reflection Tutte criterion.
 
-**Subtlety:** A single set of four cubes
-does not cover all 199 lengths.
+**Subtlety:** No single one of these three four-cube palettes
+covers all 199 lengths under the proposed fixed-point rule.
 The previously established Hall
 certificates show that *every cube in
 the five-cube union* is indispensable
@@ -159,10 +136,10 @@ sum 729; at odd n, 404<->325 is also forced.
 Phase II always begins with exactly two forced
 edges: 256<->473 plus either 108<->404 (even)
 or 404<->325 (odd). In Phase III, even n
-have no initial degree-one vertices; odd n
-change leaf regime at thresholds 596 and 621,
-and the exceptional fixed-256 instance
-at 581 forces 87<->425.
+have no initial degree-one vertices; with
+fixed point 256, odd n force 87<->425
+through n=641 and have no initial leaves
+from n=643 onward.
 
 All of this is proved by reflection-domain
 arithmetic and checked by
