@@ -31,6 +31,15 @@ PATHS = {
     ),
 }
 
+DUAL_DISTANCES = {
+    560: {(39,84):7,(39,60):7,(39,63):11,
+          (84,60):10,(84,63):8,(60,63):7},
+    579: {(29,14):5,(29,12):6,(29,81):8,
+          (14,12):8,(14,81):7,(12,81):5},
+    665: {(87,63):12,(87,12):8,(87,36):8,
+          (63,12):8,(63,36):10,(12,36):12},
+}
+
 PHASES = ((467,560,(216,343,512,729)),
           (561,579,(216,512,729,1000)),
           (580,665,(343,512,729,1000)))
@@ -76,6 +85,17 @@ def two_color(n,colors,excluded):
     return colors_of
 
 
+def dual_distance(dual, start):
+    d={start:0}
+    q=[start]
+    for v in q:
+        for w in dual[v]:
+            if w not in d:
+                d[w]=d[v]+1
+                q.append(w)
+    return d
+
+
 def main():
     exceptional={}
     for maximum,cubes,rotation,expected_edges,expected_faces in CASES:
@@ -84,7 +104,27 @@ def main():
         assert len(faces)==sum(expected_faces.values())
         odd={j for j,F in enumerate(faces) if len(F)%2}
         assert len(odd)==4
+        dual={i:set() for i in range(len(faces))}
+        for u in A:
+            for v in A[u].values():
+                a=face_of[(u,v)]
+                b=face_of[(v,u)]
+                if a!=b:
+                    dual[a].add(b)
+                    dual[b].add(a)
         by_min={min(faces[i]):i for i in odd}
+        for (a,b),expected in DUAL_DISTANCES[maximum].items():
+            actual=dual_distance(dual,by_min[a])[by_min[b]]
+            assert actual==expected,(maximum,a,b,actual,expected)
+        labels=list(by_min)
+        assert len(labels)==4
+        A0,B0,C0,D0=labels
+        def dist(x,y):
+            return dual_distance(dual,by_min[x])[by_min[y]]
+        metric=min(dist(A0,B0)+dist(C0,D0),
+                   dist(A0,C0)+dist(B0,D0),
+                   dist(A0,D0)+dist(B0,C0))
+        assert metric=={560:14,579:10,665:16}[maximum]
         assert len(by_min)==4
         consumed=set()
         removed=[]
@@ -117,6 +157,7 @@ def main():
         print(f"PASS: maximum={maximum}, exactly four odd faces, "
               f"two disjoint dual paths of lengths {path_sizes}")
         print(f"      {len(removed)} deleted edges leave a bipartite graph")
+        print(f"      six dual distances certify optimality: tau={metric}")
 
     for lower,upper,cubes in PHASES:
         edges=exceptional[upper]
@@ -137,6 +178,7 @@ def main():
         assert dict(balance)==expected,(upper,balance,expected)
         print(f"PASS: every n in [{lower},{upper}] is <=16-edge bipartizable")
         print("      bipartition absolute imbalance:",dict(sorted(balance.items())))
+    print("PROVED: minimum bipartizing edge counts are exactly 14/10/16.")
     print("PROVED: three maximum planar graphs each admit two odd-face dual paths.")
     print("PROVED: all 199 phase graphs inherit the three fixed edge-transversals.")
     print("NOTE: no perfect-matching existence is inferred from near-bipartiteness.")
