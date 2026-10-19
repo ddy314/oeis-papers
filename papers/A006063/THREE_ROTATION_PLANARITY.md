@@ -202,10 +202,11 @@ once and the total word lengths equal
 **finite arithmetic proof certificate**
 of the three planar endpoint embeddings.
 
-The independent checker additionally
-compares these words and minimum
-vertices, not just their aggregate
-Euler face counts. This still relies
+A second independent, standard-library
+[26-template checker](verify_planar_face_word_templates.py)
+compares all cyclic words and their
+minimum-vertex intervals, not just
+aggregate Euler face counts. This still relies
 on finitely stated arithmetic
 identities; it does not imply the
 unproved positive matching theorem.
