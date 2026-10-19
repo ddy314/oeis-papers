@@ -118,7 +118,8 @@ shorter printout of that entry.
 
 The closure does not presuppose the published list of admissible
 lengths below 173: the 48 needed lower lengths are **constructed**
-from the 22 printed lower seeds and the empty seed. Likewise,
+from the 22 established lower seeds (10 printed exceptional rows
+and 12 symbolic instances) and the empty seed. Likewise,
 this note does not assert nonexistence at any smaller lengths.
 
 Every selected seed length is irredundant **within the stated 82-length
