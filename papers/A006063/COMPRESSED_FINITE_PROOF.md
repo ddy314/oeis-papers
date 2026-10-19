@@ -1,4 +1,4 @@
-# A006063: 57 exceptional identities + six algebraic block families
+# A006063: full algebraic determinant form for 57 shapes + six other families
 
 **Current primary existence proof.** Exactly **57 independently printed
 integer boundary-balance identities** (795 reflected blocks) and
@@ -45,11 +45,65 @@ exists and `m+n+1=k^3`, retain it on `[1,m]` and append
 `[m+1,n]`, so the resulting permutation is legal. This operation
 requires no matching theorem or computational hypothesis.
 
-## 2. The self-contained finite arithmetic base
+## 2. Universal determinant parameterization of all 57 residual cases
 
-The [57 exceptional rows](certificates/finite_57_exceptional_atlas.txt)
-are concrete integer endpoint-multiset identities containing **795**
-reflected intervals. They are also printed in the paper appendix.
+The remaining 57 cases are now **mathematically parameterized** by the
+[unimodular block-order theorem](UNIMODULAR_BLOCK_FACTORY.md). The
+[57 cubic-order shapes](certificates/finite_57_cubic_order_shapes.txt)
+contain only an output-block permutation `pi` and a cubic root
+word `k` for each target length. **They contain no endpoints.**
+
+For an output order `pi` on `t` blocks define
+
+```
+M[j,i] = [i<j] + [pos_pi(i)<pos_pi(j)] + [i=j],
+d_j = k_j^3 - 1.
+```
+
+A general chord-diagram intersection-form argument proves that
+**det M is always either 0 or 1**. Every one of the 57
+supplied orders has `det M=1`. Consequently, the **single
+integer-polynomial formula**
+
+```
+ell_j(k) = det(M with column j replaced by d)
+```
+
+constructs all the blocks of each of the 57 cases by Cramer's rule.
+Whenever these integers are positive, the reflected blocks
+`p(i)=k_j^3-i` **automatically form a permutation**, with no
+separate endpoint-multiset verification. The 57 listed root words
+produce positive vectors, whose global minimum entry is 1.
+
+Furthermore **every one of these 57 algebraic families is infinite**:
+let `v=M^(-1)*1`, for which the chord Pfaffian formulas give
+`v_j in {-1,0,1}` and `sum(v_j)=t mod 2`. For an arbitrary
+positive integer `h`, replacing `k` by `h*k` gives
+
+```
+ell_j(h) = ell_j + (h^3-1)*(ell_j+v_j) > 0,
+N(h) = (N+epsilon)*h^3 - epsilon, epsilon=t mod 2.
+```
+
+These are **symbolic identities valid for every h**, not
+computationally extrapolated examples. For odd `t` the lengths
+are `(N+1)h^3-1`; for even `t`, `Nh^3`.
+
+**Precise remaining finite obligation:** 57 root words and output
+orders are still explicitly selected, and the determinant-length
+vectors at those root words must be certified positive. Thus
+this is a **unified algebraic construction of all 57**, not a
+case-free existence proof with no finite data. The old endpoint
+atlas is retained only as an independent redundant check.
+
+### 2a. Six additional compact block families
+
+## 3. The self-contained finite arithmetic base
+
+The 57 parameter shapes above derive all **795** residual reflected
+blocks algebraically. The older
+[57 endpoint identity rows](certificates/finite_57_exceptional_atlas.txt)
+remain available only as an independent redundant finite certificate.
 The six universal algebraic block-rearrangement families provide
 **25 additional base lengths**:
 
@@ -87,7 +141,7 @@ endpoint criterion: for input lengths `ell_j`, output order
 each nonempty block. The output intervals automatically partition
 `[1,n]`; an empty block imposes no cube condition.
 
-## 3. Closure: all lengths from 173 to 364
+## 4. Closure: all lengths from 173 to 364
 
 Take the empty permutation at length `0`, the 57 exceptional rows
 and the 25 symbolic outputs of the six parameter families,
@@ -129,7 +183,7 @@ previously constructed shorter length by this one operation.
 This is not a claim of a globally minimal basis under arbitrary
 permutation constructions.
 
-## 4. Entire infinite tail by an elementary cubic gap inequality
+## 5. Entire infinite tail by an elementary cubic gap inequality
 
 We now show `P(n)>0` for every `n>=365` by strong induction.
 Assume the theorem for every integer `173<=m<n`.
@@ -159,13 +213,19 @@ six algebraic block templates, the empty permutation, and
 the elementary suffix reflection and cubic-gap lemmas prove
 `P(n)>0` for **every `n>=173`**.
 
-## 5. Verification, limitations, and next mathematical questions
+## 6. Verification, limitations, and next mathematical questions
 
 [verify_57_plus_templates.py](verify_57_plus_templates.py) reads
 **only the 57 exceptional rows** and regenerates 25 other base
 lengths from the six algebraic formulas. It independently checks
 all integer endpoint bounds and multisets, every block's cubic sum,
 and the increasing finite suffix-reflection closure.
+
+The new [unimodular-factory checker](verify_unimodular_factory.py)
+reads the cubic-root words and output-block orders alone, uses exact
+integer Bareiss elimination to recover all 57 positive vectors,
+checks the cubic dilation formula, and independently closes the
+finite interval. It never reads the old 57-row endpoints.
 
 A second, independent reconstruction directly produced
 the actual permutations for all **240 covered positive lengths**
@@ -175,9 +235,10 @@ both bijectivity and the cubic-sum property. The older
 redundant audits. The **symbolic infinite-tail induction**
 is not a computational assumption.
 
-**Unresolved:** There are still **57 individually checked
-finite arithmetic identities**. The six parameterized families
-explain 25 specific seed lengths but do not establish a
-uniform parameter-free proof of the whole middle range.
+**Unresolved:** There remain **57 finite positivity certificates for the
+57 algebraic determinant parameter sets**, rather than 57 required
+endpoint-multiset identities. The determinant theorem algebraically generates the other 57
+seed lengths, and six compact templates cover 25 lengths;
+however the 57 parameter choices have not been eliminated.
 Neither a minimality statement for 57 nor an independent
 peer-review or literature-priority claim is made.
