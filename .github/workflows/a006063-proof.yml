@@ -46,6 +46,10 @@ jobs:
         run: python papers/A006063/verify_70_plus_templates.py
       - name: Verify final 66 exceptions and twelve-block three-switch construction
         run: python papers/A006063/verify_66_plus_templates.py
+      - name: Independently audit 60 exceptions and fifth fifteen-block family
+        run: python papers/A006063/verify_60_plus_templates.py
+      - name: Verify primary 57 exceptions and six symbolic generator families
+        run: python papers/A006063/verify_57_plus_templates.py
       - name: Audit 70 exceptional identities and all four symbolic template families
         run: python papers/A006063/verify_70_plus_templates.py
       - name: Verify exact P(236) and non-involution five-cycle decomposition
