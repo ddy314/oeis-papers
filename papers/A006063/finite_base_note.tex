@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: 60 Integer Identities and Five Algebraic Templates}
+\title{Cube-Sum Permutations: 57 Integer Identities and Six Algebraic Templates}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -17,9 +17,9 @@
 Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
 for which every $i+p(i)$ is a perfect cube.
 We prove $P(n)>0$ for every $n\ge 173$ from
-$60$ exceptional integer endpoint identities ($816$
-reflected blocks) and five general algebraic
-block-rearrangement templates giving sixteen further seeds.
+$57$ exceptional integer endpoint identities ($795$
+reflected blocks) and six general algebraic
+block-rearrangement templates giving twenty-five further seeds.
 An elementary suffix-reflection rule and a cubic-gap
 inequality extend the construction to all later lengths.
 An explicit predecessor table explains all remaining
@@ -70,7 +70,7 @@ The new reflection is a bijection from
 $[m+1,n]$ to itself, and each new sum is $c$.
 \end{proof}
 
-\section{Five algebraic block families and 60 exceptional identities}
+\section{Six algebraic block families and 57 exceptional identities}
 
 \begin{lemma}[Reflected-block rearrangement]\label{lem:rearrange}
 Choose positive input-block lengths
@@ -228,6 +228,44 @@ with their two possible $t$ values give
 This is a symbolic cubic-sum construction;
 it does not require verifying six separate endpoint lists.
 
+\paragraph{Family VI (ten blocks, nested binary degeneration).}
+Let $\alpha,\beta\in\{0,1\}$ with $\beta\le\alpha$.
+Use input block lengths
+\[
+\begin{gathered}
+(7,\ 12\alpha,\ 159-24\alpha-99\beta,\
+14\beta,\ 28\beta,\ 63\beta,\\
+10+24\alpha-6\beta,\ 8\beta,\
+159-24\alpha-107\beta,\
+10+24\alpha+93\beta)
+\end{gathered}
+\]
+and output order $(1,2,8,5,6,9,4,10,3,7)$.
+Direct substitution into the reflected-block lemma
+gives the ten nominal sums
+\[
+\begin{gathered}
+8,\ 8+19\alpha,\ 343,\
+167-12\alpha+61\beta,\
+167-12\alpha-30\beta,\\
+167-12\alpha+61\beta,\ 512,\
+177+12\alpha+27\beta,\ 343,\ 512.
+\end{gathered}
+\]
+Block $2$ is nonempty only when $\alpha=1$
+and has cubic sum $27$; blocks $4,5,6,8$
+are nonempty only when $\beta=\alpha=1$
+and have sums $216,125,216,216$. Other
+nonempty blocks have constant cube sums;
+all empty blocks are omitted. Since
+\[
+n=345+12\alpha-6\beta,
+\]
+the three admissible choices give the
+lengths $345,357,351$, using one
+parametric construction rather than
+three independent endpoint lists.
+
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
 Suppose all breakpoints $b_j(n)$ are affine
@@ -250,16 +288,16 @@ The obstruction concerns \emph{fixed} cube sums
 and affine endpoints only, not varying cube
 sums or composition of reflection templates.
 
-In total these \emph{five symbolic identities}
-give twenty-two base lengths
+In total these \emph{six symbolic identities}
+give twenty-five base lengths
 \[
-66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,228,229,231,238,240,241,254
+66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,228,229,231,238,240,241,254,345,351,357
 \]
-without twenty-two separate endpoint-table checks.
+without twenty-five separate endpoint-table checks.
 
 \paragraph{The remaining 60 rows.}
 
-The appendix records $60$ exceptional rows of the form
+The appendix records $57$ exceptional rows of the form
 $n\; b_1:k_1\;\cdots\;b_t:k_t$.
 The corresponding cubical sums are $c_j=k_j^3$
 and the first boundary is $b_0=0$.
@@ -267,11 +305,11 @@ For every row, the boundaries increase,
 $1\le L_j<R_j\le n+1$,
 and the multiset equality in
 Lemma~\ref{lem:balance} holds exactly.
-These are $816$ simple integer-interval
+These are $795$ simple integer-interval
 identities. Exactly $10$ listed rows have
-$n<173$ and exactly $50$ have $173\le n\le364$.
-Together with the twenty-two algebraic-template lengths,
-there are $22$ lower and $60$ upper seeds.
+$n<173$ and exactly $47$ have $173\le n\le364$.
+Together with the twenty-six algebraic-template lengths,
+there are $22$ lower and $57$ upper seeds.
 
 The following two lists give every omitted
 base length without further matching data.
@@ -314,7 +352,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $50$ upper exceptional rows, the ten
+The $47$ upper exceptional rows, the thirteen
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -382,13 +420,13 @@ at $m$ and Lemma~\ref{lem:suffix}.
 The theorem uses explicit finite
 arithmetic equalities and short symbolic
 lemmas. The optional script
-\texttt{verify\_60\_plus\_templates.py}
-checks the $60$ exceptional rows, regenerates
-all twenty-two template cases and checks finite closure
+\texttt{verify\_57\_plus\_templates.py}
+checks the $57$ exceptional rows, regenerates
+all twenty-five template cases and checks finite closure
 without matching or other external data.
 It is not a premise for the proof.
 A uniform, case-free formula replacing
-the remaining $60$ exceptional rows is
+the remaining $57$ exceptional rows is
 \emph{not} claimed.
 
 \clearpage
@@ -404,7 +442,7 @@ Lemma~\ref{lem:balance}.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_60_exceptional_atlas.tex}
+\input{certificates/finite_57_exceptional_atlas.tex}
 \end{multicols}
 
 \end{document}
