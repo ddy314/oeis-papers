@@ -2,7 +2,7 @@
 
 **Author:** Qichao Wang · Hebei University of Technology  
 **Manuscript date:** October 19, 2026  
-**Status:** six-page mathematical paper and exact finite certificates, prepared for independent review. This is a **computer-assisted finite-certificate proof**, **not** a case-free classification or a peer-reviewed publication.
+**Status:** six-page mathematical paper with eventual minimal-fixed-point involutions and exact finite certificates, prepared for independent review. This is a **computer-assisted finite-certificate proof**, **not** a case-free classification or a peer-reviewed publication.
 
 ## Main results
 
@@ -10,6 +10,8 @@ For a positive integer `n`, let `P(n)` count permutations `p` of `{1,...,n}` suc
 
 1. **Existence (A006063):** `P(n)>0` for every `n>=173`. Below 173, exactly the 48 sizes recorded in the paper are admissible; the other 124 sizes have explicit Hall-deficient witnesses. In OEIS notation, `A006063(j)=j+124` for `j>=49`.
 2. **Multiplicity (A096680):** `P(173)=P(174)=1`, `P(175)=3`, and `P(n)>=3` for all `n>=175`. Below 173, multiple permutations occur exactly at `112,115,116,117,119,124,125,126,127,128,129,130,133`. Hence `A096680(j)=j+161` for `j>=14`.
+
+**Eventual involutions (new theorem):** Every odd `n>=69603` has a cube-sum involution with the unique fixed point `4`; every even `n>=228028` has a fixed-point-free cube-sum involution. These bounds improve the archived research thresholds of 70001/230000. The proof uses strict odd-cube suffix reflections from the elementary seeds `p_7(i)=8-i` and `p_26(i)=27-i`, exact finite parity-interval closure (13 rounds over [69603,100001] and 12 rounds over [228028,303412]), and an integer cube-gap induction. The bounds are sufficient, **not claimed globally optimal**. The certificate requires no matching solver and is independent of the 56-shape existence atlas. This result allows the cube values to grow with `n`; it does not prove the separate finite-palette four-cube conjecture.
 
 The infinite existence argument is purely symbolic. The finite basis still uses **56 determinant-defined root-word/order shapes (784 reflected blocks)**, **25 seed specializations from six symbolic block families**, and a separate forced-neighbor proof for **n=173**. These 82 seeds and 132 additional finite cubic-suffix reflections cover the complete interval `[173,364]`. The interval-overlap avalanche then covers every larger integer.
 
@@ -22,6 +24,7 @@ The infinite existence argument is purely symbolic. The finite basis still uses 
 - **[certificates/exact_classification_below_173.json](certificates/exact_classification_below_173.json)** — 48 explicit positive permutations and 124 explicit Hall-deficient sets.
 - **[certificates/second_solutions.json](certificates/second_solutions.json)** and **[certificates/third_solutions.json](certificates/third_solutions.json)** — alternating-cycle witnesses used for multiplicity.
 - **[verify_extended.py](verify_extended.py)** — full finite existence, nonexistence and multiplicity certificate checks.
+- **[verify_eventual_involutions.py](verify_eventual_involutions.py)** — independent exact interval-union certificate for the two strengthened minimal-fixed-point involution tails.
 - **[COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md)**, **[UNIMODULAR_BLOCK_FACTORY.md](UNIMODULAR_BLOCK_FACTORY.md)**, **[FORCED_REFLECTION_PEELING.md](FORCED_REFLECTION_PEELING.md)** and **[INTERVAL_OVERLAP_AVALANCHE.md](INTERVAL_OVERLAP_AVALANCHE.md)** — detailed supplementary arguments.
 - **[research_monograph.tex](research_monograph.tex)** — archived extended mathematical research manuscript (historical, not the primary submission).
 - **[RESEARCH_LOG.md](RESEARCH_LOG.md)** — historical research log, including additional experimental and structural directions.
@@ -34,6 +37,7 @@ From the `papers/A006063` directory:
 ```bash
 python3 verify_56_plus_forcing.py
 python3 verify_extended.py
+python3 verify_eventual_involutions.py
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
