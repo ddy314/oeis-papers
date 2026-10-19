@@ -5,9 +5,17 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Finite 173–364 gap: explicit algebraic proof without matching algorithms
+## Current finite proof: 82 elementary arithmetic identities (October 19, 2026)
 
-**This is the current focused result.** [FINITE_INTERVAL_PROOF.md](FINITE_INTERVAL_PROOF.md) and the standalone [finite_base_note.tex](finite_base_note.tex) prove the missing finite base interval using a single elementary **boundary cancellation lemma** plus [109 explicit piecewise-reflection rows](certificates/finite_block_atlas.txt), now reproduced in the LaTeX appendix.
+The latest self-contained proof is [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md), with a typeset standalone paper [finite_base_note.tex](finite_base_note.tex), a complete [82-row arithmetic atlas](certificates/finite_82_seed_atlas.txt) and independent [exact checker](verify_82_seed_proof.py).
+
+Rather than rely on 109 independent entries, the new proof uses **82 endpoint-multiset identities in 1,030 reflection blocks**: 22 seeds below 173 and 60 seeds in 173..364. An explicit grouped predecessor table certifies 26 additional smaller lengths and 49 missing lengths in 173..255 or 339..364, followed by one uniform reflection through cube 512 for all 83 lengths 256..338. The proof for every n>=365 remains purely algebraic, via the least cube >= n+174.
+
+The prior 109-identity proof below is retained as an **independent redundant certificate**. In particular, the 82-row proof does not depend on the 109-row table, any matching algorithm, the original 191 augmenting words, or the previous JSON permutation archives. **This is still finite casework, not a parameter-free construction.** GitHub Actions must execute successfully before claiming CI verification of the updated LaTeX PDF.
+
+## Earlier 109-identity proof: independent algebraic certificate
+
+**This is an earlier, independently retained result.** [FINITE_INTERVAL_PROOF.md](FINITE_INTERVAL_PROOF.md) and the standalone [finite_base_note.tex](finite_base_note.tex) prove the missing finite base interval using a single elementary **boundary cancellation lemma** plus [109 explicit piecewise-reflection rows](certificates/finite_block_atlas.txt), now reproduced in the LaTeX appendix.
 
 For each row, take endpoints `0=b_0<...<b_t=n` and cube roots `k_j`. Define `L_j=k_j**3-b_j` and `R_j=k_j**3-b_(j-1)`. The row defines a legal permutation precisely when `1<=L_j<R_j<=n+1` and
 
