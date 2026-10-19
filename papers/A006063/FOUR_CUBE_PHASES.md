@@ -82,6 +82,38 @@ nontrivial 2-cycle**. This is an auxiliary
 five-color restriction, not a four-color
 fixed-point exception.
 
+### A second short-path factorization: 245 even-cube paths
+
+The [dual-reflection path theorem](DUAL_REFLECTION_PATHS.md)
+shows that the **512/1000-only graph** has exactly
+245 connected components for every 580<=n<=665:
+one singleton, `744-n` 2-paths, `n-511`
+3-paths, and 11 constant 4-paths. Its proof
+merges 22 of the initial 512-reflection pairs
+into eleven 4-paths and attaches each new
+vertex to one remaining pair.
+
+Under fixed point **256**, its even-cube
+skeleton has **244 components and no
+singletons**, while its odd-cube skeleton
+has **194 components and at least one
+singleton**. Under fixed point **500**,
+the respective counts are **245 even
+components with two singletons** and
+**193 odd components with none**.
+Thus both valid fixed-point choices
+satisfy the exact relation
+`#odd_components + #even_components = 438`,
+but they simplify different two-cube
+quotient descriptions.
+
+The [standard-library audit](verify_dual_reflection_paths.py)
+checks all component-size formulas,
+without a matching solver. **Neither
+short-path decomposition by itself
+proves a perfect matching in the
+four-cube union.**
+
 ### Complete third-phase forcing and the two valid fixed-point choices
 
 Two new results sharpen the Phase III matching problem:
