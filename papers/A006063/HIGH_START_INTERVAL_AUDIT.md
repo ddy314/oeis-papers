@@ -210,7 +210,46 @@ The rest is guaranteed by the same
 symbolic monotone cube-gap inequality
 as in Section 1.
 
-## 5. What moving the start can and cannot solve
+## 5. A sharp obstruction to fixed-word interpolation (PROVED)
+
+A tempting shortcut is to fix one ordered list of cubic sums
+`(k_1^3,...,k_t^3)` and one output block order `pi`,
+then vary the input-block lengths continuously over all
+199 target integers. **This is algebraically impossible,
+even if the block-order matrix is singular.**
+
+**Fixed-word length rigidity theorem.** For a fixed cubic
+sum word and a fixed output-block order, *all* positive
+solutions to the block-rearrangement equations have exactly
+the **same total length N**.
+
+**Proof.** Write the block-order matrix as
+`M = u*u^T + K`, where `u` is the all-ones vector
+and `K` is skew-symmetric. This follows from the
+universal identity `M+M^T=2*u*u^T`. If two
+positive integer block vectors `ell,ell'` solve
+`M*ell=M*ell'=k^3-u`, their difference
+`v=ell-ell'` satisfies `M*v=0`. Therefore
+
+```
+0 = v^T*M*v = (u^T*v)^2 + v^T*K*v
+  = (sum_j v_j)^2.
+```
+
+Thus `sum(ell_j)=sum(ell'_j)`. QED.
+
+This strengthens the earlier *affine interpolation
+obstruction*: the impossibility holds for **any**
+variation of positive integer block lengths, not only
+affine variation. For the new five-cube window, a
+uniform argument therefore must change the root-word
+and/or output order with n, or use a theorem such
+as Tutte's 1-factor criterion that does not fix a
+piecewise-reflection word in advance.
+
+## 6. What moving the start can and cannot solve
+
+
 
 **Yes:** The high window replaces many
 complicated small-degree graph instances
