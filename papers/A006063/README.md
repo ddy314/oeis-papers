@@ -5,6 +5,34 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## New structural theorem: only 14 / 10 / 16 edges from bipartite
+
+The [four odd-face dual-path theorem](FOUR_ODD_FACES_NEAR_BIPARTITE.md)
+proves that all three maximal four-cube
+graphs become **bipartite** after deleting
+just **14, 10, or 16 explicit edges**.
+Those three fixed exceptional edge sets
+work for **all 199 shorter graphs** in
+their respective phases, and remain
+valid after removal of the normalized
+odd-length fixed point. Each deletion
+is justified mathematically by two
+face-disjoint dual paths connecting
+the original four odd faces.
+
+The [new pure-integer checker](verify_near_bipartite_phases.py)
+verifies all dual paths and the inherited
+bipartite structures. The remaining
+matching proof can therefore be
+formulated as bipartite Hall conditions
+after making a **bounded choice among
+at most 16 exceptional edges**.
+The current matching experiments suggest
+at most 2/4/5 of those edges are needed
+for a full matching, respectively, but
+this last numerical observation is
+**not** yet a uniform mathematical theorem.
+
 ## Three explicit planar rotations cover all 199 four-cube graphs
 
 The new [planarity theorem](THREE_ROTATION_PLANARITY.md)
