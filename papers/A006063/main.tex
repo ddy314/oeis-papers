@@ -65,7 +65,7 @@ P(681707u^3)\ge2^{148877u^3-1}
 \qquad(u\ge1).
 \]
 As a complementary finite classification,
-$70$ exceptional endpoint-multiset identities
+$66$ exceptional endpoint-multiset identities
 and four symbolic block families certify the
 all-$n$ existence conjecture recorded in
 OEIS A006063, while $191$ short augmenting
@@ -1994,42 +1994,47 @@ $2Z-2Y+X-W$. Taking $(Y,Z)=(64,125)$,
 the choices $(X,W)=(8,64),(27,64),(8,27)$
 give $n=66,85,103$, respectively.
 
-\paragraph{Family IV (eleven blocks, including degeneration).}
-Let $X,Y,Z,W$ be positive cubes and let $Q$ be an
-integer. Define
+\paragraph{Family IV (twelve blocks and three binary switches).}
+Let $X,T,Q$ be integers and put
 \[
 \begin{aligned}
-a&=4Z-2W-Y-1,&b&=4W+X+2Y-8Z+1,\\
-c&=2Z-W-X,&d&=Q+4W+2X-8Z+1,\\
-e&=3Z-W-X-Q,&f&=3W+2Y-6Z+1.
+u&=X-7,&v&=T-2X+7,&w&=X+27-T,\\
+z&=Q+2T-2X-121,&h&=X+152-T-Q.
 \end{aligned}
 \]
-Suppose $a,b,c,e,f>0$ and $d\ge0$.
-The input block lengths are
+Assume $u,v,z\ge0$ and $w,h>0$.
+Use input lengths
 \[
-(a,b,c,a,c,d,e,a,f,a,e)
+(3,u,v,w,3,w,z,h,3,27,3,h)
 \]
-and their output order is
+and output block order
 \[
-(10,2,5,8,3,6,11,4,9,1,7).
+(11,2,3,6,9,4,7,12,5,10,1,8).
 \]
-Lemma~\ref{lem:main-block-rearrange}
-gives the successive nominal sums
+The reflected-block lemma computes the twelve
+nominal index-image sums as
 \[
-(Z,X,Y,Z,Y,Q,W,Z,W,Z,W)
+(125,X,T,64,125,64,Q,216,125,216,125,216).
 \]
-and total length $n=4Z-W-X-Q-1$.
-When $d>0$, assume $Q$ is also a cube.
-When $d=0$, delete the sixth (empty) block
-from both orders: the value of $Q$ then
-need \emph{not} be a cube, and
-$n=3W+X-4Z$. With
-$(Y,Z,W)=(64,125,216)$ and $X=8,27$,
-taking $Q=125$ yields lengths $150,131$;
-taking $d=0$ yields lengths $156,175$.
-This proves four cases by a single
-symbolic family, without comparing four
-numerical endpoint lists.
+When the second, third, or seventh block is nonempty,
+its nominal sum $X$, $T$, or $Q$, respectively,
+must be a cube. Any zero-length block is omitted
+from both orders and imposes no cube condition.
+The total length is
+\[
+n=276+X-T-Q.
+\]
+Take $X\in\{7,8\}$, choose
+$T\in\{2X-7,27\}$, and independently choose
+$Q\in\{121-2T+2X,125\}$. All eight resulting
+length choices satisfy the positivity and cube
+conditions. The $2^3$ distinct lengths are
+\[
+\boxed{131,132,150,151,155,156,174,175}.
+\]
+This is one symbolic rearrangement construction
+with three optional empty blocks, not eight
+separate finite endpoint certificates.
 
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
@@ -2062,27 +2067,28 @@ without twelve separate endpoint-table checks.
 
 \begin{theorem}[Reduced finite arithmetic certificate]
 \label{thm:finite-interval-atlas}
-The $70$ integer identities in
+The $66$ integer identities in
 Appendix~\ref{app:interval-atlas},
 together with four symbolic block families,
 prove that every $n\ge173$ admits
 a cube-sum permutation.
 The independent finite data consist of
-$70$ endpoint identities ($927$ blocks);
-twelve further base lengths are consequences
+$66$ endpoint identities ($885$ blocks);
+sixteen further base lengths are consequences
 of parameterized algebraic identities.
 \end{theorem}
 \begin{proof}
-The appendix contains $13$ exceptional seed
-identities below $173$ and $57$ in the
+The appendix contains $10$ exceptional seed
+identities below $173$ and $56$ in the
 target range $173\le n\le364$.
 Lemma~\ref{lem:endpoint-cancellation}
 makes each a legal permutation.
 
 The four preceding formulas establish
-another nine seeds below $173$, namely
-$66,85,100,103,119,122,131,150,156$, and three
-seeds in the target interval, $175,182,254$.
+another twelve seeds below $173$, namely
+$66,85,100,103,119,122,131,132,150,151,155,156$,
+and four seeds in the target interval,
+$174,175,182,254$.
 Their permutations are guaranteed by
 the symbolic block-rearrangement lemma.
 Thus $22$ lower and $60$ middle seeds
@@ -2128,7 +2134,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $57$ upper exceptional rows, the three
+The $56$ upper exceptional rows, the four
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -2157,12 +2163,12 @@ and strong induction extend the
 permutations to all later lengths.
 \end{proof}
 
-The primary proof still contains $70$
+The primary proof still contains $66$
 individual finite integer equalities:
 the algebraic templates do not establish
 a completely case-free classification.
 The audit script
-\texttt{verify\_70\_plus\_templates.py}
+\texttt{verify\_66\_plus\_templates.py}
 is optional and reads only the
 exceptional table, not the original
 $191$ augmenting words or a matching
@@ -4083,9 +4089,9 @@ of $P(n)$ in general, nor does it claim external peer review.
 the consecutive input interval ending at $b$
 is mapped by $p(i)=k^3-i$.
 The first interval starts at $1$.
-There are $70$ exceptional rows and $927$
+There are $66$ exceptional rows and $885$
 segments. Four parameterized block families
-prove twelve additional base lengths. For every row,
+prove sixteen additional base lengths. For every row,
 Lemma~\ref{lem:endpoint-cancellation}
 reduces checking the permutation
 to equality of two lists of integers.
@@ -4094,7 +4100,7 @@ to equality of two lists of integers.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_70_exceptional_atlas.tex}
+\input{certificates/finite_66_exceptional_atlas.tex}
 \end{multicols}
 
 \clearpage
