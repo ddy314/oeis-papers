@@ -5,14 +5,24 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Latest finite proof: 74 exceptional identities + 3 algebraic templates
+## Current finite proof: 66 exceptional identities + four symbolic families (2026-10-19)
+
+The strongest self-contained existence proof is now [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md), reproduced in the [standalone LaTeX note](finite_base_note.tex) and the main paper. It uses **66 independent endpoint-multiset identities (885 reflected blocks)** plus **four algebraic block-rearrangement families** yielding 16 additional base lengths. The most useful new identity is the [12-block three-switch family](BINARY_BLOCK_FAMILY.md), whose optional zero-length blocks generate the eight lengths `131,132,150,151,155,156,174,175` with no individual endpoint-table checks. The [earlier three symbolic families](PARAMETRIC_BLOCK_TEMPLATES.md) generate eight other base lengths.
+
+- [66 exceptional identities](certificates/finite_66_exceptional_atlas.txt), with a [LaTeX appendix](certificates/finite_66_exceptional_atlas.tex).
+- [Independent arithmetic verification](verify_66_plus_templates.py) reconstructs every seed from the 66 exceptional rows plus the four formulas; old 70/74/82/109 certificates are not its inputs.
+- Existing reflection closure still supplies the other 158 lengths (26 below 173 and 132 within 173..364); the cubic-gap induction proves every length n>=173.
+
+The 82 fully expanded witness rows contain **1,009** reflected blocks, but only **66 numeric rows** remain logically necessary. This is a real reduction in case distinctions, not a complete case-free proof. Older atlases are preserved for independent cross-checks, and CI/PDF compilation cannot be called successful until workflow completion is confirmed.
+
+## Earlier finite proof: 74 exceptional identities + 3 algebraic templates
 
 **Latest primary proof (October 19, 2026):** [COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md) and [PARAMETRIC_BLOCK_TEMPLATES.md](PARAMETRIC_BLOCK_TEMPLATES.md), with the standalone [finite_base_note.tex](finite_base_note.tex), now establish `P(n)>0` for all `n>=173` using **74 explicit exceptional endpoint-multiset equalities (969 blocks)** and **three pure algebraic block-rearrangement schemes** generating eight more seed lengths (`66,85,100,103,119,122,182,254`). This accounts for the same 82 finite seeds as before, but the eight template instances no longer require separate endpoint checking. The remaining 26 sub-173 and 132 middle lengths follow by the original strictly increasing cubic suffix reflection, and the unbounded tail by a symbolic cubic-gap inequality.
 
 - [74 exceptional rows](certificates/finite_74_exceptional_atlas.txt), with the [typeset appendix](certificates/finite_74_exceptional_atlas.tex).
 - [Three algebraic formulas and affine-rigidity obstruction](PARAMETRIC_BLOCK_TEMPLATES.md).
 - [Independent 74+templates audit](verify_74_plus_templates.py), not using the old 82-row table or matching.
-- [Redundant 82-row complete certificate](certificates/finite_82_seed_atlas.txt), now optimized to **1,009** blocks (down from 1,009 and the original 109-row count of 1,123). Independent checker [verify_82_seed_proof.py](verify_82_seed_proof.py) remains available.
+- [Redundant 82-row complete certificate](certificates/finite_82_seed_atlas.txt), now optimized to **1,009** blocks (down from 1,030 and the original 109-row count of 1,123). Independent checker [verify_82_seed_proof.py](verify_82_seed_proof.py) remains available.
 
 **Boundary:** Three parameterized families replace eight particular cases; they do *not* constitute a case-free construction for all the remaining 74 lengths. CI/PDF status must be confirmed after the latest workflow runs, not assumed.
 
