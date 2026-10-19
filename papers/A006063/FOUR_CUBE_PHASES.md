@@ -82,6 +82,41 @@ nontrivial 2-cycle**. This is an auxiliary
 five-color restriction, not a four-color
 fixed-point exception.
 
+### Uniform planar embedding across all 199 lengths (PROVED)
+
+The [three-rotation planarity theorem](THREE_ROTATION_PLANARITY.md)
+gives a remarkably compact embedding certificate:
+for each phase's maximum n=560,579,665, place
+the incident edges in the **same cyclic
+color order at every vertex**:
+
+```
+Phase I:   (216,343,512,729)
+Phase II:  (216,512,729,1000)
+Phase III: (343,729,512,1000)
+```
+
+The exact dart-rotation face counts are
+`(V,E,F)=(560,729,171),(579,656,79),
+(665,892,229)`, respectively. Every
+case has Euler characteristic `V-E+F=2`,
+so these give connected planar embeddings.
+Every smaller graph within the same
+palette is an **induced subgraph** of the
+corresponding maximum graph, so planarity
+follows automatically for all 199 lengths
+and remains true after deleting either
+valid fixed point.
+
+The [arithmetic-only rotation verifier](verify_three_rotation_planarity.py)
+uses just integer reflection edges,
+a cyclic permutation of darts and
+Euler's formula: no matching or
+planarity-finding library. Planarity
+does not itself prove perfect-matching
+existence, but it makes planar
+Tutte/Pfaffian techniques available.
+
 ### A second short-path factorization: 245 even-cube paths
 
 The [dual-reflection path theorem](DUAL_REFLECTION_PATHS.md)
