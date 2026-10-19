@@ -5,6 +5,35 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Exact bounded-defect Hall reduction: at most 16 exceptional pairs
+
+A strengthened [bipartite matching reduction](BOUNDED_DEFECT_HALL_REDUCTION.md)
+proves that the 14/10/16
+exceptional edges are **mutually
+vertex-disjoint and monochromatic**
+in the bipartition of the
+edge-deleted graph. Therefore
+perfect matching reduces exactly
+to selecting `S subset F` from a
+**fixed 16-edge matching**, satisfying
+the balance equation, then proving
+an ordinary bipartite Hall condition
+on the remaining graph. The number
+of perfect matchings is exactly
+`sum_{S subset F} m(H-V(S))`—
+at most `2^16` bipartite matching
+counts. The skew-adjacency
+perturbation has rank at most 32.
+
+This is a genuine uniform algebraic
+reduction across all 199 cases,
+though the missing positive Hall
+condition has **not** been proved
+symbolically. An [independent standard-library
+checker](verify_defect_matching_reduction.py)
+audits the disjoint exceptional
+edges and bipartition balances.
+
 ## New structural theorem: only 14 / 10 / 16 edges from bipartite
 
 The [four odd-face dual-path theorem](FOUR_ODD_FACES_NEAR_BIPARTITE.md)
