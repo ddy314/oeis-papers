@@ -5,6 +5,31 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Three explicit planar rotations cover all 199 four-cube graphs
+
+The new [planarity theorem](THREE_ROTATION_PLANARITY.md)
+proves the proposed **four-color matching graphs
+are all planar**, not merely sparse.
+For each palette it suffices to certify
+the largest n=560,579,665, using a
+**constant clockwise cube-color order**
+at every vertex. The oriented-dart face
+counts yield Euler `V-E+F=2` in all three
+maximal graphs. All smaller phase graphs,
+and the deletion of the proposed fixed
+vertex, inherit planarity. A
+[three-endpoint pure-arithmetic verifier](verify_three_rotation_planarity.py)
+checks the exact face-cycle counts with
+no NetworkX or matching solver.
+
+This gives a concrete basis for
+planar Tutte and Kasteleyn–Pfaffian
+approaches to the remaining positive
+four-color matching theorem. **Planarity
+alone does not guarantee a perfect
+matching**, so the phase-wide existence
+claim remains experimentally supported.
+
 ## New dual short-path theorem: 193 odd paths and 245 even paths
 
 The [dual reflection-path theorem](DUAL_REFLECTION_PATHS.md)
