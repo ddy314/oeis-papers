@@ -214,7 +214,86 @@ most natural small-component reduction; it is
 not an obstruction to a perfect matching in the
 original five-cube graph.
 
-## 5. Status and next mathematical target
+## 5. Exact local-state matching reduction (not an existence theorem)
+
+The small-path decomposition above permits a **necessary and sufficient
+normal form** for *every* proposed five-cube involution. The
+construction no longer needs to reason about arbitrary internal
+matchings of the 193 odd-color components.
+
+Fix n in [467,665], delete vertex 108 for odd n,
+and split the two-odd-cube graph into its connected
+paths. Every path has between one and four vertices.
+Enumerate the vertices of a path in **path order**
+as `v1,...,vr`. Choose any matching `E_even`
+whose edges have sums in `{216,512,1000}`;
+they may connect different paths or lie within
+a single path. Let `T_C` be the set of vertices
+of component C incident to those even-color edges.
+
+**Theorem (five-cube matching as a finite-state gadget problem).**
+The chosen even-color matching extends to a *unique*
+perfect matching using the five cubes if and only if
+every path's endpoint mask `T_C` belongs to the
+appropriate list below:
+
+| Path size | All allowed sets of vertices incident to even-cube edges |
+|---:|---|
+| 1 | `{v1}` |
+| 2 | `empty`, `{v1,v2}` |
+| 3 | `{v1}`, `{v3}`, `{v1,v2,v3}` |
+| 4 | `empty`, `{v1,v2}`, `{v1,v4}`, `{v3,v4}`, `{v1,v2,v3,v4}` |
+
+In particular, no path has more than **five local states**.
+
+**Proof.** After deleting the vertices incident to
+`E_even`, the remaining graph must be matched
+*entirely* by its odd-cube edges. The odd-cube
+components were disjoint simple paths. A path
+with some vertices removed has a perfect matching
+if and only if **each remaining consecutive run
+has even cardinality**. In that case its matching
+is unique, obtained by pairing consecutive
+vertices along the run. Directly listing the
+subsets with this even-run property for
+r=1,2,3,4 gives exactly the displayed table.
+The pairings on different paths do not
+conflict, and together with `E_even` yield
+a complete matching. Conversely, in any
+five-color perfect matching, the even-cube
+edges define a unique `E_even` and their
+deleted vertex masks must satisfy precisely
+the even-run condition. QED.
+
+This is **strictly more general** than the
+naive "one even bridge per odd component" strategy:
+a size-2 component may have both vertices
+externally matched, a size-3 component may
+use three even edges, and a size-4 component
+may use zero, two, or four of them. The
+earlier naive quotient failed precisely
+because it discarded these necessary states.
+
+**Equivalent exact research question.**
+Can one construct, uniformly for every
+`467<=n<=665`, a matching of the three
+even-reflection graphs `216,512,1000`
+such that all 193 odd-reflection path
+gadgets (or 194 after deleting vertex
+108 in the highest odd cases) obey
+the displayed local-state table?
+
+A positive answer would yield an explicit
+five-cube involution and hence, through
+the proved interval avalanche, involutions
+for all `n>=467`. The equivalence itself
+is a mathematical theorem; **existence
+of such even-edge matchings remains open
+without finite computation**.
+
+## 6. Status and next mathematical target
+
+
 
 This theorem provides a **complete parameterized
 decomposition of all 199 odd-reflection skeletons
