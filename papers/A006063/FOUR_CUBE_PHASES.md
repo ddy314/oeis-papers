@@ -82,6 +82,33 @@ nontrivial 2-cycle**. This is an auxiliary
 five-color restriction, not a four-color
 fixed-point exception.
 
+### Complete third-phase forcing and the two valid fixed-point choices
+
+Two new results sharpen the Phase III matching problem:
+
+- [Phase III fixed-point duality](PHASE_III_FIXED_POINT_DUALITY.md)
+  gives exact formulas for the odd component defect
+  `q_256(n)=729-n`, and `q_500(n)=727-n`
+  for odd n<=613, or `729-n` for odd n>=615.
+  These imply rigorous necessary lower bounds
+  for the number of 512/1000-colored 2-cycles.
+- [Complete Phase III forced cascades](PHASE_III_FORCED_CASCADE.md)
+  proves that, under fixed point 500, every odd
+  n=581..601 has the same five forced pairs;
+  all odd n=603..665 have only the forced pair
+  `12<->331`. Under fixed point 256, the
+  corresponding exact numbers of forced pairs
+  are 6 / 3 / 4 / 0 in the intervals
+  581..587 / 589..627 / 629..641 / 643..665.
+
+The cascade proof requires only **six elementary
+boundary checks** and monotonicity, not 86
+independent matching searches. Both statements
+are necessary structural results; neither
+supplies a perfect matching of the final core.
+The optional [standard-library verifier](verify_phase_iii_cascade.py)
+audits all formulas and forced pairs.
+
 ## 3. Why the phase structure is mathematically useful
 
 The three palettes overlap and differ
