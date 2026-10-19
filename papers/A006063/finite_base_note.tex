@@ -662,54 +662,41 @@ separately constructed finite witnesses}.
 Such a claim would require an additional
 local augmentation or gluing theorem.
 
-\section{A purely symbolic infinite tail}
+\section{Existence for every length $n\ge173$}
 
 \begin{theorem}
-For every integer $n\ge173$,
-there is a permutation $p$ of $[1,n]$
-such that $i+p(i)$ is a perfect cube
-for all indices $i$.
+For every integer $n\ge173$, there is a
+permutation $p$ of $[1,n]$ for which
+every $i+p(i)$ is a perfect cube.
 \end{theorem}
 \begin{proof}
-The base interval is Lemma~\ref{lem:base}.
-For $n\ge365$, assume the claim for
-every smaller integer at least 173,
-and let $k^3$ be the least integer cube
-satisfying $k^3\ge n+174$.
-Thus $m=k^3-n-1\ge173$.
-
-If $365\le n\le555$, then $k=9$
-and $k^3=729\le2n$. For $n\ge556$,
-minimality of $k$ implies $k\ge10$
-and $n\ge(k-1)^3-173$. Therefore
-\[
-\begin{aligned}
-2n-k^3
-&\ge 2(k-1)^3-346-k^3\\
-&=k^3-6k^2+6k-348\\
-&\ge112>0.
-\end{aligned}
-\]
-The final polynomial equals $112$ at
-$k=10$ and increases thereafter:
-its first difference is $3k^2-9k+1>0$.
-In either case $k^3\le2n$ and hence
-$m<n$. Apply the induction hypothesis
-at $m$ and Lemma~\ref{lem:suffix}.
+The finite interval $[173,364]$ is provided
+by Lemma~\ref{lem:base}, from the
+six explicit block families and $57$
+algebraic cubic-order shapes.
+The interval-overlap avalanche
+Theorem~\ref{thm:interval-avalanche-tail}
+then propagates it to every integer $n\ge173$.
+No further finite construction is required.
 \end{proof}
 
-\paragraph{Logical scope.}
-The theorem uses explicit finite
-arithmetic equalities and short symbolic
-lemmas. The optional script
-\texttt{verify\_57\_plus\_templates.py}
-checks the $57$ exceptional rows, regenerates
-all twenty-five template cases and checks finite closure
-without matching or other external data.
-It is not a premise for the proof.
-A uniform, case-free formula replacing
-the remaining $57$ exceptional rows is
-\emph{not} claimed.
+\paragraph{Exact logical status.}
+The infinite propagation is purely symbolic,
+including the full cube-gap inequality.
+Each of the $57$ finite cubic-order shapes
+is given by an integer Cramer-determinant
+formula with a positive block-length vector,
+not by an appeal to a matching solver.
+The numerical root words, output orders,
+and positivity checks for these $57$ shapes
+are still indispensable \emph{finite case data}.
+The exact audit program
+\texttt{verify\_unimodular\_factory.py}
+is a reproducibility aid, not a hidden
+premise of the interval avalanche theorem.
+The present argument does \emph{not}
+establish a case-free existence proof
+of the original base interval.
 
 \clearpage
 \appendix
