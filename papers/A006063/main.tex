@@ -2125,6 +2125,163 @@ lengths $345,357,351$, using one
 parametric construction rather than
 three independent endpoint lists.
 
+\subsection{Universal unimodular determinant construction}
+\label{subsec:unimodular-factory}
+The remaining $57$ integer witnesses admit a common
+algebraic formula, without separately testing
+their endpoint cancellation identities.
+For an output-block order $\pi$ on $t$ labels,
+write $\rho(i)=\pi^{-1}(i)$ and set
+\[
+M_{ji}=[i<j]+[\rho(i)<\rho(j)]+[i=j],
+\quad 1\le i,j\le t.
+\]
+Here brackets denote indicator functions.
+
+\begin{lemma}[Unimodular block-order matrices]
+\label{lem:unimodular-block}
+For every finite output-block order $\pi$,
+$\det M\in\{0,1\}$.
+\end{lemma}
+\begin{proof}
+With $\boldsymbol1$ denoting the all-ones
+vector, write $M=\boldsymbol1\boldsymbol1^T+K$.
+The matrix $K$ is skew-symmetric, and for
+$i<j$ its $(i,j)$ entry is $-1$ exactly
+when $\rho(i)<\rho(j)$, and $0$ otherwise.
+It is therefore an oriented chord-intersection
+matrix: place first chord endpoints in
+input order around one arc of a circle,
+and second endpoints in output order around
+the complementary arc.
+
+Recall that an even-order chord-intersection
+matrix has Pfaffian $0$ or $\pm1$.
+Indeed, thickening the chord diagram into an
+oriented ribbon surface, the chord loops form an
+integral homology basis. Their intersection form
+is integrally congruent to a direct sum of
+unimodular symplectic pairs
+$\left(\begin{smallmatrix}0&1\\-1&0\end{smallmatrix}\right)$
+and zero blocks from the boundary radical.
+Its full Pfaffian is thus $0$ or $\pm1$.
+
+If $t$ is even, $\operatorname{adj}(K)$ is
+skew-symmetric; the rank-one determinant
+identity gives
+\[
+\det M=\det K+
+\boldsymbol1^T\operatorname{adj}(K)\boldsymbol1
+=\operatorname{Pf}(K)^2\in\{0,1\}.
+\]
+If $t$ is odd, $\det K=0$. Adjoin a new
+chord crossing all original chords, whose
+skew matrix is
+\[
+H=\begin{pmatrix}
+0&\boldsymbol1^T\\
+-\boldsymbol1&K
+\end{pmatrix}.
+\]
+The same rank-one and bordered determinant
+identities give
+\[
+\det M=\boldsymbol1^T\operatorname{adj}(K)
+\boldsymbol1=\det H=\operatorname{Pf}(H)^2
+\in\{0,1\}.
+\]
+\end{proof}
+
+\begin{theorem}[Symbolic determinant families]
+\label{thm:unimodular-block-factory}
+Fix $\pi$ with $\det M=1$.
+For arbitrary integer cube roots
+$k_1,\ldots,k_t\ge2$, let
+$d=(k_j^3-1)_{j=1}^t$. Define
+\[
+\ell_j=\det M^{(j)}(d),
+\]
+where $M^{(j)}(d)$ is obtained from $M$
+by replacing column $j$ with $d$.
+If every $\ell_j>0$, then with
+$N=\sum_j\ell_j$ there is a permutation
+of $[1,N]$ with cube sums $k_j^3$ on
+successive input blocks of these lengths.
+\end{theorem}
+\begin{proof}
+By the preceding lemma and Cramer's rule,
+$M\ell=d$ holds identically over the integers.
+If $A_j,B_j$ are the input and output block
+prefix lengths, this is precisely
+\[
+k_j^3=1+A_j+B_j+\ell_j.
+\]
+Reflection $p(i)=k_j^3-i$ maps the
+$j$th input block bijectively to the
+$j$th block in output order $\pi$.
+The output blocks partition $[1,N]$.
+\end{proof}
+
+The $57$ cubic-root words and block orders
+in Appendix~\ref{app:algebraic-shapes}
+are therefore a collection of \emph{symbolic}
+families, rather than $57$ independently
+postulated endpoint identities.
+For each printed root word,
+integer determinant evaluation gives
+$\det M=1$, $\ell_j\ge1$, and the
+specified length $N$ (the smallest
+$\ell_j$ across the full table equals $1$).
+The separate exact
+\texttt{verify\_unimodular\_factory.py}
+checks these finite positivity conditions.
+The $57$ parameter choices remain finite data:
+this is not a case-free proof of their existence.
+
+\begin{theorem}[Uniform cubic dilation]
+\label{thm:unimodular-dilation}
+Under Theorem~\ref{thm:unimodular-block-factory},
+put $v=M^{-1}\boldsymbol1$ and
+$\varepsilon=t\bmod2$. For every integer $h\ge1$,
+\[
+\ell_j(h)=\ell_j+
+(h^3-1)(\ell_j+v_j)>0
+\]
+defines another cube-sum permutation, with
+root word $(hk_1,\ldots,hk_t)$, of length
+\[
+\boxed{N(h)=(N+\varepsilon)h^3-\varepsilon.}
+\]
+\end{theorem}
+\begin{proof}
+Pfaffian minor expansions in the preceding
+chord-diagram proof imply
+$v_j\in\{-1,0,1\}$: the Cramer minors
+are signed Pfaffians of chord diagrams
+with a marked chord deleted, divided
+by a nonzero Pfaffian of absolute value $1$.
+Moreover $\sum_j v_j=\varepsilon$.
+Indeed, $Mv=\boldsymbol1$ and skew symmetry
+give $S^2=S$ for $S=\boldsymbol1^Tv$.
+If $t$ is even, $K$ is invertible and
+$v=K^{-1}\boldsymbol1$ yields $S=0$.
+If $t$ is odd, invertibility of $M$ and
+singularity of $K$ exclude $S=0$:
+a kernel vector of $K$ has nonzero pairing
+with $\boldsymbol1$. Thus $S=1$.
+
+Since $\ell_j\ge1$ and $v_j\ge-1$,
+all displayed scaled lengths are positive.
+Finally
+\[
+M\ell(h)=h^3M\ell+(h^3-1)\boldsymbol1
+=h^3(k_j^3)_{j=1}^t-\boldsymbol1.
+\]
+The determinant construction applies again.
+Summing the lengths gives the formula
+for $N(h)$.
+\end{proof}
+
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
 Suppose all breakpoints $b_j(n)$ are affine
@@ -4171,7 +4328,25 @@ of $P(n)$ in general, nor does it claim external peer review.
 
 \clearpage
 \appendix
-\section{Finite interval-reflection atlas}
+
+\clearpage
+\section{The 57 algebraic cubic-order shapes}
+\label{app:algebraic-shapes}
+For each target $n$, the line gives a cube-root
+word $k_1,\ldots,k_t$ and an output-block order
+$\pi$. Its block lengths are not assumed or
+listed: they are the integer determinants
+in Theorem~\ref{thm:unimodular-block-factory}.
+The target length is a checksum for their sum.
+All listed lengths are strictly positive.
+\begin{multicols}{2}
+\scriptsize
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\input{certificates/finite_57_cubic_order_shapes.tex}
+\end{multicols}
+
+\section{Redundant 57-row endpoint atlas}
 \label{app:interval-atlas}
 
 \noindent Each row $n$ lists pairs $b:k$:
