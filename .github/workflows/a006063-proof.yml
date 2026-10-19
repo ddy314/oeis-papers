@@ -66,6 +66,8 @@ jobs:
         run: python papers/A006063/involution_tail_audit.py
       - name: Verify parity-optimal zero and one-fixed-point involution tails
         run: python papers/A006063/parity_minimal_involutions.py
+      - name: Independently prove parity-minimal tails with symbolic interval unions
+        run: python papers/A006063/parity_interval_proof.py
       - name: Verify taxicab identity and exponential involution switching theorem
         run: python papers/A006063/taxicab_involution_audit.py
       - name: Verify inverse-paired tensor powers and involution condition
