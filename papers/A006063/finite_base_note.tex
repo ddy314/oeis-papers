@@ -6,7 +6,7 @@
 \usepackage{hyperref}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
-\title{Cube-Sum Permutations: 57 Integer Identities and Six Algebraic Templates}
+\title{Cube-Sum Permutations: Unimodular Block Algebra and 57 Finite Shapes}
 \author{Qichao Wang}
 \date{October 2026}
 
@@ -14,20 +14,27 @@
 \maketitle
 
 \begin{abstract}
-Let $P(n)$ count permutations $p$ of $\{1,\ldots,n\}$
-for which every $i+p(i)$ is a perfect cube.
-We prove $P(n)>0$ for every $n\ge 173$ from
-$57$ exceptional integer endpoint identities ($795$
-reflected blocks) and six general algebraic
-block-rearrangement templates giving twenty-five further seeds.
-An elementary suffix-reflection rule and a cubic-gap
-inequality extend the construction to all later lengths.
-An explicit predecessor table explains all remaining
-finite lengths without a matching search, a large
-permutation archive, or dependent augmenting paths.
-The finite case distinctions are \emph{not} eliminated:
-this is a solver-free, hand-checkable certificate rather
-than a case-free parameterized construction.
+Let $P(n)$ count permutations $p$ of $[1,n]$
+such that every $i+p(i)$ is a perfect cube.
+We prove $P(n)>0$ for every $n\ge173$
+from six explicit block-rearrangement families,
+$57$ finite cube-word/output-order shapes, and
+elementary cubic suffix reflection.
+A general algebraic theorem proves that the
+block-order matrix has determinant $0$ or $1$.
+For each of the $57$ shapes the determinant is $1$,
+and a single Cramer-determinant formula yields
+strictly positive integral block lengths.
+The permutation then follows symbolically,
+without separately verifying $57$ endpoint
+multiset equalities. Every such shape also admits
+a uniform infinite cubic dilation
+$N(h)=(N+\varepsilon)h^3-\varepsilon$.
+A symbolic cubic-gap induction completes
+the existence tail for all $n\ge365$.
+The $57$ shape choices and positivity checks
+remain finite casework; this is an algebraic
+parameterization, not a case-free existence proof.
 \end{abstract}
 
 \section{Two elementary lemmas}
@@ -465,8 +472,8 @@ Lemma~\ref{lem:balance} holds exactly.
 These are $795$ simple integer-interval
 identities. Exactly $10$ listed rows have
 $n<173$ and exactly $47$ have $173\le n\le364$.
-Together with the twenty-six algebraic-template lengths,
-there are $22$ lower and $57$ upper seeds.
+Together with the twenty-five algebraic-template lengths,
+there are $22$ lower and $60$ upper seeds.
 
 The following two lists give every omitted
 base length without further matching data.
@@ -588,7 +595,7 @@ the remaining $57$ exceptional rows is
 
 \clearpage
 \appendix
-\section{The 57 redundant integer-multiset witnesses}
+\section{Redundant 57-row endpoint witnesses}
 \label{app:table}
 Every token $b:k$ means $p(i)=k^3-i$
 up to endpoint $b$. For each row, verify
