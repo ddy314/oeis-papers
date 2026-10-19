@@ -7,7 +7,7 @@ We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i
 
 ## Finite 173–364 gap: explicit algebraic proof without matching algorithms
 
-**This is the current focused result.** [FINITE_INTERVAL_PROOF.md](FINITE_INTERVAL_PROOF.md) proves the missing finite base interval using a single elementary **boundary cancellation lemma** plus [109 explicit piecewise-reflection rows](certificates/finite_block_atlas.txt), now reproduced in the LaTeX appendix.
+**This is the current focused result.** [FINITE_INTERVAL_PROOF.md](FINITE_INTERVAL_PROOF.md) and the standalone [finite_base_note.tex](finite_base_note.tex) prove the missing finite base interval using a single elementary **boundary cancellation lemma** plus [109 explicit piecewise-reflection rows](certificates/finite_block_atlas.txt), now reproduced in the LaTeX appendix.
 
 For each row, take endpoints `0=b_0<...<b_t=n` and cube roots `k_j`. Define `L_j=k_j**3-b_j` and `R_j=k_j**3-b_(j-1)`. The row defines a legal permutation precisely when `1<=L_j<R_j<=n+1` and
 
