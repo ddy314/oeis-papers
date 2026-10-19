@@ -5,6 +5,21 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Local forced-reflection avalanche and a reduced 56-shape base (2026-10-19)
+
+A new [forced-reflection peeling proof](FORCED_REFLECTION_PEELING.md) studies the cube-sum graph directly, without constructing its perfect matching by a determinant or endpoint atlas. If vertex `i` has exactly one cubic-sum neighbor `j`, every legal permutation forces **both** `p(i)=j` and `p(j)=i`, and deleting those vertices preserves the exact number of permutations.
+
+For **every** `173<=n<=181`, the first three consecutive forced bands have explicit formulas: `[125,342-n]` under cube 216, then `[34,215-n]` under cube 64, then `[95,276-n]` under cube 216. Together they force `582-3*n` reflected pairs, algebraically. The remaining graph vanishes completely at n=173 and n=174, proving **P(173)=P(174)=1**; at n=175 the 10-vertex core is a self-loop attached to a chordless 9-cycle, proving **P(175)=3**. The unique 173 and 174 permutations differ on 25 pre-existing positions, showing that even the very first +1 extension needs a nontrivial rearrangement.
+
+**Critical reduction:** The primary finite existence proof may now use only [56 cubic-root/output-order shapes](certificates/finite_56_cubic_order_shapes.txt) (784 determinant-generated blocks), the separate graph-theoretic **forced n=173 theorem**, and six symbolic families generating the other 25 base lengths. Thus `56+1+25=82` established seeds, followed by the same finite reflection closure and proved infinite interval avalanche. The original 57-shape factory remains correct but is now redundant at 173.
+
+- [Mathematical forced-peeling theorem](FORCED_REFLECTION_PEELING.md)
+- [Independent forced-band, uniqueness and n=175 counting audit](verify_forced_peeling.py)
+- [Independent complete 56+forced+25 audit](verify_56_plus_forcing.py)
+- [Reduced 56-shape parameter file](certificates/finite_56_cubic_order_shapes.txt) and [LaTeX version](certificates/finite_56_cubic_order_shapes.tex)
+
+The finite middle interval is **not yet case-free**: 56 determinant positivity checks remain. The original published values for the counts at 173–175 are consistent with the new direct proofs. CI/PDF success must be separately confirmed.
+
 ## Interval-overlap avalanche: a complete symbolic tail, not a case-free finite base (2026-10-19)
 
 The new [INTERVAL_OVERLAP_AVALANCHE.md](INTERVAL_OVERLAP_AVALANCHE.md) proves the exact interval propagation rule: if every length in `[a,b]` is admissible and a cube `c` lies in `[a+b+2,2b+2]`, then every length in `[a,c-a-1]` is admissible. Starting from `[173,364]`, the cubes `9^3,10^3,11^3,...` yield `[173,555]`, then `[173,826]`, and so on, to infinity. The proof is a direct symbolic inequality, with no finite search in the tail. The standalone LaTeX note now uses this as the primary infinite-tail proof; the main paper includes it as a separate theorem.
