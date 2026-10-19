@@ -64,12 +64,17 @@ exponential-subsequence construction
 P(681707u^3)\ge2^{148877u^3-1}
 \qquad(u\ge1).
 \]
-As a complementary finite classification,
-$57$ exceptional endpoint-multiset identities
-and six symbolic block families certify the
-all-$n$ existence conjecture recorded in
-OEIS A006063, while $191$ short augmenting
-words provide an independent older proof;
+For the finite A006063 existence theorem, a
+unimodular block-order matrix gives a
+single symbolic determinant formula for
+all $57$ residual cubic-word/output-order
+shapes. Six additional explicit algebraic
+families supply $25$ further base lengths.
+Every one of the $57$ shapes also admits an
+infinite cubic dilation family.
+The earlier endpoint-multiset and $191$
+augmenting-word certificates are retained
+as independent redundant checks;
 Hall and
 alternating-cycle certificates classify
 the related multiplicity sequence A096680.
@@ -2313,22 +2318,28 @@ without twenty-five separate endpoint-table checks.
 
 \begin{theorem}[Reduced finite arithmetic certificate]
 \label{thm:finite-interval-atlas}
-The $57$ integer identities in
-Appendix~\ref{app:interval-atlas},
-together with six symbolic block families,
-prove that every $n\ge173$ admits
+The $57$ cubic-root words and output
+block orders in Appendix~\ref{app:algebraic-shapes},
+together with six additional symbolic block
+families, prove that every $n\ge173$ admits
 a cube-sum permutation.
-The independent finite data consist of
-$57$ endpoint identities ($795$ blocks);
-twenty-five further base lengths are consequences
-of parameterized algebraic identities.
+For each of the $57$ shapes, all reflected
+block lengths are defined by the determinant
+formula of Theorem~\ref{thm:unimodular-block-factory}.
+They are strictly positive and total $795$
+reflected blocks. The older $57$-row endpoint
+atlas is independent redundant evidence.
 \end{theorem}
 \begin{proof}
-The appendix contains $10$ exceptional seed
-identities below $173$ and $47$ in the
-target range $173\le n\le364$.
-Lemma~\ref{lem:endpoint-cancellation}
-makes each a legal permutation.
+The algebraic shape appendix contains
+$10$ lower and $47$ middle parameter sets.
+All its order matrices have determinant $1$,
+and all Cramer-determinant block lengths
+are positive integers. Hence
+Theorem~\ref{thm:unimodular-block-factory}
+constructs each corresponding permutation
+directly, without using the redundant
+endpoint-multiset atlas.
 
 The six preceding formulas establish
 another twelve seeds below $173$, namely
@@ -2337,7 +2348,7 @@ and thirteen seeds in the target interval,
 $174,175,182,228,229,231,238,240,241,254,345,351,357$.
 Their permutations are guaranteed by
 the symbolic block-rearrangement lemma.
-Thus $22$ lower and $57$ middle seeds
+Thus $22$ lower and $60$ middle seeds
 have been established without matching.
 
 Starting with these $82$ seeds and
@@ -2410,13 +2421,14 @@ permutations to all later lengths.
 \end{proof}
 
 The primary proof still contains $57$
-individual finite integer equalities:
+selected finite algebraic shapes with a
+positive-length check for each:
 the algebraic templates do not establish
 a completely case-free classification.
-The audit script
-\texttt{verify\_57\_plus\_templates.py}
-is optional and reads only the
-exceptional table, not the original
+The primary audit script
+\texttt{verify\_unimodular\_factory.py}
+is optional and reads only the cubic-order
+shape table, not the old endpoint table or original
 $191$ augmenting words or a matching
 archive. The older $109$-row table
 is preserved as an independent
