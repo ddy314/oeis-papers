@@ -65,10 +65,12 @@ P(681707u^3)\ge2^{148877u^3-1}
 \qquad(u\ge1).
 \]
 As a complementary finite classification,
-one explicit interval involution and $191$
-short augmenting words certify the
+$74$ exceptional endpoint-multiset identities
+and three symbolic block families certify the
 all-$n$ existence conjecture recorded in
-OEIS A006063; independent Hall and
+OEIS A006063, while $191$ short augmenting
+words provide an independent older proof;
+Hall and
 alternating-cycle certificates classify
 the related multiplicity sequence A096680.
 This last classification remains
@@ -1929,93 +1931,207 @@ those boundary differences, and thus
 satisfies the stated multiset identity.
 \end{proof}
 
-\begin{theorem}[Elementary finite interval certificate]
-\label{thm:finite-interval-atlas}
-For every integer
+\begin{lemma}[Reflected-block rearrangement]\label{lem:main-block-rearrange}
+Choose positive input-block lengths
+$\ell_1,\ldots,\ell_t$ of sum $n$ and an arbitrary
+output order $\pi$ of these $t$ blocks.
+Let $A_j$ be the sum of input lengths before
+block $j$, and let $B_j$ be the sum of output
+lengths before block $j$ in order $\pi$.
+If all numbers
 \[
-\boxed{173\le n\le255
-\quad\text{or}\quad339\le n\le364}
+  C_j=1+A_j+B_j+\ell_j
 \]
-the table in Appendix~\ref{app:interval-atlas}
-specifies endpoints $b_j$ and cube roots
-$k_j$ with $c_j=k_j^3$ satisfying
-Lemma~\ref{lem:endpoint-cancellation}.
-Consequently every $n\ge173$ has
-a cube-sum permutation, by the
-$83$ middle-case reflections
-$n=511-m$ and the cube-gap induction
-of Lemmas~\ref{lem:reflect}
-and~\ref{lem:gap}.
-\end{theorem}
+are perfect cubes, then on input block $j$
+the reflection $p(i)=C_j-i$ gives a cube-sum
+permutation of $[1,n]$.
+\end{lemma}
 \begin{proof}
-Each of the $109$ table rows is a
-\emph{finite integer identity}.
-The notation $b:k$ denotes the
-end of an input segment $b_j=b$
-and its cube root $k_j=k$.
-For each row, calculate
-\[
-c_j=k_j^3,\qquad
-L_j=k_j^3-b_j,\qquad
-R_j=k_j^3-b_{j-1}.
-\]
-The strictly increasing input
-boundaries begin at $0$ and end
-at the displayed $n$.
-All $L_j,R_j$ satisfy
-$1\le L_j<R_j\le n+1$, and the
-two lists
-\[
-(n+1,L_1,\ldots,L_t),\qquad
-(1,R_1,\ldots,R_t)
-\]
-are permutations of each other.
-Thus the lemma directly supplies
-each full permutation without
-searching for one. The table has
-$1123$ segments total and uses only
-cube roots $2,\dots,8$.
-
-For illustration, the row for
-$n=340$ is
-\[
-(7:2,\;19:3,\;44:4,\;171:6,\;340:8).
-\]
-Its common sorted endpoint multiset is
-$\{1,8,20,45,172,341\}$.
-At the exceptional length $n=236$,
-the $15$-segment row has common
-sorted endpoints
-\[
-\begin{gathered}
-1,8,10,19,44,46,71,82,\\
-107,135,137,171,173,198,209,237.
-\end{gathered}
-\]
-These also show explicitly how
-the endpoint condition handles
-noninvolutive solutions.
-
-For $256\le n\le338$, let
-$m=511-n\in[173,255]$.
-Then $m<n$ and $m+n+1=8^3$;
-the reflection lemma extends
-the table witness at $m$ to $n$.
-For $n\ge365$ apply the cube-gap
-lemma and strong induction.
-This proves all $n\ge173$.
+The input block is $[A_j+1,A_j+\ell_j]$,
+which maps exactly to the prescribed output
+block $[B_j+1,B_j+\ell_j]$.
+Those output blocks partition $[1,n]$
+by construction. Each index sum is $C_j$.
 \end{proof}
 
-The table is mathematically
-self-contained and independently
-checkable by direct comparison of
-finite lists; it does \emph{not}
-claim a uniform parameter formula
-that removes all case distinctions.
-The script
-\texttt{finite\_endpoint\_identity.py}
-is an optional arithmetic cross-check,
-not a logical premise of the proof.
+\paragraph{Family I (four blocks).}
+Let $U<V$ be integer cubes and put
+\[
+a=2U-V-1,\qquad b=2V-3U+1.
+\]
+If $a,b>0$, use input lengths $(a,b,a,b)$
+and output order $(3,4,1,2)$.
+Lemma~\ref{lem:main-block-rearrange} gives the cubic
+sums $(U,V,U,V)$ and length $2(V-U)$.
+The pairs $(U,V)=(64,125),(125,216),(216,343)$
+yield lengths $122,182,254$ respectively.
+
+\paragraph{Family II (five blocks).}
+For cubes $X<Y<Z$, define
+\[
+a=2Y-Z-1,\quad
+b=X+2Z-4Y+1,\quad c=Y-X.
+\]
+If $a,b,c>0$, the lengths $(a,b,c,a,c)$
+in output order $(4,2,5,1,3)$ produce
+sums $(Y,X,Z,Y,Z)$ and total length
+$2Y-X-1$. With $(Y,Z)=(64,125)$ and
+$X=27,8$, the results are $n=100,119$.
+
+\paragraph{Family III (six blocks).}
+For integer cubes $X,W,Y,Z$, put
+\[
+\begin{aligned}
+a&=2Y-Z-1,& b&=X-2a-1,\\
+c&=W+2a-2X+1,& d&=Y+X-W-2a-1.
+\end{aligned}
+\]
+If these are positive, choose lengths
+$(a,b,c,d,a,d)$ and output order
+$(5,2,3,6,1,4)$. The cubic sums are
+$(Y,X,W,Z,Y,Z)$ and the length is
+$2Z-2Y+X-W$. Taking $(Y,Z)=(64,125)$,
+the choices $(X,W)=(8,64),(27,64),(8,27)$
+give $n=66,85,103$, respectively.
+
+\begin{lemma}[Affine-word rigidity]\label{lem:rigid}
+Fix a finite list of integer cubes $C_1,\ldots,C_t$.
+Suppose all breakpoints $b_j(n)$ are affine
+functions of $n$ with $b_0(n)=0$ and $b_t(n)=n$.
+The resulting fixed-cube reflection word can
+be a valid permutation for at most two distinct
+values of $n$.
+\end{lemma}
+\begin{proof}
+Every legal permutation satisfies the sum identity
+\[
+ \sum_{j=1}^{t} C_j\bigl(b_j(n)-b_{j-1}(n)\bigr)
+ =\sum_{i=1}^n(i+p(i))=n(n+1).
+\]
+Its left side is affine in $n$; its right
+side is a monic quadratic. The equality
+cannot hold for three distinct values.
+\end{proof}
+The obstruction concerns \emph{fixed} cube sums
+and affine endpoints only, not varying cube
+sums or composition of reflection templates.
+
+In total these \emph{three symbolic identities}
+give eight base lengths
+\[
+66,85,100,103,119,122,182,254
+\]
+without eight separate endpoint-table checks.
+
+\begin{theorem}[Reduced finite arithmetic certificate]
+\label{thm:finite-interval-atlas}
+The $74$ integer identities in
+Appendix~\ref{app:interval-atlas},
+together with three symbolic block families,
+prove that every $n\ge173$ admits
+a cube-sum permutation.
+The independent finite data consist of
+$74$ endpoint identities ($969$ blocks);
+eight further base lengths are consequences
+of parameterized algebraic identities.
+\end{theorem}
+\begin{proof}
+The appendix contains $16$ exceptional seed
+identities below $173$ and $58$ in the
+target range $173\le n\le364$.
+Lemma~\ref{lem:endpoint-cancellation}
+makes each a legal permutation.
+
+The three preceding formulas establish
+another six seeds below $173$, namely
+$66,85,100,103,119,122$, and two
+seeds in the target interval, $182,254$.
+Their permutations are guaranteed by
+the symbolic block-rearrangement lemma.
+Thus $22$ lower and $60$ middle seeds
+have been established without matching.
+
+Starting with these $82$ seeds and
+the empty permutation, we use the
+reflection lemma in strictly increasing
+order of the target length.
+The following predecessor sets give all
+other cases before the uniform tail.
+
+\paragraph{First: 26 reflected lengths below 173.}
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+cube     already constructed predecessors m
+  8      0
+ 27      0,7
+ 64      0,7,19,26
+125      0,7,19,26,37,44,56
+216      44,56,63,66,68,80,82,85,87,
+         100,103,105
+\end{verbatim}
+\end{quote}
+Together with the $16$ exceptional lower seeds
+and the six algebraic-template lower seeds,
+these supply $48$ distinct lengths below 173.
+
+\paragraph{Second: 49 reflected lengths in
+$[173,255]\cup[339,364]$.}
+\begin{quote}
+\footnotesize
+\begin{verbatim}
+cube     previously constructed predecessors m
+216      0,7,19,26,37
+343      0,87,98,100,103,105,110,112,
+         115,116,117,118,119,120,121,122,
+         123,124,125,126,128,129,130,131,
+         132,133,135,147,149,150,151,152,
+         155,156,159
+512      147,149,150,151,152,155,156,
+         159,171
+\end{verbatim}
+\end{quote}
+The $58$ upper exceptional rows, the two
+upper algebraic-template lengths and these $49$
+reflections are exactly the $109$ integers
+in $[173,255]\cup[339,364]$.
+There is no circular dependency:
+each predecessor $m$ is strictly smaller
+than its constructed length $n$.
+
+For example, $211=343-131-1$,
+$340=512-171-1$, and $342=343-0-1$.
+The first example replaces a previously
+necessary-looking $53$-segment independent
+row by one suffix reflection.
+
+
+In particular $48$ positive lower lengths
+and the $109$ lengths in
+$[173,255]\cup[339,364]$ are now
+covered. For $256\le n\le338$, let
+$m=511-n\in[173,255]$, so that
+$m<n$ and $m+n+1=512=8^3$.
+Lemma~\ref{lem:reflect} then covers
+all $192$ target base lengths.
+For every $n\ge365$, the existing
+cube-gap inequality of Lemma~\ref{lem:gap}
+and strong induction extend the
+permutations to all later lengths.
+\end{proof}
+
+The primary proof still contains $74$
+individual finite integer equalities:
+the algebraic templates do not establish
+a completely case-free classification.
+The audit script
+\texttt{verify\_74\_plus\_templates.py}
+is optional and reads only the
+exceptional table, not the original
+$191$ augmenting words or a matching
+archive. The older $109$-row table
+is preserved as an independent
+redundant check.
 
 \begin{proposition}[A finite parity obstruction at $n=236$]
 \label{prop:236-no-involution-elementary}
@@ -3930,8 +4046,9 @@ of $P(n)$ in general, nor does it claim external peer review.
 the consecutive input interval ending at $b$
 is mapped by $p(i)=k^3-i$.
 The first interval starts at $1$.
-There are $109$ rows and $1123$
-segments. For every row,
+There are $74$ exceptional rows and $969$
+segments. Three parameterized block families
+prove eight additional base lengths. For every row,
 Lemma~\ref{lem:endpoint-cancellation}
 reduces checking the permutation
 to equality of two lists of integers.
@@ -3940,7 +4057,7 @@ to equality of two lists of integers.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_block_atlas.tex}
+\input{certificates/finite_74_exceptional_atlas.tex}
 \end{multicols}
 
 \clearpage
