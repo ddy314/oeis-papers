@@ -50,6 +50,8 @@ jobs:
         run: python papers/A006063/verify_60_plus_templates.py
       - name: Verify primary 57 exceptions and six symbolic generator families
         run: python papers/A006063/verify_57_plus_templates.py
+      - name: Reconstruct all 57 exceptions as exact unimodular algebraic families and test cubic dilations
+        run: python papers/A006063/verify_unimodular_factory.py
       - name: Audit 70 exceptional identities and all four symbolic template families
         run: python papers/A006063/verify_70_plus_templates.py
       - name: Verify exact P(236) and non-involution five-cycle decomposition
