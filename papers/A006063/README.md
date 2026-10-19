@@ -5,6 +5,30 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Exact Phase III forced cascades from six small boundary checks
+
+The new [Phase III fixed-point duality theorem](PHASE_III_FIXED_POINT_DUALITY.md)
+gives exact odd-component counts after deleting
+fixed 256 or 500 from the 343/729 path skeleton.
+For odd 581..665, `q_256(n)=729-n`; for
+fixed 500, `q_500(n)=727-n` up to 613
+and `729-n` from 615 onward.
+
+The [complete forced-leaf cascade theorem](PHASE_III_FORCED_CASCADE.md)
+proves all degree-one consequences under
+both fixed-point rules. Fixing 500 forces
+the same five 2-cycles for odd 581..601,
+and only `12<->331` for odd 603..665.
+Fixing 256 yields 6/3/4/0 forced cycles
+over four precise ranges. The entire
+86-instance classification follows from
+six finite boundary checks and an
+interval-monotonicity argument.
+The [independent checker](verify_phase_iii_cascade.py)
+uses no general-graph matching solver.
+**The remaining large leaf-free core still
+requires a uniform matching theorem.**
+
 ## Corrected four-cube phase fixed points and boundary forcing
 
 The four-cube experimental phase table now uses the
