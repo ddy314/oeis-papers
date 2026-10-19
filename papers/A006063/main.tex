@@ -10,7 +10,7 @@
 \newtheorem{corollary}{Corollary}
 \newcommand{\good}{\mathcal{G}}
 \newcommand{\cubes}{\mathcal{C}}
-\title{Cube-Sum Permutations: Graph Structure, Renormalization, and Exponential Families}
+\title{Cube-Sum Permutations: Global Involutions, Reflection Entropy, and Algebraic Families}
 \author{Qichao Wang\\
 \small Independent mathematical and computational review requested}
 \date{October 18, 2026}
@@ -19,7 +19,27 @@
 \begin{abstract}
 Let $P(n)$ count permutations $p$ of $[1,n]$
 for which every $i+p(i)$ is an integer cube.
-We develop global, threshold-free structure:
+We prove that every odd $n\ge70001$ admits
+a legal involution with exactly one fixed
+point, while every even $n\ge230000$
+admits one with no fixed points.
+These parity-minimal involutions have
+uniform cube-root entropy:
+\[
+\liminf_{n\to\infty}
+\frac{\log J_{\min}(n)}{(2n)^{1/3}}
+\ge\frac{\log2}{4}.
+\]
+The proof uses two short explicit
+seed permutations, finite parity-specific
+odd-cube reflection closures, and a
+uniform gap induction, with no
+bipartite matching search.
+We also establish exponential numbers
+of parity-minimal involutions along
+explicit infinite subsequences
+using taxicab equal-cube identities.
+We develop further global, threshold-free structure:
 the cube-sum graph admits a partial matching
 of size $n-O(n^{2/3})$ for every $n$,
 and all Hall obstructions can be restricted
