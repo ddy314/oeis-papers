@@ -82,6 +82,39 @@ nontrivial 2-cycle**. This is an auxiliary
 five-color restriction, not a four-color
 fixed-point exception.
 
+### At most 16 exceptional edges from a bipartite graph (PROVED)
+
+The [four-odd-face near-bipartite theorem](FOUR_ODD_FACES_NEAR_BIPARTITE.md)
+combines the explicit planar rotations with
+**two vertex-disjoint paths in the planar dual**
+joining the four odd faces. The corresponding
+primal edges, in dual-path order, are completely
+listed for each maximal graph.
+Removing **14 / 10 / 16** edges, respectively,
+makes the Phase I / II / III maxima bipartite.
+Every shorter graph, and either permitted
+fixed-vertex deletion, inherits the same
+phase-independent exceptional-edge set.
+
+This changes the remaining positive
+existence question into **bipartite Hall
+conditions plus a bounded selection
+from at most 16 specified edges**.
+In particular, for a bipartition U,V
+of the edge-deleted graph, each complete
+matching must use at least
+`abs(|U|-|V|)/2` exceptional edges.
+The observed bipartition imbalances
+are at most 4/8/4 in the three phases.
+
+An [exact integer/dual-face checker](verify_near_bipartite_phases.py)
+audits the three crossing-edge paths
+and bipartiteness at every n,
+without a matching or planarity
+library. **Bipartiteness after
+deleting a few edges does not
+itself prove perfect matching.**
+
 ### Uniform planar embedding across all 199 lengths (PROVED)
 
 The [three-rotation planarity theorem](THREE_ROTATION_PLANARITY.md)
