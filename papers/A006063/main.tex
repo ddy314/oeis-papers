@@ -65,8 +65,8 @@ P(681707u^3)\ge2^{148877u^3-1}
 \qquad(u\ge1).
 \]
 As a complementary finite classification,
-$60$ exceptional endpoint-multiset identities
-and five symbolic block families certify the
+$57$ exceptional endpoint-multiset identities
+and six symbolic block families certify the
 all-$n$ existence conjecture recorded in
 OEIS A006063, while $191$ short augmenting
 words provide an independent older proof;
@@ -2087,6 +2087,44 @@ with their two possible $t$ values give
 This is a symbolic cubic-sum construction;
 it does not require verifying six separate endpoint lists.
 
+\paragraph{Family VI (ten blocks, nested binary degeneration).}
+Let $\alpha,\beta\in\{0,1\}$ with $\beta\le\alpha$.
+Use input block lengths
+\[
+\begin{gathered}
+(7,\ 12\alpha,\ 159-24\alpha-99\beta,\
+14\beta,\ 28\beta,\ 63\beta,\\
+10+24\alpha-6\beta,\ 8\beta,\
+159-24\alpha-107\beta,\
+10+24\alpha+93\beta)
+\end{gathered}
+\]
+and output order $(1,2,8,5,6,9,4,10,3,7)$.
+Direct substitution into the reflected-block lemma
+gives the ten nominal sums
+\[
+\begin{gathered}
+8,\ 8+19\alpha,\ 343,\
+167-12\alpha+61\beta,\
+167-12\alpha-30\beta,\\
+167-12\alpha+61\beta,\ 512,\
+177+12\alpha+27\beta,\ 343,\ 512.
+\end{gathered}
+\]
+Block $2$ is nonempty only when $\alpha=1$
+and has cubic sum $27$; blocks $4,5,6,8$
+are nonempty only when $\beta=\alpha=1$
+and have sums $216,125,216,216$. Other
+nonempty blocks have constant cube sums;
+all empty blocks are omitted. Since
+\[
+n=345+12\alpha-6\beta,
+\]
+the three admissible choices give the
+lengths $345,357,351$, using one
+parametric construction rather than
+three independent endpoint lists.
+
 \begin{lemma}[Affine-word rigidity]\label{lem:rigid}
 Fix a finite list of integer cubes $C_1,\ldots,C_t$.
 Suppose all breakpoints $b_j(n)$ are affine
@@ -2109,40 +2147,40 @@ The obstruction concerns \emph{fixed} cube sums
 and affine endpoints only, not varying cube
 sums or composition of reflection templates.
 
-In total these \emph{five symbolic identities}
-give twenty-two base lengths
+In total these \emph{six symbolic identities}
+give twenty-five base lengths
 \[
-66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,228,229,231,238,240,241,254
+66,85,100,103,119,122,131,132,150,151,155,156,174,175,182,228,229,231,238,240,241,254,345,351,357
 \]
-without twenty-two separate endpoint-table checks.
+without twenty-five separate endpoint-table checks.
 
 \begin{theorem}[Reduced finite arithmetic certificate]
 \label{thm:finite-interval-atlas}
-The $60$ integer identities in
+The $57$ integer identities in
 Appendix~\ref{app:interval-atlas},
-together with five symbolic block families,
+together with six symbolic block families,
 prove that every $n\ge173$ admits
 a cube-sum permutation.
 The independent finite data consist of
-$60$ endpoint identities ($816$ blocks);
-twenty-two further base lengths are consequences
+$57$ endpoint identities ($795$ blocks);
+twenty-five further base lengths are consequences
 of parameterized algebraic identities.
 \end{theorem}
 \begin{proof}
 The appendix contains $10$ exceptional seed
-identities below $173$ and $50$ in the
+identities below $173$ and $47$ in the
 target range $173\le n\le364$.
 Lemma~\ref{lem:endpoint-cancellation}
 makes each a legal permutation.
 
-The five preceding formulas establish
+The six preceding formulas establish
 another twelve seeds below $173$, namely
 $66,85,100,103,119,122,131,132,150,151,155,156$,
-and ten seeds in the target interval,
-$174,175,182,228,229,231,238,240,241,254$.
+and thirteen seeds in the target interval,
+$174,175,182,228,229,231,238,240,241,254,345,351,357$.
 Their permutations are guaranteed by
 the symbolic block-rearrangement lemma.
-Thus $22$ lower and $60$ middle seeds
+Thus $22$ lower and $57$ middle seeds
 have been established without matching.
 
 Starting with these $82$ seeds and
@@ -2185,7 +2223,7 @@ cube     previously constructed predecessors m
          159,171
 \end{verbatim}
 \end{quote}
-The $50$ upper exceptional rows, the ten
+The $47$ upper exceptional rows, the thirteen
 upper algebraic-template lengths and these $49$
 reflections are exactly the $109$ integers
 in $[173,255]\cup[339,364]$.
@@ -2214,12 +2252,12 @@ and strong induction extend the
 permutations to all later lengths.
 \end{proof}
 
-The primary proof still contains $60$
+The primary proof still contains $57$
 individual finite integer equalities:
 the algebraic templates do not establish
 a completely case-free classification.
 The audit script
-\texttt{verify\_60\_plus\_templates.py}
+\texttt{verify\_57\_plus\_templates.py}
 is optional and reads only the
 exceptional table, not the original
 $191$ augmenting words or a matching
@@ -2408,10 +2446,10 @@ An ascending reflection-closure algorithm starts from
 those small solutions and, at each $173\le n\le364$,
 uses any already certified $m<n$ for which $m+n+1$
 is a cube. Precisely $132$ lengths are obtained by
-reflection and only $60$ further lengths need explicit
+reflection and only $57$ further lengths need explicit
 witnesses. Here the empty matching is allowed:
 $n=342$ follows directly from $c=343$,
-with $p(i)=343-i$. The $60$ additional
+with $p(i)=343-i$. The $57$ additional
 witnesses are archived in
 \texttt{core\_60\_with\_empty.json}, and
 \texttt{verify\_extended.py} certifies this alternate
@@ -2423,8 +2461,8 @@ Suppose the empty matching and the $48$ known positive
 lengths below $173$ are provided as initial data. Among proofs of all lengths
 $173,\dots,364$ that use only the reflection extension
 of Lemma~\ref{lem:reflect} and independently supplied
-new full-length seed permutations, at least $60$
-extra seeds are necessary, and $60$ suffice.
+new full-length seed permutations, at least $57$
+extra seeds are necessary, and $57$ suffice.
 \end{proposition}
 \begin{proof}
 Process $n=173,\dots,364$ in ascending order. If no
@@ -2444,7 +2482,7 @@ the definition of the restricted proof rule.
 This is \emph{not} a lower bound on arbitrary
 mathematical proofs. The alternating-path
 extension in Lemma~\ref{lem:words} is a different
-operation and indeed replaces those $60$ large
+operation and indeed replaces those $57$ large
 independent seeds by one explicit involution
 and a small word table.
 
@@ -4140,9 +4178,9 @@ of $P(n)$ in general, nor does it claim external peer review.
 the consecutive input interval ending at $b$
 is mapped by $p(i)=k^3-i$.
 The first interval starts at $1$.
-There are $60$ exceptional rows and $816$
-segments. Five parameterized block families
-prove twenty-two additional base lengths. For every row,
+There are $57$ exceptional rows and $795$
+segments. Six parameterized block families
+prove twenty-five additional base lengths. For every row,
 Lemma~\ref{lem:endpoint-cancellation}
 reduces checking the permutation
 to equality of two lists of integers.
@@ -4151,7 +4189,7 @@ to equality of two lists of integers.
 \scriptsize\ttfamily
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{2pt}
-\input{certificates/finite_60_exceptional_atlas.tex}
+\input{certificates/finite_57_exceptional_atlas.tex}
 \end{multicols}
 
 \clearpage
