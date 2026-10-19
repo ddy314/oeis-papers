@@ -183,6 +183,8 @@ its value at 57 is 7555>0. For even n>302000 the minimum k is
 at least 83, and its value at 83 is 31095>0. Induction finishes the
 construction for every larger same-parity n.
 
+An additional arithmetic strengthening is immediate: for **every even n>=230000**, the fixed-point-free matching can be chosen so that **every edge sum is an odd cube**, thereby pairing odd indices with even indices. For **every odd n>=70001**, exactly the original seven seed positions have the even cube sum 8; every index i>=8 has an odd cube sum. This is an exact global structural constraint, not just an asymptotic density statement.
+
 **Uniform lower bound on the count.** Let `J_min(n)` count legal
 involutions with no fixed point when n is even, or with the *sole*
 fixed point 4 when n is odd. The proof also establishes
