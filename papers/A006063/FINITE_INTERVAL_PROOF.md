@@ -88,6 +88,43 @@ in total, using only roots 2 through 8.
 The table is also included in the LaTeX paper, so it
 is inspectable without downloading any JSON archives.
 
+## Why the exceptional n=236 cannot be replaced by involution blocks
+
+It is tempting to prove all cases by pairing positions in
+transpositions (an involution). This is impossible at n=236,
+although the 15-segment row above is a legal permutation.
+
+For a direct parity obstruction, let G be the undirected
+cube-sum graph on [1,236], and remove the 86 vertices in
+
+    S = [1,3] U [9,13] U [19,24] U [35,39]
+        U [45,49] U [56,60] U [71,74] U [81,85]
+        U [107,115] U [117,121] U [126,130]
+        U [136,140] U [147,151] U [162,166]
+        U [172,176] U [198,201] U [208,212].
+
+Here [a,b] is the full integer interval from a to b.
+Checking only the possible cube-sum edges
+8,27,64,125,216,343 shows that the components of
+G minus S consist of:
+
+    87 singleton components;
+    one 5-vertex component {14,50,75,141,202};
+    further components of sizes 4,6,10,12,12,14.
+
+Exactly one singleton, vertex 4, has an allowed loop
+(2*4=8); the odd five-vertex component has no loop.
+Thus **87 distinct odd components without an allowed
+fixed point** must each use at least one matching edge
+to S in any hypothetical involution. Since |S|=86,
+there are not enough vertices of S. Hence no legal
+involution exists at n=236.
+
+This is a short finite parity/Tutte obstruction,
+independent of the 109 general permutation formulas.
+It explains why the self-contained base proof must allow
+ordinary permutations, not only involutions.
+
 ## Extending from the table to all n>=173
 
 For 256 <= n <= 338, put m=511-n. Then
