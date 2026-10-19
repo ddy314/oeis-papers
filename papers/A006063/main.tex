@@ -1867,6 +1867,156 @@ not prove this; it places a rigorous
 lower bound of four on any such
 single-seed uniform depth.
 
+\section{A hand-checkable finite interval proof}
+\label{sec:finite-interval-proof}
+
+We give a standalone \emph{finite algebraic}
+certificate for every base length $173\le n\le364$.
+It is independent of the augmenting-path
+search, Hall tests, and permutation matching
+algorithms. Unlike the global theory, this
+part still uses an explicit finite case table:
+the numerical expressions below can each
+be verified solely by integer arithmetic.
+
+\begin{lemma}[Boundary cancellation criterion]
+\label{lem:endpoint-cancellation}
+Let $n\ge1$ and choose a positive integer $t$,
+endpoints $0=b_0<b_1<\cdots<b_t=n$,
+and perfect cubes $c_1,\dots,c_t$.
+Define
+\[
+L_j=c_j-b_j,\qquad R_j=c_j-b_{j-1}.
+\]
+Suppose that $1\le L_j<R_j\le n+1$
+for all $j$. Then the piecewise formula
+\[
+\boxed{p(i)=c_j-i\quad
+\text{whenever }b_{j-1}<i\le b_j}
+\]
+is a cube-sum permutation of $[1,n]$
+\emph{if and only if}
+\begin{equation}\label{eq:endpoint-cancellation}
+\boxed{
+\{1,R_1,\ldots,R_t\}_{\rm multi}
+=
+\{n+1,L_1,\ldots,L_t\}_{\rm multi}.}
+\end{equation}
+\end{lemma}
+\begin{proof}
+The $j$th input segment is mapped
+bijectively onto the consecutive integers
+$[L_j,R_j-1]$, with $i+p(i)=c_j$.
+Let $f(x)$ count the number of
+image segments containing the integer
+$x$, for $1\le x\le n$.
+Set $f(0)=f(n+1)=0$.
+The difference $f(x)-f(x-1)$ is
+the number of left boundaries at $x$
+minus the number of right boundaries
+at $x$, where the image intervals
+are half-open $[L_j,R_j)$.
+The multiset identity
+\eqref{eq:endpoint-cancellation}
+is precisely the assertion that
+this difference is $1$ at $x=1$,
+$-1$ at $x=n+1$, and $0$ at all
+other integers. Hence $f(x)=1$
+at every $1\le x\le n$:
+the image intervals partition $[1,n]$.
+Conversely, a partition has precisely
+those boundary differences, and thus
+satisfies the stated multiset identity.
+\end{proof}
+
+\begin{theorem}[Elementary finite interval certificate]
+\label{thm:finite-interval-atlas}
+For every integer
+\[
+\boxed{173\le n\le255
+\quad\text{or}\quad339\le n\le364}
+\]
+the table in Appendix~\ref{app:interval-atlas}
+specifies endpoints $b_j$ and cube roots
+$k_j$ with $c_j=k_j^3$ satisfying
+Lemma~\ref{lem:endpoint-cancellation}.
+Consequently every $n\ge173$ has
+a cube-sum permutation, by the
+$83$ middle-case reflections
+$n=511-m$ and the cube-gap induction
+of Lemmas~\ref{lem:reflect}
+and~\ref{lem:gap}.
+\end{theorem}
+\begin{proof}
+Each of the $109$ table rows is a
+\emph{finite integer identity}.
+The notation $b:k$ denotes the
+end of an input segment $b_j=b$
+and its cube root $k_j=k$.
+For each row, calculate
+\[
+c_j=k_j^3,\qquad
+L_j=k_j^3-b_j,\qquad
+R_j=k_j^3-b_{j-1}.
+\]
+The strictly increasing input
+boundaries begin at $0$ and end
+at the displayed $n$.
+All $L_j,R_j$ satisfy
+$1\le L_j<R_j\le n+1$, and the
+two lists
+\[
+(n+1,L_1,\ldots,L_t),\qquad
+(1,R_1,\ldots,R_t)
+\]
+are permutations of each other.
+Thus the lemma directly supplies
+each full permutation without
+searching for one. The table has
+$1123$ segments total and uses only
+cube roots $2,\dots,8$.
+
+For illustration, the row for
+$n=340$ is
+\[
+(7:2,\;19:3,\;44:4,\;171:6,\;340:8).
+\]
+Its common sorted endpoint multiset is
+$\{1,8,20,45,172,341\}$.
+At the exceptional length $n=236$,
+the $15$-segment row has common
+sorted endpoints
+\[
+\begin{gathered}
+1,8,10,19,44,46,71,82,\\
+107,135,137,171,173,198,209,237.
+\end{gathered}
+\]
+These also show explicitly how
+the endpoint condition handles
+noninvolutive solutions.
+
+For $256\le n\le338$, let
+$m=511-n\in[173,255]$.
+Then $m<n$ and $m+n+1=8^3$;
+the reflection lemma extends
+the table witness at $m$ to $n$.
+For $n\ge365$ apply the cube-gap
+lemma and strong induction.
+This proves all $n\ge173$.
+\end{proof}
+
+The table is mathematically
+self-contained and independently
+checkable by direct comparison of
+finite lists; it does \emph{not}
+claim a uniform parameter formula
+that removes all case distinctions.
+The script
+\texttt{finite\_endpoint\_identity.py}
+is an optional arithmetic cross-check,
+not a logical premise of the proof.
+
 \section{A short, local existence certificate}\label{sec:words}
 The preceding reflection argument is infinite and elementary.
 The finite existence verification can itself be made much more
@@ -3720,6 +3870,27 @@ of $P(n)$ in general, nor does it claim external peer review.
 
 \clearpage
 \appendix
+\section{Finite interval-reflection atlas}
+\label{app:interval-atlas}
+
+\noindent Each row $n$ lists pairs $b:k$:
+the consecutive input interval ending at $b$
+is mapped by $p(i)=k^3-i$.
+The first interval starts at $1$.
+There are $109$ rows and $1123$
+segments. For every row,
+Lemma~\ref{lem:endpoint-cancellation}
+reduces checking the permutation
+to equality of two lists of integers.
+
+\begin{multicols}{2}
+\scriptsize\ttfamily
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\input{certificates/finite_block_atlas.tex}
+\end{multicols}
+
+\clearpage
 \section{All 191 short alternating-path words}
 \noindent The integer at the left is the new size $n$;
 the following one-digit symbols are the successive
