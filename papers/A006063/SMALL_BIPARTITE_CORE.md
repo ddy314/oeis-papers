@@ -89,16 +89,17 @@ three pairings of four terminals of the
 sum of the corresponding unweighted dual
 shortest-path lengths.
 
-The exact pairwise-distance sums, in a fixed
-enumeration of odd faces given in
-[verify_small_bipartite_core.py](verify_small_bipartite_core.py),
-are
+The three pairwise-distance sums, listed
+in **increasing order** (independent of
+how the four odd faces are labeled), are
+reproduced by
+[verify_small_bipartite_core.py](verify_small_bipartite_core.py):
 
-| maximum n | (f1,f2)+(f3,f4) | (f1,f3)+(f2,f4) | (f1,f4)+(f2,f3) |
+| maximum n | smallest pairing | middle pairing | largest pairing |
 |---|---:|---:|---:|
-| 560 | 14 | 15 | 21 |
-| 579 | 10 | 13 | 16 |
-| 665 | 24 | 18 | 16 |
+| 560 | **14** | 15 | 21 |
+| 579 | **10** | 13 | 16 |
+| 665 | **16** | 18 | 24 |
 
 The three edge sets above realize the minimum
 values **14,10,16**. Hence these are the
