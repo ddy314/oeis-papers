@@ -2353,6 +2353,76 @@ The latter needs only a four-term
 equal-power identity; it does not
 assume any eventual-existence threshold.
 
+\begin{corollary}[Linear entropy with parity-minimal fixed points]
+\label{cor:taxicab-minimal-fixed}
+Let $J_0(n)$ count legal fixed-point-free
+cube-sum involutions on $[1,n]$ for
+even $n$, and let $J_1(n)$ count
+legal cube-sum involutions with
+exactly one fixed point for odd $n$.
+For every \emph{odd} positive integer
+$u$, with $T=u^3$,
+\[
+\boxed{\begin{aligned}
+J_0(54406T)&\ge2^{(4913T-1)/2},\\
+J_1(4118149T)&\ge2^{(970299T-1)/2}.
+\end{aligned}}
+\]
+In particular, both parity classes
+admit explicit infinite subsequences
+on which the number of legal
+\emph{minimally fixed} involutions
+grows exponentially in their lengths:
+\[
+\boxed{\begin{aligned}
+\limsup_{\substack{n\to\infty\\n\ {\rm even}}}
+ \frac{\log J_0(n)}n
+ &\ge\frac{4913\log2}{108812}>0,\\
+\limsup_{\substack{n\to\infty\\n\ {\rm odd}}}
+ \frac{\log J_1(n)}n
+ &\ge\frac{970299\log2}{8236298}>0.
+\end{aligned}}
+\]
+\end{corollary}
+\begin{proof}
+Use the two exact identities
+from Corollary~\ref{cor:taxicab-cubes}.
+In Theorem~\ref{thm:taxicab-switching},
+the initial two-block permutation
+has one fixed point in its first
+block if and only if $AT$ is even,
+and one in its second block if
+and only if $BT$ is even.
+No taxicab switch can create or
+remove a fixed point: its four
+distinct endpoints occur in
+two transpositions before and
+after switching, while all
+unselected positions are unchanged.
+
+For $(a,b)=(17,39)$ and odd $u$,
+both $AT=(au)^3$ and
+$BT=(bu)^3$ are odd.
+Thus the baseline and every
+switched involution are
+fixed-point-free, proving
+the even-length bound.
+
+For $(a,b)=(99,172)$ and odd $u$,
+the first cube sum $AT$ is odd,
+while $BT$ is even, so the
+second reflection block has
+exactly one fixed point
+and the first has none.
+All switches preserve this
+single fixed point.
+The lengths are odd in this
+case, so one is the minimum
+possible fixed-point count.
+The entropy assertions follow
+on letting odd $u\to\infty$.
+\end{proof}
+
 \section{A computation-free exponential construction}
 \label{sec:three-cycle}
 A particularly simple weighted identity of four cubes
