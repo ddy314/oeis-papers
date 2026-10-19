@@ -174,6 +174,11 @@ Independent exact checks in the 19 October consolidation:
   positive instances are acyclic.
 - The strict reflection-only closure needs exactly 60 new
   seeds (44+16); 132 target lengths follow by reflection.
+- The 15-block witness at n=236 is bijective. Its alternating
+  digraph has exactly nine nontrivial strongly connected components,
+  each a chordless directed 5-cycle, and 191 singleton components;
+  this independently confirms P(236)=2^9=512 and the exhibited
+  non-involution obstruction.
 
 **Important audit boundary:** These checks do not constitute
 an independent line-by-line review of all ancillary results,
