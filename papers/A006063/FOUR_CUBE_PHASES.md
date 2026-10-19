@@ -82,6 +82,43 @@ nontrivial 2-cycle**. This is an auxiliary
 five-color restriction, not a four-color
 fixed-point exception.
 
+### A bounded-defect Hall and Pfaffian reduction (PROVED)
+
+The [exact defect-matching theorem](BOUNDED_DEFECT_HALL_REDUCTION.md)
+strengthens the 14/10/16-edge
+bipartization: **all exceptional
+edges are pairwise vertex-disjoint**.
+Moreover, both endpoints of every
+exceptional edge lie in the **same
+class** of the bipartite graph left
+after deleting these edges.
+
+Thus a perfect four-cube involution
+exists exactly when one can select a
+subset `S` of **at most 16 prescribed
+pairwise disjoint edges** and prove
+Hall's bipartite matching criterion
+after removing their endpoints.
+The necessary balancing equation is
+`|S_U|-|S_V|=(|U|-|V|)/2`,
+and the observed absolute imbalance
+is at most **4/8/4** across the
+three phases. The perfect-matching
+count has the exact positive expansion
+`m(G)=sum_{S subset F} m(H-V(S))`
+into at most `2^16` bipartite terms.
+Algebraically, the exceptional edges
+give a skew-adjacency/Pfaffian update
+of rank at most **32**.
+
+The [pure-arithmetic checker](verify_defect_matching_reduction.py)
+audits all class alignments and
+imbalance bounds without using a
+general-graph matching solver.
+This is an equivalence and a
+constant-size algebraic reduction,
+**not yet a phase-wide Hall proof**.
+
 ### At most 16 exceptional edges from a bipartite graph (PROVED)
 
 The [four-odd-face near-bipartite theorem](FOUR_ODD_FACES_NEAR_BIPARTITE.md)
