@@ -152,6 +152,35 @@ library. **Bipartiteness after
 deleting a few edges does not
 itself prove perfect matching.**
 
+### Only 10–16 edges obstruct bipartiteness (PROVED)
+
+The [bounded bipartite-core theorem](SMALL_BIPARTITE_CORE.md)
+identifies one fixed deletion set per
+palette, of sizes **14,10,16**. Each
+set makes the corresponding endpoint
+graph (n=560,579,665) bipartite.
+All smaller phase graphs inherit
+that property after restricting the
+same deleted edges. A planar-dual
+four-odd-face `T`-join argument
+also proves these sizes are
+**minimum possible for the maximal
+graphs**.
+
+**Exact reformulation:** For every
+proposed perfect matching, the edges
+among those at most 16 exceptional
+edges form a matching Q, and the
+remaining vertices have a matching
+inside the bipartite graph obtained
+by deleting all exceptional edges.
+Conversely, finding such Q plus
+a bipartite perfect matching
+constructs the original involution.
+The only outstanding positive step
+is a uniform Hall statement for
+the corresponding bipartite remainders.
+
 ### Uniform planar embedding across all 199 lengths (PROVED)
 
 The [three-rotation planarity theorem](THREE_ROTATION_PLANARITY.md)
