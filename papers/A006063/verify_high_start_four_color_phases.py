@@ -45,17 +45,17 @@ def main():
     found=0
     for first,last,cubes in PHASES:
         for n in range(first,last+1):
-            # The sole exception to the fixed-108 convention
-            # uses fixed point 256, hence 2*256 = 512.
-            fixed=None if n%2==0 else (256 if n==581 else 108)
+            # Odd phases I/II fix 108 (cube 216); odd phase III
+            # fixes 256 (cube 512), as 216 is not in that palette.
+            fixed=None if n%2==0 else (108 if n<=579 else 256)
             verify_length(n,cubes,fixed)
             found+=1
         print(f"PASS (experimental): [{first},{last}] "
               f"uses precisely {cubes}, {last-first+1} lengths")
     assert found==199
-    for fixed in (256,500):
-        verify_length(581,(343,512,729,1000),fixed)
-    print("PASS: 581 allows sole fixed point 256 OR 500 without cube 216")
+    for n in range(581,666,2):
+        verify_length(n,(343,512,729,1000),500)
+    print("PASS: all 43 odd Phase III lengths allow fixed point 256 OR 500")
     print("PASS: 199/199 involutions with at most FOUR cubes per n")
     print("WARNING: this is NOT a computation-free proof of the phase theorem")
 
