@@ -5,6 +5,24 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## Uniform leaf-boundary formulas for all three four-cube phases
+
+The [new forced-edge theorem](FOUR_CUBE_BOUNDARY_FORCING.md)
+identifies **all initial degree-one vertices**
+for the four-cube graph in each high-start phase,
+using only elementary reflection-domain inequalities.
+In particular, Phase I 512–560 forces the entire
+suffix [512,n] under cube 729; Phase II has exactly
+two forced edges at every length; and Phase III
+has no leaves at even lengths but changes its
+odd-length forced vertex at thresholds 596/621.
+The n=581 fixed-256 exception forces 87<->425.
+A [pure-Python audit](verify_four_cube_boundary_forcing.py)
+verifies every degree-one set for all 199 lengths
+with no matching solver. These are necessary
+conditions, not proof of the positive four-color
+phase conjecture.
+
 ## A fully certified Tutte obstruction at n=581
 
 A new [31-interval mathematical witness](TUTTE_OBSTRUCTION_581.md)
