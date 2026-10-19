@@ -56,6 +56,8 @@ jobs:
         run: python papers/A006063/verify_forced_peeling.py
       - name: Verify exact 193-path quotient and even-cube matching budget (no solver)
         run: python papers/A006063/verify_odd_cube_path_quotient.py
+      - name: Verify fixed-108 Tutte obstruction at n 581 without matching solver
+        run: python papers/A006063/verify_tutte_581.py
       - name: Audit primary 56 determinant shapes plus the direct forced-173 theorem
         run: python papers/A006063/verify_56_plus_forcing.py
       - name: Audit 70 exceptional identities and all four symbolic template families
