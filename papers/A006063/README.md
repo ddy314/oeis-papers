@@ -5,7 +5,20 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
-## Latest finite proof: 57 exceptional identities + six symbolic families (2026-10-19)
+## Current proof: all 57 residual lengths have algebraic formulas (2026-10-19)
+
+**The remaining 57 exceptional witnesses have been converted into symbolic integer determinant families**, not merely abbreviated endpoint identities. A general **unimodular block-order theorem** proves that the relevant integer matrices have determinants in `{0,1}`; all 57 chosen orders have determinant 1. For each shape, its input block lengths are **integer-polynomial functions of the cube roots** obtained by Cramer's rule, and the algebraic identity for output-block prefixes proves bijectivity automatically. Therefore the primary representation of the finite proof needs no independent endpoint-cancellation identities for these 57 cases.
+
+- [Mathematical theorem, proof, and cubic dilation](UNIMODULAR_BLOCK_FACTORY.md).
+- [57 root-word + output-order shapes (no endpoints)](certificates/finite_57_cubic_order_shapes.txt) and [LaTeX table](certificates/finite_57_cubic_order_shapes.tex).
+- [Independent exact determinant checker](verify_unimodular_factory.py), which reconstructs all 795 former exceptional blocks using integer Bareiss elimination and **does not read the old 57-row endpoint atlas**.
+- [Focused complete existence argument](COMPRESSED_FINITE_PROOF.md); both `finite_base_note.tex` and `main.tex` include the unimodularity proof and symbolic algebraic construction.
+
+An additional **global cubic-dilation theorem** now applies to all 57 algebraic shapes: for every positive integer `h`, scaling each cubic root by `h` produces a legal permutation of length `N(h)=Nh^3` for even block count, or `N(h)=(N+1)h^3-1` for odd block count. This is proved symbolically via a Pfaffian bound on `M^{-1}1`.
+
+**Important distinction:** this converts all 57 cases to algebraic parameterizations, but **does not eliminate the 57 shape choices or their positive-length inequalities**. The original 57 endpoint identities and earlier atlases are retained as redundant audit trails. This does not establish a truly case-free existence proof. CI/PDF success remains subject to completed GitHub Actions.
+
+## Previous proof format: 57 exceptional identities + six symbolic families (2026-10-19)
 
 The new primary [self-contained mathematical argument](COMPRESSED_FINITE_PROOF.md) and two LaTeX manuscripts use **57 numeric endpoint-multiset identities (795 blocks)** plus **six algebraic block-rearrangement families**, generating **25 further base lengths (214 blocks)**. All **82 original independent seed lengths** are still established (1,009 intervals when fully expanded), and the same elementary cubic suffix-reflection closure supplies the 26 smaller and 132 middle derived lengths. A symbolic cube-gap induction proves every `n>=173`.
 
