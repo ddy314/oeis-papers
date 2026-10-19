@@ -21,6 +21,12 @@ vertex, inherit planarity. A
 [three-endpoint pure-arithmetic verifier](verify_three_rotation_planarity.py)
 checks the exact face-cycle counts with
 no NetworkX or matching solver.
+The three embeddings also have only **26
+cyclic cube-color face templates** in total;
+their minimum vertices occupy explicit
+integer intervals. See the [face-word
+classification](THREE_ROTATION_PLANARITY.md)
+and the separate [26-family arithmetic audit](verify_planar_face_word_templates.py).
 
 This gives a concrete basis for
 planar Tutte and Kasteleyn–Pfaffian
