@@ -384,7 +384,30 @@ the alternating path at each step**;
 calling this a case-free proof of
 the high base would be incorrect.
 
-## 8. What moving the start can and cannot solve
+## 8. Tutte obstruction at the 581 fixed-point switch (PROVED)
+
+The [explicit 31-interval Tutte witness](TUTTE_OBSTRUCTION_581.md)
+proves that the four-color graph on
+`[1,581]\\{108}` with cube sums
+`{343,512,729,1000}` has **no**
+undirected perfect matching. Deleting
+103 vertices leaves 105 connected
+components, all of odd size; this
+violates the necessary inequality
+`o(G-S)<=|S|` of Tutte's theorem.
+Unlike a failed blossom search, this is
+a fully specified finite arithmetic
+certificate with no matching algorithm.
+It explains why the Phase III
+experiment switches the sole fixed
+point to 256 at n=581.
+
+This theorem is a **negative result**;
+the three phase-wide positive matching
+claims remain experimentally verified
+rather than symbolically proved.
+
+## 9. What moving the start can and cannot solve
 
 
 
