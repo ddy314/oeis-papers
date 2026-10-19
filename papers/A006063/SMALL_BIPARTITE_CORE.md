@@ -45,7 +45,13 @@ Phase III, D_665 (16 edges):
 ```
 
 Every displayed edge has one of the specified cube
-sums; no two endpoints are equal.
+sums; no two endpoints are equal. **More strongly,
+within each palette the listed edges are
+pairwise vertex-disjoint:** each set D
+is itself a matching. This follows
+directly by inspection of the listed
+endpoints, and is independently
+checked by the verifier.
 
 **Proof.** At the three maximum lengths
 `N=560,579,665`, delete the listed finite sets
@@ -142,10 +148,13 @@ a perfect matching **if and only if**
 there exists a set `Q subset D` such
 that
 
-1. `Q` is itself a matching (its
-   endpoints are all distinct);
-2. the bipartite graph `B - endpoints(Q)`
+1. The bipartite graph `B - endpoints(Q)`
    has a perfect matching.
+
+Because D itself is a matching, **every
+subset Q is automatically vertex-disjoint**;
+there are no additional edge-compatibility
+constraints within the exceptional set.
 
 The latter is exactly the ordinary
 bipartite **Hall condition** on each
@@ -173,7 +182,84 @@ structural finite branching bound,
 not a claim that enumerating branches
 would be a computer-free proof.
 
-## 4. Why the reduction is promising but not complete
+## 4. Global bipartition imbalance needs at most two toggles
+
+Choose one of the two proper 2-colorings
+`chi:V(B)->{+1,-1}` inherited from the
+phase's maximum bipartite graph, and
+delete the permitted unique fixed point
+from the vertex set for odd n (108 in
+Phases I/II, 500 in Phase III).
+
+**Lemma (exceptional edges carry two units
+of bipartition charge).** Every exceptional
+edge `{u,v}` in D has `chi(u)=chi(v)`,
+i.e. both endpoints lie in the **same**
+color class. If a subset Q of exceptional
+edges is selected for a perfect matching,
+then necessarily
+
+```
+sum_(i in V) chi(i)
+     = 2*sum_({u,v} in Q) chi(u).             (*)
+```
+
+**Proof.** If an exceptional edge had
+endpoints in opposite color classes,
+it could be added back to B without
+destroying bipartiteness, contradicting
+the minimum-cardinality deletion
+certificate from the planar dual.
+Thus every edge of D is monochromatic.
+For a perfect matching on the remainder
+B-endpoints(Q), the two color classes
+must have equal cardinality. Removing
+a monochromatic exceptional pair
+changes their size difference by
+`2*chi(u)`, giving (*). QED.
+
+**Exact uniform small-imbalance audit.**
+Across the indicated phase intervals,
+after deleting fixed 108 for odd
+Phases I/II and fixed 500 for odd
+Phase III, the `absolute value`
+of the original bipartition imbalance
+has the following distribution:
+
+| phase | |imbalance| = 0 | = 2 | = 4 |
+|---|---:|---:|---:|
+| I: 467..560 | 8 | 54 | 32 |
+| II: 561..579 | 1 | 10 | 8 |
+| III: 580..665 | 34 | 48 | 4 |
+
+These are consequences of the same
+three finite 2-coloring certificates
+by taking prefix sums and deleting
+the single allowed fixed vertex.
+No perfect-matching search is involved.
+
+Moreover every one of the 199
+instances has a subset `Q subset D`
+of **size at most two** satisfying
+the necessary charge equation (*):
+zero edges for zero imbalance, one
+for magnitude two, and two for
+magnitude four. A finite arithmetic
+check of the at-most-two possibilities
+is included in the verifier.
+
+**This does not prove existence.**
+Even if the color-class sizes
+match exactly after Q is selected,
+the remaining bipartite graph can
+still violate Hall. The positive
+matching problem now consists of
+finding Q that satisfies both this
+simple charge equation and the
+full family of Hall inequalities.
+The latter is the unresolved step.
+
+## 5. Why the reduction is promising but not complete
 
 The complete four-color graph is planar
 and of maximum degree four; its entire
