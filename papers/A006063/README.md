@@ -5,6 +5,21 @@
 
 We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
 
+## A fully certified Tutte obstruction at n=581
+
+A new [31-interval mathematical witness](TUTTE_OBSTRUCTION_581.md)
+proves the exact reason the third four-cube phase cannot
+continue fixing 108 at n=581: deleting 108 and a
+103-vertex integer set from the graph using
+`{343,512,729,1000}` leaves **105 odd connected
+components**. Tutte's theorem gives `105>103`,
+so no perfect matching—and hence no involution
+with sole fixed point 108—exists. This is checked
+by [a standard-library arithmetic verifier](verify_tutte_581.py),
+not by a matching solver. It does not rule out the
+experimentally observed involutions fixing 256 or 500,
+nor does it settle the overall four-color phase theorem.
+
 ## Newest high-start research: four-cube phases and 193-path quotient (2026-10-19)
 
 The [four-cube phase analysis](FOUR_CUBE_PHASES.md) shows experimentally that **199/199 lengths in [467,665] have an involution using at most FOUR cubic sums per length**, not necessarily all five. The phase palettes are `{216,343,512,729}` for 467–560, `{216,512,729,1000}` for 561–579, and `{343,512,729,1000}` for 580–665. Even n have no fixed point; odd n fix 108 except **n=581**, where fixing **256** instead gives a four-color involution. A [separate graph-matching audit](verify_high_start_four_color_phases.py) checks all 199. **This is a finite computational observation, not yet a case-free theorem.**
