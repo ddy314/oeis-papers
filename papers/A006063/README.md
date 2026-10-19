@@ -105,6 +105,70 @@ gives an **unconditional** exponential family without this assumption.
 inverse-fiber equation with a legal 316-element reference involution and
 a different legal, non-involutive five-cycle-switched permutation.
 
+## Parity-optimal involutions and uniform minimal-fixed-point entropy
+
+The previously proved eventual involution existence theorem can be
+strengthened to the **minimum possible number of fixed points**, with no
+reference to the sharp threshold 173:
+
+```
+odd  n>=70001:  valid cube-sum involution with exactly 1 fixed point (4)
+even n>=230000: valid cube-sum involution with exactly 0 fixed points.
+```
+
+Two very small seeds suffice: `p(i)=8-i` on `[1,7]` is an involution
+fixing only 4; `p(i)=27-i` on `[1,26]` is a fixed-point-free involution.
+A reflection through an **odd cube** `c=k**3` preserves parity and
+introduces **no new fixed point**, because its reflection center `c/2`
+is nonintegral.
+
+**Finite exact step (no matching algorithms).** Use only odd cube roots
+in the recurrence `n=k**3-m-1>m`. The length-7 seed reaches all 15,001
+odd lengths in `[70001,100001]`, and the length-26 seed reaches all
+36,001 even lengths in `[230000,302000]`. The last unreachable
+same-parity lengths before those regions are 69,601 and 228,026,
+respectively. This is checked by two independent direct integer
+implementations, and `parity_minimal_involutions.py` reconstructs
+actual permutations and checks the involution equation and exact fixed
+point sets.
+
+**Infinite step.** For odd n>100001 or even n>302000, let M be the
+respective lower endpoint 70001 or 230000 and choose the least **odd**
+root k with `k**3>=n+M+1`. Let `m=k**3-n-1`. Then m has the same parity
+as n, m>=M, and `m<n`. The last inequality uses
+
+```
+2*n-k**3 >= 2*(k-2)**3-k**3-2*M
+          = k**3-12*k*k+24*k-16-2*M.
+```
+
+The polynomial is increasing for k>=57; in the odd case k>=57 and
+its value at 57 is 7555>0. For even n>302000 the minimum k is
+at least 83, and its value at 83 is 31095>0. Induction finishes the
+construction for every larger same-parity n.
+
+**Uniform lower bound on the count.** Let `J_min(n)` count legal
+involutions with no fixed point when n is even, or with the *sole*
+fixed point 4 when n is odd. The proof also establishes
+
+```
+liminf_{n->infinity} log(J_min(n))/(2*n)**(1/3) >= log(2)/4.
+```
+
+Indeed, count odd-cube-only reflection histories from each parity
+seed. For s odd roots `q,q-2,...,q-2(s-1)` and
+`K(n)=floor(cuberoot(2*n))`, exact cube-gap inequalities imply
+`K(m_j)>=K(n)-4(j+1)` for sufficiently large n. The s-branch
+recursion has a geometric growth root `rho_s`, satisfying
+`sum(rho_s**(-h) for h in 1..s)=1`, so it gives a lower bound with
+exponent `(K(n)-B_s)/4`. Letting s->infinity yields the coefficient
+`log(2)/4`.
+
+These stronger global structural results need only finite
+**arithmetic reachability**, not the much larger historic
+perfect-matching base certificates. They do not assert sharp values of
+the new eventual thresholds.
+
 ## Eventual *involution* existence, not merely general matching
 
 The original seven-element seed `p(i)=8-i` is a legal **involution** fixing position `4`. Each later suffix reflection is an involution on a disjoint new interval. Consequently **every permutation in the entire one-seed reflection tree** remains an involution and fixes 4.
@@ -305,7 +369,7 @@ The mathematical lemma is simple: a word `r_1 ... r_t` defines a successive path
 - [certificates/augmenting_words_table.tex](certificates/augmenting_words_table.tex): identical words typeset as a compact self-contained paper appendix.
 - [one_seed_eventual.py](one_seed_eventual.py): construct all sufficiently large lengths from one 7-point seed and seven exact rounds.
 - [one_seed_interval_proof.py](one_seed_interval_proof.py): independent finite interval-union proof of seven-round coverage.
-- [inverse_fiber_involution_audit.py](inverse_fiber_involution_audit.py): verify inverse-paired arbitrary fiber permutations produce legal involutions.\n- [taxicab_involution_audit.py](taxicab_involution_audit.py): pure algebraic two-dimer switches yielding exponentially many involutions and Hamming-distance codes.\n- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
+- [inverse_fiber_involution_audit.py](inverse_fiber_involution_audit.py): verify inverse-paired arbitrary fiber permutations produce legal involutions.\n- [taxicab_involution_audit.py](taxicab_involution_audit.py): pure algebraic two-dimer switches yielding exponentially many involutions and Hamming-distance codes.\n- [parity_minimal_involutions.py](parity_minimal_involutions.py): exact odd-cube closures for seeds 7/26; parity-minimal involutions for all sufficiently large lengths.\n- [involution_tail_audit.py](involution_tail_audit.py): verify eventual cube-sum involution constructions and invariant fixed point 4.\n- [reflection_tree_counts.py](reflection_tree_counts.py): count distinct reflection histories and cross-check the recursive tree.
 - [renormalization.py](renormalization.py): verify the four-block 171 seed and exact cubic affine closure.\n- [global_graph_audit.py](global_graph_audit.py): exact parity over GF(2) and alternating-SCC count factorization.\n- [audit_three_cycle_identity.py](audit_three_cycle_identity.py): verify fully algebraic two-block cubic identity and disjoint 3-cycle construction.\n- [audit_permutation_code.py](audit_permutation_code.py): exact Hamming-distance audit for 512 base masks and independently lifted fiber masks.\n- [optimize_terminal_cube.py](optimize_terminal_cube.py): verify shortest admissible cube and stronger asymptotic entropy.\n- [tensorize_fibers.py](tensorize_fibers.py): independently validate fiberwise arbitrary base matchings and injectivity.\n- [lift_exponential_subsequence.py](lift_exponential_subsequence.py): exact block-lift audit for n=200839 and n=366690 plus all independent cycles.
 - [count_236.py](count_236.py): independent 15-interval, nine-five-cycle exact count and non-involution proof for n=236.
 - [verify_word_paths.py](verify_word_paths.py): independent exact arithmetic checker that reconstructs 192 matchings using the mathematical path lemma and a single seven-block starting involution.
