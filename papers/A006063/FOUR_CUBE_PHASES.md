@@ -149,6 +149,28 @@ to that **uniform palette**; this is
 fully compatible with each n using
 some four-cube subset *depending on n*.
 
+### Exact initial forced-edge regimes (PROVED)
+
+A separate [four-cube boundary-forcing theorem](FOUR_CUBE_BOUNDARY_FORCING.md)
+classifies every **degree-one vertex** in all three
+palette phases. In Phase I at 512<=n<=560,
+the full suffix [512,n] must be reflected under
+sum 729; at odd n, 404<->325 is also forced.
+Phase II always begins with exactly two forced
+edges: 256<->473 plus either 108<->404 (even)
+or 404<->325 (odd). In Phase III, even n
+have no initial degree-one vertices; odd n
+change leaf regime at thresholds 596 and 621,
+and the exceptional fixed-256 instance
+at 581 forces 87<->425.
+
+All of this is proved by reflection-domain
+arithmetic and checked by
+[verify_four_cube_boundary_forcing.py](verify_four_cube_boundary_forcing.py)
+without using any matching solver. These
+are **necessary local assignments**, not
+a phase-wide positive existence theorem.
+
 ## 4. Two-seed path ladders and the exact augmentation lemma
 
 **Elementary alternating-path flip lemma (PROVED).**
