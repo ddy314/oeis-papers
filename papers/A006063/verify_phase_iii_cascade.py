@@ -31,6 +31,7 @@ def odd_components(n, fixed):
     parts += [{j, 729-j} for j in range(343, 365)]
     assert len(parts) == 193 and sum(map(len, parts)) == n
     q = 0
+    profile = Counter()
     for part in parts:
         remaining = part - {fixed}
         while remaining:
@@ -44,8 +45,9 @@ def odd_components(n, fixed):
                         reached.add(w)
                         queue.append(w)
             q += len(reached)%2
+            profile[len(reached)] += 1
             remaining -= reached
-    return q
+    return q, profile
 
 
 def expected_pairs(n, fixed):
@@ -98,7 +100,15 @@ def main():
     checked = 0
     for fixed in (256,500):
         for n in range(581,666,2):
-            q = odd_components(n,fixed)
+            q, profile = odd_components(n,fixed)
+            if fixed == 500:
+                expected_profile = ({2:23,3:727-n,4:n-557} if n<=613
+                                    else {2:22,3:729-n,4:n-558})
+            else:
+                expected_profile = ({1:2,2:22,3:727-n,4:n-557} if n<=641
+                                    else {1:1,2:23,3:728-n,4:n-558})
+            assert profile == Counter(expected_profile), (n,fixed,profile)
+            assert sum(profile.values()) == (193 if fixed==500 else 194)
             expected_q = 729-n if fixed==256 or n>=615 else 727-n
             assert q == expected_q, (n,fixed,q,expected_q)
             assert q%2 == 0
@@ -110,7 +120,8 @@ def main():
             assert min(len(neighbors(v,remaining)) for v in remaining) >= 2
             checked += 1
     assert checked==86
-    print("PASS: fixed-256 and fixed-500 odd-component formulas at 86 cases")
+    print("PASS: fixed-500 keeps 193 paths; fixed-256 splits into 194 at 86 cases")
+    print("PASS: exact 1/2/3/4-component-size profiles and odd defects")
     print("PASS: exact 6/3/4/0 and 5/1 forced-edge cascades")
     print("PASS: six small boundary checks, each surviving affected vertex degree 2")
     print("NOT PROVED: perfect matching existence in the leaf-free cores")
