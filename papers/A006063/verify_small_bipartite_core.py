@@ -5,7 +5,8 @@ Python standard library only. The script is an exact arithmetic checker
 of the stated finite planar-dual certificates, not a general-graph
 matching solver or a phase-wide computer-assisted matching proof.
 """
-from collections import deque
+from collections import Counter, deque
+from itertools import combinations
 
 CASES = (
     (467,560,(216,343,512,729),(216,343,512,729),
@@ -116,6 +117,8 @@ def audit_case(low,high,cubes,order,deleted,expected_pairings):
     assert len(deleted)==min(pairings)
     delete_set={tuple(sorted(edge)) for edge in deleted}
     assert len(delete_set)==len(deleted)
+    endpoints=[v for edge in delete_set for v in edge]
+    assert len(endpoints)==len(set(endpoints)), "deleted edges are not disjoint"
     assert all(u in A and v in A[u] and u+v in cubes
                for u,v in delete_set)
     H={u:near.copy() for u,near in A.items()}
@@ -124,12 +127,48 @@ def audit_case(low,high,cubes,order,deleted,expected_pairings):
         H[v].remove(u)
     coloring=color_and_connected(H)
     assert len(coloring)==high
+    assert all(coloring[u]==coloring[v] for u,v in delete_set)
+    charge_hist=Counter()
+    balance_hist=Counter()
     # Every n is an induced subgraph; the same coloring and deletion
     # set still work. Deleting one allowed fixed point cannot harm this.
     for n in range(low,high+1):
         assert all(coloring[u]!=coloring[v]
                    for u in range(1,n+1)
                    for v in H[u] if v<=n)
+        fixed = ((108 if high<=579 else 500) if n%2 else None)
+        if fixed is not None:
+            assert 2*fixed in cubes
+        vertices=set(range(1,n+1))
+        if fixed is not None:
+            vertices.remove(fixed)
+        charge=sum((1 if coloring[u]==0 else -1) for u in vertices)
+        charge_hist[abs(charge)]+=1
+        available=[(u,v) for u,v in sorted(delete_set)
+                   if u in vertices and v in vertices]
+        solution=None
+        for r in range(3):
+            for candidate in combinations(available,r):
+                if 2*sum((1 if coloring[u]==0 else -1)
+                         for u,v in candidate)==charge:
+                    solution=candidate
+                    break
+            if solution is not None:
+                break
+        assert solution is not None,(n,charge,"no 2-edge balance")
+        assert len(solution)==abs(charge)//2
+        balance_hist[len(solution)]+=1
+    expected={
+       560:{0:8,2:54,4:32},
+       579:{0:1,2:10,4:8},
+       665:{0:34,2:48,4:4},
+    }[high]
+    assert charge_hist==Counter(expected),(high,charge_hist)
+    assert balance_hist==Counter({k//2:v for k,v in expected.items()})
+    print(f"PASS: [{low},{high}] absolute bipartition imbalance "
+          f"0/2/4 occurs {dict(sorted(charge_hist.items()))}")
+    print(f"PASS: same-color exceptional edges form a matching; "
+          f"at most two edge toggles balance all these graphs")
     print(f"PASS: [{low},{high}]; {len(deleted)} fixed edges removed "
           f"at maximum n={high}; all graphs are bipartite")
     print(f"      four odd faces: dual pairing sums {pairings}; "
