@@ -157,16 +157,9 @@ int main(int argc,char** argv) {
     for(int e=1;e<=MAX_EXP;++e)pow10[e]=10*pow10[e-1];
     enumerate(cpp_int(units),0,-1,1);
     sort(solutions.begin(),solutions.end());
-    // Exact, independently obtained counts from the six complete root classes.
-    const uint64_t expected_leaves[10]={
-      0,44494558,27992500,24043075,0,0,0,98725329,46078292,26974857
-    };
-    if(leaves!=expected_leaves[units] || !solutions.empty()){
-      cerr<<"FAIL support=16 units="<<units<<" leaves="<<leaves<<" matches=";
-      for(const auto& x:solutions)cerr<<x<<",";
-      cerr<<"\\n"; return 1;
-    }
-    cout<<"EXHAUSTED support=16 units="<<units<<" leaves="<<leaves
+    // Record the full result from each units-digit shard. This is exploratory
+    // until every shard succeeds; no a priori zero-result assertion.
+    cout<<"EXHAUSTED support=17 units="<<units<<" leaves="<<leaves
         <<" interior="<<interior<<" pruned="<<prunes<<" roots=";
     for(const auto& s:solutions)cout<<s<<",";
     cout<<"\n";
