@@ -96,3 +96,33 @@ It is stronger than imposing the older low-position gap bound alone, and can be 
 The argument above is an elementary inequality proof, so no calculation is required for its infinite-range validity. [verify_high_gap.py](verify_high_gap.py) independently checks the claimed forbidden square-digit position for thousands of constructed splittings and all small A006716 roots. This test is auxiliary evidence, not the proof.
 
 The theorem **does not prove the general A006716 sequence finite**. The root-support <=16 classification is certified separately in [SUPPORT16.md](SUPPORT16.md), while the support-17 search is an additional finite computation.
+
+
+## Corollary: uniform high-root gap caps at all ranks
+
+For any A006716 root with at least four nonzero digits, let `e_1>...>e_r`
+be its nonzero positions and `d_j=e_j-e_(j+1)`. The [exact global
+top-four theorem](TOP_FOUR_GAP.md) proves
+
+```
+d_1<=3,  d_1+d_2<=6,  d_3<=7.
+```
+
+Consequently `S_4=e_1-e_4=d_1+d_2+d_3<=13`. The upper-span
+lemma yields `d_j<=S_j+3` with
+`S_(j+1)=S_j+d_j`. Thus by induction,
+
+\[
+\boxed{d_j\le2^j\quad\text{for every }4\le j<r.}
+\]
+
+Indeed, the induction starts with `S_4<=13=2^4-3` and
+`d_4<=S_4+3<=16=2^4`. If `S_j<=2^j-3` then
+`d_j<=2^j` and `S_(j+1)<=2^(j+1)-3`.
+
+This supplies the sound *descending-root gap caps*
+`d_3<=7`, `d_4<=16`, `d_5<=32`, `d_6<=64`, and so on.
+The [alternative support-17 exact verifier](verify_sparse_roots_17_gap.cpp)
+uses these inequalities as early pruning before the highest root
+digits have been chosen. They are **universal necessary conditions**,
+not empirical cutoffs.
