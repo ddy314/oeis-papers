@@ -157,3 +157,28 @@ d_3<=7, d_4<=5, d_5<=21, d_6<=42, d_7<=84, ...
 
 These are global necessary bounds for A006716 square roots, not
 heuristics and not a proof of finiteness.
+
+
+
+## Further sharpening via six highest nonzero digits
+
+The [universal sixth-highest gap theorem](TOP_SIX_GAP.md),
+whose [independent exact-integer proof audit](verify_top_six_gaps.py)
+passed CI, proves
+
+\[
+d_3\le7,\qquad d_4\le5,\qquad d_5\le6.
+\]
+
+Together with `d_1+d_2<=6`, this gives `S_6=e_1-e_6<=24`.
+The high-span lemma `d_j<=S_j+3` and recurrence
+`S_(j+1)+3<=2(S_j+3)` imply the sharper all-support bound
+
+\[
+\boxed{d_j\le27\cdot2^{j-6}\quad(j\ge6).}
+\]
+
+These inequalities are necessary for every A006716 root, irrespective
+of length. The [independent sharper support-18 verifier](verify_sparse_roots_18_sharp.cpp)
+applies the bounds as exact early-pruning rules; it does not assume
+the nonexistence of support-18 roots.
