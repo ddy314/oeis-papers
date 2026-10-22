@@ -6,6 +6,7 @@ on:
       - research/a087354-exact-minimum-20261022
     paths:
       - papers/A006716/verify_sparse_roots_15.cpp
+      - papers/A006716/verify_top_three_gaps.py
       - .github/workflows/a006716-support15.yml
   workflow_dispatch:
 
@@ -13,6 +14,15 @@ permissions:
   contents: read
 
 jobs:
+  top-three-proof:
+    name: Eight-digit rational gap proof
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check all exact interval obstructions
+        run: python papers/A006716/verify_top_three_gaps.py
+
   support15:
     name: Exact support-15 enumeration, units ${{ matrix.unit }}
     runs-on: ubuntu-latest
