@@ -209,6 +209,11 @@ void enumerate(const cpp_int& x,int last,int previous,int third,int used) {
     }
 }
 int main(int argc,char** argv) {
+    if(argc==2 && string(argv[1])=="--mask-only") {
+        initialize_four_masks();
+        cout<<"PASS: all exact top-four prefix masks and two-level projections\n";
+        return 0;
+    }
     if(argc!=2){cerr<<"Usage: "<<argv[0]<<" <units digit 1,2,3,7,8,9>\n";return 2;}
     int units=stoi(argv[1]);
     const vector<int> allowed_units={1,2,3,7,8,9};
