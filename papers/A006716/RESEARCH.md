@@ -1,0 +1,94 @@
+# A006716 research: repeated square blocks and modular local–global obstruction
+
+**Status (2026-10-22):** a rigorous classification of an infinite family, obtained as an application of Ljunggren's **existing** theorem; a complementary elementary theorem about modular quadratic residues. This is research material, **not** a claim to have proved the finiteness of [A006716](https://oeis.org/A006716), and not an assertion of publication priority.
+
+## Definition and relation to A087354
+
+A006716 is the sequence of positive integer squares whose decimal digits all belong to `{1,4,9}`. The OEIS comment that the sequence is *probably finite* is an **unproved conjecture**. Every A006716 value having n digits also supplies an n-block all-one-digit representation relevant to the minimum digit length in A087354.
+
+## 1. Rigorous exclusion of all repeated-square-block constructions
+
+**Theorem 1 (no exact repetition).** Let `A=t^2>0` have exactly `d>=1` decimal digits. Write `W_k` for the integer formed by concatenating k copies of A:
+
+```
+B = 10^d,
+W_k = A*(1+B+...+B^(k-1)) = t^2*(B^k-1)/(B-1).
+```
+
+Then `W_k` is a perfect square **if and only if** `k=1`.
+
+**Proof.** If `W_k` is square, then so is the integer `(B^k-1)/(B-1)` (multiplying a positive integer by an integer square cannot change the parity of its prime exponents). For `k=2`, this integer equals `10^d+1 ≡ 2 (mod 3)`, hence is not a square. For `k>=3`, the 1943 theorem of Wilhelm Ljunggren classifies all positive-integer solutions to
+
+```
+(x^k-1)/(x-1) = y^2,   x>1, k>2:
+(x,k,y)=(3,5,11) or (7,4,20).
+```
+
+Because `x=B=10^d>=10`, neither exceptional case applies. This establishes the claim. □
+
+The theorem is a **corollary of published mathematics**, not a newly proved result about the general Nagell–Ljunggren equation. For example, `441=21^2` but `441441`, `441441441` and every further repetition of the block `441` are never integer squares.
+
+**Reference:** N. Saradha and T. N. Shorey, *The equation (x^n−1)/(x−1)=y^q with x square*, Mathematical Proceedings of the Cambridge Philosophical Society **125** (1999), 1–19, doi: [10.1017/S0305004198002564](https://doi.org/10.1017/S0305004198002564), introduction recalling Ljunggren's 1943 `q=2` classification. This source is cited for the theorem, not for novelty of this particular corollary.
+
+## 2. A strong finite-modulus illusion
+
+**Theorem 2 (arbitrarily long nonsquares passing any fixed modular square sieve).** Suppose additionally that A is a d-digit positive square with `d>=3`, and use `W_k` above. Then:
+
+1. For **every** `k>=1` and every `a,b>=0`, `W_k` is a square modulo `2^a*5^b`.
+2. For **every** positive integer `M`, there are **infinitely many** k (indeed an explicit arithmetic progression) such that `W_k` is a square modulo M.
+3. Nevertheless **none** of these `W_k` for `k>=2` is an integer square, by Theorem 1.
+
+**Proof.** The geometric factor `S_k = 1+B+...+B^(k-1)` satisfies `S_k ≡ 1 (mod 8)` because `8|B=10^d` when d>=3, and `S_k ≡ 1 (mod 5)` because `5|B`. Every odd integer congruent to 1 modulo 8 is a square modulo each power of 2; every 5-adic unit congruent to 1 modulo 5 is a square modulo each power of 5 (via standard Hensel lifting). Hence `S_k`, and therefore `W_k=A*S_k`, is a square modulo `2^a*5^b` for all k.
+
+For arbitrary M, let `m=M/(2^v2(M)*5^v5(M))`, so `gcd(m,10)=1`. Put
+
+```
+T = phi((B-1)*m),
+k = j*T  (j = 1,2,3,...).
+```
+
+Euler's theorem applies because `gcd(B,(B-1)*m)=1`, so `B^k ≡ 1 (mod (B-1)*m)`. Therefore the integer quotient `S_k=(B^k-1)/(B-1)` is divisible by m, and `W_k ≡ 0 (mod m)`, a square residue. Combine with the already-proved 2- and 5-primary square residues using CRT. Since there are infinitely many positive multiples of T, (2) follows. Statement (3) is Theorem 1. □
+
+**Interpretation.** Even a sieve built from any preselected finite family of moduli cannot eliminate all sufficiently long repetitions of a 3-or-more-digit square block. Taking the product of the moduli and applying Theorem 2 supplies arbitrarily long actual nonsquare decimal words which pass **all** those modular quadratic-residue tests simultaneously.
+
+This is *not* an argument that A006716 is infinite: passing all tests modulo a **fixed** integer M does not imply that a given integer is an actual square. The modulus is not allowed to grow with the repetition count in this assertion.
+
+### A concrete A006716 example
+
+Take `A=441=21^2`, so `B=1000`:
+
+```
+W_k = 441441...441 (k repeated 441-blocks)
+    = 441*(1000^k-1)/999.
+```
+
+Every W_k uses exclusively digits 1 and 4, and every k>=2 is **not** an integer square; nevertheless, for every prescribed modulus M an infinite progression of these W_k are quadratic residues modulo M.
+
+The corresponding infinite 10-adic periodic word has limit
+
+```
+sum_(j>=0) 441*1000^j = -441/999 = -49/111   in Z_10.
+```
+
+It is a 2-adic square since `-49/111 ≡ 1 (mod 8)`, and a 5-adic square since `-49/111 ≡ 1 (mod 5)`. This is another description of the persistent local square-residue phenomenon, not an ordinary real-valued square identity.
+
+## 3. Elementary local constraints, relevant for future searches
+
+- If a positive square uses only digits **1 and 9**, it is either 1 or 9. For a word of length >=3, all these digits are 1 mod 8 and its final three digits contribute `4+2+1 ≡ 7 (mod 8)`, which is not a square residue. For length two, all four possibilities are `3 (mod 8)`, also not square residues.
+- For any A006716 square of length >=3, its final three digits must be one of `144,441,444,449,944`. This follows by enumerating the 27 allowed three-digit tails against quadratic residues modulo 1000. It is only a **necessary** condition, not a list of actual three-digit squares.
+
+## 4. Research decision
+
+We have **not** established a new A006716 term, a finiteness theorem, or a formula for A087354. The repeated-block approach is mathematically **closed off** by Ljunggren's theorem. At the same time, Theorem 2 shows why searches relying on a fixed finite set of quadratic-residue moduli are intrinsically incomplete as a way to prove finiteness.
+
+Further progress must exploit information that changes with digit length (for example, unbounded moduli, global size constraints, or genuinely nonperiodic digit patterns) rather than repeating an existing square block.
+
+## Independent finite audit
+
+Run:
+
+```sh
+python papers/A006716/verify_repetition.py
+```
+
+This script verifies selected perfect-square seeds and repetition counts, checks the modular construction for M up to 350, and independently derives the five allowed length-three suffixes. The symbolic proof of Theorem 1 depends on Ljunggren's cited theorem; finite tests are not substituted for it.
