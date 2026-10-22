@@ -1,4 +1,4 @@
-// Exact, exhaustive minimum-value certificate for A087354(26)..A087354(30).
+// Exact, exhaustive minimum-value certificate for A087354(26)..A087354(30) and A087354(36).
 // This is a research verifier, separate from the manuscript.
 // g++ -std=c++17 -O3 verify_minima_extended.cpp -o verify_ext && ./verify_ext
 #include <algorithm>
@@ -12,7 +12,7 @@
 using U = unsigned __int128;
 using u64 = std::uint64_t;
 
-static std::array<U, 34> powers{};
+static std::array<U, 39> powers{};
 U parse(const std::string& s) {
     U x = 0;
     for (char c : s) { assert(c >= '0' && c <= '9'); x = 10*x + (c-'0'); }
@@ -26,7 +26,7 @@ std::string decimal(U x) {
     return s;
 }
 // Floating point is only a starting estimate: ALL decisions use exact
-// adjusted integer square roots. Products here are below 10^32.
+// adjusted integer square roots. Products here are below 10^37.
 U isqrt_exact(U x) {
     if (!x) return 0;
     U r = static_cast<std::uint64_t>(std::sqrt(static_cast<long double>(x)));
@@ -112,7 +112,8 @@ int main() {
         {27, "1494991191499944141414491136"},
         {28, "14919999448111491414944114944"},
         {29, "1111191491149991691191911414161"},
-        {30, "1111194441113699414944949914441"}
+        {30, "1111194441113699414944949914441"},
+        {36, "419994999149149944149149944191494441"}
     };
     for (const auto& entry : entries) {
         U claim = parse(entry.expected);
