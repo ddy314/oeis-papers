@@ -97,3 +97,28 @@ This script verifies selected perfect-square seeds and repetition counts, checks
 ## Further result: uniform length coverage beyond periodic words
 
 A separate [local-sieve barrier note](LOCAL_SIEVE_BARRIER.md) proves a stronger result: **for every fixed modulus M and every sufficiently large length n**, there are exponentially many n-digit words over `{1,4,9}` ending in `441` and square modulo M, with no fixed-block periodicity restriction. An exact classification also shows that precisely `2*3^(n-3)` odd-ending n-digit digit-set words are square modulo `10^n`, with eight roots each. Independent tests are in [verify_local_sieve.py](verify_local_sieve.py). Neither result establishes the existence of new ordinary integer squares or resolves A006716's finiteness conjecture.
+
+
+## Global root sparsity and complete bounded-support certificate
+
+A separate [sparse-root theorem and classification](SPARSE_ROOTS.md)
+moves beyond modular necessary conditions. Two elementary **integer-square**
+gap lemmas show that any root with `r` nonzero decimal digits and a square
+containing no zero digit has nonzero positions
+`0=e_1<...<e_r` satisfying `e_(j+1)<=2*e_j+2`, with an additional
+bound `e_r<=e_(r-1)+3` at the top. A digit-sum inequality also gives
+`digits(x^2)<=81*r^2`.
+
+Using **exact arbitrary-precision arithmetic** and only these sound
+pruning rules, [verify_sparse_roots.cpp](verify_sparse_roots.cpp)
+completely classifies A006716 square roots with **at most 12**
+nonzero decimal digits, without placing an artificial numerical
+size bound on the root. Precisely 16 roots occur (all previously known
+OEIS terms), and no roots occur at support 4, 8, 10, 11, or 12.
+The final support-12 level tests 23,707,918 candidate roots.
+An [independent Python audit](verify_sparse_roots.py) checks the
+elementary lemmas and exhausts support at most 4.
+
+This **does not** prove A006716 finite: the largest currently recorded
+square has a root with 14 nonzero digits. No OEIS edit or manuscript
+change is made here.
