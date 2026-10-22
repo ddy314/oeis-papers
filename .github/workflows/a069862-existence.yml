@@ -1,4 +1,4 @@
-name: A069862 universal existence and exact minima
+name: A069862 all-index minimum formula
 
 on:
   push:
@@ -30,3 +30,5 @@ jobs:
         run: python3 papers/A069862/verify_existence.py
       - name: Exact minima versus direct enumeration
         run: python3 papers/A069862/least.py --audit
+      - name: Arithmetic formula, complete quadratic classes, and independent minima
+        run: python3 papers/A069862/minimum_formula.py --audit
