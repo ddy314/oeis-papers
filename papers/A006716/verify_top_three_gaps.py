@@ -36,7 +36,38 @@ def intersection_possible(gap_first, min_gap_second, digit_a, digit_b):
     return False
 
 
+
+def exact_top_three_allowed(g,h,a,b,c):
+    """Exact eight-digit interval for the actual leading three root digits."""
+    D = 10 ** (g+h)
+    z = a*D+b*10**h+c
+    L=z*z*10**K
+    R=(z+1)*(z+1)*10**K
+    den=D*D
+    return any(
+        L < (P+1)*10**j*den and R > P*10**j*den
+        for j in (1,2) for P in WORDS
+    )
+
+
+def check_complete_three_digit_mask():
+    expected={
+        (1,1):49,(1,2):25,(1,3):13,(1,4):0,
+        (2,1):49,(2,2):12,(2,3):5,(2,4):5,
+        (3,1):4,(3,2):0,(3,3):0,(3,4):0
+    }
+    for g in (1,2,3):
+        for h in (1,2,3,4):
+            count=sum(
+                exact_top_three_allowed(g,h,a,b,c)
+                for a,b,c in product(range(1,10),repeat=3)
+            )
+            assert count == expected[g,h], (g,h,count)
+            print(f"PASS leading-triple mask g={g} h={h}: {count} allowed triples")
+
+
 def main():
+    check_complete_three_digit_mask()
     checks=0
     for g,t in THRESHOLDS:
         for a,b in product(range(1,10),repeat=2):
