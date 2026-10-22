@@ -7,6 +7,8 @@ on:
     paths:
       - papers/A006716/verify_repetition.py
       - papers/A006716/verify_local_sieve.py
+      - papers/A006716/verify_sparse_roots.cpp
+      - papers/A006716/verify_sparse_roots.py
       - .github/workflows/a006716-research.yml
   workflow_dispatch:
 
@@ -16,10 +18,16 @@ permissions:
 jobs:
   modular-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - name: Verify repeated-square modular claims
         run: python papers/A006716/verify_repetition.py
       - name: Verify local-square counts and all-length construction
         run: python papers/A006716/verify_local_sieve.py
+      - name: Compile exact sparse-root certificate
+        run: g++ -std=c++17 -O3 papers/A006716/verify_sparse_roots.cpp -o /tmp/a006716_sparse
+      - name: Exhaust every root support 1 through 12
+        run: /tmp/a006716_sparse
+      - name: Independently audit gap lemmas and supports up to 4
+        run: python papers/A006716/verify_sparse_roots.py
