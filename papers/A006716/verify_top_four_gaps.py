@@ -60,20 +60,21 @@ def check_masks():
     print(f"PASS {checked} exact top-four interval tests: fourth gap <= 7")
 
 def check_short():
-    # A root with >=6 nonzero digits has >=6 digits -> square >=11 digits.
-    # Complete finite exceptional range when <6 nonzero root digits:
-    # numerical size is not bounded in general, but the prior complete
-    # sparse-root certificate already covers these support classes.
-    known={1,2,3,7,12,21,38,107,212,31488,70107}
-    for root in known:
-        if sum(c!="0" for c in str(root))<4:
+    # If x*x has fewer than ten digits then x<=31622. Exhaust that
+    # entire finite exceptional range, independently of any OEIS list.
+    short=[]
+    for x in range(1,31623):
+        if sum(ch!='0' for ch in str(x))<4:
             continue
-        assert set(str(root*root))<=set("149")
-        exps=[i for i,ch in enumerate(reversed(str(root))) if ch!='0']
-        if len(exps)>=4:
-            e,p,q,s=exps[-1],exps[-2],exps[-3],exps[-4]
-            assert q-s <= 7
-    print("PASS prior certified supports <=5 (no omitted short-square case)")
+        if set(str(x*x))>set("149"):
+            continue
+        short.append(x)
+        exps=[i for i,ch in enumerate(reversed(str(x))) if ch!='0']
+        e,p,q,s=exps[-1],exps[-2],exps[-3],exps[-4]
+        assert q-s<=7
+    assert short==[31488],short
+    print("PASS all 31,622 short-square roots; sole qualifying support>=4 is 31488")
+
 
 if __name__=="__main__":
     check_masks()
