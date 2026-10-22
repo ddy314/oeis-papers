@@ -102,7 +102,7 @@ The verifier checks this necessary condition using exact integer arithmetic and 
 
 Accordingly the pruning is sound, the support bound exhausts all roots for the stated \(r\), and no assumption that the root is numerically small is used.
 
-**Exact search audit:** for \(r=11\), the finite search visits 6,319,638 complete candidate roots after low-digit pruning and finds no square. Smaller depths are independently checked by the same verifier. For support 12, an additional **top-gap lemma** below restricts the final nonzero position and leaves 23,707,918 exact integer candidate roots, none of which passes the digit test. A second Python search explicitly enumerates and verifies the complete \(r\le4\) classification (171 candidates with \(r\le2\), 269,001 raw four-digit-support candidates).
+**Exact search audit:** for \(r=11\), the finite search visits 6,319,638 complete candidate roots after low-digit pruning and finds no square. Smaller depths are independently checked by the same verifier. For support 12, an additional **top-gap lemma** below restricts the final nonzero position and leaves 23,707,917 exact integer candidate roots, none of which passes the digit test. A second Python search explicitly enumerates and verifies the complete \(r\le4\) classification (171 candidates with \(r\le2\), 269,001 raw four-digit-support candidates).
 
 ### Reproduce
 
