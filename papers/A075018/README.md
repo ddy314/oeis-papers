@@ -2,7 +2,7 @@
 
 **Author:** Qichao Wang · Hebei University of Technology  
 **Date:** October 17, 2026  
-**Scope:** rigorous existence theorem; no formula for the least values is claimed.
+**Scope:** rigorous universal existence theorem plus exact minima and complete witness classification for an infinite family of indices; no all-index least-value formula is claimed.
 
 ## Main result
 
@@ -19,6 +19,33 @@ In fact, infinitely many four-block descending concatenations are divisible by a
 The stronger main theorem states: for every **even base b**, every integer modulus **N >= 1**, every number of blocks **t >= 1**, and **any prescribed permutation** of t consecutive positive integers, there are infinitely many equal-width block concatenations divisible by N.
 
 Crucially, **N and t are independent**. This extends the setting of the prior [even-base arithmetic-progression theorem](../A075000-A075002/) (in which the modulus equals the block count). Literature priority of the stronger result has not been established.
+
+## Exact least values for infinitely many indices
+
+For every integer `r >= 2` and every positive divisor `d` of `30`,
+
+```
+A075018(d*10^r) = d*10^r + 3.
+```
+
+More strongly, for every `k >= 4`, the four-block descending concatenation
+`k||(k-1)||(k-2)||(k-3)` is divisible by `d*10^r` **if and only if**
+`k ≡ 3 (mod d*10^r)`. The exceptional starting point `k=3`
+gives 3210, which is not divisible by 100.
+
+**Proof idea:** Divisibility by `10^r` forces the positive final block
+`k-3=t*10^r`. Splitting off the final block gives
+`C(k)/10^r = 10^digits(t) * U(k) + t`, where
+`U(k)=k||(k-1)||(k-2)`. The first summand is 0 modulo 2 and 5;
+it is also 0 modulo 3 because `U(k) ≡ k+(k-1)+(k-2) ≡ 0 (mod 3)`.
+Since `d` is a squarefree divisor of 30, divisibility by `d`
+is equivalent to `d|t`, proving both directions and minimality.
+
+Examples: `A075018(100)=103`, `A075018(300)=303`,
+`A075018(1500)=1503`, `A075018(3000)=3003`.
+The theorem covers an infinite subsequence but not a full closed form
+for arbitrary moduli. A standalone exact modular verification script is
+included in `verify_minima.py`.
 
 ## Explicit four-block construction
 
@@ -38,7 +65,7 @@ The full proof covers the general arbitrary-permutation case.
 
 ## Repository contents
 
-- **[main.pdf](main.pdf)**: compiled, three-page mathematical paper.
+- **[main.pdf](main.pdf)**: compiled PDF from the previous version; **recompile main.tex to include the new exact-minimum theorem**.
 - **[main.tex](main.tex)**: editable LaTeX source.
 - **[verify.py](verify.py)**: dependency-free Python verification and reproducible witnesses.
 
