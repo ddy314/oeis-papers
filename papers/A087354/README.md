@@ -33,11 +33,11 @@ certificate; the result is **not** a closed formula for arbitrary n.
 - [minima.tex](minima.tex): self-contained two-page paper.
 - [minima.pdf](minima.pdf): typeset PDF (built by the dedicated GitHub Action).
 - [verify_minima.py](verify_minima.py): Python exact integer certificate;
-  use \`--extended\` for the more expensive n=25 full check.
+  use `--extended` for the more expensive n=25 full check.
 - [verify_minima.cpp](verify_minima.cpp): fast independent full audit,
   verified locally with g++ -std=c++17 -O3.
 
-The original \`main.tex\` and \`main.pdf\` remain unchanged and continue
+The original `main.tex` and `main.pdf` remain unchanged and continue
 to prove universal existence, rather than minima.
 
 ## Exact square-extension lemma
