@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 11 nonzero digits
+# A006716: complete classification of roots with at most 12 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -37,6 +37,27 @@ If \(e_{j+1}>2e_j+2\), then \(t^2<10^{2e_j+2}\), so the digit of \(x^2\) in posi
 
 **Global consequence:** for every fixed integer \(r\), only finitely many A006716 squares can have a square root with at most \(r\) nonzero decimal digits. This is a genuine integer-square obstruction, not a modular-residue test. It excludes all arbitrarily spaced sparse-root patterns with bounded support size.
 
+
+## Theorem 1b: an independent leading-square zero-gap obstruction
+
+If an integer \`x\` with at least two nonzero decimal digits has zero-free square \`x^2\`, and the two *highest* nonzero decimal positions of \`x\` are \`p<e\`, then
+
+\[
+\boxed{e\le p+3.}
+\]
+
+**Proof.** Write \`x=a*10^e+t\`, with \`1<=a<=9\` and \`0<t<10^(p+1)\`. Suppose \`e>=p+4\`, so \`t<10^(e-3)\`. The part of the square below \`a^2*10^(2e)\` is
+
+\[
+C=2at10^e+t^2
+ < 18\cdot10^{2e-3}+10^{2e-6}
+ <10^{2e-1}.
+\]
+
+Thus the decimal digit of \`x^2\` in position \`2e-1\` is zero: the high term starts at position \`2e\`, while \`C\` is too small to reach position \`2e-1\`. This contradicts zero-freeness. □
+
+The certificate uses this **additional necessary condition only when choosing the final (highest) nonzero digit of the root**. Applying it earlier to an intermediate partial root would not be justified, because later added high digits could change that square.
+
 ## Theorem 2: independent digit-sum bound
 
 Let \(s_{10}(x)\) be the sum of the decimal digits of \(x\), and let \(\nu_{10}(x)\) be the number of its nonzero digits. If \(x^2\) is an \(n\)-digit member of A006716 and \(\nu_{10}(x)=r\), then
@@ -50,9 +71,9 @@ Indeed, the usual carry operation in base 10 cannot increase digit sum. Expandin
 
 This proves an asymptotic lower bound on root digit density (at least order \(\sqrt n\) nonzero root digits). The gap theorem gives sharper structural bounds for small fixed \(r\).
 
-## Theorem 3: complete sparse-root classification through support 11
+## Theorem 3: complete sparse-root classification through support 12
 
-**Claim (finite, machine-verifiable certificate):** If \(x^2\) has only digits in \(\{1,4,9\}\) and \(x\) has **at most 11 nonzero decimal digits**, then and only then \(x\) belongs to the following list.
+**Claim (finite, machine-verifiable certificate):** If \(x^2\) has only digits in \(\{1,4,9\}\) and \(x\) has **at most 12 nonzero decimal digits**, then and only then \(x\) belongs to the following list.
 
 | \(\nu_{10}(x)\) | All possible integer roots \(x\) |
 |---:|---|
@@ -67,6 +88,7 @@ This proves an asymptotic lower bound on root digit density (at least order \(\s
 | 9 | 446653271, 3148717107, 21081079479 |
 | 10 | **none** |
 | 11 | **none** |
+| 12 | **none** |
 
 Thus this infinite class of roots yields **exactly 16 distinct A006716 squares**. All correspond to already recorded OEIS terms; this is a *new form of completeness certificate for the bounded-root-support problem*, not discovery of new sequence terms.
 
@@ -80,7 +102,7 @@ The verifier checks this necessary condition using exact integer arithmetic and 
 
 Accordingly the pruning is sound, the support bound exhausts all roots for the stated \(r\), and no assumption that the root is numerically small is used.
 
-**Exact search audit:** for \(r=11\), the finite search visits 6,319,638 complete candidate roots after low-digit pruning and finds no square. Smaller depths are independently checked by the same verifier. A second Python search explicitly enumerates and verifies the complete \(r\le4\) classification (171 candidates with \(r\le2\), 269,001 raw four-digit-support candidates).
+**Exact search audit:** for \(r=11\), the finite search visits 6,319,638 complete candidate roots after low-digit pruning and finds no square. Smaller depths are independently checked by the same verifier. For support 12, an additional **top-gap lemma** below restricts the final nonzero position and leaves 23,707,918 exact integer candidate roots, none of which passes the digit test. A second Python search explicitly enumerates and verifies the complete \(r\le4\) classification (171 candidates with \(r\le2\), 269,001 raw four-digit-support candidates).
 
 ### Reproduce
 
