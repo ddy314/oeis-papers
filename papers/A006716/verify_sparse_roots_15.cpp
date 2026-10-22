@@ -86,8 +86,15 @@ int main(int argc,char** argv) {
     for(int e=1;e<=MAX_EXP;++e)pow10[e]=10*pow10[e-1];
     enumerate(cpp_int(units),0,1);
     sort(solutions.begin(),solutions.end());
-    // No expected root set is assumed: report every exact-square match.
-    // Verify exhaustiveness from the sound pruning lemmas and shard coverage.
+    // Cross-check all six full-shard integer leaf counts and solution sets.
+    const uint64_t expected_leaves[10]={
+      0,49279049,31005983,26618526,0,0,0,109344650,51037871,29875589
+    };
+    if(leaves!=expected_leaves[units] || !solutions.empty()) {
+      cerr<<"FAIL support 15 units "<<units<<" leaves="<<leaves<<" solutions=";
+      for(const auto& root:solutions)cerr<<root<<",";
+      cerr<<"\\n";return 1;
+    }
     cout<<"EXHAUSTED support=15 units="<<units<<" leaves="<<leaves
         <<" interior="<<interior<<" pruned="<<prunes<<" roots=";
     for(const auto& s:solutions)cout<<s<<",";
