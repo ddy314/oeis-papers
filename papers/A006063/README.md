@@ -1,6 +1,6 @@
 # OEIS A006063 / A096680: cube-sum permutations
 
-**Author:** Qichao Wang · Hebei University of Technology  
+**Authors:** Qichao Wang (Hebei University of Technology); 董道豫 / Daoyu Dong (University of Electronic Science and Technology of China)
 **Manuscript date:** October 19, 2026  
 **Status:** six-page mathematical paper with eventual minimal-fixed-point involutions and exact finite certificates, prepared for independent review. This is a **computer-assisted finite-certificate proof**, **not** a case-free classification or a peer-reviewed publication.
 

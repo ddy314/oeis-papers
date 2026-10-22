@@ -1,6 +1,6 @@
 # OEIS A075018: universal existence and an even-base permutation theorem
 
-**Author:** Qichao Wang · Hebei University of Technology  
+**Authors:** Qichao Wang (Hebei University of Technology); 董道豫 / Daoyu Dong (University of Electronic Science and Technology of China)
 **Date:** October 17, 2026  
 **Scope:** rigorous universal existence theorem plus exact minima and complete witness classification for an infinite family of indices; no all-index least-value formula is claimed.
 
@@ -65,7 +65,7 @@ The full proof covers the general arbitrary-permutation case.
 
 ## Repository contents
 
-- **[main.pdf](main.pdf)**: compiled PDF from the previous version; **recompile main.tex to include the new exact-minimum theorem**.
+- **[main.pdf](main.pdf)**: compiled mathematical paper, including the exact-minimum theorem (regenerated for both authors).
 - **[main.tex](main.tex)**: editable LaTeX source.
 - **[verify.py](verify.py)**: dependency-free Python verification and reproducible witnesses.
 

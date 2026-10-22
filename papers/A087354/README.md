@@ -1,6 +1,6 @@
 # A087354: all-index existence of square concatenations
 
-**Author:** Qichao Wang (Hebei University of Technology)  
+**Authors:** Qichao Wang (Hebei University of Technology); 董道豫 / Daoyu Dong (University of Electronic Science and Technology of China)
 **Date:** October 17, 2026  
 **Status:** complete constructive existence proof submitted for review. No claim to have determined the unknown OEIS minima or established literature priority.
 
