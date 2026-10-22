@@ -34,42 +34,50 @@ M = 2^a * 5^b * m, gcd(m, 10)=1.
 
 If `m=1`, for **every** `n>=3`, all `3^(n-3)` length-n words ending in 441 are quadratic residues modulo M.
 
-If `m>1`, let `h = ord_m(10)`, the multiplicative order of 10 modulo m. For **every**
+If `m>1`, let `h = ord_m(10)`, and define the explicit integer
 
 ```
-n >= 4 + (2m-1)*h,
+T = floor((m+13)/3).
 ```
 
-there exist **at least `3^(n-3-2m)` distinct n-digit integers W**, all digits in `{1,4,9}`, all ending in 441, such that `W` is a square modulo M.
+For **every**
 
-In fact, the construction below makes every such W divisible by m, while preserving its 2- and 5-primary square residues.
+```
+n >= 4 + (T-1)*h,
+```
+
+there exist **at least `3^(n-3-T)` distinct n-digit integers W**, all digits in `{1,4,9}`, all ending in 441, such that W is a square modulo M.
+
+In fact, W can be chosen divisible by m, while its 2- and 5-primary quadratic-residue conditions hold automatically.
 
 ### Proof and explicit algorithm
 
-For `m>1`, reserve the 2m decimal positions (indexed from the units digit)
+The key elementary coin lemma is that **every integer r>=14 can be expressed as r=3u+8v with u,v nonnegative integers and u+v<=r/3**. Take `v` to be the unique integer in `{0,1,2}` satisfying `2v ≡ r (mod 3)` (since 8 is 2 modulo 3), and `u=(r-8v)/3`. Then u is nonnegative (the cases r=14 and r=15 can be checked directly; for r>=16 this is automatic), and `u+v=(r-5v)/3<=r/3`.
+
+Reserve the T decimal positions (indexed from the units digit)
 
 ```
-E = {3, 3+h, 3+2h, ..., 3+(2m-1)h}.
+E = {3, 3+h, 3+2h, ..., 3+(T-1)h}.
 ```
 
 The length bound guarantees these are all among positions `3,...,n-1` (outside the final 441), and `10^e ≡ 10^3 (mod m)` for every reserved position e.
 
-Assign *arbitrarily* one digit from `{1,4,9}` to each of the other `n-3-2m` higher positions. Initialize each reserved digit to 1 and keep the final three digits as 441, obtaining a baseline word `W_0`.
+Assign *arbitrarily* one digit from `{1,4,9}` to each of the other `n-3-T` higher positions. Initialize each reserved digit to 1 and keep the final three digits as 441, obtaining a baseline word `W_0`.
 
-Because 10 is invertible modulo m, there is a unique `z` modulo m such that
-
-```
-z ≡ -W_0 * (10^3)^(-1)   (mod m).
-```
-
-Choose the least nonnegative representatives
+Because 10 is invertible modulo m, choose the unique residue `z` satisfying
 
 ```
-u ≡ 3z (mod m),     v ≡ -z (mod m),
-0 <= u,v <= m-1.
+z ≡ -W_0 * (10^3)^(-1)   (mod m), 0<=z<m.
 ```
 
-The crucial identity is `3*3 + 8*(-1) = 1`; hence `3u+8v ≡ z (mod m)`. Since `u+v<=2m-2`, the 2m reserved slots suffice. Change u reserved digits from 1 to 4 and v others from 1 to 9. Each change adds `3*10^e` or `8*10^e`, and therefore
+Choose the unique integer r in `[14,m+13]` congruent to z modulo m:
+
+```
+r = 14 + ((z-14) mod m).
+v = (2*r) mod 3,         u = (r-8*v)/3.
+```
+
+The coin lemma guarantees `3u+8v=r ≡ z (mod m)`, with `u+v<=floor((m+13)/3)=T`. Change u reserved digits from 1 to 4 and v others from 1 to 9. Each change adds `3*10^e` or `8*10^e`, and therefore
 
 ```
 W ≡ W_0 + (3u+8v)*10^3 ≡ 0 (mod m).
@@ -77,7 +85,9 @@ W ≡ W_0 + (3u+8v)*10^3 ≡ 0 (mod m).
 
 Because the final three digits remain 441, W is 1 modulo 8 and 1 modulo 5. It follows that W is a square modulo every `2^a` and `5^b`. Since W is zero modulo m, it is also a square modulo m. CRT proves that it is a square modulo M.
 
-Two different assignments to the nonreserved positions give different final integers, so all `3^(n-3-2m)` constructed integers are distinct. The `m=1` case follows directly from the final-441 condition. □
+Two different assignments to the nonreserved positions give different final integers, so all `3^(n-3-T)` constructed integers are distinct. The `m=1` case follows directly from the final-441 condition. □
+
+**Quantitative improvement.** The first construction reserved 2m slots; using the elementary coin lemma reduces this to `T=floor((m+13)/3)`, approximately m/3 slots, and correspondingly improves both the explicit length threshold and the count of available words.
 
 ### Consequences
 
