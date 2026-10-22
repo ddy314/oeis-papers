@@ -157,8 +157,15 @@ int main(int argc,char** argv) {
     for(int e=1;e<=MAX_EXP;++e)pow10[e]=10*pow10[e-1];
     enumerate(cpp_int(units),0,-1,1);
     sort(solutions.begin(),solutions.end());
-    // Record the full result from each units-digit shard. This is exploratory
-    // until every shard succeeds; no a priori zero-result assertion.
+    // Pinned from a complete six-class GitHub Actions audit.
+    const uint64_t expected_leaves[10]={
+      0,171650208,107967008,92701557,0,0,0,380875967,177741697,104052733
+    };
+    if(leaves!=expected_leaves[units] || !solutions.empty()){
+      cerr<<"FAIL support 17, units="<<units<<" leaves="<<leaves<<" matches=";
+      for(const auto& x:solutions)cerr<<x<<",";
+      cerr<<"\\n";return 1;
+    }
     cout<<"EXHAUSTED support=17 units="<<units<<" leaves="<<leaves
         <<" interior="<<interior<<" pruned="<<prunes<<" roots=";
     for(const auto& s:solutions)cout<<s<<",";
