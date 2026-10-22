@@ -166,3 +166,7 @@ bounds the *fourth highest gap* by **9** for any A006716 square
 with at least four nonzero root digits. It is an all-length necessary
 condition, not a proof of finiteness. Its [finite regression audit](verify_high_gap.py)
 passed in [GitHub Actions](https://github.com/dongxuelian2/oeis-papers/actions/runs/39765056417).
+
+## Support 17 and the global fourth-gap theorem
+
+The new [SUPPORT17.md](SUPPORT17.md) provides an exact-integer six-way certificate that **no** A006716 square root has exactly **17** nonzero decimal digits, after **1,034,989,170** terminal checks. Together with all smaller supports, this completely classifies roots with **at most 17 nonzero digits**: only the 17 already known. Independent mathematics in [GLOBAL_HIGH_GAP.md](GLOBAL_HIGH_GAP.md) and [TOP_FOUR_GAP.md](TOP_FOUR_GAP.md) proves that the *fourth-highest nonzero root-digit gap is at most seven* for every A006716 root, and gives a general descending-root-gap bound. The [independent ten-digit-prefix check](verify_top_four_gaps.py) passed GitHub CI. The entire A006716 finiteness conjecture is still unresolved.
