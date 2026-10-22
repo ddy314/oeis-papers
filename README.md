@@ -37,3 +37,9 @@ Previously accepted manuscripts (A075000-A075002, A181373 and
 A083468-A083469) retain their original authorship and are unchanged.
 The A077306 research note restates the accepted A075001 existence result
 and is not a separate manuscript.
+
+- [A069862](papers/A069862/): proves exact least concatenation-length formulas
+  on two infinite families (including a(n)=n for decimal-smooth moduli and
+  a(n)=2n-1 on a 7-denominator family), with a companion prime-power theorem.
+  Gives explicit existence and minimality **only on these families**. The
+  a(n)=2 classification is prior work of David Wasserman (2005), A069860.
