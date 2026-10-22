@@ -24,8 +24,9 @@ permutation of the $t$ blocks, one can find infinitely many
 same-digit-width concatenations divisible by $N$.
 The elementary constructive proof uses a base-supported/coprime
 factorization of $N$, a solvable linear congruence, and the Chinese
-remainder theorem. The result establishes existence, not a formula for
-the smallest admissible starting integer.
+remainder theorem. For the infinite family $N=d10^r$ with $d\mid30$
+and $r\ge2$, we additionally determine the exact least value
+$\mathrm{A075018}(N)=N+3$ and all admissible endpoints.
 \end{abstract}
 
 \section{The OEIS problem}
@@ -182,6 +183,68 @@ For example, $N=7$ admits $a=2$, giving
 $C=5432=7\cdot776$ and $\mathrm{A075018}(7)=5$.
 The construction need not minimize $k$.
 
+
+\section{Exact least values for an infinite family}\label{sec:minima}
+The general construction is not usually minimal. Nevertheless, for
+a natural infinite family the minimization problem is completely
+solvable, including a description of \emph{all} admissible starting
+integers.
+
+\begin{theorem}[Exact minima and complete witnesses]\label{thm:minima}
+Let $r\ge2$ and let $d$ be any positive divisor of $30$,
+so $d\in\{1,2,3,5,6,10,15,30\}$. Set $N=d10^r$ and
+$C(k)=k\cat_{10}(k-1)\cat_{10}(k-2)\cat_{10}(k-3)$.
+Then for every integer $k\ge4$,
+\[
+ N\mid C(k)\quad\Longleftrightarrow\quad k\equiv3\pmod N.
+\]
+Moreover, $C(3)=3210$ is not divisible by $N$. Thus the complete
+set of admissible endpoints is
+$\{N+3,2N+3,3N+3,\ldots\}$, and
+\[
+ \boxed{\mathrm{A075018}(d10^r)=d10^r+3
+ \quad(d\mid30,\ r\ge2).}
+\]
+\end{theorem}
+\begin{proof}
+Suppose $k\ge4$ and put $x=k-3\ge1$. If $10^r\mid C(k)$,
+then the last $r$ decimal digits of $C(k)$ must all vanish.
+Since its final concatenated block is the ordinary decimal
+representation of the positive integer $x$, this is possible
+only if $x$ has at least $r$ trailing zero digits. In particular,
+$x=t10^r$ for an integer $t\ge1$.
+
+Let $\ell$ denote the number of decimal digits of $t$, and let
+$U(k)=k\cat_{10}(k-1)\cat_{10}(k-2)$. Because the final block
+$x=t10^r$ has $\ell+r$ digits, we have the exact identity
+\[
+ \frac{C(k)}{10^r}=10^\ell U(k)+t.
+\]
+For the prime divisors $2$ and $5$ of $d$, the first summand
+is congruent to $0$. Modulo $3$, decimal concatenation is
+congruent to the sum of its constituent integers:
+\[
+ U(k)\equiv k+(k-1)+(k-2)=3k-3\equiv0\pmod3.
+\]
+Since every $d\mid30$ is squarefree and has only prime
+divisors in $\{2,3,5\}$, it follows that
+\[
+ d\mid (10^\ell U(k)+t)\quad\Longleftrightarrow\quad d\mid t.
+\]
+Consequently, $N=d10^r$ divides $C(k)$ exactly when
+$x=k-3$ is a positive multiple of $N$. Finally,
+$C(3)=3210\equiv10\pmod{100}$, whereas every $N$ in the
+statement is divisible by $100$. So $k=3$ is not admissible,
+and the first admissible endpoint is $N+3$.
+\end{proof}
+
+For example, $\mathrm{A075018}(100)=103$,
+$\mathrm{A075018}(300)=303$,
+$\mathrm{A075018}(1500)=1503$, and
+$\mathrm{A075018}(3000)=3003$.
+The theorem does \emph{not} assert a closed formula for
+$\mathrm{A075018}(N)$ at arbitrary indices $N$.
+
 \section{Verification and context}
 The accompanying Python program checks the 65 displayed terms
 of OEIS A075018 by direct search, validates constructive witnesses
@@ -194,8 +257,8 @@ by the \emph{number of blocks}. The present theorem allows an
 \emph{arbitrary modulus independent of the block count} and a
 prescribed ordering of the blocks. We make no claim that the
 stronger general theorem is novel before exhaustive prior-art review.
-Only existence is proved: the exact least $k$ for any given $N$
-may remain a separate optimization problem.
+Outside the exact family of Theorem~\ref{thm:minima}, determining
+the least $k$ remains a separate optimization problem.
 
 \begin{thebibliography}{9}
 \bibitem{oeis}
