@@ -142,3 +142,7 @@ Together with the previously certified support <=13 cases, this completely
 classifies all A006716 roots with **at most 14 nonzero digits**:
 the **17 presently listed OEIS roots, and no others in this structural class**.
 The problem for support >=15, and the full finiteness conjecture, remain open.
+
+## Support 15 and the top-three high-gap theorem
+
+A dedicated [research supplement](SUPPORT15_TOP_THREE.md) fully excludes all A006716 roots with **exactly 15 nonzero decimal digits**, via **297,161,668** exact-integer terminal checks over six root units digits. Coupled with the earlier support <=14 theorem, the complete bounded-support classification through **r=15** contains exactly the same 17 previously recorded roots. The same note proves a new **global restriction on the highest three nonzero root-digit positions** and supplies an [independent exact eight-digit-prefix proof audit](verify_top_three_gaps.py). Root support >=16 and the global finiteness conjecture are not resolved by this result.
