@@ -38,8 +38,10 @@ A083468-A083469) retain their original authorship and are unchanged.
 The A077306 research note restates the accepted A075001 existence result
 and is not a separate manuscript.
 
-- [A069862](papers/A069862/): proves exact least concatenation-length formulas
+- [A069862](papers/A069862/): proves existence for **every positive index**, with infinitely many
+  witnesses, the bound a(n)<10^n-n for n>=2, and an exact terminating
+  algorithm for every minimum. Also gives least-length formulas
   on two infinite families (including a(n)=n for decimal-smooth moduli and
   a(n)=2n-1 on a 7-denominator family), with a companion prime-power theorem.
-  Gives explicit existence and minimality **only on these families**. The
+  The closed-form minimum identities apply to these families. The
   a(n)=2 classification is prior work of David Wasserman (2005), A069860.

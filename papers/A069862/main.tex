@@ -4,17 +4,18 @@
 \usepackage[margin=0.85in]{geometry}
 \usepackage[colorlinks=true,urlcolor=blue]{hyperref}
 \newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
 \newtheorem{proposition}{Proposition}
 \newtheorem{corollary}{Corollary}
 \newcommand{\A}{\mathrm{A069862}}
-\title{Exact Least Concatenation Lengths for Two Infinite Families in OEIS A069862}
+\title{Universal Existence and Exact Least Concatenation Lengths in OEIS A069862}
 \author{Qichao Wang\\{\small Hebei University of Technology, Tianjin, China}\and
 Daoyu Dong\\{\small University of Electronic Science and Technology of China, Chengdu, China}}
 \date{October 22, 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-For OEIS A069862, let $a(n)$ be the least positive $k$ for which the decimal concatenation of $n+1,\ldots,n+k$ is divisible by $n$. We prove the exact formula $a(n)=n$ whenever $n\mid10^{\ell(n+1)}$, and the distinct unbounded family $a((10^{6j+3}+1)/7)=2(10^{6j+3}+1)/7-1$ for all $j\ge0$. We also establish a constant-digit-width reduction for the cases $10^D\equiv0,1,-1\pmod n$, giving a further prime-power criterion. Each identity proves both existence and \emph{minimality} on its specified family; none proves existence for every positive $n$. The known classification of the indices satisfying $a(n)=2$ was already recorded by David Wasserman (2005) in OEIS A069860 and is explicitly excluded from our novelty claims.
+For OEIS A069862, let $a(n)$ be the least positive $k$ for which the decimal concatenation of $n+1,\ldots,n+k$ is divisible by $n$. We prove that such a length exists for every positive integer $n$, and in fact infinitely many lengths work, by constructive prime-power lifting with the uniform bound $a(n)<10^n-n$ for $n\ge2$ and an exact terminating algorithm for every minimum. We also prove the exact formula $a(n)=n$ whenever $n\mid10^{\ell(n+1)}$, and the distinct unbounded family $a((10^{6j+3}+1)/7)=2(10^{6j+3}+1)/7-1$ for all $j\ge0$. We also establish a constant-digit-width reduction for the cases $10^D\equiv0,1,-1\pmod n$, giving a further prime-power criterion. The exact identities prove \emph{minimality} on their specified families; the universal theorem establishes existence without asserting a general minimum formula. The known classification of the indices satisfying $a(n)=2$ was already recorded by David Wasserman (2005) in OEIS A069860 and is explicitly excluded from our novelty claims.
 \end{abstract}
 \section{Definition and a modular recurrence}
 Let $\ell(t)$ denote the number of base-10 digits of $t\ge1$. Define
@@ -36,6 +37,7 @@ The triangular expression is an integer before reduction, even for even $n$.
 \begin{proof}
 In this range $n+i<10^D$ and $n+i\ge n+1\ge10^{D-1}$, so the recurrence modulo $n$ is $R_k\equiv B R_{k-1}+k$ with $B=10^D$ and $R_0=0$. When $B\equiv0$, the result is $k$; when $B\equiv1$, it is $\sum_{i=1}^k i=k(k+1)/2$. When $B\equiv-1$, induction gives $R_{2t}\equiv t$ and $R_{2t+1}\equiv t+1$.
 \end{proof}
+\input{existence}
 \section{First exact family: a last-block principle}
 \begin{theorem}[Decimal-smooth moduli]\label{thm:smooth}
 For any $n\ge1$ with $D=\ell(n+1)$, if $n\mid10^D$, then
@@ -75,8 +77,9 @@ The hypotheses ensure $L=10^D-n-1\ge n-1$. The constant-width recurrence gives $
 \section{Prior art, verification, and limitations}
 The classification of \emph{all} indices with $a(n)=2$ follows from the two-block congruence $C_n(2)\equiv10^{\ell(n+2)}+2\pmod n$. The equivalent complete formula was published as a formula for OEIS \href{https://oeis.org/A069860}{A069860} by David Wasserman in 2005. We do not present it as a new theorem or claim credit for that classification.
 
-The dependency-free script \texttt{verify.py} checks the congruence identities, representative exact minima, and the published A069862 values where present. Finite checks only supplement the proofs. These results settle existence and the \emph{least} admissible length on the stated infinite families, but do not establish all-index existence or an all-index closed formula for A069862. Broader literature priority remains unverified.
+The dependency-free script \texttt{verify\_existence.py} implements the constructive proof and recomputes its witnesses using a separate exact geometric-sum formula. The script \texttt{verify.py} checks the congruence identities, representative exact minima, and the published A069862 values where present. Finite checks only supplement the proofs. Theorem~\ref{thm:existence} settles all-index existence. The exact minimum formulas apply to the stated families; an all-index closed formula is not established. Broader literature priority remains unverified.
 \begin{thebibliography}{9}
+\bibitem{prefix} Q. Wang, \emph{Divisibility of Concatenated Arithmetic Progressions and Champernowne Prefixes}, September 11, 2026, repository manuscript, \url{https://github.com/dongxuelian2/oeis-papers/tree/main/papers/A075000-A075002}.
 \bibitem{A069862} OEIS Foundation Inc., \emph{A069862: Smallest $k$ such that $n$ divides the concatenation of numbers from $(n+1)$ to $(n+k)$}, \url{https://oeis.org/A069862} (accessed October 22, 2026).
 \bibitem{A069860} D. Wasserman, formula for \emph{A069860: Numbers $m$ that divide the concatenation of $m+1$ and $m+2$}, OEIS entry, August 25, 2005, \url{https://oeis.org/A069860}.
 \end{thebibliography}
