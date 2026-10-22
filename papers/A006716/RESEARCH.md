@@ -122,3 +122,23 @@ elementary lemmas and exhausts support at most 4.
 This **does not** prove A006716 finite: the largest currently recorded
 square has a root with 14 nonzero digits. No OEIS edit or manuscript
 change is made here.
+
+
+## Updated global sparse-root boundary: full support 14
+
+The [exact leading-pair interval theorem and support-14 classification](LEADING_PAIRS_AND_SUPPORT14.md)
+extends the global finite certificate from 13 to **14 nonzero digits in the square root**.
+[Independent rational-table verification](verify_leading_pairs.py) shows that
+if the top two nonzero root digits have a position gap of three, the digits
+must be `7,7` or `7,8`; all other possibilities are excluded by
+the first six significant digits of the square. This upper-prefix condition
+is used **only at the final root-digit insertion**.
+
+Six complete [arbitrary-precision root searches](verify_sparse_roots_14.cpp),
+partitioned by root units digit, inspect **77,043,158 final candidate roots**
+and find exactly **one** 14-sparse solution,
+`648070211589107021`, already present in OEIS A027675.
+Together with the previously certified support <=13 cases, this completely
+classifies all A006716 roots with **at most 14 nonzero digits**:
+the **17 presently listed OEIS roots, and no others in this structural class**.
+The problem for support >=15, and the full finiteness conjecture, remain open.
