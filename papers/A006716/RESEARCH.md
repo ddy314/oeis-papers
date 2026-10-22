@@ -150,3 +150,19 @@ A dedicated [research supplement](SUPPORT15_TOP_THREE.md) fully excludes all A00
 ## Support 16 and the exact leading-triple mask
 
 The latest [complete support-16 research note](SUPPORT16.md) and [reproducible six-shard verifier](verify_sparse_roots_16.cpp) exhaust all roots with 16 nonzero decimal digits, finding no solutions among **268,308,611** final candidates. With all lower supports, this is a complete classification of **every** A006716 root with **at most 16 nonzero digits**: the **17 known roots**, and no others in that structural class. The high-three-digit mask is generated from exact eight-digit leading-square intervals, independently checked by [verify_top_three_gaps.py](verify_top_three_gaps.py), and applied one layer earlier when no completion exists. This does not prove global finiteness; hypothetical further roots must have >=17 nonzero digits.
+
+
+## Universal upper-span gap lemma (new)
+
+The separate [high-to-low gap theorem](GLOBAL_HIGH_GAP.md) proves a
+support-independent constraint for **every zero-free decimal square**:
+if the nonzero root positions decrease as `e1>e2>...>er`, then
+`e_j-e_(j+1) <= e1-e_j+3` for every `2<=j<r`;
+if the highest root digit belongs to `{1,2,3}`, improve `+3` to
+`+2`. The proof is an elementary size comparison showing that
+otherwise the digit at position `2e_j-1` of the square must be zero.
+Coupled with the previously certified highest-three-gap table, this
+bounds the *fourth highest gap* by **9** for any A006716 square
+with at least four nonzero root digits. It is an all-length necessary
+condition, not a proof of finiteness. Its [finite regression audit](verify_high_gap.py)
+passed in [GitHub Actions](https://github.com/dongxuelian2/oeis-papers/actions/runs/39765056417).
