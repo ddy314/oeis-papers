@@ -1,399 +1,340 @@
-\documentclass[10pt]{article}
-\usepackage[margin=0.85in]{geometry}
+\documentclass[9pt]{extarticle}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,amssymb,amsthm}
-\usepackage{hyperref}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
-\newcommand{\good}{\mathcal{G}}
-\newcommand{\cubes}{\mathcal{C}}
-\title{Cube-Sum Permutations: Exact Membership, Multiplicity, and an Exponential Lower Bound}
-\author{Qichao Wang\\
-\small Independent mathematical and computational review requested}
-\date{October 18, 2026}
+\usepackage{lmodern,amsmath,amssymb,amsthm,mathtools,microtype,booktabs,array}
+\usepackage[margin=0.78in]{geometry}
+\usepackage[colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue]{hyperref}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{fancyvrb}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\C}{\mathcal C}
+\newcommand{\G}{\mathcal G}
+\newcommand{\one}{\boldsymbol1}
+\newcommand{\pp}{\operatorname{pos}}
+\newcommand{\N}{\mathbb N}
+\title{Cube-Sum Permutations: An Explicit Finite-Certificate\\Proof of Eventual Existence and Multiplicity}
+\author{Qichao Wang\\\small Hebei University of Technology, Tianjin, China}
+\date{October 19, 2026}
 \begin{document}
 \maketitle
 \begin{abstract}
-Let $P(n)$ count permutations $p$ of $\{1,\dots,n\}$ such that
-$i+p_i$ is a perfect cube for every index $i$.
-We give a computer-assisted resolution of the existence
-conjecture recorded as OEIS A006063, as well as an exact
-membership classification for its related sequence A096680:
-$P(n)>0$ for every $n\ge173$, whereas $P(173)=P(174)=1$
-and $P(n)\ge3$ for every $n\ge175$.
-Exact Hall-set certificates determine all earlier existence failures.
-An interval-reflection lemma reduces the unbounded existence theorem
-to only $109$ explicit core permutations; alternating-cycle
-certificates establish multiplicity.
-Finally we prove the nontrivial quantitative bound
-\[
-P(n)\ge
-3^{\max\{0,\lfloor(\lfloor(2n)^{1/3}\rfloor-27)/6\rfloor\}}
-=\exp\bigl(\Omega(n^{1/3})\bigr).
-\]
-All finite certificates, exact checkers, and an independent
-matching implementation accompany this note. Priority relative to
-the wider literature and independent certificate review remain open.
+Write $P(n)$ for the number of permutations $p$ of $[n]=\{1,\dots,n\}$ for which $i+p(i)$ is an integer cube for every $i$. We prove $P(n)>0$ for every $n\ge173$ and determine exactly which smaller indices admit such permutations, resolving the eventual-membership question for OEIS A006063. We also show $P(173)=P(174)=1$ and $P(n)\ge3$ for every $n\ge175$, yielding the complete membership of the related multiplicity sequence A096680. The infinite existence argument is symbolic: an interval-overlap reflection lemma propagates a verified finite interval to all larger indices. For the finite base, a universal block-rearrangement identity converts 56 specified root-word/order pairs into 784 positive integer blocks by exact determinants, supplemented by six algebraic block families and a forced-neighbor argument at $n=173$. The small negative and multiplicity classifications use independently checkable finite Hall and alternating-cycle certificates. We further prove that every odd $n\ge69603$ has a cube-sum involution fixing only $4$, and every even $n\ge228028$ has a fixed-point-free cube-sum involution. This is a \emph{computer-assisted finite-certificate proof}, not a case-free formula for all finite seeds; the precise dependencies and reproducibility data are supplied.
 \end{abstract}
 
-\section{The reflection principle}
-Write $\cubes=\{k^3:k=2,3,\dots\}$ and let $P(n)$ be the
-number of cube-sum permutations of $\{1,\dots,n\}$.
-By convention the empty permutation is permitted only in the
-general extension lemma; our classification concerns $n\ge1$.
-Let $\good=\{n\ge1:P(n)>0\}$.
+\section{Problem and results}\label{sec:intro}
+Let $\C=\{k^3:k\in\N,\ k\ge2\}$ and let $P(n)$ count bijections $p:[n]\to[n]$ satisfying
+\begin{equation}\label{eq:admissible} i+p(i)\in\C\qquad(1\le i\le n).\end{equation}
+Write $\G=\{n\ge1:P(n)>0\}$. The increasing enumeration of $\G$ is OEIS A006063 \cite{oeis-a006063}; the indices supporting at least two distinct bijections form OEIS A096680 \cite{oeis-a096680}. We count permutations of $[n]$, not just involutions: symmetry of the allowed sums does not force a perfect matching to be symmetric.
 
-\begin{lemma}[Reflection and counting]\label{lem:reflect}
-If $0\le m<n$ and $c=m+n+1$ is a cube, every valid
-permutation $p$ on $\{1,\dots,m\}$ extends to a valid permutation
-$q$ on $\{1,\dots,n\}$ via
-\[
-q_i=\begin{cases}
-p_i,&i\le m,\\ c-i,&m<i\le n.
-\end{cases}
-\]
-For different admissible cubes $c$, the images of these
-extensions are disjoint. In particular,
-\begin{equation}\label{eq:count}
-P(n)\ge\!\!\!\!\sum_{\substack{c\in\cubes\\n+2\le c\le 2n}}
-P(c-n-1),
+\begin{theorem}[Exact existence classification]\label{thm:membership}
+For every $n\ge173$, $P(n)>0$. The admissible values below $173$ are exactly
+\begin{equation}\label{eq:small}
+\begin{split}
+\G\cap[1,172]=\{&7,19,26,37,44,56,63,66,68,80,82,85,87,98,100,\\
+&103,105,110,112,115,116,117,118,119,120,121,122,123,\\
+&124,125,126,127,128,129,130,131,132,133,135,147,149,\\
+&150,151,152,155,156,159,171\}.
+\end{split}
 \end{equation}
-with the convention $P(0)=1$.
+In the usual OEIS indexing, $\mathrm{A006063}(j)=j+124$ for $j\ge49$.
+\end{theorem}
+\begin{theorem}[Multiplicity classification]\label{thm:multi}
+Set $E=\{112,115,116,117,119,124,125,126,127,128,129,130,133\}$. Then
+\[
+\{n\ge1:P(n)\ge2\}=E\cup\{175,176,177,\dots\}.
+\]
+Moreover, $P(173)=P(174)=1$, $P(175)=3$, and $P(n)\ge3$ for every $n\ge175$. Consequently $\mathrm{A096680}(j)=j+161$ for $j\ge14$.
+\end{theorem}
+
+The results follow from explicit finite certificates, not from numerical extrapolation. Sections~\ref{sec:reflection}--\ref{sec:finite} give the existence proof; Sections~\ref{sec:small}--\ref{sec:multi} establish the two exact classifications. Section~\ref{sec:audit} identifies the independently auditable finite obligations. The distinct, still-open problem of constructing a uniform four-cube \emph{involution} in a higher starting interval is not used here.
+
+\section{Reflection and an infinite interval avalanche}\label{sec:reflection}
+We temporarily admit the empty permutation on $[0]=\varnothing$ as a seed, but $P(0)$ is not an OEIS term.
+\begin{lemma}[Cubic suffix reflection]\label{lem:suffix}
+Let $0\le m<n$ and suppose $P(m)>0$, with $P(0)=1$ by convention. If $c=m+n+1$ is a cube, then $P(n)>0$. The extension sends $i\in[m+1,n]$ to $c-i$ and agrees with the original permutation on $[m]$.
 \end{lemma}
 \begin{proof}
-Because $c=m+n+1$, reflection $i\mapsto c-i$
-permutes precisely the new interval $\{m+1,\dots,n\}$,
-and $i+q_i=c$ there. Old indices retain their cube sums.
-The embedding is injective for each $c$ and two different
-$c$ yield different last entries $q_n=c-n$. The claimed
-sum counts disjoint families.
+Since $c-(m+1)=n$ and $c-n=m+1$, the new suffix is mapped bijectively onto itself. Its index--image sums all equal $c$, while the first $m$ assignments remain valid.
+\end{proof}
+\begin{lemma}[Interval-overlap avalanche]\label{lem:avalanche}
+Suppose every integer of $[a,b]$ is admissible, where $1\le a\le b$. If the integer cube $c$ satisfies
+\begin{equation}\label{eq:window} a+b+2\le c\le2b+2,\end{equation}
+then every integer in $[a,c-a-1]$ is admissible.
+\end{lemma}
+\begin{proof}
+For a new integer $n\in[b+1,c-a-1]$ set $m=c-n-1$. Inequality~\eqref{eq:window} gives $m\ge a$ and $m\le b$; also $m<n$ since $c\le2b+2\le2n$. Thus Lemma~\ref{lem:suffix} applies to each such $n$. The old interval remains covered.
+\end{proof}
+\begin{theorem}[The finite interval implies the entire tail]\label{thm:tail}
+If $[173,364]\subseteq\G$, then $[173,\infty)\subseteq\G$ without further finite certificates.
+\end{theorem}
+\begin{proof}
+For $(a,b,c)=(173,364,729)$ we have $539\le729\le730$, and Lemma~\ref{lem:avalanche} gives $[173,555]\subseteq\G$. More generally, suppose $k\ge9$ and $[173,k^3-174]\subseteq\G$. The next cube $c=(k+1)^3$ obeys
+\[
+ k^3+1\le(k+1)^3\le2k^3-346.
+\]
+For the second inequality the difference is $f(k)=k^3-3k^2-3k-347$. Now $f(9)=112$ and $f(k+1)-f(k)=3k^2-3k-5>0$ for $k\ge9$. Lemma~\ref{lem:avalanche} extends the interval to $[173,(k+1)^3-174]$. The upper endpoints tend to infinity.
+\end{proof}
+\begin{remark}[The finite base is indispensable]
+Coverage by domains of cube reflections alone is insufficient: at $n=65$ the reflection domains for $64$ and $125$ cover $[1,65]$, but $S=\{3,40,59,64\}$ has only $\{5,24,61\}$ as possible images, violating Hall's inequality. The avalanche is a rigorous infinite reduction, not a proof of the required initial interval.
+\end{remark}
+
+\section{Block rearrangements and integer determinant certificates}\label{sec:blocks}
+For positive integers $\ell_1,\ldots,\ell_t$ summing to $N$, partition $[N]$ into consecutive input blocks $I_1,\ldots,I_t$ of those lengths. Let $\pi$ be a permutation of the labels $[t]$, prescribing the order of blocks of the same lengths on the output side. Write
+\[
+ A_j=\sum_{i<j}\ell_i,\quad B_j=\sum_{\pp_\pi(i)<\pp_\pi(j)}\ell_i,
+ \quad C_j=1+A_j+B_j+\ell_j,
+\]
+where $\pp_\pi(j)$ is the location of label $j$ in the output order.
+\begin{lemma}[Reflected-block rearrangement]\label{lem:blocks}
+If every $C_j$ is a cube, the formula $p(i)=C_j-i$ for $i\in I_j$ defines a cube-sum permutation of $[N]$. Zero-length blocks may be omitted simultaneously from both input and output orders; they impose no condition on their nominal $C_j$.
+\end{lemma}
+\begin{proof}
+The input block $I_j=[A_j+1,A_j+\ell_j]$ is sent in reverse order to $[B_j+1,B_j+\ell_j]$, its assigned output block. Since the output blocks partition $[N]$, the piecewise map is a bijection. Its sums are exactly $C_j$ on each nonempty block.
 \end{proof}
 
-\begin{lemma}[The cube-gap bound]\label{lem:gap}
-For each $n\ge365$ some cube $c$ satisfies
-$n+174\le c\le2n$.
-For each $n\ge556$ some cube $c$ satisfies
-$n+176\le c\le2n$.
+A common parametrization eliminates the need to store endpoints. Let $k_1,\ldots,k_t\ge2$ be integer cube roots, and write $d_j=k_j^3-1$. Define the integer matrix
+\begin{equation}\label{eq:matrix}
+ M(\pi)_{ji}={\bf1}_{i<j}+{\bf1}_{\pp_\pi(i)<\pp_\pi(j)}+{\bf1}_{i=j}.
+\end{equation}
+Then the block-sum equations $C_j=k_j^3$ are precisely $M(\pi)\ell=d$.
+\begin{proposition}[Exact integer certificate]\label{prop:det}
+For a specified root word $k$ and order $\pi$, suppose $\det M(\pi)=1$. Set
+\begin{equation}\label{eq:cramer}
+ \ell_j=\det\bigl(M(\pi)\text{ with column }j\text{ replaced by }d\bigr).
+\end{equation}
+If all the $\ell_j$ are positive, this defines a cube-sum permutation on $N=\sum_j\ell_j$.
+\end{proposition}
+\begin{proof}
+Cramer's rule over the integers gives $M(\pi)\ell=d$, so the prescribed reflected block sums are cubes. Lemma~\ref{lem:blocks} proves the conclusion.
+\end{proof}
+\begin{remark}
+It is unnecessary for the primary existence proof to assume a general Pfaffian formula for \emph{every} output order. The exact assertions $\det M=1$, $\min_j\ell_j\ge1$ and $\sum_j\ell_j=N$ are individually certified for the 56 orders actually used. This avoids adding a separate topological claim to the logical dependencies of the existence proof.
+\end{remark}
+
+\section{The finite starting interval}\label{sec:finite}
+The complete finite certificate is specified by the UTF-8 root-word/order table \path{certificates/finite_56_cubic_order_shapes.txt}. Each row has the form
+\begin{center}
+\fbox{$N\ \mid\ k_1,\ldots,k_t\ \mid\ \pi_1,\ldots,\pi_t$}.
+\end{center}
+These 56 rows have $784$ nonempty reflected input blocks in total. The exact verifier \texttt{verify\_56\_plus\_forcing.py} computes~\eqref{eq:matrix} and solves the associated integer equations using fraction-free elimination. It checks every determinant, length positivity, total $N$, cube-sum identity and complete output coverage, without invoking a matching solver or reading the older endpoint atlases.
+
+\begin{proposition}[Algebraic seed data]\label{prop:finite}
+The 56 certified root-word/order pairs all satisfy $\det M=1$, $\ell_j\ge1$, and $\sum_j\ell_j=N$. Six additional explicit block-template families yield 25 further seed lengths:
+\begin{multline*}
+66,85,100,103,119,122,131,132,150,151,155,156,\\
+174,175,182,228,229,231,238,240,241,254,345,351,357.
+\end{multline*}
+The 56 determinant shapes cover 10 seed lengths below 173 and 46 in $[173,364]$; the 25 templates cover 12 and 13, respectively. Each template instance is an application of Lemma~\ref{lem:blocks}, including the rule for omitted zero-length blocks.
+\end{proposition}
+\begin{proof}[Finite certificate]
+The 56 selected pairs and their positive Cramer vectors are explicit finite data under Proposition~\ref{prop:det}. The six template identities, their admissible integer parameters, and their 25 resulting lengths are displayed in the ancillary notes \path{PARAMETRIC_BLOCK_TEMPLATES.md}, \path{BINARY_BLOCK_FAMILY.md}, \path{FIFTEEN_BLOCK_FAMILY.md} and \path{TEN_BLOCK_FAMILY.md}. The exact verifier regenerates the 25 symbolic instances without reading historical witness arrays. Thus every stated seed length has a finite, checkable algebraic witness. This step is explicitly finite certificate verification rather than a new case-free theorem.
+\end{proof}
+
+It remains to establish $n=173$ independently, without including it among the 56 determinant shapes. On a finite vertex set $V$, put a loop at $i$ if $2i$ is a cube, and an undirected edge between distinct $i,j$ if $i+j$ is a cube.
+\begin{lemma}[Forced-neighbor elimination]\label{lem:leaf}
+If a vertex $i$ has exactly one neighbor $j$ in this graph, every cube-sum permutation forces $p(i)=j$ and $p(j)=i$. Removing the one loop or the two endpoints gives a bijection between permutations before and after the deletion.
 \end{lemma}
 \begin{proof}
-For $365\le n\le555$, take $c=729$.
-For $n\ge556$, let $k$ be the least integer with
-$k^3\ge n+176$; then $k\ge10$ and
-$n\ge(k-1)^3-175$. Thus
+Row $i$ has only column $j$ available. By symmetry, column $i$ has only row $j$ available. Both assignments are forced; restriction and unique extension are inverse operations.
+\end{proof}
+\begin{proposition}[Critical base and exact first counts]\label{prop:173}
+There is exactly one cube-sum permutation at $n=173$ and at $n=174$, while $P(175)=3$.
+\end{proposition}
+\begin{proof}
+The forced-neighbor certificate in \texttt{FORCED\_REFLECTION\_PEELING.md} gives three uniform consecutive peeling bands for every $173\le n\le181$:
+\[
+\begin{array}{c|c|c}
+\text{band}&\text{first endpoints}&\text{cube sum}\\\hline
+1 &[125,342-n]&216\\
+2 &[34,215-n]&64\\
+3 &[95,276-n]&216.
+\end{array}
+\]
+Each interval has a unique remaining neighbor under its displayed cube after the previous intervals and their images have been removed; the total number of forced reflected pairs is $(218-n)+2(182-n)=582-3n$. The certificate gives the remaining 12 or 16 finite peeling rounds. At $n=173$ and $174$ the residual graph is empty, yielding uniqueness by Lemma~\ref{lem:leaf}. At $n=175$ it has ten vertices
+$\{4,11,16,23,41,48,102,114,168,175\}$, consisting of a loop at $4$, an edge $4$--$23$, and the chordless nine-cycle
+\[
+23-41-175-168-48-16-11-114-102-23.
+\]
+If $4$ uses its loop, there are the two cycle orientations; otherwise $4$ and $23$ form a forced reciprocal pair and the other eight vertices form a uniquely matchable path. This gives $2+1=3$.
+\end{proof}
+
+\begin{proposition}[Exact finite reflection closure]\label{prop:closure}
+Starting with the empty permutation, the 56 certified determinant seeds, the 25 algebraic template seeds, and the forced-neighbor seed at 173, repeated application of Lemma~\ref{lem:suffix} in increasing order constructs 48 lengths below 173 and \emph{every} one of the 192 lengths $173\le n\le364$.
+\end{proposition}
+\begin{proof}[Explicit finite verification]
+There are 22 direct seeds below 173 and 60 direct seeds in $[173,364]$, totaling $56+25+1=82$. The following deterministic recursion is the complete remaining finite check. For each $n=1,\ldots,364$ in order, declare $n$ admissible if it is a seed or there exists a previously marked $m$ with $0\le m<n$ and $m+n+1\in\{8,27,64,125,216,343,512\}$. The exact audit returns 26 additional admissible lengths below 173 and 132 in $[173,364]$. In particular, each $n\in[256,338]$ follows from $m=511-n\in[173,255]$ by the cube 512. All seed and derived lengths have explicit bijections by the preceding lemmas. The verifier checks both the size of the closure and its inclusion of the entire integer interval, so there is no reliance on a floating-point or heuristic search.
+\end{proof}
+\begin{corollary}\label{cor:existence}
+For every $n\ge173$ there is a cube-sum permutation of $[n]$.
+\end{corollary}
+\begin{proof}
+Combine Proposition~\ref{prop:closure} with Theorem~\ref{thm:tail}.
+\end{proof}
+
+\section{Exact classification below the threshold}\label{sec:small}
+For $S\subseteq[n]$ let
+\[\mathcal N_n(S)=\{j\in[n]:\exists i\in S,\ i+j\in\C\}.\]
+If $|\mathcal N_n(S)|<|S|$, Hall's theorem \cite{hall} forbids a cube-sum permutation. The finite JSON archive \path{certificates/exact_classification_below_173.json} partitions $[1,172]$ into exactly 48 records with explicit valid permutations and 124 records with explicit Hall-deficient sets. The verifier checks bijectivity and each permitted sum for positive records and the complete neighbor set for every negative record. The Hall deficiencies are strict (1 to 6 for the recorded sets). This is an exhaustive finite certificate: it rules out the missing 124 sizes, rather than merely failing to find a matching there.
+\begin{proof}[Proof of Theorem~\ref{thm:membership}]
+The 48 positive and 124 negative certificates establish exactly~\eqref{eq:small}. Corollary~\ref{cor:existence} supplies all subsequent integers. Therefore the 49th sequence entry is 173, and thereafter the $j$th is $j+124$.
+\end{proof}
+
+\section{Multiplicity through alternating cycles}\label{sec:multi}
+For a valid permutation $p$ on $[n]$ form a directed graph $D_p$ on $[n]$ by drawing $i\to j$ exactly when $i\ne j$ and $i+p(j)\in\C$.
+\begin{lemma}[Alternating-cycle criterion]\label{lem:cycle}
+A distinct valid permutation $q\ne p$ exists if and only if $D_p$ contains a directed cycle. The cycle $i_1\to\cdots\to i_s\to i_1$ gives a new valid permutation by replacing $p(i_r)$ by $p(i_{r+1})$ for all $r$ cyclically.
+\end{lemma}
+\begin{proof}
+The replacement preserves the multiset of images and all new sums are allowed. Conversely, for any $q\ne p$, the permutation $p^{-1}\circ q$ has a nontrivial cycle, and every edge of that cycle is present in $D_p$.
+\end{proof}
+
+The finite archives \texttt{second\_solutions.json} and \texttt{third\_solutions.json} record cycles that yield distinct alternative permutations, not just claims of numerical counts. The 48 admissible indices below 173 comprise 13 with certified cycles (the set $E$ of Theorem~\ref{thm:multi}) and 35 whose directed alternation graphs are acyclic. The former admit multiple permutations; the latter are unique by Lemma~\ref{lem:cycle}. The forced-neighbor argument independently certifies uniqueness at 173 and 174.
+
+For each of the 190 sizes $175\le n\le364$, the two archived cycles produce \emph{three} distinct permutations in total. The same holds for $n=554,555$ by two separate cycles after reflecting the unique permutations at $174,173$ under cube 729. These assertions are finite and explicitly checked, including distinctness of the two alternatives.
+
+\begin{lemma}[A cube-gap estimate]\label{lem:gap}
+For every $n\ge556$ some cube $c$ belongs to $[n+176,2n]$.
+\end{lemma}
+\begin{proof}
+Let $k$ be the least integer with $k^3\ge n+176$; then $k\ge10$ and $n\ge(k-1)^3-175$. Consequently
 \[
 2n-k^3\ge k^3-6k^2+6k-352\ge0.
 \]
-The final polynomial equals $108$ at $k=10$ and
-has strictly positive successive differences
-$3k^2-9k+1$ for $k\ge10$.
-Hence the second assertion holds and implies the first
-for $n\ge556$.
+The final polynomial equals 108 at $k=10$ and increases thereafter, since its forward difference is $3k^2-9k+1>0$ for $k\ge10$.
+\end{proof}
+\begin{proof}[Proof of Theorem~\ref{thm:multi}]
+The 13 positive small multiple indices, the 35 unique small indices and uniqueness at 173,174 give the exact initial classification. We now propagate the three-permutation lower bound. For $365\le n\le553$, take $c=729$ and $m=728-n\in[175,363]$, so the three distinct permutations at $m$ extend distinctly to $n$. The exceptional $n=554,555$ have independent finite certificates as described above. For $n\ge556$, Lemma~\ref{lem:gap} supplies $c\in[n+176,2n]$, so $m=c-n-1\in[175,n-1]$; induction and Lemma~\ref{lem:suffix} finish the proof. The set $E$ has 13 elements, so the 14th multiple-size index is 175 and all subsequent indices are consecutive, giving the stated OEIS formula.
 \end{proof}
 
-\section{Finite certificates and exact membership}
-Our finite data are provided as UTF-8 JSON arrays of integers.
-A valid witness $p$ is checked solely by
-\[
-\operatorname{sort}(p)=(1,\dots,n),\qquad
-\forall i\quad i+p_i\in\cubes.
-\]
-For a negative instance, let
-$N_n(S)=\{j\in[1,n]:\exists i\in S,\ i+j\in\cubes\}$.
-Hall's marriage theorem gives the immediate obstruction
-\begin{equation}\label{eq:hall}
-|N_n(S)|<|S|\quad\Longrightarrow\quad P(n)=0.
-\end{equation}
-The file \texttt{exact\_classification\_below\_173.json}
-provides $48$ explicit valid permutations and $124$
-explicit Hall-deficient subsets, exactly partitioning
-$1\le n\le172$. Every assertion is directly checked
-by \texttt{verify\_extended.py}. For instance, for $n=172$
-the $27$ left indices
-\[
-\begin{gathered}
-S=\{1,5,8,13,20,31,35,38,42,43,45,92,96,99,\\
-104,111,122,126,129,133,134,136,153,157,160,165,172\}
-\end{gathered}
-\]
-have precisely $26$ distinct possible right neighbors.
-Thus $172\notin\good$, making the threshold below sharp.
 
-For the unbounded tail, only the $109$ witness sizes
-\begin{equation}\label{eq:core}
-173\le n\le255,\qquad 339\le n\le364
-\end{equation}
-require explicit stored permutations.
-Indeed for each $256\le n\le338$, put
-$m=511-n\in[173,255]$; then
-$m+n+1=512=8^3$, so Lemma~\ref{lem:reflect}
-constructs the missing $83$ cases.
-This compresses the previously saved $192$ base cases
-by $83/192>43\%$. All $109$ stored witnesses in
-\texttt{core\_109.json}, and all $192$ reconstructed
-witnesses, are checked with exact integer arithmetic.
-The earlier full $192$-row file is retained as an
-additional independent-format audit source.
+\section{Eventual involutions with the fewest fixed points}\label{sec:invol}
+An \emph{involution} is a permutation $p$ satisfying $p^2=\mathrm{id}$.
+Although the preceding existence theorem does not require involutivity,
+strict cube reflections also give an independent large-index result.  We
+record explicit thresholds without claiming that they are globally sharp.
 
-There is a further useful compression when the $48$
-verified positive sizes below $173$ are reused.
-An ascending reflection-closure algorithm starts from
-those small solutions and, at each $173\le n\le364$,
-uses any already certified $m<n$ for which $m+n+1$
-is a cube. Precisely $131$ lengths are obtained by
-reflection and only $61$ further lengths need explicit
-witnesses. The $61$ additional witnesses are archived
-in \texttt{core\_61\_with\_small.json}, and
-\texttt{verify\_extended.py} certifies this alternate
-compression independently of the $109$-case presentation.
-
-\begin{theorem}[Complete A006063 membership]\label{thm:exist}
-For every integer $n\ge173$, $P(n)>0$.
-Below $173$, the complete membership list is
-\begin{align*}
-\good\cap[1,172]=\{&
-7,19,26,37,44,56,63,66,68,80,82,85,87,98,100,\\
-&103,105,110,112,115,116,117,118,119,120,121,\\
-&122,123,124,125,126,127,128,129,130,131,132,\\
-&133,135,147,149,150,151,152,155,156,159,171\}.
-\end{align*}
-In sequence-index notation this gives
-\[
-\boxed{\operatorname{A006063}(j)=j+124\quad(j\ge49).}
-\]
-\end{theorem}
-\begin{proof}
-The exact finite witnesses establish $173\le n\le364$,
-and the Hall certificates settle the smaller sizes.
-For $n\ge365$, Lemma~\ref{lem:gap} gives a cube
-$c\in[n+174,2n]$. The predecessor
-$m=c-n-1$ satisfies $173\le m<n$.
-By strong induction $P(m)>0$, and
-Lemma~\ref{lem:reflect} yields $P(n)>0$.
-There are precisely $48$ positive indices below $173$,
-so the $49$th and all later sequence terms are consecutive.
-\end{proof}
-
-\section{Multiplicity and the second OEIS classification}
-A cube-sum permutation $p$ is a perfect matching in the
-bipartite graph with left and right vertices $1,\dots,n$,
-where $(i,j)$ is an edge exactly when $i+j\in\cubes$.
-For any matching $p$, form a directed graph $D_p$ on the
-left vertices, putting $i\to j$ whenever $i\ne j$
-and $(i,p_j)$ is a cube-sum edge.
-
-\begin{lemma}[Alternating-cycle criterion]\label{lem:cycle}
-For a valid permutation $p$, there exists another distinct
-valid permutation if and only if $D_p$ has a directed cycle.
-\end{lemma}
-\begin{proof}
-Along a directed cycle $i_1\to\dots\to i_t\to i_1$,
-replace $p_{i_s}$ by $p_{i_{s+1}}$ (cyclic indices).
-Every moved pair is an allowed edge, and all right
-vertices remain distinct. Conversely, if $q\ne p$ is
-another valid permutation, the nontrivial cycles of
-the permutation $p^{-1}\circ q$ consist of directed
-cycles in $D_p$. Thus acyclicity is a rigorous
-uniqueness certificate.
-\end{proof}
-
-The file \texttt{second\_solutions.json} records directed
-cycles, not complete duplicate permutations. Direct
-finite checking establishes: among the $48$ positive
-lengths below $173$, exactly
-\[
-E=\{112,115,116,117,119,124,125,126,127,128,129,130,133\}
-\]
-have a directed alternating cycle; every other positive
-length below $173$, as well as $173$ and $174$, has
-an acyclic $D_p$ and therefore a unique permutation.
-
-Furthermore, all $190$ base cases $175\le n\le364$
-have \emph{two distinct} alternating-cycle certificates,
-archived as \texttt{second\_solutions.json} and
-\texttt{third\_solutions.json}. They yield three different
-permutations, counting the original matching.
-To extend the multiplicity assertion:
-for $365\le n\le553$, the cube $729$ gives
-$m=728-n\in[175,363]$. The two exceptional lengths
-$554,555$ have separate pairs of alternating-cycle
-certificates obtained by extending the unique solutions
-at $174,173$ respectively.
-For $n\ge556$, the stronger part of
-Lemma~\ref{lem:gap} gives
-$m=c-n-1\ge175$. Three distinct solutions for $m$
-remain distinct after reflection, finishing an induction.
-
-\begin{theorem}[Complete A096680 membership]\label{thm:multi}
-The positive integers with at least two cube-sum permutations
-are exactly
-\[
-\boxed{E\ \cup\ \{175,176,177,\dots\}.}
-\]
-Moreover $P(n)\ge3$ for every $n\ge175$, while
-$P(173)=P(174)=1$. The sequence terms
-satisfy
-\[
-\boxed{\operatorname{A096680}(j)=j+161\quad(j\ge14).}
-\]
+\begin{theorem}[Eventual parity-minimal involutions]\label{thm:involtail}
+For every odd integer $n\ge69603$ there is a cube-sum involution on
+$[n]$ whose unique fixed point is $4$.  For every even integer
+$n\ge228028$ there is a cube-sum involution on $[n]$ with no fixed
+points.  In particular, the minimum number of fixed points permitted by
+parity is attained on both of these infinite tails.
 \end{theorem}
 
-
-\paragraph{Sharpness of the constant three.}
-The bound $P(n)\ge3$ for all $n\ge175$ cannot be
-improved to four: $P(175)=3$ exactly.
-For the stored matching at $175$, the directed
-alternation graph has precisely one nontrivial
-strongly connected component,
-\[
-\{4,11,16,23,41,48,102,114,168,175\},
-\]
-and the other $165$ vertices are singleton components.
-Every cycle of a permutation alternative lies in a
-strongly connected component, so the permanent reduces
-to the $10$-by-$10$ component's allowed-edge matrix
-(including the matching self-edges).
-A direct bitmask dynamic program gives its permanent
-as $3$. This computation is independently reproduced in
-\texttt{verify\_extended.py} using exact integers.
-
-\section{Many permutations: an exponential cube-root bound}
-Besides qualitative multiplicity, the reflection family
-yields a strong quantitative statement.
-Let $K(n)=\lfloor\sqrt[3]{2n}\rfloor$, with the floor
-defined using integer comparisons (not floating point).
-
-\begin{lemma}[Three disjoint embeddings]\label{lem:triple}
-If $K(n)=k\ge27$, each of
-$k^3,(k-1)^3,(k-2)^3$ gives a reflection extension
-from a predecessor $m\ge173$ with $m<n$,
-and all three predecessors obey $K(m)\ge k-6$.
-\end{lemma}
 \begin{proof}
-By definition, $k^3\le2n<(k+1)^3$.
-For the smallest of these cubes, set
-$m=(k-2)^3-n-1$. Then
+An odd-cube reflection extension from length $m$ to length $n$ as in
+Lemma~\ref{lem:suffix} preserves parity because $m+n+1$ is odd. It
+extends an involution to an involution: the new suffix is invariant under
+$i\mapsto m+n+1-i$, and there are no new fixed points since the
+reflection sum is odd. Start with the two explicit involutions
 \[
-2m>2(k-2)^3-(k+1)^3-2
-=k^3-15k^2+21k-19.
+ p_7(i)=8-i\quad(1\le i\le7),\qquad
+ p_{26}(i)=27-i\quad(1\le i\le26).
 \]
-The right side exceeds $(k-6)^3$ for $k\ge27$, since
-the difference is
+The first fixes precisely $4$; the second is fixed-point-free.
+
+The finite portion of the proof is an integer interval calculation, not
+a general-graph matching computation. Fix either seed $a\in\{7,26\}$,
+its parity $\varepsilon=a\bmod2$, and a cap $H$. Write
+$n=2t+\varepsilon$. Extension using an odd cube $c=k^3$ sends the
+source coordinate $t$ to
 \[
-3k^2-87k+197>0
-\quad (k\ge27).
+ t'=d_k-t,\qquad d_k=\frac{k^3-1-2\varepsilon}{2}.
 \]
-Thus $2m>(k-6)^3\ge21^3$, which implies
-$m\ge173$ and $K(m)\ge k-6$.
-Also $(k-2)^3<k^3\le2n$, so $m<n$.
-The other two cubes give larger predecessors
-and satisfy the same bounds.
-Distinct cubes yield disjoint matching families
-by Lemma~\ref{lem:reflect}.
+For a known interval $t\in[A,B]$, strict extension $t'>t$ and the
+bound $t'\le T=(H-\varepsilon)/2$ give the exact source interval
+\[
+ L=\max(A,d_k-T),\qquad
+ U=\min\bigl(B,\lfloor(d_k-1)/2\rfloor\bigr).
+\]
+Whenever $L\le U$, the new certified integer interval is
+$[d_k-U,d_k-L]$. Start with the singleton coordinate of $a$, apply
+this rule simultaneously, and merge adjacent or overlapping integer
+intervals. The following finite arithmetic certificates are reproduced
+by \texttt{verify\_eventual\_involutions.py}; the rightmost interval
+is displayed back in the original length coordinate.
+\[
+\begin{array}{c|r|r|r|r|c}
+\text{seed}&H&\text{rounds}&\text{intervals}&\text{start}&
+\text{final rightmost interval}\\\hline
+7&100001&13&2961&69603&[69603,100001]\\
+26&303412&12&7047&228028&[228028,303412]
+\end{array}
+\]
+Every certified length has the fixed-point structure of its seed.
+Thus the theorem holds throughout the indicated initial parity windows.
+
+It remains to propagate past the caps. For $(M,H)=(69603,100001)$
+in the odd case or $(228028,303412)$ in the even case, take any
+$n>H$ of the required parity and let $k$ be the least \emph{odd}
+positive integer with $k^3\ge n+M+1$. Put $m=k^3-n-1$.
+Then $m\ge M$ and $m\equiv n\pmod2$. We show $m<n$.
+Minimality of $k$ implies
+$n\ge(k-2)^3-M$, hence
+\[
+ 2n-k^3\ge2(k-2)^3-k^3-2M=:F_M(k).
+\]
+The choices of $H$ ensure that $k\ge57$ in the odd case and
+$k\ge83$ in the even case. At their respective initial roots,
+\[
+ F_{69603}(57)=8351>0,\qquad F_{228028}(83)=35039>0.
+\]
+Moreover $F_M(k+2)-F_M(k)=6k^2-36k+8>0$ for $k\ge57$.
+Consequently $k^3\le2n$, so $M\le m<n$. Strong induction within
+each parity and an odd-cube suffix reflection establish the claims
+for every larger $n$. Parity forces every odd-length involution to
+have at least one fixed point; an even-length one may have none.
 \end{proof}
 
-\begin{theorem}[A096904 quantitative bound]\label{thm:many}
-For all integers $n\ge173$, with
-$q(n)=\max\{0,\lfloor(K(n)-27)/6\rfloor\}$,
-\[
-\boxed{P(n)\ge3^{q(n)}}.
-\]
-In particular
-\[
-\log P(n)\ \ge\
-\frac{\log3}{6}(2n)^{1/3}-O(1),
-\]
-so $P(n)$ grows at least exponentially in $n^{1/3}$.
-\end{theorem}
-\begin{proof}
-If $K(n)<27$ then $q(n)=0$, and
-Theorem~\ref{thm:exist} supplies $P(n)\ge1$.
-For $K(n)\ge27$, Lemma~\ref{lem:triple}
-provides three distinct extensions from smaller
-predecessors $m_i\ge173$ with
-$K(m_i)\ge K(n)-6$. Thus
-$q(m_i)\ge q(n)-1$.
-By strong induction and the disjointness of the
-three extension images,
-\[
-P(n)\ge\sum_{i=1}^{3}P(m_i)
-\ge3\cdot3^{\max(0,q(n)-1)}
-\ge3^{q(n)}.
-\]
-The displayed logarithmic asymptotic follows immediately.
-\end{proof}
+\begin{remark}
+The bounds $69603$ and $228028$ are sufficient and are not asserted
+to be the least indices where arbitrary cube-sum involutions exist.
+They improve the bounds $70001$ and $230000$ in the archived extended
+manuscript by extending the parity-specific finite interval audit and
+rechecking the cube-gap inequality.  They are \emph{not} uniform
+four-cube palette bounds: the allowed cube sums grow with $n$.
+\end{remark}
 
+\section{Reproducibility and scope}\label{sec:audit}
+The published finite data and the mathematical assertions they certify are separated in Table~\ref{tab:ledger}. The companion repository is \url{https://github.com/dongxuelian2/oeis-papers/tree/main/papers/A006063}; while PR \#13 remains under review, use its head branch or a pinned commit for reproducibility.
+\begin{table}[ht]
+\small\centering
+\begin{tabular}{@{}p{0.33\linewidth}p{0.54\linewidth}@{}}
+\toprule
+\textbf{Evidence} & \textbf{Logical role}\\\midrule
+56 root-word/order pairs & Determinants, 784 positive lengths, cube-sum block identities.\\
+Six symbolic families & 25 explicit algebraic seed sizes, including zero-block degenerations.\\
+Forced-neighbor record & Construction and uniqueness at 173,174; exact count at 175.\\
+Finite reflection closure & All 192 sizes $173,\ldots,364$; no matching algorithm.\\
+48 positive / 124 Hall sets & Full membership below 173 and sharpness of threshold.\\
+Alternating-cycle archives & Small uniqueness/multiplicity and three solutions for the finite multiplicity base.\\
+Odd-cube reflection closure & Two finite parity intervals giving minimal-fixed-point involutions beyond explicit bounds.\\\bottomrule
+\end{tabular}
+\caption{Finite certificate dependency ledger; all subsequent tail steps are algebraic.}\label{tab:ledger}
+\end{table}
 
-\section{An efficient constructive algorithm}
-The proof is also algorithmic. Given $n>364$, choose the
-\emph{least} cube $c=k^3\ge n+174$ and put $m=c-n-1$.
-The cube-gap lemma ensures $173\le m<n$. Minimality gives
-\[
-(k-1)^3<n+174\le k^3
-\quad\Longrightarrow\quad
-173\le m\le3k^2-3k+173=O(n^{2/3}).
-\]
-Repeat until the remaining size is in the certified interval
-$173\le m\le364$, then fill each recorded interval by
-the explicit reflection $p_i=c-i$.
+The minimal executable checks (run from \texttt{papers/A006063}) are
+\begin{Verbatim}[fontsize=\small]
+python3 verify_56_plus_forcing.py
+python3 verify_extended.py
+python3 verify_eventual_involutions.py
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+\end{Verbatim}
+A checked code path uses exact integers; the main 56-shape check does not import numerical optimization, a matching library or an old permutation atlas. We do \emph{not} claim that the 56 finite positivity instances have been replaced by one case-free construction. Likewise, the stronger proposed four-cube involution theorem in the range $467\le n\le665$ remains computationally observed but lacks a uniform, noncomputational Hall/matching proof; it is unrelated to the assumptions used above. Independent peer review and a comprehensive priority search remain outstanding.
 
-\begin{proposition}[Linear-output construction]
-A valid cube-sum permutation of any $n\ge173$ can be
-constructed in $O(n)$ unit-cost arithmetic operations,
-with $O(\log\log n)$ reflection layers.
-\end{proposition}
-\begin{proof}
-The predecessor bound $m=O(n^{2/3})$ implies
-$\log m\le(2/3)\log n+O(1)$, so the number of
-iterations before the fixed-size base is
-$O(\log\log n)$. The returned intervals are disjoint
-and their union, together with the base interval,
-is $\{1,\dots,n\}$. Therefore exactly $n$ entries
-are written. Each exact integer cube root can
-be computed using $O(\log n)$ comparisons,
-which contributes $O(\log n\log\log n)=o(n)$
-additional unit-cost operations.
-\end{proof}
-The accompanying \texttt{construct\_linear.py}
-implements this procedure with exact integer
-cube roots, and can also display the recursion
-plan without allocating the full output.
-
-\section{Reproduction and limitations}
-All programs require only Python 3 standard-library modules:
-\begin{verbatim}
-python papers/A006063/verify.py
-python papers/A006063/independent_match.py
-python papers/A006063/verify_extended.py
-python papers/A006063/construct_linear.py
-\end{verbatim}
-The archived data consist of $109$ core witnesses,
-the legacy $192$-row all-base cross-check, $48$ small
-positive permutations, $124$ negative Hall sets,
-and compact pairs of alternating-cycle certificates.
-The infinite inductive and counting lemmas are
-mathematical arguments rather than extrapolations
-from numerical experiments.
-
-The status is a \emph{computer-assisted proof candidate}
-pending independent scrutiny of the finite certificate,
-its interpretation, and literature priority.
-The present manuscript does not compute the exact values
-of $P(n)$ in general, nor does it claim external peer review.
+\section*{Acknowledgement of computational assistance}
+Symbolic experiments and exact finite-certificate generation and checking were used in developing this result. Every essential finite condition is stated in machine-checkable integer form and is accompanied by a reproducible verifier. The author remains responsible for the mathematical statements and the submitted version.
 
 \begin{thebibliography}{9}
-\bibitem{oeisA006063}
-N.~J.~A. Sloane et al., \emph{A006063: A card-arranging problem},
-\url{https://oeis.org/A006063}; existence conjecture
-attributed there to Robert Israel (2018).
-\bibitem{oeisA096680}
-Ray Chandler, \emph{A096680: Values with more than one cube-sum
-permutation}, \url{https://oeis.org/A096680}.
-\bibitem{oeisA096904}
-Ray Chandler, \emph{A096904: Number of cube-sum permutations},
-\url{https://oeis.org/A096904}.
-\bibitem{hall}
-P. Hall, On representatives of subsets,
-\emph{J. London Math. Soc.} 10 (1935), 26--30.
+\bibitem{oeis-a006063} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences}, A006063, \url{https://oeis.org/A006063} (accessed October 2026).
+\bibitem{oeis-a096680} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences}, A096680, \url{https://oeis.org/A096680} (accessed October 2026).
+\bibitem{oeis-a096904} OEIS Foundation Inc., \emph{The On-Line Encyclopedia of Integer Sequences}, A096904, \url{https://oeis.org/A096904} (accessed October 2026).
+\bibitem{hall} P. Hall, ``On representatives of subsets,'' \emph{Journal of the London Mathematical Society} \textbf{10} (1935), 26--30.
 \end{thebibliography}
 \end{document}

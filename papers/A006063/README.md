@@ -1,71 +1,60 @@
-# Cube-sum permutation classifications (OEIS A006063, A096680, A096904)
+# OEIS A006063 / A096680: cube-sum permutations
 
-**Date:** 2026-10-18  
-**Status:** Complete computer-assisted proof candidate, pending independent audit and literature priority check.
+**Author:** Qichao Wang · Hebei University of Technology  
+**Manuscript date:** October 19, 2026  
+**Status:** six-page mathematical paper with eventual minimal-fixed-point involutions and exact finite certificates, prepared for independent review. This is a **computer-assisted finite-certificate proof**, **not** a case-free classification or a peer-reviewed publication.
 
-We study the number `P(n)` of permutations `p` of `{1,...,n}` such that every `i+p_i` is a perfect cube. The results are mathematical theorems conditional only on fully explicit finite integer certificates, whose validation is independently reproducible. No OEIS page has yet been changed.
+## Main results
 
-## Results
+For a positive integer `n`, let `P(n)` count permutations `p` of `{1,...,n}` such that every `i+p(i)` is a perfect cube.
 
-1. **Exact A006063 membership.** `P(n)>0` for every `n>=173`. The 48 positive lengths below 173 are exactly those listed by OEIS; all 124 negative lengths have explicit Hall-obstruction witnesses. Therefore **`A006063(j)=j+124` for every index `j>=49`**, strengthening the formerly conjectural tail formula (which was stated for indices >=173).
-2. **Exact A096680 membership.** `P(173)=P(174)=1`, and `P(n)>=3` for every `n>=175`. Exactly 13 lengths below 173 have multiple valid permutations: `112,115,116,117,119,124,125,126,127,128,129,130,133`. Thus **`A096680(j)=j+161` for every index `j>=14`**.
-3. **Quantitative A096904 theorem.** Let `K(n)=floor(cuberoot(2*n))` and `q(n)=max(0,floor((K(n)-27)/6))`. For every `n>=173`,
-   
-   ```
-   P(n) >= 3**q(n)
-   ```
-   
-   so **`log P(n) >= ((2*n)**(1/3) * log(3)/6) - O(1)`**. This is a genuine exponential-in-cube-root lower bound on the number of distinct cube-sum permutations.
+1. **Existence (A006063):** `P(n)>0` for every `n>=173`. Below 173, exactly the 48 sizes recorded in the paper are admissible; the other 124 sizes have explicit Hall-deficient witnesses. In OEIS notation, `A006063(j)=j+124` for `j>=49`.
+2. **Multiplicity (A096680):** `P(173)=P(174)=1`, `P(175)=3`, and `P(n)>=3` for all `n>=175`. Below 173, multiple permutations occur exactly at `112,115,116,117,119,124,125,126,127,128,129,130,133`. Hence `A096680(j)=j+161` for `j>=14`.
 
-## Mathematical method
+**Eventual involutions (new theorem):** Every odd `n>=69603` has a cube-sum involution with the unique fixed point `4`; every even `n>=228028` has a fixed-point-free cube-sum involution. These bounds improve the archived research thresholds of 70001/230000. The proof uses strict odd-cube suffix reflections from the elementary seeds `p_7(i)=8-i` and `p_26(i)=27-i`, exact finite parity-interval closure (13 rounds over [69603,100001] and 12 rounds over [228028,303412]), and an integer cube-gap induction. The bounds are sufficient, **not claimed globally optimal**. The certificate requires no matching solver and is independent of the 56-shape existence atlas. This result allows the cube values to grow with `n`; it does not prove the separate finite-palette four-cube conjecture.
 
-**Reflection extension:** If `p` is valid on `{1,...,m}` and `m+n+1=c` is a cube, then extend by `p[i]=c-i` for `m<i<=n`. Each cube gives a disjoint image family since its last value is `p[n]=c-n`. Consequently,
+The infinite existence argument is purely symbolic. The finite basis still uses **56 determinant-defined root-word/order shapes (784 reflected blocks)**, **25 seed specializations from six symbolic block families**, and a separate forced-neighbor proof for **n=173**. These 82 seeds and 132 additional finite cubic-suffix reflections cover the complete interval `[173,364]`. The interval-overlap avalanche then covers every larger integer.
 
-```
-P(n) >= sum(P(c-n-1) for cubes c with n+2 <= c <= 2*n)
-```
+## Paper and supporting files
 
-with `P(0)=1` (the empty matching convention).
+- **[main.pdf](main.pdf)** — final six-page **typeset mathematical paper** (the primary submission document).
+- **[main.tex](main.tex)** — complete editable LaTeX source for the paper.
+- **[certificates/finite_56_cubic_order_shapes.txt](certificates/finite_56_cubic_order_shapes.txt)** — the 56 independent algebraic seed parameter choices, with no precomputed interval endpoints.
+- **[verify_56_plus_forcing.py](verify_56_plus_forcing.py)** — independent exact-integer verification of all 56 determinant instances, the 25 symbolic template seeds, forced 173, and the finite reflection closure.
+- **[certificates/exact_classification_below_173.json](certificates/exact_classification_below_173.json)** — 48 explicit positive permutations and 124 explicit Hall-deficient sets.
+- **[certificates/second_solutions.json](certificates/second_solutions.json)** and **[certificates/third_solutions.json](certificates/third_solutions.json)** — alternating-cycle witnesses used for multiplicity.
+- **[verify_extended.py](verify_extended.py)** — full finite existence, nonexistence and multiplicity certificate checks.
+- **[verify_eventual_involutions.py](verify_eventual_involutions.py)** — independent exact interval-union certificate for the two strengthened minimal-fixed-point involution tails.
+- **[COMPRESSED_FINITE_PROOF.md](COMPRESSED_FINITE_PROOF.md)**, **[UNIMODULAR_BLOCK_FACTORY.md](UNIMODULAR_BLOCK_FACTORY.md)**, **[FORCED_REFLECTION_PEELING.md](FORCED_REFLECTION_PEELING.md)** and **[INTERVAL_OVERLAP_AVALANCHE.md](INTERVAL_OVERLAP_AVALANCHE.md)** — detailed supplementary arguments.
+- **[research_monograph.tex](research_monograph.tex)** — archived extended mathematical research manuscript (historical, not the primary submission).
+- **[RESEARCH_LOG.md](RESEARCH_LOG.md)** — historical research log, including additional experimental and structural directions.
+- **[FINAL_READER_GUIDE.md](FINAL_READER_GUIDE.md)** — proof-dependency guide and independent audit summary.
 
-**Finite certificate compression:** Only the 109 sizes `173..255` and `339..364` need their own explicit witness. Every size `256..338` is reflected from `m=511-n`, since `m+n+1=512=8^3`. Thus the earlier 192 base-case witnesses reduce to 109 stored primary witnesses; the original 192-row archive remains available for cross-checking. The elementary cube-gap lemma then reduces all sizes `n>=365` to smaller solved sizes `m>=173`.
+## Reproduce the paper
 
-**Negative cases:** A subset `S` of left vertices is an obstruction when its cube-sum neighbor set `N(S)` has `|N(S)|<|S|`, by Hall's marriage theorem. This certifies all 124 non-members below 173. At `n=172`, there is an explicit 27-left/26-right Hall obstruction, proving the sharpness of the 173 threshold.
+From the `papers/A006063` directory:
 
-**Multiplicity:** For any valid permutation `p`, a directed edge `i -> j` exists when `i != j` and `i+p[j]` is a cube. A directed cycle gives another valid permutation by rotating right partners along the cycle. The converse also holds: two distinct perfect matchings differ on alternating cycles, so acyclicity certifies uniqueness.
-
-The 190 base lengths `175..364` have **two different** cycle witnesses each; the two additional solutions and the original establish at least three. For `365..553`, reflection through `729` preserves multiplicity; `554,555` have dedicated witnesses, and for `n>=556` the cube-gap bound provides a predecessor `m>=175`. Reflection preserves all three distinct matchings. This constant lower bound is sharp: **`P(175)=3` exactly**, certified by reducing the permanent to a 10-by-10 strongly connected component (165 vertices forced).
-
-**Exponential count:** For `k=floor(cuberoot(2*n))>=27`, the three cubes `k^3,(k-1)^3,(k-2)^3` give disjoint extensions from `m_i>=173`, with `K(m_i)>=k-6`. Strong induction gives `P(n)>=3**q(n)`.
-
-## Constructive algorithm
-
-The new `construct_linear.py` algorithm chooses the **least cube** `c=k^3>=n+174` at each step and reduces to `m=c-n-1=O(n**(2/3))`. This gives **O(log log n) reflection layers** and writes the complete answer in **O(n) unit-cost operations**. Exact integer cube roots avoid floating-point rounding. The default check constructs a permutation for `n=1,000,000` and audits its entries; `--plan 1000000000000000000000000` computes a gigantic instance's block layout without allocating the output.
-
-## Proof artifacts
-
-- [main.tex](main.tex): full paper source; [main.pdf](main.pdf) is produced and committed by the PDF workflow.
-- [certificates/core_61_with_small.json](certificates/core_61_with_small.json): the stronger 61-new-seed compression reusing 48 early positive witnesses.
-- [certificates/core_109.json](certificates/core_109.json): 109 primary existence witnesses.
-- [certificates/base_permutations.json](certificates/base_permutations.json): original independent 192-row audit data.
-- [certificates/exact_classification_below_173.json](certificates/exact_classification_below_173.json): 48 valid permutations and 124 Hall-deficient sets.
-- [certificates/second_solutions.json](certificates/second_solutions.json): first alternative solution cycles for early multiple cases and all 192 tail-base cases.
-- [certificates/third_solutions.json](certificates/third_solutions.json): second distinct alternative cycle for every tail-base case, proving sharp `P(n)>=3`.
-- [verify.py](verify.py): audit original 192 base cases and recursive witnesses.
-- [independent_match.py](independent_match.py): independent augmenting-path generator for the 192 base cases.
-- [construct_linear.py](construct_linear.py): efficient O(n)-output constructor and huge-integer block planner.
-- [verify_extended.py](verify_extended.py): audit all new certificates, uniqueness, multiplicity, compact bases, and structural numeric regression tests.
-
-Run, from repository root:
-
-```sh
-python papers/A006063/verify.py
-python papers/A006063/independent_match.py
-python papers/A006063/verify_extended.py
-python papers/A006063/construct_linear.py
+```bash
+python3 verify_56_plus_forcing.py
+python3 verify_extended.py
+python3 verify_eventual_involutions.py
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
+pdflatex -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-All verifiers use Python's standard library only; certificate checks use integers, sets, and exact comparisons.
+The main existence certificate does not rely on a general matching solver, floating-point computation, or historical endpoint-permutation atlases. The 124 negative Hall certificates and the finite multiplicity assertions have separate exact audits.
 
-## Publication/review boundaries
+**Mathematical distinction:** the minimum of **60** new seeds under the restricted suffix-reflection-only closure (44 in `[173,255]`, 16 in `[339,364]`) is distinct from the **56** currently required algebraic shape certificates. The incorrect historical conflation with **57** was corrected.
 
-These are complete mathematical arguments with finite machine-checkable premises, not computational conjectures inferred from a cutoff. However, the work **requires independent review** of the formal lemmas, finite data, and existing literature. We do not claim to have computed exact values of `P(n)` beyond the uniqueness cases, nor to have submitted any OEIS entry or journal manuscript. The draft PR is intentionally not marked ready for review.
+## Scope and research status
+
+The 199 experimentally successful **four-cube involution** instances on a higher interval are part of a distinct unfinished research program. Planarity and the near-bipartite/Hall reductions do not establish a uniform perfect matching theorem for that program, and are **not hypotheses** of the A006063 existence proof.
+
+The extended monograph also contains independent results on counting, entropy and involutions; they are not required for the short submission and have not all undergone independent line-by-line review. Literature priority and external mathematical acceptance have not been established, and no OEIS edits are claimed in this PR.
+
+## References
+
+- [OEIS A006063](https://oeis.org/A006063)
+- [OEIS A096680](https://oeis.org/A096680)
+- [OEIS A096904](https://oeis.org/A096904)
+- P. Hall, *On representatives of subsets*, Journal of the London Mathematical Society 10 (1935), 26–30.
