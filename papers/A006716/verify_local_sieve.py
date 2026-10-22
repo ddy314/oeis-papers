@@ -42,14 +42,14 @@ def lower_length_bound(modulus):
     if m == 1:
         return 3
     h = multiplicative_order_10(m)
-    return 4 + (2 * m - 1) * h
+    return 4 + (((m + 13) // 3) - 1) * h
 
 
 def construct(modulus, length, salt=0):
     """Produce n-digit word of {1,4,9} ending 441, square mod modulus."""
     m = coprime_component(modulus)
     h = multiplicative_order_10(m)
-    reserved_count = 2 * m if m > 1 else 0
+    reserved_count = (m + 13) // 3 if m > 1 else 0
     assert length >= lower_length_bound(modulus)
     reserved = [3 + j * h for j in range(reserved_count)]
     reserved_set = set(reserved)
@@ -67,8 +67,11 @@ def construct(modulus, length, salt=0):
         baseline = modulo_decimal(digits, m)
         inv = pow(1000, -1, m)
         z = (-baseline * inv) % m
-        u, v = (3 * z) % m, (-z) % m
-        assert 0 <= u <= m - 1 and 0 <= v <= m - 1
+        r = 14 + (z - 14) % m
+        v = (2 * r) % 3
+        u = (r - 8 * v) // 3
+        assert 3 * u + 8 * v == r
+        assert 0 <= u and 0 <= v <= 2
         assert u + v <= reserved_count
         for j, position in enumerate(reserved):
             if j < u:
