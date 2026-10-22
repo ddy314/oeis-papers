@@ -1,6 +1,8 @@
-# A083468 and A083469: nonvanishing from a permutation theorem
+# A083468 and A083469: universal nonvanishing and exact power-of-ten minima
 
-**Status (2026-10-16): proved existence for every positive index.** This proves that A083468(n) is positive and A083469(n) is well-defined for every positive n; it does **not** give a closed formula for either minimum.
+**Status (2026-10-22):** Universal existence proved for both sequences; exact minima now proved on the infinite family n=10^r (r>=1). No all-index formula is claimed.
+
+**Authorship:** Qichao Wang, Hebei University of Technology. This continuation preserves the historical author of the already accepted OEIS manuscript.
 
 ## Definitions
 
@@ -62,6 +64,28 @@ Take \(\beta=10\) and \(\pi=(n-1,n-2,\ldots,0)\). Then for every \(n\ge1\) there
 
 This is an existence theorem, **not** a minimality formula. The minima still require separate search or analysis.
 
+## Exact minima on every power of ten
+
+For every integer `r>=1`, put `N=10^r` and `B=10^(r+1)=10N`. We prove:
+
+```
+A083468(N) = concat(2N-1, 2N-2, ..., N)
+           = sum((N+j)*B^j for j=0,...,N-1).
+A083469(N) = A083468(N)/N.
+```
+
+This is an **exact minimum**, not a large constructive upper bound. In fact, for every integer base `b>=2` and `N=b^r`, the descending `N`-block concatenation ending at any positive integer `a` is divisible by `N` **if and only if `N|a`**. If the last block has fewer than `r` digits, its nonzero leading digit prevents the final `r` digits of the whole concatenation from being all zero; otherwise all preceding blocks vanish modulo `b^r`, leaving precisely `a mod N`. The concatenated number increases with the final block, hence `a=N` is the least possibility.
+
+All `N` blocks in the minimum are `r+1` digits long. A closed arithmetic expression for the concatenation is
+
+```
+((2*N-1)*B^(N+1) - 2*N*B^N - (N-1)*B + N) / (B-1)^2.
+```
+
+For `N=10`: **A083468(10)=19181716151413121110** and **A083469(10)=1918171615141312111**. The independent verifier eliminates every shorter final block for `N=10,100,1000` and checks the exact geometric-sum formula.
+
+This result supplements the original universal existence proof; it is not an all-index minimization theorem. Broader literature priority for the special-family formula has not been exhaustively checked.
+
 ## Explicit decimal witness algorithm
 
 For fixed \(n\), let \(q=2^{v_2(n)}5^{v_5(n)}\), \(m=n/q\). Choose any sufficiently large \(d\) such that \(q\mid10^d\) and \(10^d\equiv1\pmod m\), and choose a multiple \(a\) of \(q\) in
@@ -82,11 +106,11 @@ Example: \(n=4\), \(d=2\), \(a=12\) yields \(15\Vert14\Vert13\Vert12=15141312\),
 
 ## Paper (PDF and LaTeX)
 
-- [Read the three-page proof (main.pdf)](main.pdf).
+- [Read the revised proof with exact minimum theorem (main.pdf)](main.pdf).
 - [LaTeX source (main.tex)](main.tex).
 - To rebuild with a TeX installation: `pdflatex -interaction=nonstopmode -halt-on-error main.tex` (run twice to resolve references).
 
-The paper includes the even-base arbitrary-permutation theorem, its reverse-concatenation corollary for both OEIS sequences, an explicit witness construction, references, and a clear distinction between existence and computing minimum terms.
+The paper includes the even-base arbitrary-permutation theorem, its reverse-concatenation corollary, the new exact power-of-ten minimum theorem, and a clear distinction between that restricted formula and general existence.
 
 ## Independent verification
 
@@ -95,7 +119,8 @@ Run `python verify_reverse_concatenation.py`. Checks include:
 - the explicit witness construction and modular concatenation for every \(1\le n\le512\);
 - direct exact-integer verification in compact cases;
 - an independent brute-force minimum search reproducing the first 16 A083468 terms listed by OEIS;
-- the A083469 quotient relation for the same 16 terms.
+- the A083469 quotient relation for the same 16 terms;
+- exact power-of-ten minima and modular exclusion of every smaller final block for n = 10, 100, 1000.
 
 The numerical checks support the implementation; **the theorem, not the finite tests, proves the universal statement.**
 
