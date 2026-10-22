@@ -15,6 +15,7 @@ Write `a(n)` for the **least perfect square** whose base-10 representation is a 
 | 28 | 14919999448111491414944114944 | 122147449617712 | 29 | 1 |
 | 29 | 1111191491149991691191911414161 | 1054130680300119 | 31 | **2** |
 | 30 | 1111194441113699414944949914441 | 1054132079539229 | 31 | 1 |
+| 36 | 419994999149149944149149944191494441 | 648070211589107021 | 36 | 0 |
 
 Each equality and square-block representation was checked using Python's exact `math.isqrt`. The minimum was established by exhaustive prefix-square interval branch-and-bound using integer arithmetic.
 
@@ -82,3 +83,39 @@ This is **not** a formula for all n. In particular:
 - Future analytic attempts should target a provable infinite family of least values, a uniform nontrivial digit-length bound, or a structural characterization of missing-digit decimal squares. Distinguish rigorously proved statements from density heuristics.
 
 No existing paper was revised and no OEIS entry was edited for this research step.
+
+
+## Structural equivalence with OEIS A006716
+
+Let `D(n)` denote the decimal digit length of `a(n)`.
+Every eligible n-block word has at least n digits. Equality `D(n)=n`
+holds if and only if **each block is one decimal digit**, necessarily
+in `{1,4,9}`. Thus:
+
+```
+D(n)=n  <==>  there exists an n-digit perfect square using only 1,4,9.
+```
+
+This is exactly the length-existence question for
+[OEIS A006716](https://oeis.org/A006716). That entry explicitly
+conjectures, but does not prove, that its sequence is finite. Consequently,
+even characterizing the indices at which `a(n)` has the theoretical
+minimum n digits reaches a separate unresolved problem. This reduction
+is **an equivalence**, not a proof of the conjecture.
+
+As a further exact, independently exhausted result,
+
+```
+a(36) = 419994999149149944149149944191494441
+      = 648070211589107021^2.
+```
+
+It is a 36-digit square with all digits in `{1,4,9}`, and its
+minimality among all 36-block representations follows from enumerating
+the complete 36-digit language `{1,4,9}^36` up to this square.
+The numeric square was previously known as an entry of A006716;
+**its identification as the exact A087354(36) is the additional
+computational claim here**. The value also demonstrates that the
+extra-digit phenomenon at n=29 does not persist for every larger n.
+
+The `verify_minima_extended.cpp` program certifies this case as well.
