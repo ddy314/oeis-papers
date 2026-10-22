@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 14 nonzero digits
+# A006716: complete classification of roots with at most 15 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -189,7 +189,7 @@ Combining this with Theorems 1 and 1b gives a complete 6-way exact-root computat
 x^2=419994999149149944149149944191494441}.
 \]
 
-Thus **all A006716 square roots with at most 14 nonzero decimal digits** are exactly the **17 terms** already listed in OEIS A027675; the classification has no arbitrary numerical search bound. The next case \(r=15\) is not classified.
+Thus **all A006716 square roots with at most 14 nonzero decimal digits** are exactly the **17 terms** already listed in OEIS A027675; the classification has no arbitrary numerical search bound. The next case \(r=15\) is separately certified in [SUPPORT15_TOP_THREE.md](SUPPORT15_TOP_THREE.md); the full finiteness problem remains open.
 
 Reproduce with
 
@@ -214,6 +214,12 @@ The C++ certificate relies on Boost.Multiprecision arbitrary-precision *integer*
 
 ### Limitation and significance
 
-The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **15 or more nonzero digits** remains open.
+The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **16 or more nonzero digits** remains open.
 
 The digit-sum inequality itself is standard. The computation is a self-contained classification for this particular digit set, not a claim of priority over OEIS computational literature.
+
+### Support 15: rigorous exclusion and further global top-three bounds
+
+The [support-15 certificate and top-three theorem](SUPPORT15_TOP_THREE.md) exhausts all six possible root units digits, visits **297,161,668 final candidates** using only exact arithmetic, and finds **no** square. Thus the complete classification for square roots with **at most 15 nonzero decimal digits** remains precisely the **17 previously known OEIS roots**, with no artificial size cutoff.
+
+The new **highest-three-nonzero-digit gap theorem** shows that if the highest positions are `e>p>q`, then `(e-p,p-q)` must lie in `{(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(2,4),(3,1)}`. An [independent exact-rational audit](verify_top_three_gaps.py) excludes larger gaps by exhaustively checking the first 8 significant digits. This theorem holds for arbitrary support and supplies further pruning for future searches.
