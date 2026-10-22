@@ -66,7 +66,7 @@ def check_short():
     for x in range(1,31623):
         if sum(ch!='0' for ch in str(x))<4:
             continue
-        if set(str(x*x))>set("149"):
+        if not set(str(x*x))<=set("149"):
             continue
         short.append(x)
         exps=[i for i,ch in enumerate(reversed(str(x))) if ch!='0']
