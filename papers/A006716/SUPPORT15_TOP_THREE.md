@@ -59,7 +59,7 @@ Writing `D=10^(g+T-1)` and `z=aD+b*10^(T-1)`, this means
 \frac{(z+1)^2}{D^2}.
 \]
 
-The normalized square on the middle lies in [1,100). Since the square's digits use only 1,4,9, its *first eight significant digits* must be one of the 3^8 words from {1,4,9}. Consequently the middle interval must intersect one of the finite intervals
+When x² has at least eight digits, the normalized square in the middle lies in [1,100), and its *first eight significant digits* must be one of the 3^8 words from {1,4,9}. **For squares shorter than eight digits, the eight-digit-prefix argument is not applicable; the finite exceptional range x<=3162 is separately exhausted below.** Consequently the middle interval must intersect one of the finite intervals
 
 \[
 \left[\frac{P}{10^{8-j}},\frac{P+1}{10^{8-j}}\right),
@@ -73,7 +73,7 @@ z^2*10^8 < (P+1)*10^j*D^2,
 (z+1)^2*10^8 > P*10^j*D^2.
 ```
 
-For each of the three threshold pairs `(g,T)=(1,4),(2,5),(3,2)`, the [independent exact Python audit](verify_top_three_gaps.py) checks all 81 pairs `1<=a,b<=9` and all `2*3^8` possible eight-digit prefix intervals; **every intersection is empty**. Therefore `g=1` excludes h>=4, `g=2` excludes h>=5 and `g=3` excludes h>=2. These are the asserted bounds. QED.
+For each of the three threshold pairs `(g,T)=(1,4),(2,5),(3,2)`, the [independent exact Python audit](verify_top_three_gaps.py) checks all 81 pairs `1<=a,b<=9` and all `2*3^8` possible eight-digit prefix intervals; **every intersection is empty**. Therefore `g=1` excludes h>=4, `g=2` excludes h>=5 and `g=3` excludes h>=2. These are the asserted bounds for x² having at least eight decimal digits. If x² has fewer than eight digits then 1<=x<=3162. Exhausting these 3162 roots directly (using the same exact digit criterion) shows the **only** one with three or more nonzero root digits is x=212, with x²=44944 and (e-p,p-q)=(1,1), which is permitted. This finite check is included in [verify_top_three_gaps.py](verify_top_three_gaps.py). The theorem therefore holds for every x with at least three nonzero digits. QED.
 
 **Scope:** The theorem applies to *every* A006716 integer square root having at least three nonzero digits, regardless of total length or support. It is a purely mathematical necessary condition involving the real magnitude of x² (the eight leading digits), not merely modular arithmetic.
 
