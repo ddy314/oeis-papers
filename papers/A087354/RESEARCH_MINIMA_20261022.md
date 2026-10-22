@@ -119,3 +119,45 @@ computational claim here**. The value also demonstrates that the
 extra-digit phenomenon at n=29 does not persist for every larger n.
 
 The `verify_minima_extended.cpp` program certifies this case as well.
+
+
+## Further exact minima: n=31, 32, 33, 34
+
+A second exhaustive search, using **exact square-root-interval cutoff**, determines four further terms:
+
+| n | exact a(n) | exact square root | digits | excess |
+|---|---:|---:|---:|---:|
+| 31 | 49914994111911949994369194414144 | 7065054430923512 | 32 | 1 |
+| 32 | 1111114494199449941144494641164944 | 33333384079619788 | 34 | **2** |
+| 33 | 1144999199499994444141914194949136 | 33837836802904444 | 34 | 1 |
+| 34 | 19144941911414919911419125114194449 | 138365248207109143 | 35 | 1 |
+
+**Consequences.** For n=32, exhaustive search rules out *both* 32-digit and 33-digit concatenation squares, providing a second index (after n=29) with minimum digit surplus at least 2. The 34-digit witness above achieves the bound. All square identities and exact n-block partitions were checked separately using Python's `math.isqrt` and dynamic programming. The C++ root-interval program independently certifies the minima without probabilistic primality or floating-point decisions.
+
+### Square-root-interval cutoff lemma
+
+At any branch with a decimal prefix p of d digits and target total length L, cap the interval of possible completions to the current certified upper bound U:
+
+```
+A = p * 10^(L-d)
+B = min((p+1)*10^(L-d)-1, U)
+r_min = isqrt(A-1)+1  (or 0 for A=0)
+r_max = isqrt(B).
+```
+
+If `A>B` or `r_min>r_max`, prune. If the interval contains only one or two candidate roots, **enumerate their full integer squares directly** and check the complete n-block partition by digit DP. There is no need to continue expanding the remaining block suffix. This is complete: every possible square extending p corresponds to one integer root in this exact closed interval.
+
+The cutoff can always be applied by `d>=floor(L/2)+2`. Indeed, all L-digit square roots are at least `10^((L-1)/2)`; successive squares are separated by at least `2*10^((L-1)/2)+1`. At that depth, a prefix interval has width strictly smaller than this gap, so there is at most one square in the interval. The implementation also cuts off **earlier** whenever it detects at most two candidate roots.
+
+This gives a deterministic fixed-surplus search. For `L=n+e` with fixed nonnegative integer e, at most e extra digits are distributed over n positive square blocks. There are only `O_e(n^e 3^d)` possible block-string prefixes of digit length d, since the 1-digit alphabet has size three and all longer block alternatives are bounded in number when e is fixed. Therefore the root-cutoff search visits at most `O_e(n^e 3^((n+e)/2+O(1)))` such prefixes, plus polynomial-time integer-root and membership checks. This replaces enumeration of approximately `3^n` complete one-digit block words by a square-root-level search. It is **not** a closed formula for the minima.
+
+### Reproduce
+
+```sh
+g++ -std=c++17 -O3 papers/A087354/verify_minima_root_cutoff.cpp -o /tmp/a087354_roots
+/tmp/a087354_roots
+```
+
+This verifier checks n=31 through n=34 in ascending length order, with each expected minimum serving only as a legitimate search upper bound. It excludes every smaller square, including all shorter lengths, and independently checks the asserted witness partitions. The GitHub Actions research workflow also runs the verifier.
+
+**Still open:** There is no all-index closed formula for a(n), and neither the n-digit/n+1-digit existence pattern nor a sharp universal digit bound has been resolved. Existing paper files are intentionally unchanged.
