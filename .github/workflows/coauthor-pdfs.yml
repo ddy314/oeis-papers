@@ -59,6 +59,9 @@ jobs:
           working_directory: papers/A087354
           latexmk_use_xelatex: false
 
+      - name: Install PDF text inspection tool
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
       - name: Check visible authors in all five PDFs
         run: |
           set -euo pipefail
