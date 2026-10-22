@@ -92,3 +92,8 @@ python papers/A006716/verify_repetition.py
 ```
 
 This script verifies selected perfect-square seeds and repetition counts, checks the modular construction for M up to 350, and independently derives the five allowed length-three suffixes. The symbolic proof of Theorem 1 depends on Ljunggren's cited theorem; finite tests are not substituted for it.
+
+
+## Further result: uniform length coverage beyond periodic words
+
+A separate [local-sieve barrier note](LOCAL_SIEVE_BARRIER.md) proves a stronger result: **for every fixed modulus M and every sufficiently large length n**, there are exponentially many n-digit words over `{1,4,9}` ending in `441` and square modulo M, with no fixed-block periodicity restriction. An exact classification also shows that precisely `2*3^(n-3)` odd-ending n-digit digit-set words are square modulo `10^n`, with eight roots each. Independent tests are in [verify_local_sieve.py](verify_local_sieve.py). Neither result establishes the existence of new ordinary integer squares or resolves A006716's finiteness conjecture.
