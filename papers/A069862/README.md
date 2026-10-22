@@ -46,7 +46,7 @@ The complete classification of n with a(n)=2 is equivalent to OEIS [A069860](htt
 ## Reproducibility
 
 - [main.tex](main.tex) — fully typeset mathematical paper.
-- [main.pdf](main.pdf) — earlier compiled article; **not rebuilt for this continuation**, in this source-only continuation. The TeX source and proof below contain the new results.
+- [main.pdf](main.pdf) — current seven-page article, rebuilt from the complete source on October 22, 2026 and visually checked on every page.
 - [existence.tex](existence.tex) — self-contained all-index theorem, local shift lemmas and capacity bound.
 - [minimum_formula.tex](minimum_formula.tex) — all-index minimum formula, explicit quadratic root classes, and proof of global minimality.
 - [minimum_formula.py](minimum_formula.py) — direct evaluation of the arithmetic formula; no call to the orbit-search algorithm.
