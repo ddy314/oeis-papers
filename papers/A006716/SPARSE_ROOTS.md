@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 13 nonzero digits
+# A006716: complete classification of roots with at most 14 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -174,7 +174,30 @@ whose root has exactly 14 nonzero decimal digits.
 
 This is an inequality for genuine zero-free squares, not a statistical observation. The quadratic bound dominates asymptotically; the exponential bound can be stronger for smaller \(r\).
 
-The **support-14 classification is not claimed complete**: a targeted search found the already known 14-sparse root above, but the full search was not completed within the allocated runtime. There is no assertion that it is the only solution at support 14.
+The [completed support-14 classification](LEADING_PAIRS_AND_SUPPORT14.md) now proves the **only** 14-sparse solution is the previously known `648070211589107021`. The supporting [C++ verifier](verify_sparse_roots_14.cpp) exhausts all possible root units-digit classes, with the high-pair sieve itself independently checked by [Python](verify_leading_pairs.py). It tests exactly **77,043,158** surviving complete roots across all six units classes.
+
+
+
+### Support 14: unique solution and exact leading-pair sieve
+
+The [complete support-14 note](LEADING_PAIRS_AND_SUPPORT14.md) derives a six-significant-digit high-prefix restriction by exact rational interval intersection. A separate small [Python audit](verify_leading_pairs.py) checks all 243 possible combinations of the three leading root-digit gaps and two high digits. In particular, if the top two nonzero root positions are separated by three, the top two digits must be **7 followed by 7 or 8**. This improves Theorem 1c.
+
+Combining this with Theorems 1 and 1b gives a complete 6-way exact-root computation (root units digits 1,2,3,7,8,9), covering **77,043,158 terminal candidates** after high-prefix pruning. The only successful square root is
+
+\[
+\boxed{x=648070211589107021,\quad
+x^2=419994999149149944149149944191494441}.
+\]
+
+Thus **all A006716 square roots with at most 14 nonzero decimal digits** are exactly the **17 terms** already listed in OEIS A027675; the classification has no arbitrary numerical search bound. The next case \(r=15\) is not classified.
+
+Reproduce with
+
+```sh
+python papers/A006716/verify_leading_pairs.py
+g++ -std=c++17 -O3 papers/A006716/verify_sparse_roots_14.cpp -o /tmp/a006716_r14
+for u in 1 2 3 7 8 9; do /tmp/a006716_r14 "$u"; done
+```
 
 
 ### Reproduce
@@ -191,6 +214,6 @@ The C++ certificate relies on Boost.Multiprecision arbitrary-precision *integer*
 
 ### Limitation and significance
 
-The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has a square root with 14 nonzero decimal digits and therefore lies outside the classification above.
+The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **15 or more nonzero digits** remains open.
 
 The digit-sum inequality itself is standard. The computation is a self-contained classification for this particular digit set, not a claim of priority over OEIS computational literature.
