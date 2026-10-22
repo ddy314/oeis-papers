@@ -115,7 +115,7 @@ completely classifies A006716 square roots with **at most 12**
 nonzero decimal digits, without placing an artificial numerical
 size bound on the root. Precisely 16 roots occur (all previously known
 OEIS terms), and no roots occur at support 4, 8, 10, 11, or 12.
-The final support-12 level tests 23,707,918 candidate roots.
+The final support-12 level tests 23,707,917 candidate roots.
 An [independent Python audit](verify_sparse_roots.py) checks the
 elementary lemmas and exhausts support at most 4.
 
