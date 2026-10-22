@@ -58,6 +58,53 @@ Thus the decimal digit of \`x^2\` in position \`2e-1\` is zero: the high term st
 
 The certificate uses this **additional necessary condition only when choosing the final (highest) nonzero digit of the root**. Applying it earlier to an intermediate partial root would not be justified, because later added high digits could change that square.
 
+## Theorem 1c: gap-three leading-digit rigidity
+
+The top-gap bound admits a sharper structural refinement. Suppose a positive
+integer \(x\) has at least two nonzero decimal digits, its two highest nonzero
+positions are \(p<e\), and \(e=p+3\). If **every digit of \(x^2\)** belongs to
+\(\{1,4,9\}\), then:
+
+\[
+\boxed{\text{The leading digit of }x\text{ is }7,\quad
+\text{the next nonzero digit is at least }7,\quad
+x^2\text{ begins with }491.}
+\]
+
+**Proof.** Write \(x=a10^e+t\), with \(1\le a\le9\) and
+\(0<t<10^{p+1}=10^{e-2}\). The remainder in the square is
+
+\[
+C=2at10^e+t^2<18\cdot10^{2e-2}+10^{2e-4}<10^{2e}.
+\]
+
+Hence \(a^2\) supplies the leading one or two digits of \(x^2\), with
+no carry from \(C\) into position \(2e\). Among \(1^2,\ldots,9^2\),
+only \(a=1,2,3,7\) give leading digits exclusively in \(\{1,4,9\}\).
+If \(a\le3\), then \(C<6\cdot10^{2e-2}+10^{2e-4}<10^{2e-1}\),
+so the digit in position \(2e-1\) is zero, a contradiction.
+Thus \(a=7\).
+
+Now \(C<14\cdot10^{2e-2}+10^{2e-4}<2\cdot10^{2e-1}\).
+Since the digit at position \(2e-1\) is nonzero, it must be \(1\).
+The two preceding digits are \(49\), hence the square begins with
+\(491\).
+
+Finally, if the next nonzero root digit were at most 6, then
+\(t<7\cdot10^{e-3}\). This would imply
+
+\[
+C<98\cdot10^{2e-3}+49\cdot10^{2e-6}
+<10^{2e-1},
+\]
+
+again forcing a zero. Therefore the next nonzero root digit is at
+least 7. \(\square\)
+
+This is a **necessary** leading-pattern restriction, not an
+impossibility theorem for the gap-three case. Its validity does not
+depend on the support bound \(r\le13\).
+
 ## Theorem 2: independent digit-sum bound
 
 Let \(s_{10}(x)\) be the sum of the decimal digits of \(x\), and let \(\nu_{10}(x)\) be the number of its nonzero digits. If \(x^2\) is an \(n\)-digit member of A006716 and \(\nu_{10}(x)=r\), then
