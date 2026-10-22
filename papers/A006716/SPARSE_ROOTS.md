@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 15 nonzero digits
+# A006716: complete classification of roots with at most 16 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -214,7 +214,7 @@ The C++ certificate relies on Boost.Multiprecision arbitrary-precision *integer*
 
 ### Limitation and significance
 
-The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **16 or more nonzero digits** remains open.
+The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **17 or more nonzero digits** remains open.
 
 The digit-sum inequality itself is standard. The computation is a self-contained classification for this particular digit set, not a claim of priority over OEIS computational literature.
 
@@ -223,3 +223,9 @@ The digit-sum inequality itself is standard. The computation is a self-contained
 The [support-15 certificate and top-three theorem](SUPPORT15_TOP_THREE.md) exhausts all six possible root units digits, visits **297,161,668 final candidates** using only exact arithmetic, and finds **no** square. Thus the complete classification for square roots with **at most 15 nonzero decimal digits** remains precisely the **17 previously known OEIS roots**, with no artificial size cutoff.
 
 The new **highest-three-nonzero-digit gap theorem** shows that if the highest positions are `e>p>q`, then `(e-p,p-q)` must lie in `{(1,1),(1,2),(1,3),(2,1),(2,2),(2,3),(2,4),(3,1)}`. An [independent exact-rational audit](verify_top_three_gaps.py) excludes larger gaps by exhaustively checking the first 8 significant digits. This theorem holds for arbitrary support and supplies further pruning for future searches.
+
+### Support 16: full classification with an exact triple-prefix mask
+
+The new [support-16 certificate and proof note](SUPPORT16.md) classifies all roots with **exactly 16 nonzero decimal digits**: **zero solutions**, after **268,308,611 final candidates** across the six possible units digits. The new [C++ exact verifier](verify_sparse_roots_16.cpp) derives an independent high-three-digit prefix mask with exact integer interval arithmetic, rigorously bounds the highest root exponent by the digit-sum inequality, and prunes prefixes only when no future valid square can extend them. The [independent Python audit](verify_top_three_gaps.py) checks all high-three-digit masks and the short-square cases where an eight-digit-prefix test would not apply.
+
+**Combining all certified supports r<=16, exactly the 17 previously known roots occur.** Support r>=17 and global finiteness are open. The [six-shard CI run](https://github.com/dongxuelian2/oeis-papers/actions/runs/39762036098) passed. No original TeX or PDF was changed.
