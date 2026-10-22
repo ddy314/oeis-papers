@@ -44,6 +44,23 @@ def main():
             checks+=1
         print(f"PASS: top gap {g} => second gap < {t}; all 81 high-digit pairs")
     assert checks == 243
+    # For squares with fewer than 8 digits, the eight-digit-prefix
+    # argument is not applicable; exhaust this finite exceptional range.
+    small=[]
+    for root in range(1, 3163):  # root**2 < 10**7
+        if set(str(root * root)) - set("149"):
+            continue
+        exponents=[i for i,d in enumerate(reversed(str(root))) if d!="0"]
+        if len(exponents)<3:
+            continue
+        e,p,q=exponents[-1],exponents[-2],exponents[-3]
+        assert (e-p,p-q) in {
+            (1,1),(1,2),(1,3),(2,1),(2,2),
+            (2,3),(2,4),(3,1)
+        }, (root,e,p,q)
+        small.append(root)
+    assert small == [212], small
+    print("PASS: every square with fewer than 8 digits (sole 3-sparse root: 212)")
     print("CERTIFIED: positions e>p>q satisfy bounds (3,4,1) by top gap.")
     print(f"Only exact integer inequalities used; {2*3**8} prefix intervals per pair.")
 
