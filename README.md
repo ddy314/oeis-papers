@@ -18,6 +18,10 @@ reproducibility materials.
   that exactly the primes 2 and 5 fail to divide any descending decimal
   prefix k||...||1. Stronger theorem for all bases and primes,
   with two-page PDF, LaTeX and independently verified witness code.
+- [A083468-A083469](papers/A083468-A083469/): proves universal existence for
+  descending concatenations and derives exact **minimal** values at all
+  power-of-ten indices: A083468(10^r) is the concatenation
+  (2*10^r-1)||...||10^r; the A083469 quotient follows directly.
 - [A087354 (also A391022 and A391189)](papers/A087354/): proves all-index
   existence of squares obtained by concatenating arbitrarily many **strictly
   increasing distinct nonzero square blocks**. Complete two-page paper,
