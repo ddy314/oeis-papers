@@ -24,3 +24,16 @@ reproducibility materials.
   compiled PDF, and independent integer-verification script.
 
 - [A006063 / A096680 / A096904](papers/A006063/): exact cube-sum permutation membership and multiplicity classifications, 109 core witness certificates, Hall obstructions, and an exponential cube-root lower bound on permutation counts. Includes independent checks and a PDF research note.
+
+## Authors of manuscripts not yet submitted to OEIS
+
+The manuscripts for **A006063/A096680**, **A075018**, **A077183/A077185**
+and **A087354** (including the related square-concatenation sequences)
+are credited to Qichao Wang (Hebei University of Technology) and
+Daoyu Dong / 董道豫 (University of Electronic Science and Technology of China).
+Both authors appear on the LaTeX title pages and regenerated PDFs.
+
+Previously accepted manuscripts (A075000-A075002, A181373 and
+A083468-A083469) retain their original authorship and are unchanged.
+The A077306 research note restates the accepted A075001 existence result
+and is not a separate manuscript.

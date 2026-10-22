@@ -1,6 +1,6 @@
 # A077183 and A077185: complete prime-divisibility conjecture proof
 
-**Author:** Qichao Wang · Hebei University of Technology  
+**Authors:** Qichao Wang (Hebei University of Technology); 董道豫 / Daoyu Dong (University of Electronic Science and Technology of China)
 **Date:** October 17, 2026  
 **Scope:** existence/nonexistence, not a formula for the least endpoint or quotient.
 
