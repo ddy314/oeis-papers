@@ -6,6 +6,7 @@ on:
       - research/a087354-exact-minimum-20261022
     paths:
       - papers/A006716/verify_repetition.py
+      - papers/A006716/verify_local_sieve.py
       - .github/workflows/a006716-research.yml
   workflow_dispatch:
 
@@ -15,8 +16,10 @@ permissions:
 jobs:
   modular-audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - name: Verify repeated-square modular claims
         run: python papers/A006716/verify_repetition.py
+      - name: Verify local-square counts and all-length construction
+        run: python papers/A006716/verify_local_sieve.py
