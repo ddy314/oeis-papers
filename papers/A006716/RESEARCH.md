@@ -170,3 +170,22 @@ passed in [GitHub Actions](https://github.com/dongxuelian2/oeis-papers/actions/r
 ## Support 17 and the global fourth-gap theorem
 
 The new [SUPPORT17.md](SUPPORT17.md) provides an exact-integer six-way certificate that **no** A006716 square root has exactly **17** nonzero decimal digits, after **1,034,989,170** terminal checks. Together with all smaller supports, this completely classifies roots with **at most 17 nonzero digits**: only the 17 already known. Independent mathematics in [GLOBAL_HIGH_GAP.md](GLOBAL_HIGH_GAP.md) and [TOP_FOUR_GAP.md](TOP_FOUR_GAP.md) proves that the *fourth-highest nonzero root-digit gap is at most seven* for every A006716 root, and gives a general descending-root-gap bound. The [independent ten-digit-prefix check](verify_top_four_gaps.py) passed GitHub CI. The entire A006716 finiteness conjecture is still unresolved.
+
+
+## Fifth and sixth highest nonzero root gaps
+
+The new [top-five theorem](TOP_FIVE_GAP.md), verified by an independent
+[14-digit exact-prefix audit](https://github.com/dongxuelian2/oeis-papers/actions/runs/39770128066),
+proves that **the fifth-highest nonzero root-digit gap is at most 5**
+for *every* A006716 root with at least five nonzero digits.
+
+The subsequent [top-six theorem](TOP_SIX_GAP.md), independently verified by a
+[16-digit exact-prefix audit](https://github.com/dongxuelian2/oeis-papers/actions/runs/39770626224),
+proves that the sixth-highest gap is **at most 6**. They sharpen
+the general upper-span recurrence to `d_j<=27*2^(j-6)` for j>=6,
+independent of root size or total support count.
+
+The exact [support-18 search](verify_sparse_roots_18.cpp)
+uses four-digit leading-root masks and is separately audited in
+[GitHub Actions](https://github.com/dongxuelian2/oeis-papers/actions/runs/39769301304).
+Until every units-digit branch completes, no r=18 classification is claimed.
