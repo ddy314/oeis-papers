@@ -126,3 +126,34 @@ The [alternative support-17 exact verifier](verify_sparse_roots_17_gap.cpp)
 uses these inequalities as early pruning before the highest root
 digits have been chosen. They are **universal necessary conditions**,
 not empirical cutoffs.
+
+
+## Sharper recurrence from the global fifth-gap theorem
+
+The [exact fourteen-leading-digit theorem](TOP_FIVE_GAP.md)
+further proves **d_4<=5** for every A006716 root having at least
+five nonzero decimal digits. Combining this with
+`d_1+d_2<=6` and `d_3<=7` yields
+
+```
+S_5 = e_1-e_5 = d_1+d_2+d_3+d_4 <= 18.
+```
+
+Apply the universal upper-span lemma `d_j<=S_j+3` for j>=5,
+where `S_j=e_1-e_j`; then
+`S_(j+1)+3<=2(S_j+3)`. Inducting from `S_5+3<=21` gives
+
+\[
+\boxed{d_j\le21\cdot 2^{j-5}\quad(j\ge5).}
+\]
+
+This strictly improves the earlier `d_j<=2^j` for every j>=5.
+The first permitted gaps descending from the root's highest position
+are bounded by
+
+```
+d_3<=7, d_4<=5, d_5<=21, d_6<=42, d_7<=84, ...
+```
+
+These are global necessary bounds for A006716 square roots, not
+heuristics and not a proof of finiteness.
