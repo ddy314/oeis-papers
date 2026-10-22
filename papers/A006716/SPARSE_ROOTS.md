@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 12 nonzero digits
+# A006716: complete classification of roots with at most 13 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -71,9 +71,9 @@ Indeed, the usual carry operation in base 10 cannot increase digit sum. Expandin
 
 This proves an asymptotic lower bound on root digit density (at least order \(\sqrt n\) nonzero root digits). The gap theorem gives sharper structural bounds for small fixed \(r\).
 
-## Theorem 3: complete sparse-root classification through support 12
+## Theorem 3: complete sparse-root classification through support 13
 
-**Claim (finite, machine-verifiable certificate):** If \(x^2\) has only digits in \(\{1,4,9\}\) and \(x\) has **at most 12 nonzero decimal digits**, then and only then \(x\) belongs to the following list.
+**Claim (finite, machine-verifiable certificate):** If \(x^2\) has only digits in \(\{1,4,9\}\) and \(x\) has **at most 13 nonzero decimal digits**, then and only then \(x\) belongs to the following list.
 
 | \(\nu_{10}(x)\) | All possible integer roots \(x\) |
 |---:|---|
@@ -89,6 +89,7 @@ This proves an asymptotic lower bound on root digit density (at least order \(\s
 | 10 | **none** |
 | 11 | **none** |
 | 12 | **none** |
+| 13 | **none** |
 
 Thus this infinite class of roots yields **exactly 16 distinct A006716 squares**. All correspond to already recorded OEIS terms; this is a *new form of completeness certificate for the bounded-root-support problem*, not discovery of new sequence terms.
 
@@ -104,11 +105,38 @@ Accordingly the pruning is sound, the support bound exhausts all roots for the s
 
 **Exact search audit:** for \(r=11\), the finite search visits 6,319,638 complete candidate roots after low-digit pruning and finds no square. Smaller depths are independently checked by the same verifier. For support 12, an additional **top-gap lemma** below restricts the final nonzero position and leaves 23,707,917 exact integer candidate roots, none of which passes the digit test. A second Python search explicitly enumerates and verifies the complete \(r\le4\) classification (171 candidates with \(r\le2\), 269,001 raw four-digit-support candidates).
 
+
+### Support 13: independently recertified and excluded
+
+A separate exact-integer C++ certificate, [verify_sparse_roots_13.cpp](verify_sparse_roots_13.cpp), again enumerates support 12 (agreeing on precisely **23,707,917** terminal candidates and no solution), then exhausts support 13, yielding precisely **91,475,739** terminal candidate roots and **no** admissible square. Both checks use the same logically necessary low-digit and final high-gap constraints as the original implementation, but check the fixed lower square digits by a decimal-string prefix test rather than divisions by large powers of 10. Every accepted terminal state is checked as an exact integer square; no floating-point arithmetic is used. The computation does **not** put an arbitrary upper limit on the size or length of the root. The mathematical completeness comes from Theorem 1 and Theorem 1b.
+
+It follows that the **complete classification through 13 nonzero root digits still contains exactly the 16 roots in the table above**, and every A006716 square not already accounted for in these 16 values must have a square root with at least 14 nonzero digits. This lower bound is attained by the previously known value
+
+\[
+648070211589107021^2
+=419994999149149944149149944191494441,
+\]
+
+whose root has exactly 14 nonzero decimal digits.
+
+**Additional absolute digit-length bound.** Writing \(n=\operatorname{digits}(x^2)\), the low-gap theorem gives \(e_r\le2^r-2\). As \(x<10^{e_r+1}\), we obtain
+
+\[
+\boxed{n\le\min\{81r^2,\;2^{r+1}-2\}.}
+\]
+
+This is an inequality for genuine zero-free squares, not a statistical observation. The quadratic bound dominates asymptotically; the exponential bound can be stronger for smaller \(r\).
+
+The **support-14 classification is not claimed complete**: a targeted search found the already known 14-sparse root above, but the full search was not completed within the allocated runtime. There is no assertion that it is the only solution at support 14.
+
+
 ### Reproduce
 
 ```sh
 g++ -std=c++17 -O3 papers/A006716/verify_sparse_roots.cpp -o /tmp/a006716_sparse
 /tmp/a006716_sparse
+g++ -std=c++17 -O3 papers/A006716/verify_sparse_roots_13.cpp -o /tmp/a006716_sparse13
+/tmp/a006716_sparse13
 python papers/A006716/verify_sparse_roots.py
 ```
 
