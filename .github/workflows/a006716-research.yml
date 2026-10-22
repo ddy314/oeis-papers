@@ -1,0 +1,22 @@
+name: A006716 repeated-block research audit
+
+on:
+  push:
+    branches:
+      - research/a087354-exact-minimum-20261022
+    paths:
+      - papers/A006716/verify_repetition.py
+      - .github/workflows/a006716-research.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  modular-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify repeated-square modular claims
+        run: python papers/A006716/verify_repetition.py
