@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Independent checks of OEIS A083468/A083469 nonvanishing.
-The universal theorem is proved in README.md; finite checks are supplementary.
+"""Independent exact-arithmetic checks of OEIS A083468/A083469.
+The mathematical proofs are in main.tex; finite checks are supplementary.
 """
 from math import gcd
 
@@ -87,6 +87,41 @@ def main() -> None:
         assert found % n == 0
     print("PASS: exact A083468 minima for n=1..16")
     print("PASS: A083469(1..16) = A083468(1..16)/n")
+
+    verify_power_of_ten_minima()
+
+
+def variable_width_concatenation_mod(n: int, a: int) -> int:
+    """Independent literal modular concatenation; block widths may vary."""
+    residue = 0
+    for x in range(a + n - 1, a - 1, -1):
+        residue = (residue * pow(10, len(str(x)), n) + x) % n
+    return residue
+
+
+def verify_power_of_ten_minima() -> None:
+    """Check the exact formula and exclude smaller final blocks.
+
+    The checks are finite; the proof for every exponent is in main.tex.
+    """
+    for r in (1, 2, 3):
+        n = 10 ** r
+        for a in range(1, n + 1):
+            residue = variable_width_concatenation_mod(n, a)
+            assert (residue == 0) == (a % n == 0), (n, a, residue)
+        # All n blocks from n to 2*n-1 have exactly r+1 digits.
+        B = 10 ** (r + 1)
+        actual = concat_desc(n, n)
+        formula = sum((n + j) * B ** j for j in range(n))
+        assert actual == formula and actual % n == 0
+        numerator = (2*n - 1) * B ** (n+1) - 2*n * B**n - (n-1)*B + n
+        assert numerator % (B-1)**2 == 0
+        assert numerator // (B-1)**2 == actual
+        assert actual // n * n == actual  # A083469 exact quotient.
+        if n == 10:
+            assert actual == 19181716151413121110
+        print(f"PASS: a({n}) = concat({2*n-1},...,{n}); "
+              f"{n-1} smaller endpoints excluded; {len(str(actual))} digits")
 
 
 if __name__ == "__main__":
