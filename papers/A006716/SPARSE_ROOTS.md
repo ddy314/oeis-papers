@@ -1,4 +1,4 @@
-# A006716: complete classification of roots with at most 16 nonzero digits
+# A006716: complete classification of roots with at most 17 nonzero digits
 
 **Authors:** Qichao Wang (Hebei University of Technology); Daoyu Dong (University of Electronic Science and Technology of China).
 
@@ -214,7 +214,7 @@ The C++ certificate relies on Boost.Multiprecision arbitrary-precision *integer*
 
 ### Limitation and significance
 
-The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **17 or more nonzero digits** remains open.
+The theorem rules out every **bounded-support** strategy for constructing infinitely many A006716 squares, including irregular, nonperiodic distributions of nonzero root digits. It does not bound the number of nonzero root digits in the general conjecture, and so does **not** prove A006716 finite. The known 36-digit term has the unique 14-sparse root `648070211589107021`, included by the new support-14 classification. The general problem for roots with **18 or more nonzero digits** remains open.
 
 The digit-sum inequality itself is standard. The computation is a self-contained classification for this particular digit set, not a claim of priority over OEIS computational literature.
 
@@ -228,4 +228,8 @@ The new **highest-three-nonzero-digit gap theorem** shows that if the highest po
 
 The new [support-16 certificate and proof note](SUPPORT16.md) classifies all roots with **exactly 16 nonzero decimal digits**: **zero solutions**, after **268,308,611 final candidates** across the six possible units digits. The new [C++ exact verifier](verify_sparse_roots_16.cpp) derives an independent high-three-digit prefix mask with exact integer interval arithmetic, rigorously bounds the highest root exponent by the digit-sum inequality, and prunes prefixes only when no future valid square can extend them. The [independent Python audit](verify_top_three_gaps.py) checks all high-three-digit masks and the short-square cases where an eight-digit-prefix test would not apply.
 
-**Combining all certified supports r<=16, exactly the 17 previously known roots occur.** Support r>=17 and global finiteness are open. The [six-shard CI run](https://github.com/dongxuelian2/oeis-papers/actions/runs/39762036098) passed. No original TeX or PDF was changed.
+**Combining all certified supports r<=16, exactly the 17 previously known roots occur.** Support r>=18 and global finiteness are open. The [six-shard CI run](https://github.com/dongxuelian2/oeis-papers/actions/runs/39762036098) passed. No original TeX or PDF was changed.
+
+### Support 17: complete classification and new universal gap bounds
+
+The [support-17 certificate](SUPPORT17.md) excludes **all roots with exactly 17 nonzero decimal digits** by a six-shard complete exact-integer search of **1,034,989,170 terminal candidate roots**, finding no solutions. The [GitHub Actions run](https://github.com/dongxuelian2/oeis-papers/actions/runs/39764490169) passed all six shards. Thus the exact classification of **all A006716 square roots with support r<=17** still yields exactly the **17 previously known roots**. The new [global upper-span lemma](GLOBAL_HIGH_GAP.md) and [top-four-gap theorem](TOP_FOUR_GAP.md) prove independent, all-length necessary constraints for future support classes; the latter restricts the fourth-highest nonzero root position gap to **at most 7**. Root support r>=18 and global finiteness remain unresolved.
